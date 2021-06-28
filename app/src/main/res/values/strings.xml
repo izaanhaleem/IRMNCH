@@ -1,0 +1,454 @@
+<resources>
+    <string name="app_name">Hepatitis Prisons</string>
+    <string name="header"></string>
+    <string name="GENDER">fggh</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="please_select_option">Please select an option</string>
+    <string name="lbl_select_all">Select All</string>
+    <string name="lbl_unselect_all">Unselect All</string>
+    <string name="lbl_update">Update</string>
+    <string name="lbl_task_cancelled">Cancelled</string>
+    <string name="toast_time_out">Request time out</string>
+    <string name="toast_network_error">Network Error</string>
+    <string name="attendance">Attendance</string>
+    <string name="performance_book">Performance Book</string>
+    <string name="check_in">Check In</string>
+    <string name="check_out">Check Out</string>
+    <string name="login_btn">Login</string>
+    <string name="cancel_btn">Cancel</string>
+    <string name="tap_to_capture_selfie">Tap to capture selfie</string>
+    <string name="submit">Submit</string>
+    <string name="next">Next</string>
+    <string name="on_location_submit">On Location/Submit</string>
+    <string name="ok">Ok</string>
+    <string name="please_select_image">Please select Image</string>
+    <string name="please_enter_empID">Please enter EmployeeID</string>
+    <string name="please_enter_Feild">Please fill the all feilds</string>
+    <string name="no_internet_connect_available">No internet connection available</string>
+    <string name="nature_of_emergency">Nature of Emergency</string>
+    <string name="no_of_victim">No. of Victim</string>
+    <string name="activity_data_time">Activity Date Time</string>
+    <string name="place_of_emergency">Place of Emergency</string>
+    <string name="outcome">Outcome/Actions</string>
+    <string name="name">Victim Name</string>
+
+
+    <string name="contact_no">Contact No.</string>
+    <string name="cancel">Cancel</string>
+    <string name="please_enter_nature_of_emergency">Please enter nature of emergency</string>
+    <string name="please_Enter_no_of_victim">Please enter no of victim</string>
+    <string name="please_Enter_EcNo">Please enter ecno</string>
+    <string name="Please_fill_form_completely">Please fill form completely</string>
+    <string name="Please_fill_section_completely">Please fill section completely</string>
+    <string name="please_enter_place_of_emergency">Please enter Place of emergency</string>
+    <string name="please_enter_outcome">Please enter outcome</string>
+    <string name="record_saved_on_mobile">Record saved on mobile</string>
+    <string name="attendance_marked_successfully">Attendance marked successfully</string>
+    <string name="please_check_your_location_setting">Please check your location setting</string>
+    <string name="record_has_been_saved_on_device">Record has been saved successfully on device</string>
+    <string name="issue_saving_on_device">Issue saving on local device</string>
+
+    <string name="please_fill_the_below_form">Please fill the below form</string>
+    <string name="mark_your_attendance">Mark your attendance</string>
+    <string name="ec_no">EC No</string>
+    <string name="add_activity">Add Activity</string>
+    <string name="pendinig_logs">Pending Logs</string>
+    <string name="one">One</string>
+    <string name="dob_les_than_tomorrow">Date should be less than today</string>
+    <string name="two">Two</string>
+    <string name="three">Three</string>
+    <string name="four">Four</string>
+    <string name="five">Five</string>
+    <string name="six">Six</string>
+    <string name="seven">Seven</string>
+    <string name="eight">Eight</string>
+    <string name="nine">Nine</string>
+    <string name="ten">Ten</string>
+    <string name="more">More</string>
+    <string name="login">Log in</string>
+    <string name="search">تلاش کریں</string>
+    <string name="Family_Search">Search</string>
+    <string name="user_id">UserID</string>
+    <string name="rescuer_id">Employee ID</string>
+    <string name="user_pasword">Password</string>
+    <string name="Password_G_8">Password greater than 8 words</string>
+    <string name="enter_user_name">Enter User name</string>
+    <string name="rescuer_id_error">Enter Rescuer ID greater than 6 digit</string>
+    <string name="no_record_available">No record available</string>
+    <string name="press_cloud_refresh_button">Press cloud refresh button…</string>
+    <string name="ValidDigits">0123456789-abcdefghijklmnopqurstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" " </string>
+    <string name="no_internet_connect">No Internet Connection</string>
+    <string name="project_not_found">Project not found</string>
+    <string name="param_missing">Param missing</string>
+    <string name="response_is_empty">Response is empty.</string>
+    <string name="Day_Month_Format">dd-MM-yyyy HH:mm</string>
+    <string name="update_from_playstore">Update from playstore</string>
+    <string name="app_version">App Version:</string>
+    <string name="please_set_your_date_and_time">Please set your date,time and timezone to automatic</string>
+    <string name="notes">Notes</string>
+    <string name="turn_on_gps_location">Turn on gps location</string>
+    <string name="survey_form">Survey form</string>
+    <string name="scope_and_type_of_business">SCOPE AND TYPE OF BUSINESS</string>
+    <string name="name_of_establishment">Name of Establishment</string>
+    <string name="full_address_of_establishment">Full Address of Establishment</string>
+    <string name="telephone_number">Telephone Number</string>
+    <string name="plot_no">Plot No.</string>
+    <string name="name_of_owner">Name of Owner</string>
+    <string name="contact_no_of_employer">Contact No. of Employer</string>
+    <string name="cnic_of_employer">CNIC of Employer</string>
+    <string name="nature_of_business">Nature of Business</string>
+    <string name="text_area">Text Area</string>
+    <string name="total_no_of_workers_engaged">Total No. of Workers Engaged</string>
+    <string name="total_no_of_dependents">Total No. of Dependents</string>
+    <string name="total_number_of_families">Total Number of Families</string>
+    <string name="total_number_of_married_female_workers">Total Number of Married Female Workers</string>
+    <string name="average_wages_of_workers">Average Wages of Workers</string>
+    <string name="amount_of_wages_paid_t_workers_last_month">Amount of Wages paid t workers (last month)</string>
+    <string name="capacity_of_organization">CAPACITY OF ORGANIZATION</string>
+    <string name="name_of_any_ss_hospital_dispensary_which_exists_within_two_miles">Name of any SS Hospital/ Dispensary which exists within two miles</string>
+    <string name="whether_any_dispensary_managed_by_employer_exists_or_not">Whether any dispensary managed by employer exists or not</string>
+    <string name="facilities_provided_by_employer_cash_benefits_as_compared_with_ss_scheme">Facilities provided by employer (cash benefits) as compared with SS Scheme</string>
+    <string name="please_fill">براہ مہربانی مکمل کریں</string>
+    <string name="additional_information">ADDITIONAL INFORMATION</string>
+    <string name="Connectivity_Issue">Connectivity Issue</string>
+    <string name="dispensary_information">DISPENSARY INFORMATION</string>
+    <string name="m_r_no">M.R NO (میڈیکل ریکارڈ نمبر)</string>
+    <string name="mother_name">Mother Name (والدہ کا نام)</string>
+    <string name="mother_cnic">Mother CNIC (والدہ کا قومی شناختی کارڈ نمبر)</string>
+    <string name="father_name">Father Name (والد کا نام)</string>
+    <string name="father_cnic">Father CNIC (والد کا قومی شناختی کارڈ نمبر)</string>
+    <string name="address">RESIDENTIAL AREA</string>
+    <string name="father_occupation">Father Occupation (والد کاپیشہ)</string>
+    <string name="select_religion">Religion (مذہب کا انتخاب کریں)</string>
+    <string name="grand_father_name">Grand Father Name (دادا کا نام)</string>
+    <string name="name_of_child">Name Of Child (بچے کا نام)</string>
+    <string name="sex">Gender</string>
+    <string name="male">مرد</string>
+    <string name="female">خاتون</string>
+    <string name="transgender">خواجہ سرا</string>
+    <string name="select_child_blood_group">Select Child Blood Group (بچے کابلڈ گروپ)</string>
+    <string name="select_mother_blood_group">Select Mother Blood Group (والدہ کابلڈ گروپ)</string>
+    <string name="annual_number">Annual Number(سالانہ نمبر)</string>
+    <string name="date_of_birth">Date of Birth (پیدائش کی تاریخ)</string>
+    <string name="date_of_dead_body_received">Date of dead body received(متوفی وصول کرنے کی تاریخ)</string>
+
+
+    <string name="Date_of_Dead_Body_Handed_Over_to">Date of Dead Body Handed Over to</string>
+    <string name="doctor_name_issuing_authority">Doctor Name/Issuing Authority (ڈاکٹر کا نام / جاری مقام)</string>
+    <string name="gynae_unit">Gynae Unit</string>
+    <string name="save">Save</string>
+    <string name="reg_no">REG. NO (اندراج نمبر)</string>
+    <string name="department">Department (شعبہ)</string>
+    <string name="unit_ward">Unit / Ward (یونٹ / وارڈ)</string>
+    <string name="patient_name">First Name</string>
+    <string name="s_o_d_o_w_o">S/O, D/O, W/O (بیٹا/ بیٹی/زوجہ)</string>
+    <string name="patient_gaurdian_cnic">Deceased/Gaurdian CNIC (مریض / سرپرست کا قومی شناختی کارڈ نمبر)</string>
+    <string name="guardian">Guardian</string>
+    <string name="self">Self</string>
+
+    <string name="age">Age (عمر)</string>
+
+
+    <string name="diagnosis">Diagnosis</string>
+    <string name="cardiopulmonary_arrest_is_not_the_cause_of_death">*Cardiopulmonary arrest may not be appropriate cause of death( کارڈیپلمونری اریست موت کی وجہ سے نہیں ہے)</string>
+    <string name="primary_cause_of_death">Primary Cause Of Death (موت کا بنیادی سبب)</string>
+    <string name="secondary_cause_of_death">Secondary Cause Of Death (موت کا ثانوی سبب)</string>
+    <string name="underline_cause_of_death">Underlying Cause (بنیادی وجہ)</string>
+    <string name="date_of_admission">Date of Admission (داخلے کی تاریخ)</string>
+    <string name="date_of_death">Date of Death(تاریخ وفات)</string>
+    <string name="doctor_name">Doctor Name (ڈاکٹر کا نام )</string>
+    <string name="death_on_arrival">Received Dead (آمد پر موت)</string>
+    <string name="dead_body_recevied_by">Dead Body Handed Over to (متوفی موصول کی)</string>
+    <string name="CNIC_of_Dead_Body_Handed_over_to">CNIC of Dead Body Handed over to</string>
+    <string name="relation_with_the_deceased">Relation With The Deceased (متوفی کے ساتھ تعلق)</string>
+    <string name="death_slip_form">Death Slip Form</string>
+    <string name="birth_slip_form">Birth Slip Form</string>
+    <string name="internet_not_available">Internet not available</string>
+    <string name="text_here">Text Here</string>
+    <string name="dashBoard">DashBoard</string>
+    <string name="Birth_Slip_Form">Birth Slip Form</string>
+    <string name="Death_Slip_Form">Death Slip Form</string>
+    <string name="Logout">لاگ آوٹ</string>
+    <string name="forget_password">FORGET PASSWORD?</string>
+    <string name="password">PASSWORD</string>
+    <string name="username">USERNAME</string>
+    <string name="slips_statistics">SLIPS STATISTICS</string>
+    <string name="birth_slips_issued11">Birth Slips Issued (جاری کردہ پیدائش نامہ)</string>
+    <string name="death_slips_issued11">Death Slips Issued (جاری کردہ وفات نامہ)</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="are_you_want_to_save">Do you want to save?</string>
+    <string name="are_you_want_to_exit">کیا آپ اس فارم سے باہر نکلنا چاہتے ہیں؟</string>
+    <string name="death_form_title">DEATH CERTIFICATE FORM</string>
+    <string name="birth_form_title">BIRTH CERTIFICATE FORM</string>
+    <string name="district">District * (ضلع)</string>
+    <string name="tehsil">Tehsil *(تحصیل)</string>
+    <string name="province">Province * (صوبہ)</string>
+    <string name="punjab">Punjab</string>
+    <string name="SO">S/O</string>
+    <string name="DO">D/O</string>
+    <string name="WO">W/O</string>
+    <string name="dashboard11">DashBoard (ڈیش بورڈ)</string>
+    <string name="birthform11">Birth Form (پیدائش نامہ)</string>
+    <string name="deathform11">Death Form (وفات نامہ)</string>
+    <string name="insertion">اندراج</string>
+    <string name="name_of_facility">Name of Facility</string>
+    <string name="pmdc_no">PMDC No.</string>
+    <string name="please_enter_date_of_birth_first">Please first enter date of birth</string>
+    <string name="date_of_death_should_greater_than_date_of_birth">Date of  death should be greater than date of birth</string>
+    <string name="date_of_birth_should_greater_than_date_of_death">Date of  birth should be greater than date of Death</string>
+    <string name="date_of_admission_should_less_than_date_of_death">Date of  Admission should be less or equal than date of Death</string>
+    <string name="date_of_death_should_greater_than_date_of_birth_1">Date of  death should be equal or greater than date of birth or should be equal or greater than date of Admission</string>
+    <string name="date_of_birth_should_greater_than_date_of_death_1">Date of  birth should be equal or greater than date of death or should be equal or greater than date of Admission</string>
+    <string name="date_of_Admission_should_greater_than_date_of_death_1">Date of  Admission should be equal or less than date of death or should be equal or greater than date of birth</string>
+    <string name="this_document_is_not_valid_for_court_of_law">This document is not valid for court of law</string>
+    <string name="autopsy">Autopsy</string>
+    <string name="was_an_autopsy_performed">Was an autopsy performed?</string>
+    <string name="were_autopsy_findings_availble_to_complete_the_cause_of_death">Were an Autopsy findings available to complete the cause of death?</string>
+    <string name="findings">Findings</string>
+
+
+    <string name="HouseHolder">گھر کا سربراہ</string>
+    <string name="RelationHouseHolder"> سربراہ سے تعلق</string>
+    <string name="NAME">نام *</string>
+    <string name="NAME1">نام</string>
+    <string name="Last_NAME">Last Name</string>
+    <string name="fathername">Father/Spouse Name</string>
+    <string name="Father_NAME">والد کا نام *</string>
+    <string name="FHNAME">والد/ شوہر کا نام </string>
+    <string name="schooling">Schooling Status</string>
+    <string name="bform">بے فارم نمبر</string>
+    <string name="dob">DOB</string>
+    <string name="cinc">CNIC</string>
+    <string name="DateOFBirth">تاریخ پیدائش *</string>
+    <string name="DateofPregnancy"> حمل کی تاریخ *</string>
+    <string name="LMPDate"> ایل ایم پی تاریخ * </string>
+    <string name="AGE">عمر</string>
+    <string name="DAYS">دن</string>
+    <string name="remarks">ریمارکس</string>
+    <string name="MONTHS">مہینہ</string>
+    <string name="YEAR">سال</string>
+    <string name="CNIC">شناحتی کارڈ</string>
+    <string name="BayForm">ب فارم</string>
+
+    <string name="Leader_CNIC">CNIC</string>
+    <string name="Relation_with_Leader">سربراہ سے رشتہ</string>
+    <string name="Leader">سربراہ </string>
+    <string name="Language">زبان</string>
+    <string name="CELL">موبا ئل کا نمبر</string>
+    <string name="maritalStatus">ازدواجی حیثیت</string>
+    <string name="Single">غیر شادی شدہ</string>
+    <string name="Married">شادی شدہ</string>
+    <string name="Divorced">طلاق یافتہ</string>
+    <string name="widowed">رنڈوا / بیوہ</string>
+    <string name="TolalWife">زوجہ کی تعداد</string>
+    <string name="TolalChid">بچوں کی تعداد</string>
+    <string name="Address">Address</string>
+    <string name="District">ضلع *</string>
+    <string name="Tehsil">تحصیل *</string>
+    <string name="UC">یو سی *</string>
+    <string name="CompleteAddress">مکمل پتہ *</string>
+    <string name="Remarks">ریمارکس</string>
+    <string name="Education">تعلیم *</string>
+    <string name="Profession">پیشہ *</string>
+    <string name="language">زبان *</string>
+    <string name="waja">وجہ *</string>
+    <string name="Picture">تصویر</string>
+    <string name="Save">محفوظ کریں</string>
+    <string name="SearchResult">Patient List</string>
+    <string name="YES">جی ہاں</string>
+    <string name="NO_1">جی نہیں</string>
+    <string name="PLEASE_FILL_FORM_COMPLETELY">براہ مہربانی مکمل طور پر فارم بھریں</string>
+    <string name="ADD_MORE_FAMILY_MEMBERS">مزید خاندان کے ارکان شامل کریں</string>
+    <string name="SINGLE_FAMILY_MEMBERS"> رکن کی تفصیل </string>
+
+
+    <string name="change_leader">رہنما بدلیں</string>
+    <string name="want_to_exit">Are you sure, you want to exit?</string>
+    <string name="login_header_text">Hepatitis and Infection Control</string>
+    <string name="search_header_text">Patient Search</string>
+    <string name="user_name">Username</string>
+    <string name="reason">وجہ</string>
+    <string name="password_1">Password</string>
+    <string name="keep_me_log_in">مجھے لاگ ان رکھیں</string>
+    <string name="family_record">خاندان کا دورہ</string>
+    <string name="family_members">خاندان کے افراد</string>
+    <string name="vital">Add Vital</string>
+    <string name="monthly_visit">ماہانہ دورہ</string>
+    <string name="emergency">امیرجنسی</string>
+    <string name="please_enter_user_name">براے مہربانی صارف کا نام لکھیں</string>
+    <string name="please_enter_password">پاس ورڈ لکھیں</string>
+    <string name="please_check_head_of_family">برائے مہربانی گھر کا سربراہ کو منتخب کریں</string>
+    <string name="date_saved_successfully">ڈیٹا محفوظ کر لیا گیا ھے</string>
+    <string name="head_of_family_info">گھر کا سربراہ</string>
+    <string name="lady_health_worker">لیڈی ھیلتھ ورکر</string>
+    <string name="select">انتیخاب کریں</string>
+    <string name="register_family">Add Patient</string>
+    <string name="family_number">خاندان کا نمبر</string>
+    <string name="TOTAL_NUMBER_OF_FAMILY_MEMBER">خاندان کے کل ممبران</string>
+    <string name="RIGISTER">رجسٹر کریں</string>
+    <string name="khandan_ka_num">خاندان کا نمبر *</string>
+    <string name="Please_select_HouseHold">Please select house leader</string>
+    <string name="Want_to_Enter_More">کیا آپ مزید افراد کا اندراج کرنا چاہتے ہیں؟</string>
+    <string name="Sarbarah">Patient Registration</string>
+    <string name="edit">Edit</string>
+    <string name="add">ADD</string>
+    <string name="MRN_NO">MRN</string>
+    <string name="contact">رابطہ نمبر</string>
+    <string name="schoolin">اسکول</string>
+    <string name="BirthPlace">پیدائش کی جگہ</string>
+    <string name="HospitalName">ہسپتال</string>
+    <string name="TTinjection">ٹی ٹی انجکشن</string>
+    <string name="Tablets">آئرن فولک گولیاں</string>
+    <string name="HospitalN">ہسپتال کا نام</string>
+    <string name="sector">سرکاری/نجی/مدرس</string>
+    <string name="taleem">تعلیم</string>
+    <string name="pesha">پیشہ</string>
+    <string name="JORA_NO">جورا نمبر</string>
+    <string name="PATIENT_SEARCH">تلاش کریں</string>
+    <string name="setting_text_size">Text Size Setting</string>
+    <string name="font_small">A-</string>
+    <string name="font_large">A+</string>
+    <string name="change_font_size">Change font size</string>
+
+
+    <!--   <item>One</item>
+            <item>Two</item>
+            <item>More</item>-->
+    <string-array name="decision">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+    <string-array name="relation">
+        <item>بھائی</item>
+        <item>شوہر</item>
+        <item>بیوی</item>
+        <item>بیٹا</item>
+        <item>بیٹی</item>
+        <item>باپ</item>
+        <item>ماں</item>
+        <item>چاچا</item>
+        <item>مامو</item>
+        <item>بہن</item>
+    </string-array>
+    <string-array name="nature_of_emergency">
+        <item>Medical</item>
+        <item>Road Crash</item>
+        <item>Delivery Case</item>
+        <item>Crime Incident</item>
+        <item>Fire</item>
+        <item>Fall</item>
+        <item>Electric Shock</item>
+        <item>Work/OCC Injury</item>
+        <item>Suicide</item>
+        <item>Doping/Poisoning</item>
+        <item>Structure Collapse</item>
+        <item>Drowning</item>
+        <item>Misc.</item>
+    </string-array>
+
+    <string-array name="no_victim">
+        <item>One</item>
+        <item>Two</item>
+        <item>Three</item>
+        <item>Four</item>
+        <item>Five</item>
+        <item>Six</item>
+        <item>Seven</item>
+        <item>Eight</item>
+        <item>Nine</item>
+        <item>Ten</item>
+        <item>None</item>
+    </string-array>
+    <string-array name="place_of_emergency">
+        <item>Road</item>
+        <item>Work</item>
+        <item>Home</item>
+        <item>School</item>
+        <item>Other (s)</item>
+    </string-array>
+    <string-array name="out_come">
+        <item>First Aid</item>
+        <item>Hospital Case</item>
+        <item>Call Back</item>
+        <item>Already Died</item>
+        <item>Already Shifted</item>
+        <item>Others</item>
+    </string-array>
+
+    <string-array name="SelectReligion">
+        <item>Islam</item>
+        <item>Christianity</item>
+        <item>Hindu</item>
+        <item>Parsi</item>
+        <item>Others</item>
+    </string-array>
+    <string-array name="Province">
+        <item>Punjab</item>
+    </string-array>
+    <string-array name="Cause_of_death">
+        <item>Accident</item>
+        <item>Cancer</item>
+        <item>Suicide</item>
+        <item>Murder</item>
+        <item>Child Birth</item>
+        <item>Heart Disease</item>
+        <item>Others</item>
+    </string-array>
+    <string-array name="BloodGroup">
+        <item>O+</item>
+        <item>O-</item>
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+    </string-array>
+    <string-array name="occupation">
+        <item>ملک سے باہر</item>
+        <item>گھریلو کاروبار</item>
+        <item>بے روزگار</item>
+        <item>کسان</item>
+        <item>سرکاری ملازم</item>
+        <item>نجی ملازم</item>
+        <item>مزدور</item>
+    </string-array>
+    <string-array name="education">
+        <item>ان پڑه</item>
+        <item> بنیادی</item>
+        <item>مشرق/درمیانی</item>
+        <item>میٹرک</item>
+        <item>ایف اے</item>
+        <item>بی اے</item>
+        <item>ایم اے</item>
+        <item>اعلی</item>
+        <item>مذہبی</item>
+    </string-array>
+    <string name="title_activity_dashboard">DashboardActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="perticulars_of_a_patient">Registration of a Patient</string>
+    <string name="addvital">Add Vital of a Patient</string>
+    <string name="assessment">Patient Assessment</string>
+
+    <string name="health_facility">سہولت مرکز</string>
+
+</resources>

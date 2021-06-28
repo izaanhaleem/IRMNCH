@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_1"
+            android:iconTint="@color/colorPrimary"
+            android:icon="@drawable/ic_dashboard"
+            android:title="@string/dashboard11" />
+<!--        <item-->
+<!--            android:id="@+id/nav_2"-->
+<!--            android:icon="@drawable/ic_menu_manage"-->
+<!--            android:title="@string/register_family" />-->
+        <item
+            android:id="@+id/nav_4"
+            android:icon="@drawable/ic_vitals"
+            android:title="Add Vital" />
+        <item
+            android:id="@+id/nav_assessment"
+            android:icon="@drawable/ic_assessment"
+            android:title="Add Assessment" />
+        <item
+            android:id="@+id/nav_sample"
+            android:icon="@drawable/ic_sample"
+            android:title="Add Sample" />
+        <item
+            android:id="@+id/nav_3"
+            android:icon="@drawable/ic_logout"
+            android:title="Logout" />
+
+    </group>
+
+</menu>

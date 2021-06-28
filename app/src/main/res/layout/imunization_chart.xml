@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:clickable="true"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/pregnancyTabHead"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:layoutDirection="rtl"
+                android:padding="10dp"
+                android:text=" >  امیونائزیشن چارٹ"
+                android:textAlignment="textStart"
+                android:textColor="@color/white"
+                android:textDirection="rtl"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/pregnancyTabBody"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_border"
+                android:orientation="vertical"
+                android:padding="@dimen/margin_normal"
+                android:visibility="visible">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:padding="10dp"
+                        android:text="@string/MRN_NO"
+                        android:textAlignment="center"
+                        android:textSize="14sp"/>
+                    <TextView
+                        android:id="@+id/mr_no"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:padding="10dp"
+                        android:text=""
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/asdzxcxzczcasdwqde"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"
+                    android:padding="10dp"
+                    android:text="متعلقہ تاریخوں کے ساتھ انجیکشنز"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:padding="10dp"
+                        android:text="پیدائش پر"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/custom_border"
+                            android:padding="10dp"
+                            android:text="OPV-0 / BCG / Hepatitis-B"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/val1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/custom_border"
+                            android:layoutDirection="rtl"
+                            android:padding="10dp"
+                            android:text="Val"
+                            android:textDirection="rtl"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:padding="10dp"
+                        android:text = "6 ہفتوں کی عمر میں"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/custom_border"
+                            android:padding="10dp"
+                            android:text="OPV-I / PENTA-I / ROTA-I / PCV10-I"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/val2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/custom_border"
+                            android:layoutDirection="rtl"
+                            android:padding="10dp"
+                            android:text="Val"
+                            android:textDirection="rtl"
+                            android:textSize="13sp" />
+
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:padding="10dp"
+                        android:text = "10 ہفتوں کی عمر میں"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <!--                <TextView-->
+                    <!--                    android:layout_width="match_parent"-->
+                    <!--                    android:layout_height="wrap_content"-->
+                    <!--                    android:layout_gravity="center"-->
+                    <!--                    android:layout_marginBottom="10dp"-->
+                    <!--                    android:padding="10dp"-->
+                    <!--                    android:textStyle="bold"-->
+                    <!--                    android:text="تیسرا وزٹ"-->
+                    <!--                    android:textColor="@color/colorPrimaryDark"-->
+                    <!--                    android:textSize="@dimen/font_xxxxlarge"-->
+                    <!--                    />-->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/custom_border"
+                            android:padding="10dp"
+                            android:text="OPV-II / PENTA-II / ROTA-II / PCV10-II"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/val3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/custom_border"
+                            android:layoutDirection="rtl"
+                            android:padding="10dp"
+                            android:text="Val"
+                            android:textDirection="rtl"
+                            android:textSize="13sp" />
+
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:padding="10dp"
+                        android:text = "14 ہفتوں کی عمر می"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <!--                <TextView-->
+                    <!--                    android:layout_width="match_parent"-->
+                    <!--                    android:layout_height="wrap_content"-->
+                    <!--                    android:layout_gravity="center"-->
+                    <!--                    android:layout_marginBottom="10dp"-->
+                    <!--                    android:padding="10dp"-->
+                    <!--                    android:textStyle="bold"-->
+                    <!--                    android:text="چوتھا وزٹ"-->
+                    <!--                    android:textColor="@color/colorPrimaryDark"-->
+                    <!--                    android:textSize="@dimen/font_xxxxlarge"-->
+                    <!--                    />-->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/custom_border"
+                            android:padding="10dp"
+                            android:text="OPV-III / PENTA-III / IPV / PCV10-III"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/val4"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/custom_border"
+                            android:layoutDirection="rtl"
+                            android:padding="10dp"
+                            android:text="Val"
+                            android:textDirection="rtl"
+                            android:textSize="13sp" />
+
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:padding="10dp"
+                        android:text = "9 ماہ کے بعد"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/custom_border"
+                            android:padding="10dp"
+                            android:text="Measles-I / MR / TCV"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/val5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/custom_border"
+                            android:layoutDirection="rtl"
+                            android:padding="10dp"
+                            android:text="Val"
+                            android:textDirection="rtl"
+                            android:textSize="13sp" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:padding="10dp"
+                        android:text = "15 ماہ کے بعد"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/custom_border"
+                            android:padding="10dp"
+                            android:text="Measles-II / MR "
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/val6"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/custom_border"
+                            android:layoutDirection="rtl"
+                            android:padding="10dp"
+                            android:text="Val"
+                            android:textDirection="rtl"
+                            android:textSize="13sp" />
+
+                    </LinearLayout>
+
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:padding="10dp"
+                        android:text = "4 سے 5 سال کے درمیان"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/custom_border"
+                            android:padding="10dp"
+                            android:text="DTP BOOSTER DOSE "
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/val7"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/custom_border"
+                            android:layoutDirection="rtl"
+                            android:padding="10dp"
+                            android:text="Val"
+                            android:textDirection="rtl"
+                            android:textSize="13sp" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="15dp"
+
+                    android:paddingHorizontal="16dp">
+                    <Button
+                        android:id="@+id/card_picture"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_gravity="center"
+                        android:text="برائے مہربانی کارڈ کی تصویر لیں"
+                        android:layoutDirection="rtl"
+                        android:visibility="visible"></Button>
+
+                    <ImageView
+                        android:id="@+id/chart_picture"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:scaleType="fitXY" />
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/save_btn"
+                        android:layout_gravity="center"
+                        android:background="@color/colorPrimaryDark"
+                        android:gravity="center"
+                        android:paddingHorizontal="20dp"
+                        android:layout_marginTop="10dp"
+                        android:text="محفوظ کریں"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        >
+                    </Button>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

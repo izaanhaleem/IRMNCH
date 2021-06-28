@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:clickable="true"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginVertical="5dp"
+                android:text="@string/family_members"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:paddingVertical="5dp"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.9"
+            >
+
+            <!--            <ScrollView-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="match_parent"-->
+            <!--                >-->
+
+            <GridView
+                android:id="@+id/memberGridView"
+                android:padding="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:horizontalSpacing="5dp"
+                android:numColumns="2"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="5dp" />
+
+            <!--            </ScrollView>-->
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:padding="5dp"
+            android:weightSum="5"
+            android:gravity="center">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:id="@+id/addMoreMembers"
+                android:layout_gravity="center"
+                android:background="@color/colorPrimaryDark"
+                android:gravity="center"
+                android:paddingHorizontal="20dp"
+                android:text="@string/ADD_MORE_FAMILY_MEMBERS"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold">
+
+            </Button>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:layout_height="wrap_content"
+                android:id="@+id/change_leader"
+                android:layout_gravity="center"
+                android:background="@color/colorPrimaryDark"
+                android:gravity="center"
+                android:paddingHorizontal="20dp"
+                android:text="@string/change_leader"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:textStyle="bold"
+                >
+            </Button>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:layout_height="wrap_content"
+                android:id="@+id/refresh"
+                android:layout_gravity="center"
+                android:background="@color/colorPrimaryDark"
+                android:gravity="center"
+                android:paddingHorizontal="20dp"
+                android:text="ریفریش"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                >
+            </Button>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,842 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:title=" "
+        android:gravity="center"
+        android:background="@color/colorPrimaryDark">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+            <TextView
+                style="@style/LargeTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/assessment"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/font_large" />
+        </LinearLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:weightSum="1">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="BASIC INFORMATION"
+                    android:gravity="center_horizontal"
+                    android:textStyle="normal"
+                    android:textColor="#fff"
+                    android:textSize="15sp"
+                    android:background="#364150">
+                </TextView>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                    app:hintTextAppearance="@style/NormalTextView">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_xsmall"
+                        android:inputType="text"
+                        android:hint="Name"
+                        android:textColor="#000"
+                        android:digits="qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM ."
+                        android:maxLength="30"
+                        android:maxLines="1"
+                        android:textSize="@dimen/font_normal" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                    app:hintTextAppearance="@style/NormalTextView">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/mrno"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_xsmall"
+                        android:inputType="text"
+                        android:hint="MRN"
+                        android:textColor="#000"
+                        android:digits="qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM ."
+                        android:maxLength="30"
+                        android:maxLines="1"
+                        android:textSize="@dimen/font_normal" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                    app:hintTextAppearance="@style/NormalTextView">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/patient"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_xsmall"
+                        android:inputType="text"
+                        android:hint="Patient Status"
+                        android:textColor="#000"
+                        android:digits="qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM ."
+                        android:maxLength="30"
+                        android:maxLines="1"
+                        android:textSize="@dimen/font_normal" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                    app:hintTextAppearance="@style/NormalTextView">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/cnic"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_xsmall"
+                        android:inputType="text"
+                        android:hint="CNIC"
+                        android:digits="qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM ."
+                        android:maxLength="30"
+                        android:maxLines="1"
+                        android:textColor="#000"
+                        android:textSize="@dimen/font_normal" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="VITAL INFORMATION"
+              android:gravity="center_horizontal"
+              android:textStyle="normal"
+              android:textColor="#fff"
+              android:textSize="15sp"
+              android:background="#364150">
+          </TextView>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                    app:hintTextAppearance="@style/NormalTextView">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/temperature"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_xsmall"
+                        android:inputType="numberDecimal"
+                        android:hint="Temperature (Fahrenheit)"
+                        android:maxLength="30"
+                        android:textColor="#000"
+                        android:maxLines="1"
+                        android:textSize="@dimen/font_normal" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                    app:hintTextAppearance="@style/NormalTextView">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/pulseBPM"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_xsmall"
+                        android:inputType="number"
+                        android:hint="pulse (BPM)"
+                        android:maxLength="30"
+                        android:maxLines="1"
+                        android:textColor="#000"
+                        android:textSize="@dimen/font_normal" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                    app:hintTextAppearance="@style/NormalTextView">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/BPSystolic"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_xsmall"
+                        android:inputType="numberDecimal"
+                        android:hint="BP (Systolic)"
+                        android:maxLength="30"
+                        android:maxLines="1"
+                        android:textColor="#000"
+                        android:textSize="@dimen/font_normal" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                    app:hintTextAppearance="@style/NormalTextView">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/BPDiastolic"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_xsmall"
+                        android:inputType="numberDecimal"
+                        android:hint="BP (Diastolic)"
+                        android:maxLength="30"
+                        android:maxLines="1"
+                        android:textColor="#000"
+                        android:textSize="@dimen/font_normal" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                    app:hintTextAppearance="@style/NormalTextView">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/HeightCM"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_xsmall"
+                        android:inputType="numberDecimal"
+                        android:hint="Height (CM)"
+                        android:maxLength="30"
+                        android:textColor="#000"
+                        android:maxLines="1"
+                        android:textSize="@dimen/font_normal" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                    app:hintTextAppearance="@style/NormalTextView">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/WeightKG"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_xsmall"
+                        android:inputType="numberDecimal"
+                        android:hint="Weight (KG)"
+                        android:maxLength="30"
+                        android:textColor="#000"
+                        android:maxLines="1"
+                        android:textSize="@dimen/font_normal" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="CLIENT RISK ANALYSIS"
+                    android:gravity="center_horizontal"
+                    android:textStyle="normal"
+                    android:textColor="#fff"
+                    android:textSize="15sp"
+                    android:background="#364150">
+                </TextView>
+                <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:switchPadding="0dp"
+        android:text="Frequent therapeutic injections : "
+        android:textSize="17sp">
+    </androidx.appcompat.widget.SwitchCompat>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch2"
+        android:textSize="17sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Confirmed case of STDs : "
+        android:layout_marginTop="10dp"
+        app:switchPadding="0dp">
+    </androidx.appcompat.widget.SwitchCompat>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch3"
+        android:textSize="17sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:switchPadding="0dp"
+        android:layout_marginTop="10dp"
+        android:text="Invasive medical and surgical Intervention : " >
+    </androidx.appcompat.widget.SwitchCompat>
+   <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/three"
+       android:visibility="gone">
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+        app:hintTextAppearance="@style/NormalTextView">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/surgery_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_xsmall"
+            android:inputType="text"
+            android:hint="Surgery Type"
+            android:maxLength="30"
+            android:maxLines="1"
+            android:textSize="@dimen/font_normal" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="When"
+        android:textSize="16sp"
+        android:textStyle="normal" />
+    <Spinner
+        android:id="@+id/sergery_select_year"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="3dp"
+        android:background="@drawable/dropdown_custom_bg"
+        android:paddingVertical="13dp"
+        android:spinnerMode="dialog"
+        android:textSize="@dimen/font_xlarge"
+        android:gravity="center"/>
+    </LinearLayout>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch4"
+        android:textSize="17sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:switchPadding="0dp"
+        android:layout_marginTop="10dp"
+        android:text="Close contact of a known case of HCV/HBV : " >
+    </androidx.appcompat.widget.SwitchCompat>
+    <Spinner
+        android:visibility="gone"
+        android:id="@+id/two"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="3dp"
+        android:background="@drawable/dropdown_custom_bg"
+        android:paddingVertical="13dp"
+        android:spinnerMode="dialog"
+        android:textSize="@dimen/font_xlarge"
+        android:gravity="center"/>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch5"
+        android:textSize="17sp"
+        android:layout_width="match_parent"
+        app:switchPadding="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:text="Blood transfusion : " >
+    </androidx.appcompat.widget.SwitchCompat>
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/five">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="When"
+            android:textSize="16sp"
+            android:textStyle="normal" />
+        <Spinner
+            android:id="@+id/select_year1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="3dp"
+            android:background="@drawable/dropdown_custom_bg"
+            android:paddingVertical="13dp"
+            android:spinnerMode="dialog"
+            android:textSize="@dimen/font_xlarge"
+            android:gravity="center"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Blood Bank"
+            android:textSize="16sp"
+            android:textStyle="normal" />
+        <Spinner
+            android:id="@+id/blood_bank"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="3dp"
+            android:background="@drawable/dropdown_custom_bg"
+            android:paddingVertical="13dp"
+            android:spinnerMode="dialog"
+            android:textSize="@dimen/font_xlarge"
+            android:gravity="center"/>
+    </LinearLayout>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch6"
+        android:textSize="17sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:switchPadding="0dp"
+        android:layout_marginTop="10dp"
+        android:text="Confirmed HIV positive persons : " >
+    </androidx.appcompat.widget.SwitchCompat>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch7"
+        android:textSize="17sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:switchPadding="0dp"
+        android:layout_marginTop="10dp"
+        android:text="Ever been hospitalized : " >
+    </androidx.appcompat.widget.SwitchCompat>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:visibility="gone"
+        android:id="@+id/hopital_last_two_year"
+        android:textSize="17sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:switchPadding="0dp"
+        android:layout_marginTop="10dp"
+        android:text="Hospitalization within last 2 years : "
+        android:textColor="@color/accent">
+    </androidx.appcompat.widget.SwitchCompat>
+
+
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch8"
+        android:textSize="17sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:switchPadding="0dp"
+        android:layout_marginTop="10dp"
+        android:text="Individuals with tattooing : " >
+    </androidx.appcompat.widget.SwitchCompat>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch9"
+        android:textSize="17sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:switchPadding="0dp"
+        android:layout_marginTop="10dp"
+        android:text="Injectable Drug User : " >
+    </androidx.appcompat.widget.SwitchCompat>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch10"
+        android:textSize="17sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:switchPadding="0dp"
+        android:layout_marginTop="10dp"
+        android:text="Dental Intervention : " >
+    </androidx.appcompat.widget.SwitchCompat>
+    <Spinner
+        android:visibility="gone"
+        android:id="@+id/Dental_Clinic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="3dp"
+        android:background="@drawable/dropdown_custom_bg"
+        android:paddingVertical="13dp"
+        android:spinnerMode="dialog"
+        android:textSize="@dimen/font_xlarge"
+        android:gravity="center"/>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch11"
+        android:textSize="17sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:switchPadding="0dp"
+        android:layout_marginTop="10dp"
+        android:text="History of Multiple Sex Partners : " >
+    </androidx.appcompat.widget.SwitchCompat>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch12"
+        android:textSize="17sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:switchPadding="0dp"
+        android:layout_marginTop="10dp"
+        android:text="Truck Driver : " >
+    </androidx.appcompat.widget.SwitchCompat>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch13"
+        android:textSize="17sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:switchPadding="0dp"
+        android:layout_marginTop="10dp"
+        android:text="Ear Nose piercing : " >
+    </androidx.appcompat.widget.SwitchCompat>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch14"
+        android:textSize="17sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:switchPadding="0dp"
+        android:layout_marginTop="10dp"
+        android:text="Transgender : " >
+    </androidx.appcompat.widget.SwitchCompat>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch15"
+        android:textSize="17sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:switchPadding="0dp"
+        android:layout_marginTop="10dp"
+        android:text="Sharing of Tooth Brush : " >
+    </androidx.appcompat.widget.SwitchCompat>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch16"
+        android:textSize="17sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:switchPadding="0dp"
+        android:layout_marginTop="10dp"
+        android:text="Sharing of Hair Comb : " >
+    </androidx.appcompat.widget.SwitchCompat>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch17"
+        android:textSize="17sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:switchPadding="0dp"
+        android:layout_marginTop="10dp"
+        android:text="Dark Colored Urine : " >
+    </androidx.appcompat.widget.SwitchCompat>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch18"
+        android:textSize="17sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:switchPadding="0dp"
+        android:layout_marginTop="10dp"
+        android:text="Loss of Appetite : " >
+    </androidx.appcompat.widget.SwitchCompat>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch19"
+        android:textSize="17sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:switchPadding="0dp"
+        android:layout_marginTop="10dp"
+        android:text="Light Colored Faeces : " >
+    </androidx.appcompat.widget.SwitchCompat>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch20"
+        android:textSize="17sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:switchPadding="0dp"
+        android:layout_marginTop="10dp"
+        android:text="Fatigue : " >
+    </androidx.appcompat.widget.SwitchCompat>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch21"
+        android:textSize="17sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:switchPadding="0dp"
+        android:layout_marginTop="10dp"
+        android:text="Muscle Pain : " >
+    </androidx.appcompat.widget.SwitchCompat>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch22"
+        android:textSize="17sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:switchPadding="0dp"
+        android:layout_marginTop="10dp"
+        android:text="Nausea : " >
+    </androidx.appcompat.widget.SwitchCompat>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch23"
+        android:textSize="17sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:switchPadding="0dp"
+        android:layout_marginTop="10dp"
+        android:text="Stomach Ache : " >
+    </androidx.appcompat.widget.SwitchCompat>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch24"
+        android:textSize="17sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:switchPadding="0dp"
+        android:layout_marginTop="10dp"
+        android:text="Right Upper Quadrant Tenderness : " >
+    </androidx.appcompat.widget.SwitchCompat>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch25"
+        android:textSize="17sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:switchPadding="0dp"
+        android:layout_marginTop="10dp"
+        android:text="Gastric Irritation/Burning : " >
+    </androidx.appcompat.widget.SwitchCompat>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch26"
+        android:textSize="17sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:switchPadding="0dp"
+        android:layout_marginTop="10dp"
+        android:text="Unusual Urethral Discharge, Genital Sores, Ulcers, Painful Urination : " >
+    </androidx.appcompat.widget.SwitchCompat>
+
+</LinearLayout>
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="SCREENING, VACCINATION AND COUNSELLING"
+                    android:gravity="center_horizontal"
+                    android:textStyle="normal"
+                    android:textColor="#fff"
+                    android:textSize="15sp"
+                    android:background="#364150">
+                </TextView>
+
+   <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginTop="10dp">
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:weightSum="1"
+           android:layout_marginTop="10dp">
+           <androidx.appcompat.widget.SwitchCompat
+               android:id="@+id/switch28"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               app:switchPadding="0dp"
+               android:text="HBV : "
+               android:textSize="17sp"
+               android:layout_weight="0.5">
+           </androidx.appcompat.widget.SwitchCompat>
+
+           <androidx.appcompat.widget.SwitchCompat
+               android:id="@+id/switch29"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               app:switchPadding="0dp"
+               android:text="HCV : "
+               android:textSize="17sp"
+               android:layout_weight="0.5">
+           </androidx.appcompat.widget.SwitchCompat>
+       </LinearLayout>
+
+       <TextView
+           android:visibility="gone"
+           android:id="@+id/addvised"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="Addvised for Both"
+           android:textSize="17sp"
+           android:textStyle="bold"
+           android:textColor="@color/accent"
+           android:layout_marginTop="10dp"
+           android:gravity="center_horizontal"
+           />
+
+       <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch27"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:switchPadding="0dp"
+        android:text="Screening Recommended : "
+        android:textSize="17sp"
+        android:layout_marginTop="10dp"
+           android:checked="true"
+           android:clickable="false">
+     </androidx.appcompat.widget.SwitchCompat>
+       <androidx.appcompat.widget.SwitchCompat
+           android:id="@+id/pcr"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           app:switchPadding="0dp"
+           android:text="PCR : "
+           android:checked="true"
+           android:clickable="false"
+           android:textSize="17sp"
+           android:layout_marginTop="10dp"
+           android:visibility="gone">
+       </androidx.appcompat.widget.SwitchCompat>
+       <androidx.appcompat.widget.SwitchCompat
+           android:id="@+id/switch30"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           app:switchPadding="0dp"
+           android:text="Vaccination Administered : "
+           android:textSize="17sp"
+           android:layout_marginTop="10dp">
+       </androidx.appcompat.widget.SwitchCompat>
+
+       <androidx.appcompat.widget.SwitchCompat
+           android:id="@+id/switch31"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           app:switchPadding="0dp"
+           android:text="Counselling : "
+           android:textSize="17sp"
+           android:layout_marginTop="10dp">
+       </androidx.appcompat.widget.SwitchCompat>
+
+       <com.google.android.material.textfield.TextInputLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:layout_weight="0.5"
+           style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+           app:hintTextAppearance="@style/NormalTextView">
+
+           <com.google.android.material.textfield.TextInputEditText
+               android:id="@+id/MO_Notes"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_margin="@dimen/margin_xsmall"
+               android:inputType="text"
+               android:hint="MO Notes"
+               android:maxLength="30"
+               android:maxLines="1"
+               android:textSize="@dimen/font_normal"/>
+       </com.google.android.material.textfield.TextInputLayout>
+
+
+       <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:weightSum="1"
+          android:layout_marginTop="10dp">
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="Further Action: "
+           android:textSize="17sp"
+           android:textStyle="bold"
+           android:layout_weight="0.5"/>
+
+       <TextView
+           android:id="@+id/counsel_closed"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="Counsel and Closed"
+           android:textSize="17sp"
+           android:layout_weight="0.5"/>
+      </LinearLayout>
+
+      </LinearLayout>
+                <com.github.nikartm.support.StripedProcessButton
+                    android:id="@+id/addAssessment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Add"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    app:spb_background="@color/colorPrimary"
+                    app:spb_loadingText="Loading..."
+                    app:spb_mainStripColor="@color/colorPrimaryDark"
+                    app:spb_stripeDuration="120"
+                    app:spb_stripeGradient="false"
+                    app:spb_stripeTilt="35"
+                    app:spb_stripeWidth="30dp"
+                    app:spb_subStripeColor="@color/colorAccent"
+                    tools:spb_showStripes="true"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,897 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:title=" "
+        android:gravity="center"
+        android:background="@color/colorPrimaryDark">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+            <TextView
+                style="@style/LargeTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/perticulars_of_a_patient"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/font_large" />
+        </LinearLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+
+
+
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="15dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:weightSum="1">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <Spinner
+                        android:id="@+id/seacchcnic"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="3dp"
+                        android:background="@drawable/dropdown_custom_bg"
+                        android:paddingVertical="13dp"
+                        android:spinnerMode="dialog"
+                        android:textSize="@dimen/font_xlarge"
+                        android:gravity="center"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+
+                    >
+
+                    <!--                    <TextView-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:text="CNIC"-->
+                    <!--                        android:textSize="16sp"-->
+                    <!--                        android:textStyle="bold"/>-->
+
+                    <com.santalu.maskara.widget.MaskEditText
+                        android:id="@+id/etCNIC"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        app:mask="_____-_______-_"
+                        android:hint="00000-0000000-0"
+                        android:gravity="center_horizontal"/>
+
+
+                    <!--                    <com.santalu.maskara.widget.MaskEditText-->
+                    <!--                        android:visibility="gone"-->
+                    <!--                        android:id="@+id/etCNICafghan"-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:inputType="number"-->
+                    <!--                        app:mask="__-___________"-->
+                    <!--                        android:hint="AB-00000000000"/>-->
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                android:orientation="vertical"
+                android:id="@+id/layoutfirst">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                        app:hintTextAppearance="@style/NormalTextView">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etPatientName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin_xsmall"
+                            android:inputType="text"
+                            android:hint="@string/patient_name"
+                            android:digits="qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM ."
+                            android:maxLength="30"
+                            android:maxLines="1"
+                            android:textSize="@dimen/font_normal" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:hintTextAppearance="@style/NormalTextView">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/lastname"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin_xsmall"
+                            android:inputType="text"
+                            android:maxLength="30"
+                            android:hint="@string/Last_NAME"
+                            android:digits="qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM ."
+                            android:maxLines="1"
+                            android:textSize="@dimen/font_normal" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                        app:hintTextAppearance="@style/NormalTextView">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etFatherSpouse"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin_xsmall"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:hint="@string/fathername"
+                            android:textSize="@dimen/font_normal" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="@string/dob"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Age"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                        app:hintTextAppearance="@style/NormalTextView">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/dob"
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin_xsmall"
+                            android:clickable="true"
+                            android:focusable="false"
+                            android:inputType="text"
+                            android:textSize="@dimen/font_normal"
+                            android:drawableRight="@drawable/calander"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:hintTextAppearance="@style/NormalTextView">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etAge"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin_xsmall"
+                            android:maxLength="2"
+                            android:hint="year"
+                            android:textSize="@dimen/font_normal"
+                            android:textStyle="bold"
+                            android:clickable="false"
+                            android:inputType="none"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:id="@+id/month"
+                    android:weightSum="1">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Gender"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <Spinner
+                            android:id="@+id/gendr"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="3dp"
+                            android:background="@drawable/dropdown_custom_bg"
+                            android:hint="security salary"
+                            android:paddingVertical="13dp"
+                            android:spinnerMode="dialog"
+                            android:textSize="@dimen/font_xlarge" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="0.5">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Marital Status"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <Spinner
+                            android:id="@+id/materialstatus"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="3dp"
+                            android:background="@drawable/dropdown_custom_bg"
+                            android:hint="security salary"
+                            android:paddingVertical="13dp"
+                            android:spinnerMode="dialog"
+                            android:textSize="@dimen/font_xlarge" />
+                    </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:id="@+id/dscdaf"
+                    android:weightSum="1">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Occupation"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <Spinner
+                            android:id="@+id/occupation"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="3dp"
+                            android:background="@drawable/dropdown_custom_bg"
+                            android:hint="security salary"
+                            android:paddingVertical="13dp"
+                            android:spinnerMode="dialog"
+                            android:textSize="@dimen/font_xlarge" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="0.5">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Qualification "
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <Spinner
+                            android:id="@+id/qualification"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="3dp"
+                            android:background="@drawable/dropdown_custom_bg"
+                            android:hint="security salary"
+                            android:paddingVertical="13dp"
+                            android:spinnerMode="dialog"
+                            android:textSize="@dimen/font_xlarge" />
+                    </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+
+                    android:orientation="vertical">
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="@string/contact_no"
+                        android:textStyle="bold"
+                        android:textSize="16sp"/>
+
+                    <!--                    <com.hisdu.SESCluster.widgets.MaskedEditText-->
+                    <!--                        xmlns:app="http://schemas.android.com/apk/res-auto"-->
+                    <!--                        android:id="@+id/etContactNo"-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:inputType="number"-->
+                    <!--                        app:mask="9999-9999999"-->
+                    <!--                        app:keep_hint="true"-->
+                    <!--                        />-->
+                    <com.santalu.maskara.widget.MaskEditText
+                        android:id="@+id/etContactNo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        app:mask="____-_______"
+                        android:hint="0321-0000000"
+                        android:gravity="left"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="@string/Address"
+                        android:textStyle="bold"
+                        android:textSize="16sp"/>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                        app:hintTextAppearance="@style/NormalTextView">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etCompleteAddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin_xsmall"
+                            android:hint="Complete Address with Famous Landmark"
+                            android:inputType="textMultiLine"
+                            android:textSize="@dimen/font_normal" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+
+
+                </LinearLayout>
+                <!--
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    style="@style/NormalTextView"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_weight="1"
+                                    android:text="@string/sociao_economic_status" />
+
+                                <android.support.design.widget.TextInputLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    app:hintTextAppearance="@style/NormalTextView">
+
+                                    <android.support.design.widget.TextInputEditText
+                                        android:id="@+id/etStatus"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="@dimen/margin_xsmall"
+                                        android:inputType="text"
+                                        android:maxLines="1"
+                                        android:textSize="@dimen/font_normal" />
+                                </android.support.design.widget.TextInputLayout>
+                            </LinearLayout>-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="@string/address"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:gravity="center_horizontal"/>
+
+                    <!--                    <com.google.android.material.textfield.TextInputLayout-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_weight="1"-->
+                    <!--                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+
+                    <!--                        app:hintTextAppearance="@style/NormalTextView">-->
+
+                    <!--                        <com.google.android.material.textfield.TextInputEditText-->
+                    <!--                            android:id="@+id/etAddress"-->
+                    <!--                            android:layout_width="match_parent"-->
+                    <!--                            android:layout_height="wrap_content"-->
+                    <!--                            android:layout_margin="@dimen/margin_xsmall"-->
+                    <!--                            android:hint="Division"-->
+                    <!--                            android:inputType="textMultiLine"-->
+                    <!--                            android:clickable="false"-->
+                    <!--                            android:focusable="false"-->
+                    <!--                            android:drawableRight="@android:drawable/arrow_down_float"-->
+                    <!--                            android:textSize="@dimen/font_normal" />-->
+                    <!--                    </com.google.android.material.textfield.TextInputLayout>-->
+
+                    <!--                    <com.google.android.material.textfield.TextInputLayout-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_weight="1"-->
+                    <!--                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+
+                    <!--                        app:hintTextAppearance="@style/NormalTextView">-->
+
+                    <!--                        <com.google.android.material.textfield.TextInputEditText-->
+                    <!--                            android:id="@+id/etDistrict"-->
+                    <!--                            android:layout_width="match_parent"-->
+                    <!--                            android:layout_height="wrap_content"-->
+                    <!--                            android:layout_margin="@dimen/margin_xsmall"-->
+                    <!--                            android:hint="District"-->
+                    <!--                            android:inputType="textMultiLine"-->
+                    <!--                            android:clickable="false"-->
+                    <!--                            android:focusable="false"-->
+                    <!--                            android:drawableRight="@android:drawable/arrow_down_float"-->
+                    <!--                            android:textSize="@dimen/font_normal" />-->
+                    <!--                    </com.google.android.material.textfield.TextInputLayout>-->
+                    <!--                    <com.google.android.material.textfield.TextInputLayout-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_weight="1"-->
+                    <!--                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+
+                    <!--                        app:hintTextAppearance="@style/NormalTextView">-->
+
+                    <!--                        <com.google.android.material.textfield.TextInputEditText-->
+                    <!--                            android:id="@+id/etTehsilTown"-->
+                    <!--                            android:layout_width="match_parent"-->
+                    <!--                            android:layout_height="wrap_content"-->
+                    <!--                            android:layout_margin="@dimen/margin_xsmall"-->
+                    <!--                            android:clickable="true"-->
+                    <!--                            android:focusable="false"-->
+                    <!--                            android:drawableRight="@android:drawable/arrow_down_float"-->
+                    <!--                            android:hint="Tehsil"-->
+
+                    <!--                            android:inputType="textMultiLine"-->
+                    <!--                            android:textSize="@dimen/font_normal" />-->
+                    <!--                    </com.google.android.material.textfield.TextInputLayout>-->
+                    <Spinner
+                        android:id="@+id/division"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="3dp"
+                        android:background="@drawable/dropdown_custom_bg"
+                        android:hint="security salary"
+                        android:paddingVertical="13dp"
+                        android:spinnerMode="dialog"
+                        android:textSize="@dimen/font_xlarge" />
+
+                    <Spinner
+                        android:id="@+id/district"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="3dp"
+                        android:background="@drawable/dropdown_custom_bg"
+                        android:hint="security salary"
+                        android:paddingVertical="13dp"
+                        android:spinnerMode="dialog"
+                        android:textSize="@dimen/font_xlarge" />
+
+                    <Spinner
+                        android:id="@+id/tehsil"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="3dp"
+                        android:background="@drawable/dropdown_custom_bg"
+                        android:hint="security salary"
+                        android:paddingVertical="13dp"
+                        android:spinnerMode="dialog"
+                        android:textSize="@dimen/font_xlarge" />
+                    <Spinner
+                        android:id="@+id/hf"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="3dp"
+                        android:background="@drawable/dropdown_custom_bg"
+                        android:hint="security salary"
+                        android:paddingVertical="13dp"
+                        android:spinnerMode="dialog"
+                        android:textSize="@dimen/font_xlarge" />
+                </LinearLayout>
+
+                <!--<LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/NormalTextView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="@string/history_of_tubercloses" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:hintTextAppearance="@style/NormalTextView">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/etHistory"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin_xsmall"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:textSize="@dimen/font_normal" />
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/NormalTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/retreatement" />
+
+                    <RadioGroup
+                        android:id="@+id/rgRetreat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/rbReTreatYes"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+
+                            android:text="@string/yes" />
+
+                        <RadioButton
+                            android:id="@+id/rbReTreatNo"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/no" />
+
+
+                    </RadioGroup>
+                </LinearLayout>-->
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutsecond"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="Patient History"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:gravity="center_horizontal"/>
+                <LinearLayout
+                    android:id="@+id/layout1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/text23"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="Have you previously been diagnosed with HBV via Rapid Screening or ELISA ?" />
+
+                    <Spinner
+                        android:id="@+id/firsts"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="3dp"
+                        android:background="@drawable/dropdown_custom_bg"
+                        android:hint="security salary"
+                        android:paddingVertical="13dp"
+                        android:spinnerMode="dialog"
+                        android:textSize="@dimen/font_xlarge" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/LayoutMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:orientation="vertical"
+                        android:id="@+id/secondlayout">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="Did you get PCR confirmation for HBV infection" />
+
+                        <Spinner
+                            android:id="@+id/seconds"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="3dp"
+                            android:background="@drawable/dropdown_custom_bg"
+                            android:hint="security salary"
+                            android:paddingVertical="13dp"
+                            android:spinnerMode="dialog"
+                            android:textSize="@dimen/font_xlarge" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="Have you previously been diagnosed with HCV via Rapid Screening or ELISA" />
+
+                        <Spinner
+                            android:id="@+id/thirds"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="3dp"
+                            android:background="@drawable/dropdown_custom_bg"
+                            android:hint="security salary"
+                            android:paddingVertical="13dp"
+                            android:spinnerMode="dialog"
+                            android:textSize="@dimen/font_xlarge" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:orientation="vertical"
+                        android:id="@+id/fourlayout">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="Did you get PCR confirmation for HCV infection" />
+
+                        <Spinner
+                            android:id="@+id/fours"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="3dp"
+                            android:background="@drawable/dropdown_custom_bg"
+                            android:hint="security salary"
+                            android:paddingVertical="13dp"
+                            android:spinnerMode="dialog"
+                            android:textSize="@dimen/font_xlarge" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="Have you completed Vaccination for HBV" />
+
+                        <Spinner
+                            android:id="@+id/fives"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="3dp"
+                            android:background="@drawable/dropdown_custom_bg"
+                            android:hint="security salary"
+                            android:paddingVertical="13dp"
+                            android:spinnerMode="dialog"
+                            android:textSize="@dimen/font_xlarge" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <com.github.nikartm.support.StripedProcessButton
+                android:id="@+id/btnSubmit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginTop="10dp"
+                android:text="Register"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:spb_background="@color/colorPrimary"
+                app:spb_loadingText="Loading..."
+                app:spb_mainStripColor="@color/colorPrimaryDark"
+                app:spb_stripeDuration="120"
+                app:spb_stripeGradient="false"
+                app:spb_stripeTilt="35"
+                app:spb_stripeWidth="30dp"
+                app:spb_subStripeColor="@color/colorAccent"
+                tools:spb_showStripes="true" />
+            <com.github.nikartm.support.StripedProcessButton
+                android:id="@+id/Submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginTop="10dp"
+                android:text="Submit"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:spb_background="@color/colorPrimary"
+                app:spb_loadingText="Loading..."
+                app:spb_mainStripColor="@color/colorPrimaryDark"
+                app:spb_stripeDuration="120"
+                app:spb_stripeGradient="false"
+                app:spb_stripeTilt="35"
+                app:spb_stripeWidth="30dp"
+                app:spb_subStripeColor="@color/colorAccent"
+                tools:spb_showStripes="true" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:clickable="true"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:orientation="vertical"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/pregnancyTabHead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:layoutDirection="rtl"
+            android:padding="10dp"
+            android:text=" >  اے این سی وزٹ کی تاریخ"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textDirection="rtl"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/pregnancyTabBody"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_border"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:visibility="visible">
+
+
+            <TextView
+                android:id="@+id/asdzxcxzczcasdwqde"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:padding="10dp"
+                android:text="متوقع دورے"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="5">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1.6"
+                        android:background="@drawable/custom_border"
+                        android:padding="10dp"
+                        android:text="پہلا وزٹ"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/val1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.9"
+                        android:background="@drawable/custom_border"
+                        android:layoutDirection="rtl"
+                        android:padding="10dp"
+                        android:text="Val"
+                        android:textDirection="rtl"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:id="@+id/first_visited"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.5"
+                        android:orientation="horizontal"
+                        android:checked="true"
+                        android:gravity="right|center"
+                        android:paddingEnd="5dp"
+
+                        android:background="@drawable/custom_border">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layoutDirection="rtl"
+                            android:layout_marginStart="10dp"
+
+                            android:layout_marginEnd="10dp"
+                            android:text="دورا ہوا"/>
+                        <ImageView
+                            android:id="@+id/first_visit_check"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center_vertical"
+                            android:layoutDirection="rtl"
+                            android:visibility="gone"
+                            android:layout_marginEnd="10dp"
+                            android:src="@drawable/ic_cancel"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!--                <TextView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_gravity="center"-->
+                <!--                    android:layout_marginBottom="10dp"-->
+                <!--                    android:padding="10dp"-->
+                <!--                    android:textStyle="bold"-->
+                <!--                    android:text="دوسرا وزٹ"-->
+                <!--                    android:textColor="@color/colorPrimaryDark"-->
+                <!--                    android:textSize="@dimen/font_xxxxlarge"-->
+                <!--                    />-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="5">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1.6"
+                        android:background="@drawable/custom_border"
+                        android:padding="10dp"
+                        android:text="دوسرا وزٹ"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/val2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.9"
+                        android:background="@drawable/custom_border"
+                        android:layoutDirection="rtl"
+                        android:padding="10dp"
+                        android:text="Val"
+                        android:textDirection="rtl"
+                        android:textSize="13sp" />
+
+
+                    <LinearLayout
+                        android:id="@+id/second_visited"
+
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.5"
+                        android:checked="true"
+                        android:gravity="right|center"
+                        android:paddingEnd="5dp"
+
+                        android:background="@drawable/custom_border">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginStart="10dp"
+
+                            android:layoutDirection="rtl"
+                            android:text="دورا ہوا"/>
+                        <ImageView
+                            android:id="@+id/second_visit_check"
+
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center_vertical"
+                            android:visibility="gone"
+
+                            android:layoutDirection="rtl"
+                            android:layout_marginEnd="10dp"
+                            android:src="@drawable/ic_cancel"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!--                <TextView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_gravity="center"-->
+                <!--                    android:layout_marginBottom="10dp"-->
+                <!--                    android:padding="10dp"-->
+                <!--                    android:textStyle="bold"-->
+                <!--                    android:text="تیسرا وزٹ"-->
+                <!--                    android:textColor="@color/colorPrimaryDark"-->
+                <!--                    android:textSize="@dimen/font_xxxxlarge"-->
+                <!--                    />-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="5">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1.6"
+                        android:background="@drawable/custom_border"
+                        android:padding="10dp"
+                        android:text="تیسرا وزٹ"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/val3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.9"
+                        android:background="@drawable/custom_border"
+                        android:layoutDirection="rtl"
+                        android:padding="10dp"
+                        android:text="Val"
+                        android:textDirection="rtl"
+                        android:textSize="13sp" />
+
+                    <LinearLayout
+                        android:id="@+id/third_visited"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.5"
+                        android:checked="true"
+                        android:gravity="right|center"
+                        android:paddingEnd="5dp"
+
+                        android:background="@drawable/custom_border">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layoutDirection="rtl"
+                            android:layout_marginStart="10dp"
+
+                            android:text="دورا ہوا"/>
+                        <ImageView
+                            android:id="@+id/third_visit_check"
+
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center_vertical"
+                            android:visibility="gone"
+
+                            android:layoutDirection="rtl"
+                            android:layout_marginEnd="10dp"
+                            android:src="@drawable/ic_cancel"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!--                <TextView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_gravity="center"-->
+                <!--                    android:layout_marginBottom="10dp"-->
+                <!--                    android:padding="10dp"-->
+                <!--                    android:textStyle="bold"-->
+                <!--                    android:text="چوتھا وزٹ"-->
+                <!--                    android:textColor="@color/colorPrimaryDark"-->
+                <!--                    android:textSize="@dimen/font_xxxxlarge"-->
+                <!--                    />-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="5">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1.6"
+                        android:background="@drawable/custom_border"
+                        android:padding="10dp"
+                        android:text="چوتھا وزٹ"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/val4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.9"
+                        android:background="@drawable/custom_border"
+                        android:layoutDirection="rtl"
+                        android:padding="10dp"
+                        android:text="Val"
+                        android:textDirection="rtl"
+                        android:textSize="13sp" />
+
+                    <LinearLayout
+                        android:id="@+id/fourth_visited"
+
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.5"
+                        android:checked="true"
+                        android:gravity="right|center"
+                        android:paddingEnd="5dp"
+
+                        android:background="@drawable/custom_border">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layoutDirection="rtl"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginStart="10dp"
+                            android:text="دورا ہوا"/>
+                        <ImageView
+                            android:id="@+id/fourth_visit_check"
+
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center_vertical"
+                            android:visibility="gone"
+                            android:layoutDirection="rtl"
+                            android:layout_marginEnd="10dp"
+                            android:src="@drawable/ic_cancel"/>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/TTinjection"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/injection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:background="@drawable/dropdown_custom_bg"
+                android:hint="@string/Education"
+                android:inputType="text"
+                android:layoutDirection="rtl"
+                android:maxLength="50"
+                android:paddingVertical="10dp"
+                android:spinnerMode="dialog"
+                android:textAlignment="textStart"
+                android:textDirection="rtl"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/Tablets"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/tablets"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:background="@drawable/dropdown_custom_bg"
+                android:hint="@string/Education"
+                android:inputType="text"
+                android:layoutDirection="rtl"
+                android:maxLength="50"
+                android:paddingVertical="10dp"
+                android:spinnerMode="dialog"
+                android:textAlignment="textStart"
+                android:textDirection="rtl"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/injecSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_large"
+            android:layout_marginBottom="@dimen/margin_large"
+            android:background="@color/colorPrimaryDark"
+            android:paddingHorizontal="15dp"
+            android:text="@string/Save"
+            android:textColor="@color/colorPrimaryWhite"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
