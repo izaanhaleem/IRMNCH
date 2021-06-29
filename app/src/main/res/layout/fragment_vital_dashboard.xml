@@ -209,7 +209,6 @@
                 android:background="@drawable/textfield_design"
                 android:inputType="text"
                 android:padding="5dp"
-                android:gravity="right"
                 android:textSize="14sp"
 
                 />

@@ -236,9 +236,6 @@ public class LoginActivity extends AppCompatActivity {
         GetDistricts();
     }
 
-
-
-
     public void GetDistricts() {
 
         /*Create handle for the RetrofitInstance interface*/
@@ -285,7 +282,6 @@ public class LoginActivity extends AppCompatActivity {
 
         GetTehsils();
     }
-
 
     public void GetTehsils() {
 
@@ -381,7 +377,6 @@ public class LoginActivity extends AppCompatActivity {
 
         GetOccupation();
     }
-
 
 
     public   void GetOccupation(){
@@ -730,8 +725,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
-
-
 
 
 }

@@ -56,7 +56,6 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 //        ActiveAndroid.initialize(this);
 
-
 //        final Handler handler = new Handler(Looper.getMainLooper());
 //        handler.postDelayed(new Runnable() {
 //            @Override
@@ -85,7 +84,6 @@ public class SplashActivity extends AppCompatActivity {
 
 
     }
-
 
     public void GetAppSettings() {
 
@@ -125,7 +123,6 @@ public class SplashActivity extends AppCompatActivity {
 
     }
 
-
     void LoadLogin() {
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -138,7 +135,6 @@ public class SplashActivity extends AppCompatActivity {
         }, 100);
 
     }
-
 
     void GetPermissions() {
         String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.CAMERA};
@@ -197,6 +193,5 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
     }
-
 
 }

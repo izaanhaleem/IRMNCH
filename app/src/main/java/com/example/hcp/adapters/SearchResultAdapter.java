@@ -1,16 +1,23 @@
 package com.example.hcp.adapters;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hcp.R;
+import com.example.hcp.fragments.patientRegistration;
 import com.example.hcp.models.AdaptersData.SearchResultData;
+import com.example.hcp.utils.Constants;
 
 public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapter.ViewHolder> {
 
@@ -45,7 +52,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 //                String temp = holder.MrNo.getText().toString();
 //                Constants.SelectedFamilyMrNo = temp;
 //
-//                Fragment FMFragment = new vital();
+//                Fragment FMFragment = new patientRegistration();
 //                Bundle args = new Bundle();
 //                args.putString("SelectedMrNo",temp);
 //                args.putString("PatientCNIC",sData[position].getLeaderCNIC());

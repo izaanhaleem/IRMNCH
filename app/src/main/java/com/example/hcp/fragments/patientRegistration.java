@@ -150,131 +150,128 @@ public class patientRegistration extends Fragment {
 
         return view;
     }
-
+    boolean Validationstatus = true;
     private void FormValidation() {
 
-       Name = etPatientName.getText().toString();
+        Name = etPatientName.getText().toString();
         String lastName = lastname.getText().toString();
         String FatherName = etFatherSpouse.getText().toString();
         String ContactNo = etContactNo.getText().toString().trim();
-       cnicNo = etCNIC.getText().toString().trim();
+        cnicNo = etCNIC.getText().toString().trim();
         String Address = etCompleteAddress.getText().toString();
 
-        boolean Validationstatus = true;
+
         if (Name.isEmpty()) {
             Toast.makeText(getContext(), Constants.NameMissing, Toast.LENGTH_LONG).show();
             Validationstatus = false;
         } else if (lastName.isEmpty()) {
             Toast.makeText(getContext(), Constants.lName, Toast.LENGTH_LONG).show();
             Validationstatus = false;
-        }else if (FatherName.isEmpty()) {
+        } else if (FatherName.isEmpty()) {
             Toast.makeText(getContext(), Constants.FHNameMissing, Toast.LENGTH_LONG).show();
             Validationstatus = false;
-        }else if (Address.isEmpty()) {
+        } else if (Address.isEmpty()) {
             Toast.makeText(getContext(), Constants.AddressMissing, Toast.LENGTH_LONG).show();
             Validationstatus = false;
         } else if (cnicNo.length() != 15) {
             Toast.makeText(getContext(), Constants.CompleteCNIC, Toast.LENGTH_LONG).show();
 
             Validationstatus = false;
-        }else if (ContactNo.length() != 12) {
+        } else if (ContactNo.length() != 12) {
             Toast.makeText(getContext(), Constants.PhoneMissing1, Toast.LENGTH_LONG).show();
 
             Validationstatus = false;
-        }else if (OccupationVal.isEmpty()) {
+        } else if (OccupationVal.isEmpty()) {
             Toast.makeText(getContext(), Constants.occupation, Toast.LENGTH_LONG).show();
 
             Validationstatus = false;
-        }else if (materialstatusVal.isEmpty()) {
+        } else if (materialstatusVal.isEmpty()) {
             Toast.makeText(getContext(), Constants.MaritalStatusMissing, Toast.LENGTH_LONG).show();
 
             Validationstatus = false;
-        }else if (qualificationVal.isEmpty()) {
+        } else if (qualificationVal.isEmpty()) {
             Toast.makeText(getContext(), Constants.EducationOccupationMissing, Toast.LENGTH_LONG).show();
 
             Validationstatus = false;
-        }else if (SelectedGenderIndex==0) {
+        } else if (SelectedGenderIndex == 0) {
             Toast.makeText(getContext(), Constants.GenderMissing, Toast.LENGTH_LONG).show();
 
             Validationstatus = false;
-        }else if (SelectedDivisionCode==0) {
+        } else if (SelectedDivisionCode == 0) {
             Toast.makeText(getContext(), Constants.division, Toast.LENGTH_LONG).show();
 
             Validationstatus = false;
-        }else if (SelectedDistrictedCode==0) {
+        } else if (SelectedDistrictedCode == 0) {
             Toast.makeText(getContext(), Constants.district, Toast.LENGTH_LONG).show();
 
             Validationstatus = false;
-        }else if (SelectTcode==0) {
+        } else if (SelectTcode == 0) {
             Toast.makeText(getContext(), Constants.tehsil, Toast.LENGTH_LONG).show();
 
             Validationstatus = false;
-        }else if (SelectedHfcode==0) {
+        } else if (SelectedHfcode == 0) {
             Toast.makeText(getContext(), Constants.healthfacility, Toast.LENGTH_LONG).show();
 
             Validationstatus = false;
-        }else if (firstVal.equals("")) {
+        } else if (firstVal.equals("")) {
             Toast.makeText(getContext(), Constants.previoushbv, Toast.LENGTH_LONG).show();
 
             Validationstatus = false;
-        }else if (thirdVal.equals("")) {
+        } else if (thirdVal.equals("")) {
             Toast.makeText(getContext(), Constants.previoushcv, Toast.LENGTH_LONG).show();
 
             Validationstatus = false;
-        }else if (dateOfBirth.equals("")) {
+        } else if (dateOfBirth.equals("")) {
             Toast.makeText(getContext(), Constants.dateofbirth, Toast.LENGTH_LONG).show();
             Validationstatus = false;
-        }
-        else if (patientage<=6) {
+        } else if (patientage <= 6) {
             Toast.makeText(getContext(), Constants.ageislessthensixx, Toast.LENGTH_LONG).show();
             Validationstatus = false;
-        } else if (patientage>80) {
+        } else if (patientage > 80) {
             Toast.makeText(getContext(), Constants.ageisgreatertheneighty, Toast.LENGTH_LONG).show();
             Validationstatus = false;
         }
         if (Validationstatus) {
 
-
-
-        addPatientModel FL = new addPatientModel();
-        ActiveAndroid.beginTransaction();
-        FL.mrn_no = "";
-        FL.IsSync = 0;
-        FL.setPatient_id(0);
-        FL.setPatient_name(Name);
-        FL.setLname(lastName);
-        FL.setFather_name(FatherName);
-        FL.setPatient_age(patientage);
-        FL.setPatient_dob(dateOfBirth);
-        FL.setGender(SelectedGenderIndex);
-        FL.setSelf_cnic(cnicNo);
-        FL.setContact_no_self(ContactNo);
-        FL.setAddress(Address);
-        FL.setMarital_status(materialstatusVal);
-        FL.setOccupation(OccupationVal);
-        FL.setQualification(qualificationVal);
-        if(patientage==80) {
-            FL.setPatient_age_80("y");
-        }else {
-            FL.setPatient_age_80("n");
-        }
-        FL.setPrevious_hbv(firstVal);
+            addPatientModel FL = new addPatientModel();
+            ActiveAndroid.beginTransaction();
+            FL.mrn_no = "";
+            FL.IsSync = 0;
+            FL.setPatient_id(0);
+            FL.setPatient_name(Name);
+            FL.setLname(lastName);
+            FL.setFather_name(FatherName);
+            FL.setPatient_age(patientage);
+            FL.setPatient_dob(dateOfBirth);
+            FL.setGender(SelectedGenderIndex);
+            FL.setSelf_cnic(cnicNo);
+            FL.setContact_no_self(ContactNo);
+            FL.setAddress(Address);
+            FL.setMarital_status(materialstatusVal);
+            FL.setOccupation(OccupationVal);
+            FL.setQualification(qualificationVal);
+            if (patientage == 80) {
+                FL.setPatient_age_80("y");
+            } else {
+                FL.setPatient_age_80("n");
+            }
+            FL.setPrevious_hbv(firstVal);
 
             FL.setPatient_type("New Patient");
             FL.ISVital = 0;
             FL.IS_assessment = 0;
             FL.ISSample = 0;
 
-        FL.setPcr_confirmation_hbv(secondVal);
-        FL.setPrevious_hcv(thirdVal);
-        FL.setPcr_confirmation_hcv(foursVal);
-        FL.setDivision(SelectedDivisionCode);
-        FL.setDistrict(SelectedDistrictedCode);
-        FL.setTehsil(SelectTcode);
-        FL.setHospital(SelectedHfcode);
-        FL.setIdentifier(new SharedPref(getContext()).GetserverID());
-        FL.setUser_id(new SharedPref(getContext()).GetLoggedInRole());
-        FL.setHospital_id(new SharedPref(getContext()).GetLoggedInUser());
+            FL.setPcr_confirmation_hbv(secondVal);
+            FL.setPrevious_hcv(thirdVal);
+            FL.setPcr_confirmation_hcv(foursVal);
+            FL.setDivision(SelectedDivisionCode);
+            FL.setDistrict(SelectedDistrictedCode);
+            FL.setTehsil(SelectTcode);
+            FL.setHospital(SelectedHfcode);
+            FL.setIdentifier(new SharedPref(getContext()).GetserverID());
+            FL.setUser_id(new SharedPref(getContext()).GetLoggedInRole());
+            FL.setHospital_id(new SharedPref(getContext()).GetLoggedInUser());
 
             FL.save();
 
@@ -282,12 +279,12 @@ public class patientRegistration extends Fragment {
             ActiveAndroid.setTransactionSuccessful();
 
             ActiveAndroid.endTransaction();
-        }
-        final SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE);
-        pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.colorPrimaryDark));
-        pDialog.setTitleText("Patient Save Successfully");
-        pDialog.setCancelable(false);
-        pDialog.show();
+
+            final SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE);
+            pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.colorPrimaryDark));
+            pDialog.setTitleText("Patient Save Successfully");
+            pDialog.setCancelable(false);
+            pDialog.show();
             Fragment FMFragment = new DashboardFragment();
             Bundle args = new Bundle();
 //            args.putString("SelectedMrNo", mMRNO);
@@ -308,7 +305,7 @@ public class patientRegistration extends Fragment {
                 Toast.makeText(getContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
             }
         }
-
+    }
 
 //    private void addforvital() {
 //
@@ -426,7 +423,7 @@ public class patientRegistration extends Fragment {
 
 
         List<String> categoriesEng = new ArrayList<String>();
-        categoriesEng.add("cnic");
+        categoriesEng.add("Select cnic");
         categoriesEng.add("Self CNIC");
         categoriesEng.add("AFGHAN CNINC");
 
@@ -1143,10 +1140,5 @@ else {
         });
 
     }
-
-
-
-
-
 
 }
