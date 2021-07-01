@@ -447,6 +447,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="perticulars_of_a_patient">Registration of a Patient</string>
     <string name="addvital">Add Vital of a Patient</string>
+    <string name="pendingEnrollment">Patient Pending Treatment Enrollment</string>
     <string name="assessment">Patient Assessment</string>
 
     <string name="health_facility">سہولت مرکز</string>

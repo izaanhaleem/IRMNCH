@@ -637,94 +637,98 @@ public class LoginActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-
-//                Intent intent = new Intent(getBaseContext(), MainActivity.class);
-//                startActivity(intent);
-//                finish();
-                GetVitalListData();
-            }
-        }, 2000);
-
-
-
-    }
-
-    private void GetVitalListData() {
-        int i=Integer.parseInt(new SharedPref(getContext()).GetLoggedInUser());
-        vitalPatientListRequest requ = new vitalPatientListRequest();
-
-        requ.setHospital_id(i);
-
-
-        Call<vitalPatientResponse> call = RetrofitClient.getInstance().getApi().allvitaldata(requ);
-        call.enqueue(new Callback<vitalPatientResponse>() {
-                         @Override
-                         public void onResponse(Call<vitalPatientResponse> call, Response<vitalPatientResponse> response) {
-                             if (response.body() != null && response.body().getStatus()) {
-
-                                 SavevitalDataLocally(response.body().getData());
-                             } else {
-                                 Toast.makeText(getContext(), "==> " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                             }
-                         }
-
-                         @Override
-                         public void onFailure(Call<vitalPatientResponse> call, Throwable t) {
-                             Toast.makeText(getContext(), Constants.ServerError + t.getMessage(), Toast.LENGTH_SHORT).show();
-                             dialog.dismiss();
-                         }
-                     }
-        );
-
-
-    }
-
-    private void SavevitalDataLocally(List<Datum6> data) {
-
-        ActiveAndroid.beginTransaction();
-        try {
-            //First Delete all Previous local record then add new Record
-
-            for (int i = 0; i < data.size(); i++) {
-                vitalListt vital = new vitalListt();
-
-                vital.id=data.get(i).getId();
-                vital.mrn_no=data.get(i).getMrn_no();
-                vital.reg_no=data.get(i).getReg_no();
-                vital.patient_type=data.get(i).getPatient_type();
-                vital.patient_name=data.get(i).getPatient_name();
-                vital.self_cnic=data.get(i).getSelf_cnic();
-                vital.patient_age=data.get(i).getPatient_age();
-                vital.gender=data.get(i).getGender();
-                vital.created=data.get(i).getCreated();
-                vital.next_status=data.get(i).getNext_status();
-                vital.stage=data.get(i).getStage();
-                vital.is_reg_completed=data.get(i).getIs_reg_completed();
-                vital.is_blood_bank_patient=data.get(i).getIs_blood_bank_patient();
-                vital.save();
-                
-            }
-            ActiveAndroid.setTransactionSuccessful();
-        } finally {
-            ActiveAndroid.endTransaction();
-        }
-
-        final Handler handler = new Handler(Looper.getMainLooper());
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
                 Prefs.edit().putBoolean(Constants.isDataLoaded,true).apply();
                 dialog.dismiss();
                 Intent intent = new Intent(getBaseContext(), MainActivity.class);
                 startActivity(intent);
                 finish();
+//                Intent intent = new Intent(getBaseContext(), MainActivity.class);
+//                startActivity(intent);
+//                finish();
+//                GetVitalListData();
             }
         }, 2000);
 
 
 
-
     }
+
+//    private void GetVitalListData() {
+//        int i=Integer.parseInt(new SharedPref(getContext()).GetLoggedInUser());
+//        vitalPatientListRequest requ = new vitalPatientListRequest();
+//
+//        requ.setHospital_id(i);
+//
+//
+//        Call<vitalPatientResponse> call = RetrofitClient.getInstance().getApi().allvitaldata(requ);
+//        call.enqueue(new Callback<vitalPatientResponse>() {
+//                         @Override
+//                         public void onResponse(Call<vitalPatientResponse> call, Response<vitalPatientResponse> response) {
+//                             if (response.body() != null && response.body().getStatus()) {
+//
+//                                 SavevitalDataLocally(response.body().getData());
+//                             } else {
+//                                 Toast.makeText(getContext(), "==> " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+//                             }
+//                         }
+//
+//                         @Override
+//                         public void onFailure(Call<vitalPatientResponse> call, Throwable t) {
+//                             Toast.makeText(getContext(), Constants.ServerError + t.getMessage(), Toast.LENGTH_SHORT).show();
+//                             dialog.dismiss();
+//                         }
+//                     }
+//        );
+//
+//
+//    }
+//
+//    private void SavevitalDataLocally(List<Datum6> data) {
+//
+//        ActiveAndroid.beginTransaction();
+//        try {
+//            //First Delete all Previous local record then add new Record
+//
+//            for (int i = 0; i < data.size(); i++) {
+//                vitalListt vital = new vitalListt();
+//
+//                vital.id=data.get(i).getId();
+//                vital.mrn_no=data.get(i).getMrn_no();
+//                vital.reg_no=data.get(i).getReg_no();
+//                vital.patient_type=data.get(i).getPatient_type();
+//                vital.patient_name=data.get(i).getPatient_name();
+//                vital.self_cnic=data.get(i).getSelf_cnic();
+//                vital.patient_age=data.get(i).getPatient_age();
+//                vital.gender=data.get(i).getGender();
+//                vital.created=data.get(i).getCreated();
+//                vital.next_status=data.get(i).getNext_status();
+//                vital.stage=data.get(i).getStage();
+//                vital.is_reg_completed=data.get(i).getIs_reg_completed();
+//                vital.is_blood_bank_patient=data.get(i).getIs_blood_bank_patient();
+//                vital.save();
+//
+//            }
+//            ActiveAndroid.setTransactionSuccessful();
+//        } finally {
+//            ActiveAndroid.endTransaction();
+//        }
+//
+//        final Handler handler = new Handler(Looper.getMainLooper());
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                Prefs.edit().putBoolean(Constants.isDataLoaded,true).apply();
+//                dialog.dismiss();
+//                Intent intent = new Intent(getBaseContext(), MainActivity.class);
+//                startActivity(intent);
+//                finish();
+//            }
+//        }, 2000);
+//
+//
+//
+//
+//    }
 
 
 }

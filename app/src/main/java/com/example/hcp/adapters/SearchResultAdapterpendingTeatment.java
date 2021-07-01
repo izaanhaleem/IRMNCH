@@ -15,17 +15,18 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hcp.R;
-import com.example.hcp.fragments.patientRegistration;
-import com.example.hcp.models.AdaptersData.SearchResultData;
+import com.example.hcp.fragments.pendingTratmentForm;
+import com.example.hcp.fragments.sampleForm;
+import com.example.hcp.models.AdaptersData.SearchResultDatavital;
 import com.example.hcp.utils.Constants;
 
-public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapter.ViewHolder> {
+public class SearchResultAdapterpendingTeatment extends RecyclerView.Adapter<SearchResultAdapterpendingTeatment.ViewHolder> {
 
-    private  SearchResultData[] sData;
+    private  SearchResultDatavital[] sData;
 
 
     // RecyclerView recyclerView;
-    public SearchResultAdapter(SearchResultData[] listdata) {
+    public SearchResultAdapterpendingTeatment(SearchResultDatavital[] listdata) {
         this.sData = listdata;
 
     }
@@ -33,32 +34,47 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View listItem= layoutInflater.inflate(R.layout.search_result_item, parent, false);
+        View listItem= layoutInflater.inflate(R.layout.search_result_item_pending, parent, false);
         ViewHolder viewHolder = new ViewHolder(listItem);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final SearchResultData myListData = sData[position];
+        final SearchResultDatavital myListData = sData[position];
         holder.MrNo.setText(sData[position].MrNo);
-        holder.Address.setText(sData[position].getContactNo());
+        holder.Address.setText(sData[position].getGneder());
         holder.LeaderName.setText(sData[position].getPatientName());
         holder.LeaderCNIC.setText(sData[position].getLeaderCNIC());
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.FamilyMembers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 String temp = holder.MrNo.getText().toString();
                 Constants.SelectedFamilyMrNo = temp;
 
-                Fragment FMFragment = new patientRegistration();
+                Fragment FMFragment = new pendingTratmentForm();
                 Bundle args = new Bundle();
                 args.putString("SelectedMrNo",temp);
                 args.putString("PatientCNIC",sData[position].getLeaderCNIC());
                 args.putString("PatientName",sData[position].getPatientName());
-                args.putBoolean("isEdit",true);
+                args.putString("Patienttype",sData[position].getPatienttype());
+                args.putInt("pid",sData[position].getPid());
+
+
+
+//                addvitalll fg = addvitalll.searchBycninc(sData[position].getLeaderCNIC());
+//                args.putDouble("temperature",fg.temperature);
+//                args.putInt("puls",fg.pulse);
+//                args.putInt("BP_Systolic",fg.bp_systolic);
+//                args.putInt("BP_Diastolic",fg.bp_diastolic);
+//                args.putDouble("Height",fg.height);
+//                args.putDouble("Weight",fg.weight);
+
+                args.putBoolean("isEdit",false);
+
+
+
                 if(FMFragment != null)
                 {
                     FragmentTransaction transaction = ((FragmentActivity) view.getContext()).getSupportFragmentManager().beginTransaction();

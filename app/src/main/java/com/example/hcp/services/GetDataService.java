@@ -48,8 +48,8 @@ public interface GetDataService {
     @POST("Apis/Patient_api/all_data_hf")
     Call<hfUserDataResponse> alldata(@Body userdataRequest req);
 
-    @POST("Apis/Vitals_api/index")
-    Call<vitalPatientResponse> allvitaldata(@Body vitalPatientListRequest req);
+//    @POST("Apis/Vitals_api/index")
+//    Call<vitalPatientResponse> allvitaldata(@Body vitalPatientListRequest req);
 
     @POST("Apis/Vitals_api/AddVitals")
     Call<AddVitalResponse> saveVital(@Body addVitalRequest req);

@@ -1,6 +1,7 @@
 package com.example.hcp.fragments;
 
 import android.app.DatePickerDialog;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -17,6 +18,7 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -75,6 +77,9 @@ public class patientRegistration extends Fragment {
     int patientage;
     public String Name;
     public String cnicNo;
+    boolean isEidt = false;
+    String patientname,patientcnic;
+    addPatientModel patient;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -111,6 +116,168 @@ public class patientRegistration extends Fragment {
         lastname = view.findViewById(R.id.lastname);
         etFatherSpouse = view.findViewById(R.id.etFatherSpouse);
         etCompleteAddress = view.findViewById(R.id.etCompleteAddress);
+
+
+        if (getArguments() != null) {
+            isEidt = getArguments().getBoolean("isEdit");
+            try {
+
+                patientname = getArguments().getString("PatientName");
+                patientcnic = getArguments().getString("PatientCNIC");
+
+            } catch (Exception e) {
+
+
+            }
+        }
+
+
+        if (isEidt) {
+
+            if (patientcnic != null) {
+                List<addPatientModel> mleader = null;
+                if (patientcnic != "") {
+                    mleader = addPatientModel.searchByCNICLeader(patientcnic);
+                } else {
+                    mleader = addPatientModel.searchBynameLeader(patientname);
+                }
+
+
+                for (int i = 0; i < mleader.size(); i++) {
+                    patient = mleader.get(i);
+                }
+            }
+
+//            memberName = member.getFullName();
+//            memberAge = member.getAge();
+//            membercnic = member.getCNIC();
+//            gender = member.getGender();
+//            maternal = member.getMaritalStatus();
+//            memberRelation = member.getRelationType();
+//
+//            // do operations specific to this selection
+//            if (SelectedMrNo != null) {
+//                singalFamily = FamilyBody.searchByMRNO(SelectedMrNo);
+//            }
+//            Name.setText(memberName);
+//            FHName.setText(member.getFatherName());
+//            CNIC.setText(membercnic);
+//            registration_tvAge.setText(memberAge);
+//            Phone.setText(member.getContactNo());
+//
+//            if (singalFamily != null) {
+//                if (singalFamily.getAddress() != null) {
+//                    Address.setText(singalFamily.getAddress());
+//
+//                }
+//                if (singalFamily.getRemarks() != null) {
+//                    remarkss.setText(singalFamily.getRemarks());
+//
+//                }
+//
+//                if (singalFamily.getImage() != null) {
+//                    Bitmap bm = StringToBitMap(singalFamily.getImage());
+//                    image_64 = singalFamily.getImage();
+//                    ImagePreview.setImageBitmap(bm);
+//                }
+//
+//
+//                if (singalFamily.getUCId() != null) {
+//                    ucid = singalFamily.getUCId();
+//                }
+//
+//                if (singalFamily.getDistrictID() != null) {
+//                    district = singalFamily.getDistrictID();
+//                }
+//                if (singalFamily.getTehsilID() != null) {
+//                    tehsil = singalFamily.getTehsilID();
+//                }
+//
+//
+//            }
+//
+//
+//            GenderVal = member.getGender();
+//            DobValue = member.getDOB();
+//            //MyPhoto is image control.
+//
+//
+//            family_id = member.getFamilyId();
+//            RadioButton m = view.findViewById(R.id.rbMale);
+//            RadioButton f = view.findViewById(R.id.rbFemale);
+//            RadioButton tr = view.findViewById(R.id.rbTransgender);
+//            if (gender.equalsIgnoreCase("male")) {
+//                m.setChecked(true);
+//            } else if (gender.equalsIgnoreCase("female")) {
+//
+//                f.setChecked(true);
+//            } else if (gender.equalsIgnoreCase("transgender")) {
+//                tr.setChecked(true);
+//            } else {
+//                Toast.makeText(getContext(), "nothing ", Toast.LENGTH_SHORT).show();
+//            }
+//
+//
+//            RadioButton ssingle = view.findViewById(R.id.rbSingle);
+//            RadioButton ssdivorced = view.findViewById(R.id.rbDivorced);
+//            RadioButton ssmarried = view.findViewById(R.id.rbMarried);
+//            RadioButton sswidow = view.findViewById(R.id.rbWidowed);
+//
+//            maritalStatusVal = maternal;
+//
+//            if (maternal.equalsIgnoreCase("single")) {
+//
+//                ssingle.setChecked(true);
+//            } else if (maternal.equalsIgnoreCase("divorced")) {
+//
+//                ssdivorced.setChecked(true);
+//            } else if (maternal.equalsIgnoreCase("married")) {
+//                ssmarried.setChecked(true);
+//            } else if (maternal.equalsIgnoreCase("widowed")) {
+//                sswidow.setChecked(true);
+//            } else
+//                Toast.makeText(getContext(), "Nothing", Toast.LENGTH_SHORT).show();
+//            String[] items1 = member.getDOB().split("/");
+//
+//            reg_day.setText(items1[1]);
+//            reg_month.setText(items1[0]);
+//            reg_year.setText(items1[2]);
+//
+//            DayValue = items1[1];
+//            YearValue = items1[2];
+//            MonthValue = items1[0];
+//
+//            DobCalculator();
+//
+//            if (member.getOtherProfessionText() != null && !member.getOtherProfessionText().isEmpty()) {
+//                other_ocupation_register.setText(member.getOtherProfessionText());
+//                other_ocupation_layout.setVisibility(View.VISIBLE);
+//            }
+//
+//            SetDistricts();
+//            setProfessionType();
+//            SetEducationSpinner();
+//            for (int i = 0; i < educationList.size(); i++) {
+//                if (educationList.get(i).equals(member.getEducationUrdu())) ;
+//                {
+//                    Education.setSelection(i);
+//                }
+//            }
+//
+//            for (int i = 0; i < occupation.size(); i++) {
+//                if (occupation.get(i).equals(member.getProfessionUrdu())) ;
+//                {
+//                    Occupation.setSelection(i);
+//                }
+//            }
+        }
+
+
+
+
+
+
+
 
 
         etAge.setEnabled(false);
@@ -379,7 +546,6 @@ public class patientRegistration extends Fragment {
         patientage = Integer.parseInt(etAge.getText().toString());
 
     }
-
 
     void Search() {
 

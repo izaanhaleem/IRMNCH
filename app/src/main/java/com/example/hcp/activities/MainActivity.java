@@ -31,6 +31,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.hcp.fragments.AssessmentDashboard;
+import com.example.hcp.fragments.Dashboard_patient_pending_treatment;
 import com.example.hcp.fragments.SampleDashboard;
 import com.example.hcp.fragments.vitalDashboard;
 import com.google.android.material.navigation.NavigationView;
@@ -159,6 +160,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_sample:
                 mPrevSelectedId = itemId;
                 navFragment = new SampleDashboard();
+                break;
+            case R.id.nav_pending:
+                mPrevSelectedId = itemId;
+                navFragment = new Dashboard_patient_pending_treatment();
                 break;
 
             case R.id.nav_3:

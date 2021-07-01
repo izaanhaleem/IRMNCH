@@ -446,6 +446,16 @@ public class addPatientModel extends Model {
     }
 
 
+    public static List<addPatientModel> searchallpendingtreament() {
+        return new Select()
+                .from(addPatientModel.class)
+                .where("ISSample = ?",1 )
+                .where("ISVital = ?",1 )
+                .where("IS_assessment = ?",1 )
+                .execute();
+    }
+
+
     public static List<addPatientModel> searchByISAssessment(String cnic) {
         return new Select()
                 .from(addPatientModel.class)
