@@ -29,8 +29,9 @@ public class pendingTratmentForm extends Fragment {
     FragmentManager fragmentManager;
     String SelectedMrNo,patientCNINC,PatientName,PatientType;
     EditText name,mrno,patient,cnic,homoglobin,platelet,TLC,Urea,Creatinie,Blood_Sugar_Random,Pulse,Systolic,Diastolic,Weight;
-    int shomoglobin,splatlets,stlc,surea,sCreatinie,sBlood_Sugar_Random,sPulse,sSystolic,sDiastolic,sWeight;
+    int shomoglobin,splatlets,stlc,surea,sBlood_Sugar_Random,sPulse,sSystolic,sDiastolic,sWeight;
     int pid;
+    double sCreatinie;
     Spinner labname,resultType,hcvpcrResult,nativeexp,medicine_prescription;
     String selectedLabName,selectedResultType,selectedhcvpcrResult,selectednativeexp,selectedmedicine_prescription;
     int SelectedOptionIndex;
@@ -71,7 +72,6 @@ public class pendingTratmentForm extends Fragment {
         Weight = view.findViewById(R.id.Weight);
         drugconfirm = view.findViewById(R.id.drugconfirm);
         text = view.findViewById(R.id.text);
-
 
 
         renalfunctionlayout = view.findViewById(R.id.renalfunction);
@@ -123,10 +123,15 @@ public class pendingTratmentForm extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
 
-                if (shomoglobin<6||shomoglobin>8){
+                if (shomoglobin<19&&shomoglobin>5){
+
+                    if((splatlets<901&&splatlets>99) && (stlc<21&&stlc>3))
+                    {
+                        renalfunctionlayout.setVisibility(View.VISIBLE);
+                    }
+              }
+                else {
                     renalfunctionlayout.setVisibility(View.GONE);
-              }else {
-                    renalfunctionlayout.setVisibility(View.VISIBLE);
                     }
             }
         });
@@ -146,10 +151,13 @@ public class pendingTratmentForm extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
 
-                if (splatlets<100||splatlets>900){
-                    renalfunctionlayout.setVisibility(View.GONE);
+                if (splatlets<901&&splatlets>99){
+
+                    if((shomoglobin<19&&shomoglobin>5) && (stlc<21&&stlc>3)){
+                        renalfunctionlayout.setVisibility(View.VISIBLE);
+                    }
                 }else {
-                    renalfunctionlayout.setVisibility(View.VISIBLE);
+                    renalfunctionlayout.setVisibility(View.GONE);
                 }
             }
         });
@@ -168,10 +176,13 @@ public class pendingTratmentForm extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (stlc<4||stlc>20){
-                    renalfunctionlayout.setVisibility(View.GONE);
+                if (stlc<21&&stlc>3){
+
+                    if((shomoglobin<19&&shomoglobin>5) && (splatlets<901&&splatlets>99)){
+                        renalfunctionlayout.setVisibility(View.VISIBLE);
+                    }
                 }else {
-                    renalfunctionlayout.setVisibility(View.VISIBLE);
+                    renalfunctionlayout.setVisibility(View.GONE);
                 }
             }
         });
@@ -190,10 +201,15 @@ public class pendingTratmentForm extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (surea<10||surea>50){
-                    vitalandweightlayout.setVisibility(View.GONE);
+                if (surea<51&&surea>9){
+
+                    if((sCreatinie<1.3&&sCreatinie>0.4)&& (sBlood_Sugar_Random<251&&sBlood_Sugar_Random>69))
+                    {
+                        vitalandweightlayout.setVisibility(View.VISIBLE);
+                    }
+
                 }else {
-                    vitalandweightlayout.setVisibility(View.VISIBLE);
+                    vitalandweightlayout.setVisibility(View.GONE);
                 }
             }
         });
@@ -205,17 +221,21 @@ public class pendingTratmentForm extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                try {   sCreatinie = Integer.parseInt(Creatinie.getText().toString()); }
+                try {   sCreatinie = Double.parseDouble(Creatinie.getText().toString()); }
                 catch (NumberFormatException e)
                 {     e.printStackTrace(); }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (sCreatinie<0.1||sCreatinie>1.2){
-                    vitalandweightlayout.setVisibility(View.GONE);
+                if (sCreatinie<1.3&&sCreatinie>0.4){
+                    if((surea<51&&surea>9)&&(sBlood_Sugar_Random<251&&sBlood_Sugar_Random>69))
+                    {
+                        vitalandweightlayout.setVisibility(View.VISIBLE);
+                    }
+
                 }else {
-                    vitalandweightlayout.setVisibility(View.VISIBLE);
+                    vitalandweightlayout.setVisibility(View.GONE);
                 }
             }
         });
@@ -234,10 +254,13 @@ public class pendingTratmentForm extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (sBlood_Sugar_Random<70||sBlood_Sugar_Random>250){
-                    vitalandweightlayout.setVisibility(View.GONE);
+                if (sBlood_Sugar_Random<251&&sBlood_Sugar_Random>69){
+                    if((sCreatinie<1.3&&sCreatinie>0.4)&&(surea<51&&surea>9)){
+
+                        vitalandweightlayout.setVisibility(View.VISIBLE);
+                    }
                 }else {
-                    vitalandweightlayout.setVisibility(View.VISIBLE);
+                    vitalandweightlayout.setVisibility(View.GONE);
                 }
             }
         });
@@ -256,10 +279,12 @@ public class pendingTratmentForm extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (sPulse<60||sPulse>150){
-                    treatmentanddrugLayout.setVisibility(View.GONE);
+                if (sPulse<151&&sPulse>59){
+                    if((sSystolic<161&&sSystolic>99)&&(sDiastolic<111&&sDiastolic>69)&&(sWeight<151&&sWeight>39)){
+                        treatmentanddrugLayout.setVisibility(View.VISIBLE);
+                    }
                 }else {
-                    treatmentanddrugLayout.setVisibility(View.VISIBLE);
+                    treatmentanddrugLayout.setVisibility(View.GONE);
                 }
             }
         });
@@ -278,10 +303,13 @@ public class pendingTratmentForm extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (sSystolic<100||sSystolic>160){
-                    treatmentanddrugLayout.setVisibility(View.GONE);
+                if (sSystolic<161&&sSystolic>99){
+                    if((sPulse<151&&sPulse>59)&&(sDiastolic<111&&sDiastolic>69)&&(sWeight<151&&sWeight>39)){
+                        treatmentanddrugLayout.setVisibility(View.VISIBLE);
+                    }
+
                 }else {
-                    treatmentanddrugLayout.setVisibility(View.VISIBLE);
+                    treatmentanddrugLayout.setVisibility(View.GONE);
                 }
             }
         });
@@ -300,10 +328,14 @@ public class pendingTratmentForm extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (sDiastolic<70||sDiastolic>110){
-                    treatmentanddrugLayout.setVisibility(View.GONE);
+                if (sDiastolic<111&&sDiastolic>69){
+
+                    if((sPulse<151&&sPulse>59)&&(sSystolic<161&&sSystolic>99)&&(sWeight<151&&sWeight>39)){
+                        treatmentanddrugLayout.setVisibility(View.VISIBLE);
+                    }
+
                 }else {
-                    treatmentanddrugLayout.setVisibility(View.VISIBLE);
+                    treatmentanddrugLayout.setVisibility(View.GONE);
                 }
             }
         });
@@ -322,10 +354,13 @@ public class pendingTratmentForm extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (sWeight<40||sWeight>150){
-                    treatmentanddrugLayout.setVisibility(View.GONE);
+                if (sWeight<151&&sWeight>39){
+                    if((sPulse<151&&sPulse>59)&&(sSystolic<161&&sSystolic>99)&&(sDiastolic<111&&sDiastolic>69)){
+                        treatmentanddrugLayout.setVisibility(View.VISIBLE);
+                    }
+
                 }else {
-                    treatmentanddrugLayout.setVisibility(View.VISIBLE);
+                    treatmentanddrugLayout.setVisibility(View.GONE);
                 }
             }
         });

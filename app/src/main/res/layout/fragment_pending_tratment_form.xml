@@ -451,7 +451,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/margin_xsmall"
-                        android:inputType="number"
+                        android:inputType="numberDecimal"
                         android:hint="Creatinie(Range 0.5 - 1.2)*"
                         android:textColor="#000"
                         android:maxLength="30"
