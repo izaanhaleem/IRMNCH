@@ -77,6 +77,7 @@
                 android:background="@drawable/transculent_bg"
                 android:gravity="center">
                 <ImageView
+                    android:id="@+id/scanner"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:src="@drawable/sync_record"/>
@@ -129,9 +130,9 @@
                 android:text="Add  New Patients"
                 android:textColor="@color/color_black"
                 android:paddingTop="10dp"
-                android:textStyle="bold"
+                android:textStyle="normal"
                 android:paddingBottom="5dp"
-                android:textSize="14sp" />
+                android:textSize="19sp" />
 
             <Spinner
                 android:id="@+id/etSearchOption"
@@ -139,23 +140,37 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="5dp"
                 android:background="@drawable/dropdown_custom_bg"
-                android:drawableLeft="@drawable/dropdown_btn"
                 android:spinnerMode="dialog"
                 android:paddingVertical="10dp"
                 android:textAlignment="textStart"
                 android:gravity="center_horizontal"
-                android:textSize="14sp" />
-
+                android:textSize="14sp"/>
+<!--            <com.chivorn.smartmaterialspinner.SmartMaterialSpinner-->
+<!--                android:id="@+id/etSearchOption"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:smsp_floatingLabelColor="#1976D2"-->
+<!--                android:paddingVertical="10dp"-->
+<!--                android:layout_marginVertical="5dp"-->
+<!--                app:smsp_floatingLabelText="Search By"-->
+<!--                app:smsp_hintColor="#000"-->
+<!--                app:smsp_itemColor="#000"-->
+<!--                app:smsp_itemListColor="#000"-->
+<!--                app:smsp_itemListHintBackgroundColor="#808080"-->
+<!--                app:smsp_itemListHintColor="#FFFFFF"-->
+<!--                app:smsp_multilineError="false"-->
+<!--                app:smsp_selectedItemListColor="#4CAF50" />-->
             <EditText
                 android:id="@+id/etSearchVal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="@string/user_name"
                 android:hint="XXXXXXXXXXXXXXXX"
+                android:paddingVertical="10dp"
                 android:background="@drawable/textfield_design"
                 android:inputType="text"
                 android:padding="5dp"
-                android:textSize="14sp"
+                android:textSize="18sp"
 
                 />
             <LinearLayout
@@ -172,11 +187,11 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginVertical="5dp"
-                    android:background="@color/colorPrimary"
+                    android:background="@drawable/buttonstyle"
                     android:text="@string/Family_Search"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:textColor="@color/color_white" />
+                    android:textColor="@color/color_white"/>
 
                 <Button
                     android:id="@+id/btnReg"
@@ -185,7 +200,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginVertical="5dp"
-                    android:background="@color/colorPrimary"
+                    android:background="@drawable/buttonstyle"
                     android:text="@string/register_family"
                     android:textColor="@color/color_white"
                     android:textSize="14sp"

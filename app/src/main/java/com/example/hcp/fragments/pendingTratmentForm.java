@@ -37,7 +37,7 @@ public class pendingTratmentForm extends Fragment {
     int SelectedOptionIndex;
     LinearLayout renalfunctionlayout,vitalandweightlayout,treatmentanddrugLayout,medicineLayout,checkboxsLayout;
     SwitchCompat drugconfirm;
-    TextView text;
+    TextView text,viralcount;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,6 +72,7 @@ public class pendingTratmentForm extends Fragment {
         Weight = view.findViewById(R.id.Weight);
         drugconfirm = view.findViewById(R.id.drugconfirm);
         text = view.findViewById(R.id.text);
+        viralcount = view.findViewById(R.id.viralcount);
 
 
         renalfunctionlayout = view.findViewById(R.id.renalfunction);
@@ -105,7 +106,7 @@ public class pendingTratmentForm extends Fragment {
         checkboxsLayout.setVisibility(View.GONE);
         medicineLayout.setVisibility(View.GONE);
 
-
+ 
         homoglobin.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -376,8 +377,8 @@ public class pendingTratmentForm extends Fragment {
             }
         });
 
-
         return view;
+
     }
 
     private void setlabname() {
@@ -589,5 +590,5 @@ public class pendingTratmentForm extends Fragment {
         });
     }
 
-
 }
+

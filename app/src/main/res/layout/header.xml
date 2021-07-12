@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="HISDU"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
@@ -36,7 +36,7 @@
             android:gravity="center"
             android:text="admin@hisdu.com"
             android:textColor="#767676"
-            android:textSize="18sp" />
+            android:textSize="14sp" />
 
     </LinearLayout>
 

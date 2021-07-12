@@ -50,6 +50,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -61,7 +62,7 @@ public class patientRegistration extends Fragment {
 
     FragmentManager fragmentManager;
     MaskEditText  etCNIC,etContactNo;
-    StripedProcessButton btnSubmit,Submit;
+    Button btnSubmit,Submit;
     LinearLayout layoutfirst,layoutsecond,secondlayout,fourlayout;
     Spinner seacchcnic,occupation,materialstatus,qualification,gendr,division,district,tehsil,hf;
     Spinner firsts,seconds,thirds,fours,fives;
@@ -274,12 +275,6 @@ public class patientRegistration extends Fragment {
 
 
 
-
-
-
-
-
-
         etAge.setEnabled(false);
         SelectedOption = "";
         SelectedOptionIndex= 0;
@@ -312,12 +307,9 @@ public class patientRegistration extends Fragment {
 
 
 
-
-
-
         return view;
     }
-    boolean Validationstatus = true;
+
     private void FormValidation() {
 
         Name = etPatientName.getText().toString();
@@ -327,7 +319,7 @@ public class patientRegistration extends Fragment {
         cnicNo = etCNIC.getText().toString().trim();
         String Address = etCompleteAddress.getText().toString();
 
-
+        boolean Validationstatus = true;
         if (Name.isEmpty()) {
             Toast.makeText(getContext(), Constants.NameMissing, Toast.LENGTH_LONG).show();
             Validationstatus = false;
@@ -348,7 +340,8 @@ public class patientRegistration extends Fragment {
             Toast.makeText(getContext(), Constants.PhoneMissing1, Toast.LENGTH_LONG).show();
 
             Validationstatus = false;
-        } else if (OccupationVal.isEmpty()) {
+        }
+        else if (OccupationVal.isEmpty()) {
             Toast.makeText(getContext(), Constants.occupation, Toast.LENGTH_LONG).show();
 
             Validationstatus = false;
@@ -388,7 +381,7 @@ public class patientRegistration extends Fragment {
             Toast.makeText(getContext(), Constants.previoushcv, Toast.LENGTH_LONG).show();
 
             Validationstatus = false;
-        } else if (dateOfBirth.equals("")) {
+        } else if (dateOfBirth==null) {
             Toast.makeText(getContext(), Constants.dateofbirth, Toast.LENGTH_LONG).show();
             Validationstatus = false;
         } else if (patientage <= 6) {

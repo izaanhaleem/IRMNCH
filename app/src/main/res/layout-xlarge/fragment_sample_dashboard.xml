@@ -177,7 +177,6 @@
             android:orientation="vertical">
 
             <TextView
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -185,9 +184,9 @@
                 android:text="Add  Sample"
                 android:textColor="@color/color_black"
                 android:paddingTop="10dp"
-                android:textStyle="bold"
+                android:textStyle="normal"
                 android:paddingBottom="5dp"
-                android:textSize="14sp" />
+                android:textSize="19sp" />
 
             <Spinner
                 android:id="@+id/etSearchOptionAssessment"
@@ -211,7 +210,7 @@
                 android:background="@drawable/textfield_design"
                 android:inputType="text"
                 android:padding="5dp"
-                android:textSize="14sp"
+                android:textSize="18sp"
 
                 />
             <LinearLayout
@@ -223,12 +222,12 @@
                 android:weightSum="1">
                 <Button
                     android:id="@+id/btnSearch"
-                    style="@style/ButtonStyle"
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginVertical="5dp"
-                    android:background="@color/colorPrimary"
+                    android:background="@drawable/buttonstyle"
                     android:text="@string/Family_Search"
                     android:textSize="14sp"
                     android:textStyle="bold"
@@ -237,12 +236,12 @@
                 <Button
                     android:visibility="visible"
                     android:id="@+id/AllAssesementList"
-                    style="@style/ButtonStyle"
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginVertical="5dp"
-                    android:background="@color/colorPrimary"
+                    android:background="@drawable/buttonstyle"
                     android:text="All List"
                     android:textColor="@color/color_white"
                     android:textSize="14sp"

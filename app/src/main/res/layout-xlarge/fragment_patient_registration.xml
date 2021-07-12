@@ -199,16 +199,20 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:text="@string/dob"
-                        android:textSize="16sp"
-                        android:textStyle="bold"/>
+                        android:paddingLeft="2dp"
+                        android:textSize="19sp"
+                        android:textStyle="normal"
+                        android:textColor="@color/black"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:text="Age"
-                        android:textSize="16sp"
-                        android:textStyle="bold"/>
+                        android:paddingLeft="2dp"
+                        android:textSize="19sp"
+                        android:textStyle="normal"
+                        android:textColor="@color/black"/>
 
 
                 </LinearLayout>
@@ -224,8 +228,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:paddingRight="3dp"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-
                         app:hintTextAppearance="@style/NormalTextView">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -268,19 +272,21 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:id="@+id/month"
-                    android:weightSum="1">
+                    android:weightSum="2">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:orientation="vertical">
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:paddingRight="10dp">
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
                             android:text="Gender"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:textSize="19sp"
+                            android:textColor="@color/black"
+                            android:textStyle="normal"/>
 
                         <Spinner
                             android:id="@+id/gendr"
@@ -291,20 +297,21 @@
                             android:hint="security salary"
                             android:paddingVertical="13dp"
                             android:spinnerMode="dialog"
-                            android:textSize="@dimen/font_xlarge" />
+                             />
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:layout_weight="0.5">
+                        android:layout_weight="1">
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
                             android:text="Marital Status"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:textSize="19sp"
+                            android:textStyle="normal"
+                            android:textColor="@color/black"/>
 
                         <Spinner
                             android:id="@+id/materialstatus"
@@ -315,7 +322,7 @@
                             android:hint="security salary"
                             android:paddingVertical="13dp"
                             android:spinnerMode="dialog"
-                            android:textSize="@dimen/font_xlarge" />
+                            />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -329,14 +336,16 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:paddingRight="10dp">
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
                             android:text="Occupation"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:textSize="19sp"
+                            android:textStyle="normal"
+                            android:textColor="@color/black"/>
 
                         <Spinner
                             android:id="@+id/occupation"
@@ -347,6 +356,7 @@
                             android:hint="security salary"
                             android:paddingVertical="13dp"
                             android:spinnerMode="dialog"
+
                             android:textSize="@dimen/font_xlarge" />
                     </LinearLayout>
                     <LinearLayout
@@ -359,8 +369,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
                             android:text="Qualification "
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:textSize="19sp"
+                            android:textStyle="normal"
+                            android:textColor="@color/black"/>
 
                         <Spinner
                             android:id="@+id/qualification"
@@ -391,8 +402,9 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:text="@string/contact_no"
-                        android:textStyle="bold"
-                        android:textSize="16sp"/>
+                        android:textStyle="normal"
+                        android:textSize="19sp"
+                        android:textColor="@color/black"/>
 
                     <!--                    <com.hisdu.SESCluster.widgets.MaskedEditText-->
                     <!--                        xmlns:app="http://schemas.android.com/apk/res-auto"-->
@@ -408,8 +420,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
-                        app:mask="____-_______"
-                        android:hint="0321-0000000"
+                        app:mask="03__-_______"
+                        android:hint="0300-0000000"
                         android:gravity="left"/>
 
 
@@ -429,8 +441,9 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:text="@string/Address"
-                        android:textStyle="bold"
-                        android:textSize="16sp"/>
+                        android:textStyle="normal"
+                        android:textSize="19sp"
+                        android:textColor="@color/black"/>
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -511,8 +524,9 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:text="@string/address"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
+                        android:textSize="19sp"
+                        android:textStyle="normal"
+                        android:textColor="@color/black"
                         android:gravity="center_horizontal"/>
 
                     <!--                    <com.google.android.material.textfield.TextInputLayout-->
@@ -709,8 +723,9 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:text="Patient History"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
+                    android:textSize="19sp"
+                    android:textColor="@color/black"
+                    android:textStyle="normal"
                     android:gravity="center_horizontal"/>
                 <LinearLayout
                     android:id="@+id/layout1"
@@ -725,6 +740,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
+                        android:textSize="16sp"
                         android:text="Have you previously been diagnosed with HBV via Rapid Screening or ELISA ?" />
 
                     <Spinner
@@ -755,6 +771,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
+                            android:textSize="16sp"
                             android:text="Did you get PCR confirmation for HBV infection" />
 
                         <Spinner
@@ -779,6 +796,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
+                            android:textSize="16sp"
                             android:text="Have you previously been diagnosed with HCV via Rapid Screening or ELISA" />
 
                         <Spinner
@@ -804,6 +822,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
+                            android:textSize="16sp"
                             android:text="Did you get PCR confirmation for HCV infection" />
 
                         <Spinner
@@ -828,6 +847,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
+                            android:textSize="16sp"
                             android:text="Have you completed Vaccination for HBV" />
 
                         <Spinner
@@ -849,7 +869,7 @@
             </LinearLayout>
 
 
-            <com.github.nikartm.support.StripedProcessButton
+            <Button
                 android:id="@+id/btnSubmit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -861,16 +881,10 @@
                 android:text="Register"
                 android:textColor="@color/white"
                 android:textSize="14sp"
-                app:spb_background="@color/colorPrimary"
-                app:spb_loadingText="Loading..."
-                app:spb_mainStripColor="@color/colorPrimaryDark"
-                app:spb_stripeDuration="120"
-                app:spb_stripeGradient="false"
-                app:spb_stripeTilt="35"
-                app:spb_stripeWidth="30dp"
-                app:spb_subStripeColor="@color/colorAccent"
+               android:background="@drawable/buttonstyle"
+
                 tools:spb_showStripes="true" />
-            <com.github.nikartm.support.StripedProcessButton
+            <Button
                 android:id="@+id/Submit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -882,14 +896,7 @@
                 android:text="Submit"
                 android:textColor="@color/white"
                 android:textSize="14sp"
-                app:spb_background="@color/colorPrimary"
-                app:spb_loadingText="Loading..."
-                app:spb_mainStripColor="@color/colorPrimaryDark"
-                app:spb_stripeDuration="120"
-                app:spb_stripeGradient="false"
-                app:spb_stripeTilt="35"
-                app:spb_stripeWidth="30dp"
-                app:spb_subStripeColor="@color/colorAccent"
+                android:background="@drawable/buttonstyle"
                 tools:spb_showStripes="true" />
 
         </LinearLayout>

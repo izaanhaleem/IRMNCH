@@ -19,20 +19,20 @@
         android:weightSum="1"
         android:id="@+id/asdf"
         >
-<!--                <LinearLayout-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="0.5"-->
-<!--                    android:gravity="center"-->
-<!--                    >-->
-<!--                    <ImageView-->
-<!--                        android:layout_width="60dp"-->
-<!--                        android:layout_height="60dp"-->
-<!--                        android:background="@drawable/family"-->
-<!--                        android:layout_gravity="center"-->
-<!--                        android:visibility="gone"/>-->
+        <!--                <LinearLayout-->
+        <!--                    android:layout_width="0dp"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:layout_weight="0.5"-->
+        <!--                    android:gravity="center"-->
+        <!--                    >-->
+        <!--                    <ImageView-->
+        <!--                        android:layout_width="60dp"-->
+        <!--                        android:layout_height="60dp"-->
+        <!--                        android:background="@drawable/family"-->
+        <!--                        android:layout_gravity="center"-->
+        <!--                        android:visibility="gone"/>-->
 
-<!--                </LinearLayout>-->
+        <!--                </LinearLayout>-->
 
         <LinearLayout
             android:layout_width="0dp"
@@ -42,11 +42,11 @@
 
             >
 
-<!--            <ImageView-->
-<!--                android:layout_width="80dp"-->
-<!--                android:layout_height="70dp"-->
-<!--                android:background="@drawable/logo_punjab_gov_hd"-->
-<!--                android:layout_gravity="center"/>-->
+            <!--            <ImageView-->
+            <!--                android:layout_width="80dp"-->
+            <!--                android:layout_height="70dp"-->
+            <!--                android:background="@drawable/logo_punjab_gov_hd"-->
+            <!--                android:layout_gravity="center"/>-->
 
         </LinearLayout>
 
@@ -97,65 +97,65 @@
         </LinearLayout>
 
     </LinearLayout>
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="100dp"-->
-<!--        android:layout_marginStart="10dp"-->
-<!--        android:layout_marginEnd="10dp"-->
-<!--        android:gravity="center_vertical"-->
-<!--        android:padding="5dp"-->
-<!--        android:orientation="horizontal">-->
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="100dp"-->
+    <!--        android:layout_marginStart="10dp"-->
+    <!--        android:layout_marginEnd="10dp"-->
+    <!--        android:gravity="center_vertical"-->
+    <!--        android:padding="5dp"-->
+    <!--        android:orientation="horizontal">-->
 
-<!--&lt;!&ndash;        <LinearLayout&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_width="0dp"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_height="match_parent"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_gravity="center_vertical"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_weight="1"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:weightSum="2"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:gravity="center_horizontal"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:orientation="horizontal">&ndash;&gt;-->
+    <!--&lt;!&ndash;        <LinearLayout&ndash;&gt;-->
+    <!--&lt;!&ndash;            android:layout_width="0dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;            android:layout_height="match_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;            android:layout_gravity="center_vertical"&ndash;&gt;-->
+    <!--&lt;!&ndash;            android:layout_weight="1"&ndash;&gt;-->
+    <!--&lt;!&ndash;            android:weightSum="2"&ndash;&gt;-->
+    <!--&lt;!&ndash;            android:gravity="center_horizontal"&ndash;&gt;-->
+    <!--&lt;!&ndash;            android:orientation="horizontal">&ndash;&gt;-->
 
-<!--&lt;!&ndash;&lt;!&ndash;            <LinearLayout&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                android:id="@+id/sync_data"&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                android:layout_width="0dp"&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                android:layout_weight="1"&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                android:layout_height="match_parent"&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                android:orientation="vertical"&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                android:layout_marginStart="10dp"&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                android:background="@drawable/transculent_bg"&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                android:gravity="center">&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                <ImageView&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                    android:layout_width="30dp"&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                    android:layout_height="30dp"&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                    android:src="@drawable/sync_record"/>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                <TextView&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                    android:id="@+id/total__sync_record"&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                    android:layout_width="wrap_content"&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                    android:layout_height="wrap_content"&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                    android:text="0"&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                    android:textColor="@color/color_red"&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                    android:textSize="16sp" />&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                <TextView&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                    android:layout_width="wrap_content"&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                    android:layout_height="wrap_content"&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                    android:text="Sync Record"&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                    android:layout_marginTop="3dp"&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                    android:textSize="10sp"&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                    android:textColor="@color/white"/>&ndash;&gt;&ndash;&gt;-->
-
-
-<!--&lt;!&ndash;&lt;!&ndash;            </LinearLayout>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;            <Button&ndash;&gt;-->
-<!--&lt;!&ndash;                android:visibility="gone"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:id="@+id/export_db"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:layout_width="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:text="Export Database"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:backgroundTint="@color/blue_line"/>&ndash;&gt;-->
-<!--&lt;!&ndash;        </LinearLayout>&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;            <LinearLayout&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;                android:id="@+id/sync_data"&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;                android:layout_width="0dp"&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;                android:layout_weight="1"&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;                android:layout_height="match_parent"&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;                android:orientation="vertical"&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;                android:layout_marginStart="10dp"&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;                android:background="@drawable/transculent_bg"&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;                android:gravity="center">&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;                <ImageView&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;                    android:layout_width="30dp"&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;                    android:layout_height="30dp"&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;                    android:src="@drawable/sync_record"/>&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;                <TextView&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;                    android:id="@+id/total__sync_record"&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;                    android:layout_width="wrap_content"&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;                    android:layout_height="wrap_content"&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;                    android:text="0"&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;                    android:textColor="@color/color_red"&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;                    android:textSize="16sp" />&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;                <TextView&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;                    android:layout_width="wrap_content"&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;                    android:layout_height="wrap_content"&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;                    android:text="Sync Record"&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;                    android:layout_marginTop="3dp"&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;                    android:textSize="10sp"&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;                    android:textColor="@color/white"/>&ndash;&gt;&ndash;&gt;-->
 
 
-<!--    </LinearLayout>-->
+    <!--&lt;!&ndash;&lt;!&ndash;            </LinearLayout>&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;            <Button&ndash;&gt;-->
+    <!--&lt;!&ndash;                android:visibility="gone"&ndash;&gt;-->
+    <!--&lt;!&ndash;                android:id="@+id/export_db"&ndash;&gt;-->
+    <!--&lt;!&ndash;                android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;                android:text="Export Database"&ndash;&gt;-->
+    <!--&lt;!&ndash;                android:backgroundTint="@color/blue_line"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;        </LinearLayout>&ndash;&gt;-->
+
+
+    <!--    </LinearLayout>-->
 
 
     <androidx.cardview.widget.CardView
@@ -183,9 +183,9 @@
                 android:text="Add  Vital"
                 android:textColor="@color/color_black"
                 android:paddingTop="10dp"
-                android:textStyle="bold"
+                android:textStyle="normal"
                 android:paddingBottom="5dp"
-                android:textSize="14sp" />
+                android:textSize="19sp" />
 
             <Spinner
                 android:id="@+id/etSearchOptionvital"
@@ -209,8 +209,7 @@
                 android:background="@drawable/textfield_design"
                 android:inputType="text"
                 android:padding="5dp"
-                android:gravity="right"
-                android:textSize="14sp"
+                android:textSize="18sp"
 
                 />
             <LinearLayout
@@ -227,7 +226,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginVertical="5dp"
-                    android:background="@color/colorPrimary"
+                    android:background="@drawable/buttonstyle"
                     android:text="@string/Family_Search"
                     android:textSize="14sp"
                     android:textStyle="bold"
@@ -241,7 +240,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginVertical="5dp"
-                    android:background="@color/colorPrimary"
+                    android:background="@drawable/buttonstyle"
                     android:text="All Patient List"
                     android:textColor="@color/color_white"
                     android:textSize="14sp"
@@ -256,19 +255,19 @@
     </androidx.cardview.widget.CardView>
 
     <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/card">
-    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/vitalRecy">
+        android:layout_below="@+id/card">
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/vitalRecy">
 
-    </androidx.recyclerview.widget.RecyclerView>
+        </androidx.recyclerview.widget.RecyclerView>
 
 
 
-</LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

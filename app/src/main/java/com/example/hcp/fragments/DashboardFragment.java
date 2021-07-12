@@ -10,10 +10,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -73,6 +77,7 @@ public class DashboardFragment extends Fragment {
     EditText OptionValue;
     Button Search, Register, export_db;
 //   private ProgressDialog dialog;
+    ImageView scanner;
     LinearLayout sync_data;
     TextView total_record;
     int patientssubmitcount = 0;
@@ -87,6 +92,7 @@ public class DashboardFragment extends Fragment {
     List<Assessmentt> assessmentts;
     List<Samplee> sampless;
 
+    public int totalSize;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -98,14 +104,13 @@ public class DashboardFragment extends Fragment {
         OptionValue = view.findViewById(R.id.etSearchVal);
         Search = view.findViewById(R.id.btnSearch);
         Register = view.findViewById(R.id.btnReg);
+        scanner = view.findViewById(R.id.scanner);
         SelectedOptionIndex = 0;
         sync_data = view.findViewById(R.id.sync_data);
         SelectedOption = "";
         SelectedOptionVal = "";
 
         export_db = view.findViewById(R.id.export_db);
-
-
 
         SetSearchOptions();
 
@@ -136,11 +141,20 @@ public class DashboardFragment extends Fragment {
                 String passwrod = Prefs.getString(Constants.PASSWORD, "");
 
 //                Login(username,passwrod);
+                RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                rotate.setDuration(1500);
+                rotate.setRepeatCount(totalSize);
+                rotate.setInterpolator(new LinearInterpolator());
+                scanner.startAnimation(rotate);
 
                 SyncRecord();
 
             }
         });
+
+
+
+
         return view;
     }
 
@@ -275,11 +289,11 @@ public class DashboardFragment extends Fragment {
 
     void SetSearchOptions() {
         List<String> categoriesEng = new ArrayList<String>();
-        categoriesEng.add("select option");
-        categoriesEng.add("MrNo");
+        categoriesEng.add("Select Option");
+        categoriesEng.add("Mr_no");
         categoriesEng.add("CNIC");
-        categoriesEng.add("FullName");
-        categoriesEng.add("ContactNo");
+        categoriesEng.add("Full_Name");
+        categoriesEng.add("Contact_No");
 
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, categoriesEng);
@@ -313,8 +327,6 @@ public class DashboardFragment extends Fragment {
         });
 
     }
-
-
 
     public void SetDataArrayy(List<addPatientModel> SFR) {
         PatientDataParceable[] FDP = new PatientDataParceable[SFR.size()];
@@ -361,14 +373,13 @@ public class DashboardFragment extends Fragment {
     }
 
 
-
     public void totalSYncREcord() {
 
         List<addPatientModel> patient = addPatientModel.searchBySync();
         List<addvitalll> vitals = addvitalll.searchBySync();
         List<Assessmentt> assessments = Assessmentt.searchBySync();
         List<Samplee> sample = Samplee.searchBySync();
-        int totalSize = patient.size() + vitals.size()+assessments.size()+sample.size();
+        totalSize = patient.size() + vitals.size()+assessments.size()+sample.size();
         total_record.setText(totalSize + "");
 
     }
@@ -583,8 +594,6 @@ public class DashboardFragment extends Fragment {
         }
     }
 
-
-
     public void SubmitLeader(addPatientRequest currentMember) {
 
         ProgressDialog dialog = new ProgressDialog(getContext());
@@ -606,56 +615,60 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onResponse(Call<addPatientResponse> call, Response<addPatientResponse> response) {
                 dialog.dismiss();
-                if (response.body() != null) {
 
 
-                    ActiveAndroid.beginTransaction();
-                    try {
+                    if (response.code() == 200) {
 
-                        List<addPatientModel> fl = addPatientModel.getall();
-                        for (int i = 0; i < fl.size(); i++) {
 
-                            addPatientModel mod = addPatientModel.load(addPatientModel.class, response.body().getData().getMobile_id());
-                            mod.IsSync = 1;
-                            mod.mrn_no = response.body().getData().getMrn_no();
-                            mod.patient_id = response.body().getData().getPatient_id();
-                            mod.save();
-                        }
+                        ActiveAndroid.beginTransaction();
+                        try {
 
-                        List<addvitalll> vti = addvitalll.getall();
-                        if(vti.size()>0) {
-                            for (int i = 0; i < vti.size(); i++) {
-                                addvitalll vtl = addvitalll.searchByid(response.body().getData().getMobile_id());
-                                vtl.pid = response.body().getData().getPatient_id();
-                                vtl.save();
+                            List<addPatientModel> fl = addPatientModel.getall();
+                            for (int i = 0; i < fl.size(); i++) {
+
+                                addPatientModel mod = addPatientModel.load(addPatientModel.class, response.body().getData().getMobile_id());
+                                mod.IsSync = 1;
+                                mod.mrn_no = response.body().getData().getMrn_no();
+                                mod.patient_id = response.body().getData().getPatient_id();
+                                mod.save();
                             }
-                        }
 
-
-                        List<Assessmentt> Asses = Assessmentt.getall();
-                        if(Asses.size()>0) {
-                            for (int i = 0; i < Asses.size(); i++) {
-                                Assessmentt assess = Assessmentt.searchByid(response.body().getData().getMobile_id());
-                                assess.patient_id = response.body().getData().getPatient_id();
-                                assess.save();
+                            List<addvitalll> vti = addvitalll.getall();
+                            if (vti.size() > 0) {
+                                for (int i = 0; i < vti.size(); i++) {
+                                    addvitalll vtl = addvitalll.searchByid(response.body().getData().getMobile_id());
+                                    vtl.pid = response.body().getData().getPatient_id();
+                                    vtl.save();
+                                }
                             }
-                        }
 
 
-                        List<Samplee> sample = Samplee.getall();
-                        if(sample.size()>0) {
-                            for (int i = 0; i < sample.size(); i++) {
-                                Samplee ss = Samplee.searchByid(response.body().getData().getMobile_id());
-                                ss.pid = response.body().getData().getPatient_id();
-                                ss.save();
+                            List<Assessmentt> Asses = Assessmentt.getall();
+                            if (Asses.size() > 0) {
+                                for (int i = 0; i < Asses.size(); i++) {
+                                    Assessmentt assess = Assessmentt.searchByid(response.body().getData().getMobile_id());
+                                    assess.patient_id = response.body().getData().getPatient_id();
+                                    assess.save();
+                                }
                             }
+
+
+                            List<Samplee> sample = Samplee.getall();
+                            if (sample.size() > 0) {
+                                for (int i = 0; i < sample.size(); i++) {
+                                    Samplee ss = Samplee.searchByid(response.body().getData().getMobile_id());
+                                    ss.pid = response.body().getData().getPatient_id();
+                                    ss.save();
+                                }
+                            }
+                            ActiveAndroid.setTransactionSuccessful();
+                        } finally {
+                            ActiveAndroid.endTransaction();
                         }
-                        ActiveAndroid.setTransactionSuccessful();
-                    } finally {
-                        ActiveAndroid.endTransaction();
+
+                    } else {
+                        Toast.makeText(getContext(), "" + response.message().toString(), Toast.LENGTH_SHORT).show();
                     }
-
-                }
 
 
 //                if(response.body()!=null) {
@@ -686,7 +699,7 @@ public class DashboardFragment extends Fragment {
 //                        } finally {
 //                            ActiveAndroid.endTransaction();
 //                        }
-////
+//
                         syncedpatients = syncedpatients + 1;
                         if (syncedpatients == patientssubmitcount) {
                             submitvitalData();
@@ -806,6 +819,7 @@ public class DashboardFragment extends Fragment {
         }
 
     }
+
     private void Submitvital(addVitalRequest fmb) {
         ProgressDialog dialog = new ProgressDialog(getContext());
         dialog.setMessage("Saving Patient Vital please wait . . ");
@@ -1307,17 +1321,17 @@ public class DashboardFragment extends Fragment {
     private void exportDB() {
         try {
 
-            File folder = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/irmnch");
+            File folder = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/hcp");
 
             boolean success = true;
             if (!folder.exists()) {
                 success = folder.mkdirs();
             }
             if (success) {
-                File dbFile = new File(getActivity().getDatabasePath("IRMNCH_Local_DB.db").getAbsolutePath());
+                File dbFile = new File(getActivity().getDatabasePath("hcip.db").getAbsolutePath());
                 FileInputStream fis = new FileInputStream(dbFile);
 
-                String outFileName = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/irmnch" + File.separator + "irmnch_" + new SharedPref(getActivity()).GetserverID() + ".db";
+                String outFileName = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/hcp" + File.separator + "hcip_" + new SharedPref(getActivity()).GetserverID() + ".db";
 
                 OutputStream output = new FileOutputStream(outFileName);
 

@@ -247,7 +247,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <com.github.nikartm.support.StripedProcessButton
+            <Button
                 android:id="@+id/addvital"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -259,14 +259,7 @@
                 android:text="Add"
                 android:textColor="@color/white"
                 android:textSize="14sp"
-                app:spb_background="@color/colorPrimary"
-                app:spb_loadingText="Loading..."
-                app:spb_mainStripColor="@color/colorPrimaryDark"
-                app:spb_stripeDuration="120"
-                app:spb_stripeGradient="false"
-                app:spb_stripeTilt="35"
-                app:spb_stripeWidth="30dp"
-                app:spb_subStripeColor="@color/colorAccent"
+              android:background="@drawable/buttonstyle"
                 tools:spb_showStripes="true" />
 
 

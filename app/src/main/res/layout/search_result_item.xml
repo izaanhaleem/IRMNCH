@@ -116,7 +116,7 @@
                 android:layout_weight="1.7"
                 android:paddingTop="10dp"
                 android:paddingBottom="5dp"
-                android:text="@string/NAME"
+                android:text="NAME"
                 android:textColor="@color/color_black"
                 android:textDirection="rtl"
                 android:textSize="14sp"
