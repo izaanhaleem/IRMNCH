@@ -167,7 +167,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_marginVertical="@dimen/margin_small_1"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/buttonstyle"
             android:paddingHorizontal="15dp"
             android:text="Add Sample"
             android:textColor="@color/color_white"

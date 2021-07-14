@@ -355,7 +355,7 @@
         android:layout_marginVertical="3dp"
         android:background="@drawable/dropdown_custom_bg"
         android:paddingVertical="13dp"
-        android:spinnerMode="dialog"
+        android:spinnerMode="dropdown"
         android:textSize="@dimen/font_xlarge"
         android:gravity="center"/>
     </LinearLayout>
@@ -377,7 +377,7 @@
         android:layout_marginVertical="3dp"
         android:background="@drawable/dropdown_custom_bg"
         android:paddingVertical="13dp"
-        android:spinnerMode="dialog"
+        android:spinnerMode="dropdown"
         android:textSize="@dimen/font_xlarge"
         android:gravity="center"/>
 
@@ -410,7 +410,7 @@
             android:layout_marginVertical="3dp"
             android:background="@drawable/dropdown_custom_bg"
             android:paddingVertical="13dp"
-            android:spinnerMode="dialog"
+            android:spinnerMode="dropdown"
             android:textSize="@dimen/font_xlarge"
             android:gravity="center"/>
         <TextView
@@ -427,7 +427,7 @@
             android:layout_marginVertical="3dp"
             android:background="@drawable/dropdown_custom_bg"
             android:paddingVertical="13dp"
-            android:spinnerMode="dialog"
+            android:spinnerMode="dropdown"
             android:textSize="@dimen/font_xlarge"
             android:gravity="center"/>
     </LinearLayout>
@@ -503,7 +503,7 @@
         android:layout_marginVertical="3dp"
         android:background="@drawable/dropdown_custom_bg"
         android:paddingVertical="13dp"
-        android:spinnerMode="dialog"
+        android:spinnerMode="dropdown"
         android:textSize="@dimen/font_xlarge"
         android:gravity="center"/>
 

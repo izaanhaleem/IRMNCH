@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Hepatitis Prisons</string>
+    <string name="app_name">Hepatitis Prisoners</string>
     <string name="header"></string>
     <string name="GENDER">fggh</string>
     <string name="dashboard">Dashboard</string>
@@ -447,6 +447,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="perticulars_of_a_patient">Registration of a Patient</string>
     <string name="addvital">Add Vital of a Patient</string>
+    <string name="addsample">Add Sample of a Patient</string>
     <string name="pendingEnrollment">Patient Pending Treatment Enrollment</string>
     <string name="assessment">Patient Assessment</string>
 

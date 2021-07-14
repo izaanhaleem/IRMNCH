@@ -465,6 +465,15 @@ public class addPatientModel extends Model {
                 .execute();
     }
 
+    public static List<addPatientModel> searchByCNICSample(String cnic) {
+        return new Select()
+                .from(addPatientModel.class)
+                .where("IS_assessment = ?",1 )
+                .where("ISVital = ?",1 )
+                .where("self_cnic = ?",cnic)
+                .execute();
+    }
+
     public static List<addPatientModel> searchByName(String name) {
         return new Select()
                 .from(addPatientModel.class)
@@ -481,6 +490,20 @@ public class addPatientModel extends Model {
                 .where("patient_name LIKE ?", new String[]{'%' + name + '%'})
                 .execute();
     }
+
+
+    public static List<addPatientModel> searchByNameSample(String name) {
+        return new Select()
+                .from(addPatientModel.class)
+                .where("IS_assessment = ?",1 )
+                .where("ISVital = ?",1 )
+                .where("patient_name LIKE ?", new String[]{'%' + name + '%'})
+                .execute();
+    }
+
+
+
+
 
     public static List<addPatientModel> searchByCNICLeader(String cnic) {
         return new Select()

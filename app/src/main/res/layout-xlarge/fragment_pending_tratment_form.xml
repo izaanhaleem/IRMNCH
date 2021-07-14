@@ -155,7 +155,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:paddingRight="10dp">
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -171,7 +172,7 @@
                             android:layout_marginVertical="3dp"
                             android:background="@drawable/dropdown_custom_bg"
                             android:paddingVertical="13dp"
-                            android:spinnerMode="dialog"
+                            android:spinnerMode="dropdown"
                             android:textSize="@dimen/font_xlarge" />
                     </LinearLayout>
                     <LinearLayout
@@ -194,7 +195,7 @@
                             android:layout_marginVertical="3dp"
                             android:background="@drawable/dropdown_custom_bg"
                             android:paddingVertical="13dp"
-                            android:spinnerMode="dialog"
+                            android:spinnerMode="dropdown"
                             android:textSize="@dimen/font_xlarge" />
                     </LinearLayout>
 
@@ -219,52 +220,55 @@
                     android:id="@+id/month"
                     android:weightSum="1"
                     android:layout_marginTop="10dp">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:orientation="vertical">
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:text="HCV PCR Result"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:layout_weight="0.5"
+                        android:orientation="vertical"
+                        android:paddingRight="10dp">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="HCV PCR Result"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
 
-                    <Spinner
-                        android:id="@+id/hcvpcrResult"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="3dp"
-                        android:background="@drawable/dropdown_custom_bg"
-                        android:paddingVertical="13dp"
-                        android:spinnerMode="dialog"
-                        android:textSize="@dimen/font_xlarge" />
-                </LinearLayout>
+                        <Spinner
+                            android:id="@+id/hcvpcrResult"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="3dp"
+                            android:background="@drawable/dropdown_custom_bg"
+                            android:paddingVertical="13dp"
+                            android:spinnerMode="dropdown"
+                            android:textSize="@dimen/font_xlarge" />
+                    </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="0.5">
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:text="HCV Viral Count"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-                    <TextView
-                        android:id="@+id/viralcount"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="0000000"
-                        android:gravity="center_horizontal"                        android:textSize="16sp"
-                        android:textStyle="normal" />
+                        android:orientation="vertical"
+                        android:layout_weight="0.5">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="HCV Viral Count"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:gravity="center_horizontal"
+                            />
+                        <TextView
+                            android:id="@+id/viralcount"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="0000000"
+                            android:gravity="center_horizontal"                        android:textSize="16sp"
+                            android:textStyle="normal" />
 
-                </LinearLayout>
+                    </LinearLayout>
                 </LinearLayout>
 
 
@@ -402,182 +406,182 @@
                         android:maxLines="1"
                         android:textSize="@dimen/font_normal" />
                 </com.google.android.material.textfield.TextInputLayout>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:id="@+id/renalfunction">
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="RENAL FUNCTION TEST"
-                    android:gravity="center_horizontal"
-                    android:textStyle="normal"
-                    android:textColor="#fff"
-                    android:textSize="15sp"
-                    android:background="#364150"
-                    android:layout_marginTop="10dp">
-                </TextView>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-
-                    app:hintTextAppearance="@style/NormalTextView">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/Urea"
+                    android:orientation="vertical"
+                    android:id="@+id/renalfunction">
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin_xsmall"
-                        android:inputType="number"
-                        android:hint="Urea (Range 10 - 50)*"
-                        android:textColor="#000"
-                        android:maxLength="30"
-                        android:maxLines="1"
-                        android:textSize="@dimen/font_normal" />
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:text="RENAL FUNCTION TEST"
+                        android:gravity="center_horizontal"
+                        android:textStyle="normal"
+                        android:textColor="#fff"
+                        android:textSize="15sp"
+                        android:background="#364150"
+                        android:layout_marginTop="10dp">
+                    </TextView>
 
-                    app:hintTextAppearance="@style/NormalTextView">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/Creatinie"
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin_xsmall"
-                        android:inputType="numberDecimal"
-                        android:hint="Creatinie(Range 0.5 - 1.2)*"
-                        android:textColor="#000"
-                        android:maxLength="30"
-                        android:maxLines="1"
-                        android:textSize="@dimen/font_normal" />
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    app:hintTextAppearance="@style/NormalTextView">
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/Blood_Sugar_Random"
+                        app:hintTextAppearance="@style/NormalTextView">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/Urea"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin_xsmall"
+                            android:inputType="number"
+                            android:hint="Urea (Range 10 - 50)*"
+                            android:textColor="#000"
+                            android:maxLength="30"
+                            android:maxLines="1"
+                            android:textSize="@dimen/font_normal" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin_xsmall"
-                        android:inputType="number"
-                        android:hint="Blood Sugar Random(Range 70 - 250)*"
-                        android:textColor="#000"
-                        android:maxLength="30"
-                        android:maxLines="1"
-                        android:textSize="@dimen/font_normal" />
-                </com.google.android.material.textfield.TextInputLayout>
-</LinearLayout>
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/vitalandweight">
+                        app:hintTextAppearance="@style/NormalTextView">
 
-                <TextView
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/Creatinie"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin_xsmall"
+                            android:inputType="numberDecimal"
+                            android:hint="Creatinie(Range 0.5 - 1.2)*"
+                            android:textColor="#000"
+                            android:maxLength="30"
+                            android:maxLines="1"
+                            android:textSize="@dimen/font_normal" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:hintTextAppearance="@style/NormalTextView">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/Blood_Sugar_Random"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin_xsmall"
+                            android:inputType="number"
+                            android:hint="Blood Sugar Random(Range 70 - 250)*"
+                            android:textColor="#000"
+                            android:maxLength="30"
+                            android:maxLines="1"
+                            android:textSize="@dimen/font_normal" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="VITALS AND WEIGHT"
-                    android:gravity="center_horizontal"
-                    android:textStyle="normal"
-                    android:textColor="#fff"
-                    android:textSize="15sp"
-                    android:background="#364150"
-                    android:layout_marginTop="10dp">
-                </TextView>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:orientation="vertical"
+                    android:id="@+id/vitalandweight">
 
-                    app:hintTextAppearance="@style/NormalTextView">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/Pulse"
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin_xsmall"
-                        android:inputType="number"
-                        android:hint="Pulse (Pulse 60 - 150)*"
-                        android:textColor="#000"
-                        android:maxLength="30"
-                        android:maxLines="1"
-                        android:textSize="@dimen/font_normal" />
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-
-                    app:hintTextAppearance="@style/NormalTextView">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/Systolic"
+                        android:text="VITALS AND WEIGHT"
+                        android:gravity="center_horizontal"
+                        android:textStyle="normal"
+                        android:textColor="#fff"
+                        android:textSize="15sp"
+                        android:background="#364150"
+                        android:layout_marginTop="10dp">
+                    </TextView>
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin_xsmall"
-                        android:inputType="number"
-                        android:hint="Systolic (Systolic 100 - 160)*"
-                        android:textColor="#000"
-                        android:maxLength="30"
-                        android:maxLines="1"
-                        android:textSize="@dimen/font_normal" />
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 
-                    app:hintTextAppearance="@style/NormalTextView">
+                        app:hintTextAppearance="@style/NormalTextView">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/Diastolic"
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/Pulse"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin_xsmall"
+                            android:inputType="number"
+                            android:hint="Pulse (Pulse 60 - 150)*"
+                            android:textColor="#000"
+                            android:maxLength="30"
+                            android:maxLines="1"
+                            android:textSize="@dimen/font_normal" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin_xsmall"
-                        android:inputType="number"
-                        android:hint="Diastolic (Diastolic 70 - 110)*"
-                        android:textColor="#000"
-                        android:maxLength="30"
-                        android:maxLines="1"
-                        android:textSize="@dimen/font_normal" />
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 
-                    app:hintTextAppearance="@style/NormalTextView">
+                        app:hintTextAppearance="@style/NormalTextView">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/Weight"
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/Systolic"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin_xsmall"
+                            android:inputType="number"
+                            android:hint="Systolic (Systolic 100 - 160)*"
+                            android:textColor="#000"
+                            android:maxLength="30"
+                            android:maxLines="1"
+                            android:textSize="@dimen/font_normal" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin_xsmall"
-                        android:inputType="number"
-                        android:hint="Weight (Weight 40 - 150)*"
-                        android:textColor="#000"
-                        android:maxLength="30"
-                        android:maxLines="1"
-                        android:textSize="@dimen/font_normal" />
-                </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                        app:hintTextAppearance="@style/NormalTextView">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/Diastolic"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin_xsmall"
+                            android:inputType="number"
+                            android:hint="Diastolic (Diastolic 70 - 110)*"
+                            android:textColor="#000"
+                            android:maxLength="30"
+                            android:maxLines="1"
+                            android:textSize="@dimen/font_normal" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                        app:hintTextAppearance="@style/NormalTextView">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/Weight"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin_xsmall"
+                            android:inputType="number"
+                            android:hint="Weight (Weight 40 - 150)*"
+                            android:textColor="#000"
+                            android:maxLength="30"
+                            android:maxLines="1"
+                            android:textSize="@dimen/font_normal" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -585,243 +589,243 @@
                     android:orientation="vertical"
                     android:id="@+id/treatmentanddrugLayout">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text=" TREATMENT SECTION"
-                    android:gravity="center_horizontal"
-                    android:textStyle="normal"
-                    android:textColor="#fff"
-                    android:textSize="15sp"
-                    android:background="#364150"
-                    android:layout_marginTop="10dp">
-                </TextView>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=" TREATMENT SECTION"
+                        android:gravity="center_horizontal"
+                        android:textStyle="normal"
+                        android:textColor="#fff"
+                        android:textSize="15sp"
+                        android:background="#364150"
+                        android:layout_marginTop="10dp">
+                    </TextView>
 
-                <Spinner
-                    android:id="@+id/nativeexp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="3dp"
-                    android:background="@drawable/dropdown_custom_bg"
-                    android:hint="native or experience"
-                    android:paddingVertical="13dp"
-                    android:spinnerMode="dialog"
-                    android:textSize="@dimen/font_xlarge"
-                    android:layout_marginTop="10dp" />
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:weightSum="3"
-    android:layout_marginTop="10dp"
-    android:id="@+id/checkboxs">
+                    <Spinner
+                        android:id="@+id/nativeexp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="3dp"
+                        android:background="@drawable/dropdown_custom_bg"
+                        android:hint="native or experience"
+                        android:paddingVertical="13dp"
+                        android:spinnerMode="dialog"
+                        android:textSize="@dimen/font_xlarge"
+                        android:layout_marginTop="10dp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="3"
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/checkboxs">
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="INF"
-        android:layout_weight="1"
-        android:buttonTint="@color/colorPrimary"/>
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="INF"
+                            android:layout_weight="1"
+                            android:buttonTint="@color/colorPrimary"/>
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SD"
-        android:layout_weight="1"
-        android:buttonTint="@color/colorPrimary"
-        />
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="SD"
+                            android:layout_weight="1"
+                            android:buttonTint="@color/colorPrimary"
+                            />
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SR"
-        android:layout_weight="1"
-        android:buttonTint="@color/colorPrimary"
-        />
-
-
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="SR"
+                            android:layout_weight="1"
+                            android:buttonTint="@color/colorPrimary"
+                            />
 
 
-</LinearLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="DRUG INTERACTION SCREENING"
-                    android:gravity="center_horizontal"
-                    android:textStyle="normal"
-                    android:textColor="#fff"
-                    android:textSize="15sp"
-                    android:background="#364150"
-                    android:layout_marginTop="10dp">
-                </TextView>
 
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/drugconfirm"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:switchPadding="0dp"
-                    android:text="Please confirm that patient isn't susceptible to any serious Drug-Drug Interaction as per table below : "
-                    android:textSize="17sp"
-                    android:layout_marginTop="10dp">
-                </androidx.appcompat.widget.SwitchCompat>
+                    </LinearLayout>
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_marginTop="10dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="DRUG INTERACTION SCREENING"
+                        android:gravity="center_horizontal"
+                        android:textStyle="normal"
+                        android:textColor="#fff"
+                        android:textSize="15sp"
+                        android:background="#364150"
+                        android:layout_marginTop="10dp">
+                    </TextView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="1">
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/drugconfirm"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:switchPadding="0dp"
+                        android:text="Please confirm that patient isn't susceptible to any serious Drug-Drug Interaction as per table below : "
+                        android:textSize="17sp"
+                        android:layout_marginTop="10dp">
+                    </androidx.appcompat.widget.SwitchCompat>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Drug"
-            android:textStyle="bold"
-            android:gravity="left"
-            android:layout_weight="0.7"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Nature of Interaction"
-            android:textStyle="bold"
-            android:gravity="right"
-            android:layout_weight="0.3"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="10dp">
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="1"
-        android:layout_marginTop="10dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="1">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Rifampin"
-            android:gravity="left"
-            android:layout_weight="0.7"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Contraindicated! Completely Avoid"
-            android:gravity="right"
-            android:layout_weight="0.3"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Drug"
+                                android:textStyle="bold"
+                                android:gravity="left"
+                                android:layout_weight="0.7"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Nature of Interaction"
+                                android:textStyle="bold"
+                                android:gravity="right"
+                                android:layout_weight="0.3"/>
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="1"
-        android:layout_marginTop="10dp">
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="1"
+                            android:layout_marginTop="10dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Carbamazepine"
-            android:gravity="left"
-            android:layout_weight="0.7"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Contraindicated! Completely Avoid"
-            android:gravity="right"
-            android:layout_weight="0.3"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Rifampin"
+                                android:gravity="left"
+                                android:layout_weight="0.7"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Contraindicated! Completely Avoid"
+                                android:gravity="right"
+                                android:layout_weight="0.3"/>
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="1"
-        android:layout_marginTop="10dp">
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="1"
+                            android:layout_marginTop="10dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Oxcarbazepine"
-            android:gravity="left"
-            android:layout_weight="0.7"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Contraindicated! Completely Avoid"
-            android:gravity="right"
-            android:layout_weight="0.3"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Carbamazepine"
+                                android:gravity="left"
+                                android:layout_weight="0.7"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Contraindicated! Completely Avoid"
+                                android:gravity="right"
+                                android:layout_weight="0.3"/>
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="1"
-        android:layout_marginTop="10dp">
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="1"
+                            android:layout_marginTop="10dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Pentobarbital"
-            android:gravity="left"
-            android:layout_weight="0.7"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Contraindicated! Completely Avoid"
-            android:gravity="right"
-            android:layout_weight="0.3"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Oxcarbazepine"
+                                android:gravity="left"
+                                android:layout_weight="0.7"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Contraindicated! Completely Avoid"
+                                android:gravity="right"
+                                android:layout_weight="0.3"/>
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="1"
-        android:layout_marginTop="10dp">
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="1"
+                            android:layout_marginTop="10dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Phenobarbital"
-            android:gravity="left"
-            android:layout_weight="0.7"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Contraindicated! Completely Avoid"
-            android:gravity="right"
-            android:layout_weight="0.3"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Pentobarbital"
+                                android:gravity="left"
+                                android:layout_weight="0.7"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Contraindicated! Completely Avoid"
+                                android:gravity="right"
+                                android:layout_weight="0.3"/>
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="1"
-        android:layout_marginTop="10dp">
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="1"
+                            android:layout_marginTop="10dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Amiodarone"
-            android:gravity="left"
-            android:layout_weight="0.7"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Serious - Use Alternative​"
-            android:gravity="right"
-            android:layout_weight="0.3"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Phenobarbital"
+                                android:gravity="left"
+                                android:layout_weight="0.7"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Contraindicated! Completely Avoid"
+                                android:gravity="right"
+                                android:layout_weight="0.3"/>
 
-    </LinearLayout>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="1"
+                            android:layout_marginTop="10dp">
 
-</LinearLayout>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Amiodarone"
+                                android:gravity="left"
+                                android:layout_weight="0.7"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Serious - Use Alternative​"
+                                android:gravity="right"
+                                android:layout_weight="0.3"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
                 </LinearLayout>
 
 
@@ -830,29 +834,29 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:id="@+id/medicineLayout">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="MEDICINE PRESCRIPTION"
-                    android:gravity="center_horizontal"
-                    android:textStyle="normal"
-                    android:textColor="#fff"
-                    android:textSize="15sp"
-                    android:background="#364150"
-                    android:layout_marginTop="10dp"
-                    >
-                </TextView>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="MEDICINE PRESCRIPTION"
+                        android:gravity="center_horizontal"
+                        android:textStyle="normal"
+                        android:textColor="#fff"
+                        android:textSize="15sp"
+                        android:background="#364150"
+                        android:layout_marginTop="10dp"
+                        >
+                    </TextView>
 
-                <Spinner
-                    android:id="@+id/medicine_prescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="3dp"
-                    android:background="@drawable/dropdown_custom_bg"
-                    android:hint=""
-                    android:paddingVertical="13dp"
-                    android:spinnerMode="dialog"
-                    android:textSize="@dimen/font_xlarge" />
+                    <Spinner
+                        android:id="@+id/medicine_prescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="3dp"
+                        android:background="@drawable/dropdown_custom_bg"
+                        android:hint=""
+                        android:paddingVertical="13dp"
+                        android:spinnerMode="dropdown"
+                        android:textSize="@dimen/font_xlarge" />
 
 
                     <TextView
@@ -865,24 +869,24 @@
                         android:gravity="center_horizontal"
                         android:textColor="@color/btn_red_color"/>
 
-<!--                <androidx.appcompat.widget.SwitchCompat-->
-<!--                    android:id="@+id/disburse"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    app:switchPadding="0dp"-->
-<!--                    android:text="Disburse 3 Monthly packs to Patient : "-->
-<!--                    android:textSize="17sp"-->
-<!--                    android:checked="true"-->
-<!--                    android:enabled="true"-->
-<!--                    android:layout_marginTop="10dp">-->
-<!--                </androidx.appcompat.widget.SwitchCompat>-->
+                    <!--                <androidx.appcompat.widget.SwitchCompat-->
+                    <!--                    android:id="@+id/disburse"-->
+                    <!--                    android:layout_width="match_parent"-->
+                    <!--                    android:layout_height="wrap_content"-->
+                    <!--                    app:switchPadding="0dp"-->
+                    <!--                    android:text="Disburse 3 Monthly packs to Patient : "-->
+                    <!--                    android:textSize="17sp"-->
+                    <!--                    android:checked="true"-->
+                    <!--                    android:enabled="true"-->
+                    <!--                    android:layout_marginTop="10dp">-->
+                    <!--                </androidx.appcompat.widget.SwitchCompat>-->
 
 
                 </LinearLayout>
 
 
                 <Button
-                    android:id="@+id/addsample"
+                    android:id="@+id/addpendingBtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
@@ -893,7 +897,7 @@
                     android:text="Add"
                     android:textColor="@color/white"
                     android:textSize="14sp"
-             android:background="@drawable/buttonstyle"
+                    android:background="@drawable/buttonstyle"
                     tools:spb_showStripes="true" />
 
             </LinearLayout>

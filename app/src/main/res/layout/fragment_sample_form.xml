@@ -21,7 +21,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="@string/addvital"
+                android:text="@string/addsample"
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/font_large" />
         </LinearLayout>

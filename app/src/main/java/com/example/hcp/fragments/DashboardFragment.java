@@ -143,7 +143,7 @@ public class DashboardFragment extends Fragment {
 //                Login(username,passwrod);
                 RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 rotate.setDuration(1500);
-                rotate.setRepeatCount(totalSize);
+                rotate.setRepeatCount(2);
                 rotate.setInterpolator(new LinearInterpolator());
                 scanner.startAnimation(rotate);
 
@@ -151,7 +151,6 @@ public class DashboardFragment extends Fragment {
 
             }
         });
-
 
 
 
@@ -671,38 +670,12 @@ public class DashboardFragment extends Fragment {
                     }
 
 
-//                if(response.body()!=null) {
-//                    try {
-//
-////                        List<GetFamilyMemberResponse.Datum> memberslist = response.body().getData();
-//
-//                        Integer familymemberid = memberslist.get(0).getFamilyMemberId();
-//
-//                        if (currentMember != null) {
-//                            LeaderBody FL = LeaderBody.load(LeaderBody.class, currentMember.getId());
-//                            if (familymemberid != null) {
-//                                FL.setFamilyMemberId(familymemberid);
-//                            }
-//                            FL.IsSync = 1;
-//                            FL.save();
-//                        }
-//
-
-//                        ActiveAndroid.beginTransaction();
-//                        try {
-//                            LMPModel lmpmember = LMPModel.getByID(currentMember.getId());
-//
-//                            LMPModel lmp = LMPModel.load(LMPModel.class, lmpmember.getId());
-//                            lmp.memberId = familymemberid;
-//                            lmp.save();
-//                            ActiveAndroid.setTransactionSuccessful();
-//                        } finally {
-//                            ActiveAndroid.endTransaction();
-//                        }
 //
                         syncedpatients = syncedpatients + 1;
                         if (syncedpatients == patientssubmitcount) {
-                            submitvitalData();
+                            if(response.code()==200) {
+                                submitvitalData();
+                            }
                         }
 //                    } catch (Exception error) {
 //                        syncedleaders = syncedleaders + 1;

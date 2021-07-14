@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -38,6 +39,7 @@ public class pendingTratmentForm extends Fragment {
     LinearLayout renalfunctionlayout,vitalandweightlayout,treatmentanddrugLayout,medicineLayout,checkboxsLayout;
     SwitchCompat drugconfirm;
     TextView text,viralcount;
+    Button addpendingBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,6 +75,7 @@ public class pendingTratmentForm extends Fragment {
         drugconfirm = view.findViewById(R.id.drugconfirm);
         text = view.findViewById(R.id.text);
         viralcount = view.findViewById(R.id.viralcount);
+        addpendingBtn = view.findViewById(R.id.addpendingBtn);
 
 
         renalfunctionlayout = view.findViewById(R.id.renalfunction);
@@ -105,7 +108,7 @@ public class pendingTratmentForm extends Fragment {
         vitalandweightlayout.setVisibility(View.GONE);
         checkboxsLayout.setVisibility(View.GONE);
         medicineLayout.setVisibility(View.GONE);
-
+        addpendingBtn.setVisibility(View.GONE);
  
         homoglobin.addTextChangedListener(new TextWatcher() {
             @Override
@@ -371,6 +374,7 @@ public class pendingTratmentForm extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     medicineLayout.setVisibility(View.VISIBLE);
+
                 }else {
                     medicineLayout.setVisibility(View.GONE);
                 }
@@ -525,12 +529,15 @@ public class pendingTratmentForm extends Fragment {
 
                     if(nativeexp.getSelectedItemPosition()==2){
                         checkboxsLayout.setVisibility(View.VISIBLE);
+                    }else {
+                        checkboxsLayout.setVisibility(View.GONE);
                     }
 
 //                    OptionValue.setText("");
                     //Toast.makeText(getContext(), SearchOptions.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
                 } else {
                     selectednativeexp = "";
+                    checkboxsLayout.setVisibility(View.GONE);
                     checkboxsLayout.setVisibility(View.GONE);
                 }
             }
@@ -564,6 +571,7 @@ public class pendingTratmentForm extends Fragment {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 
                 if (medicine_prescription.getSelectedItemPosition() > 0) {
+                    addpendingBtn.setVisibility(View.VISIBLE);
                     SelectedOptionIndex = medicine_prescription.getSelectedItemPosition();
 
                     selectedmedicine_prescription = categoriesEng.get(SelectedOptionIndex);
@@ -577,6 +585,7 @@ public class pendingTratmentForm extends Fragment {
 //                    OptionValue.setText("");
                     //Toast.makeText(getContext(), SearchOptions.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
                 } else {
+                    addpendingBtn.setVisibility(View.GONE);
                     selectedmedicine_prescription = "";
                     text.setText("");
                 }

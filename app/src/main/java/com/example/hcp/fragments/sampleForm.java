@@ -115,7 +115,7 @@ public class sampleForm extends Fragment {
         FL.pid = pid;
         FL.IsSync = 0;
         FL.setHospital_id(h);
-        FL.setSample_no(new SharedPref(getContext()).GetserverID()+"-21-"+sno);
+        FL.setSample_no(new SharedPref(getContext()).GetserverID()+"-21-"+"00"+sno);
         FL.user_id=i;
 
 

@@ -45,7 +45,6 @@ public class SampleDashboard extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_sample_dashboard, container, false);
 
-
         Search=view.findViewById(R.id.btnSearch);
         AllSampleList=view.findViewById(R.id.AllAssesementList);
         OptionValue=view.findViewById(R.id.Searchassessment);
@@ -86,7 +85,7 @@ public class SampleDashboard extends Fragment {
             List<addPatientModel> vitals;
             switch (SelectedOptionIndex) {
                 case 3:
-                    vitals = addPatientModel.searchByNameAssessment(SelectedOptionVal);
+                    vitals = addPatientModel.searchByNameSample(SelectedOptionVal);
                     if (vitals.size() > 0) {
 
                         SetDataArrayy(vitals);
@@ -97,7 +96,7 @@ public class SampleDashboard extends Fragment {
 
                     break;
                 case 2:
-                    vitals = addPatientModel.searchByISAssessment(SelectedOptionVal);
+                    vitals = addPatientModel.searchByCNICSample(SelectedOptionVal);
                     if (vitals.size() > 0) {
 
                         SetDataArrayy(vitals);

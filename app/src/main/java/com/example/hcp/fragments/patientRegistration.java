@@ -52,10 +52,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
+import br.com.sapereaude.maskedEditText.MaskedEditText;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import static android.media.CamcorderProfile.get;
 import static com.activeandroid.Cache.getContext;
+import static com.example.hcp.utils.Constants.context;
 
 
 public class patientRegistration extends Fragment {
@@ -86,7 +88,7 @@ public class patientRegistration extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_patient_registration, container, false);
+        View view = inflater.inflate(R.layout.fragment_patient_registration, container, false);
         fragmentManager = getFragmentManager();
         etCNIC = view.findViewById(R.id.etCNIC);
         etContactNo = view.findViewById(R.id.etContactNo);
@@ -119,6 +121,7 @@ public class patientRegistration extends Fragment {
         etCompleteAddress = view.findViewById(R.id.etCompleteAddress);
 
 
+
         if (getArguments() != null) {
             isEidt = getArguments().getBoolean("isEdit");
             try {
@@ -131,6 +134,9 @@ public class patientRegistration extends Fragment {
 
             }
         }
+
+
+
 
 
         if (isEidt) {
@@ -310,6 +316,7 @@ public class patientRegistration extends Fragment {
         return view;
     }
 
+
     private void FormValidation() {
 
         Name = etPatientName.getText().toString();
@@ -440,7 +447,7 @@ public class patientRegistration extends Fragment {
 
             ActiveAndroid.endTransaction();
 
-            final SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE);
+            final SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.BUTTON_NEUTRAL);
             pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.colorPrimaryDark));
             pDialog.setTitleText("Patient Save Successfully");
             pDialog.setCancelable(false);
@@ -604,7 +611,11 @@ public class patientRegistration extends Fragment {
                     SelectedOptionIndex = seacchcnic.getSelectedItemPosition();
 
                     SelectedOption = categoriesEng.get(SelectedOptionIndex);
-//                    OptionValue.setText("");
+
+
+
+
+                    //                    OptionValue.setText("");
                     //Toast.makeText(getContext(), SearchOptions.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
                 } else {
                     SelectedOption = "";

@@ -65,7 +65,7 @@
                         android:layout_marginVertical="3dp"
                         android:background="@drawable/dropdown_custom_bg"
                         android:paddingVertical="13dp"
-                        android:spinnerMode="dialog"
+                        android:spinnerMode="dropdown"
                         android:textSize="@dimen/font_xlarge"
                         android:gravity="center"/>
                 </LinearLayout>
@@ -296,7 +296,7 @@
                             android:background="@drawable/dropdown_custom_bg"
                             android:hint="security salary"
                             android:paddingVertical="13dp"
-                            android:spinnerMode="dialog"
+                            android:spinnerMode="dropdown"
                              />
                     </LinearLayout>
                     <LinearLayout
@@ -321,7 +321,7 @@
                             android:background="@drawable/dropdown_custom_bg"
                             android:hint="security salary"
                             android:paddingVertical="13dp"
-                            android:spinnerMode="dialog"
+                            android:spinnerMode="dropdown"
                             />
                     </LinearLayout>
 
@@ -355,7 +355,7 @@
                             android:background="@drawable/dropdown_custom_bg"
                             android:hint="security salary"
                             android:paddingVertical="13dp"
-                            android:spinnerMode="dialog"
+                            android:spinnerMode="dropdown"
 
                             android:textSize="@dimen/font_xlarge" />
                     </LinearLayout>
@@ -381,7 +381,7 @@
                             android:background="@drawable/dropdown_custom_bg"
                             android:hint="security salary"
                             android:paddingVertical="13dp"
-                            android:spinnerMode="dialog"
+                            android:spinnerMode="dropdown"
                             android:textSize="@dimen/font_xlarge" />
                     </LinearLayout>
 
@@ -599,7 +599,7 @@
                         android:background="@drawable/dropdown_custom_bg"
                         android:hint="security salary"
                         android:paddingVertical="13dp"
-                        android:spinnerMode="dialog"
+                        android:spinnerMode="dropdown"
                         android:textSize="@dimen/font_xlarge" />
 
                     <Spinner
@@ -610,7 +610,7 @@
                         android:background="@drawable/dropdown_custom_bg"
                         android:hint="security salary"
                         android:paddingVertical="13dp"
-                        android:spinnerMode="dialog"
+                        android:spinnerMode="dropdown"
                         android:textSize="@dimen/font_xlarge" />
 
                     <Spinner
@@ -621,7 +621,7 @@
                         android:background="@drawable/dropdown_custom_bg"
                         android:hint="security salary"
                         android:paddingVertical="13dp"
-                        android:spinnerMode="dialog"
+                        android:spinnerMode="dropdown"
                         android:textSize="@dimen/font_xlarge" />
                     <Spinner
                         android:id="@+id/hf"
@@ -631,7 +631,7 @@
                         android:background="@drawable/dropdown_custom_bg"
                         android:hint="security salary"
                         android:paddingVertical="13dp"
-                        android:spinnerMode="dialog"
+                        android:spinnerMode="dropdown"
                         android:textSize="@dimen/font_xlarge" />
                 </LinearLayout>
 
@@ -751,7 +751,7 @@
                         android:background="@drawable/dropdown_custom_bg"
                         android:hint="security salary"
                         android:paddingVertical="13dp"
-                        android:spinnerMode="dialog"
+                        android:spinnerMode="dropdown"
                         android:textSize="@dimen/font_xlarge" />
                 </LinearLayout>
                 <LinearLayout
@@ -782,7 +782,7 @@
                             android:background="@drawable/dropdown_custom_bg"
                             android:hint="security salary"
                             android:paddingVertical="13dp"
-                            android:spinnerMode="dialog"
+                            android:spinnerMode="dropdown"
                             android:textSize="@dimen/font_xlarge" />
                     </LinearLayout>
                     <LinearLayout
@@ -807,7 +807,7 @@
                             android:background="@drawable/dropdown_custom_bg"
                             android:hint="security salary"
                             android:paddingVertical="13dp"
-                            android:spinnerMode="dialog"
+                            android:spinnerMode="dropdown"
                             android:textSize="@dimen/font_xlarge" />
                     </LinearLayout>
                     <LinearLayout
@@ -833,7 +833,7 @@
                             android:background="@drawable/dropdown_custom_bg"
                             android:hint="security salary"
                             android:paddingVertical="13dp"
-                            android:spinnerMode="dialog"
+                            android:spinnerMode="dropdown"
                             android:textSize="@dimen/font_xlarge" />
                     </LinearLayout>
                     <LinearLayout
@@ -858,7 +858,7 @@
                             android:background="@drawable/dropdown_custom_bg"
                             android:hint="security salary"
                             android:paddingVertical="13dp"
-                            android:spinnerMode="dialog"
+                            android:spinnerMode="dropdown"
                             android:textSize="@dimen/font_xlarge" />
                     </LinearLayout>
 
@@ -881,7 +881,7 @@
                 android:text="Register"
                 android:textColor="@color/white"
                 android:textSize="14sp"
-               android:background="@drawable/buttonstyle"
+                android:background="@drawable/buttonstyle"
 
                 tools:spb_showStripes="true" />
             <Button
