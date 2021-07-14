@@ -116,7 +116,7 @@ public class vitalForm extends Fragment {
                 ActiveAndroid.endTransaction();
             }
 
-            final SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE);
+            final SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.BUTTON_NEUTRAL);
             pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.teal_700));
             pDialog.setTitleText("Vitals Added Successfully");
             pDialog.setCancelable(false);
