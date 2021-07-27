@@ -204,7 +204,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="BASELINE HCV PCR INVESTIGATION"
+                    android:text="BASELINE PCR INVESTIGATION"
                     android:gravity="center_horizontal"
                     android:textStyle="normal"
                     android:textColor="#fff"
@@ -217,7 +217,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:id="@+id/month"
+                    android:id="@+id/hcvlayout"
                     android:weightSum="1"
                     android:layout_marginTop="10dp">
                     <LinearLayout
@@ -260,7 +260,7 @@
                             android:gravity="center_horizontal"
                             />
                         <TextView
-                            android:id="@+id/viralcount"
+                            android:id="@+id/hcvvira"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
@@ -271,7 +271,63 @@
                     </LinearLayout>
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:id="@+id/hbvlayout"
+                    android:weightSum="1"
+                    android:layout_marginTop="10dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical"
+                        android:paddingRight="10dp">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="HBV PCR Result"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
 
+                        <Spinner
+                            android:id="@+id/hbvpcrResult"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="3dp"
+                            android:background="@drawable/dropdown_custom_bg"
+                            android:paddingVertical="13dp"
+                            android:spinnerMode="dropdown"
+                            android:textSize="@dimen/font_xlarge" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="0.5">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="HBV Viral Count"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:gravity="center_horizontal"
+                            />
+                        <TextView
+                            android:id="@+id/hbvviral"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="0000000"
+                            android:gravity="center_horizontal"                        android:textSize="16sp"
+                            android:textStyle="normal" />
+
+                    </LinearLayout>
+                </LinearLayout>
 
 
                 <TextView

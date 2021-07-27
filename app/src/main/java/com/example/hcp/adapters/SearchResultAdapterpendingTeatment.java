@@ -17,16 +17,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.hcp.R;
 import com.example.hcp.fragments.pendingTratmentForm;
 import com.example.hcp.fragments.sampleForm;
+import com.example.hcp.models.AdaptersData.SearchResultDatapending;
 import com.example.hcp.models.AdaptersData.SearchResultDatavital;
 import com.example.hcp.utils.Constants;
 
 public class SearchResultAdapterpendingTeatment extends RecyclerView.Adapter<SearchResultAdapterpendingTeatment.ViewHolder> {
 
-    private  SearchResultDatavital[] sData;
+    private  SearchResultDatapending[] sData;
 
 
     // RecyclerView recyclerView;
-    public SearchResultAdapterpendingTeatment(SearchResultDatavital[] listdata) {
+    public SearchResultAdapterpendingTeatment(SearchResultDatapending[] listdata) {
         this.sData = listdata;
 
     }
@@ -41,11 +42,13 @@ public class SearchResultAdapterpendingTeatment extends RecyclerView.Adapter<Sea
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final SearchResultDatavital myListData = sData[position];
+        final SearchResultDatapending myListData = sData[position];
         holder.MrNo.setText(sData[position].MrNo);
         holder.Address.setText(sData[position].getGneder());
         holder.LeaderName.setText(sData[position].getPatientName());
         holder.LeaderCNIC.setText(sData[position].getLeaderCNIC());
+        holder.text1.setText(sData[position].getText1());
+        holder.text2.setText(sData[position].getText2());
         holder.FamilyMembers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,8 +63,12 @@ public class SearchResultAdapterpendingTeatment extends RecyclerView.Adapter<Sea
                 args.putString("PatientName",sData[position].getPatientName());
                 args.putString("Patienttype",sData[position].getPatienttype());
                 args.putInt("pid",sData[position].getPid());
-
-
+                args.putString("testType",sData[position].getText1());
+                args.putInt("hcvviralcount",sData[position].getHcvviralcount());
+                args.putInt("hbvviralcount",sData[position].getHbvviralcount());
+                args.putInt("sample_id",sData[position].getSample_id());
+                args.putString("iscorronic_patient",sData[position].getIs_cirrhotic_patient());
+                args.putInt("hcv_medicine_duration",sData[position].getHcv_medicine_duration());
 
 //                addvitalll fg = addvitalll.searchBycninc(sData[position].getLeaderCNIC());
 //                args.putDouble("temperature",fg.temperature);
@@ -100,9 +107,10 @@ public class SearchResultAdapterpendingTeatment extends RecyclerView.Adapter<Sea
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView LeaderName,Address,MrNo,LeaderCNIC;
+        public TextView LeaderName,Address,MrNo,LeaderCNIC,text1,text2;
         public CardView FamilyCard;
         public Button FamilyMembers;
+
         public ViewHolder(View itemView) {
             super(itemView);
             this.LeaderName = itemView.findViewById(R.id.cardLeaderName);
@@ -111,6 +119,8 @@ public class SearchResultAdapterpendingTeatment extends RecyclerView.Adapter<Sea
             this.FamilyMembers = itemView.findViewById(R.id.cardFamilyMembersbtn);
             this.LeaderCNIC = itemView.findViewById(R.id.cardLeaderCNIC);
             this.FamilyCard = itemView.findViewById(R.id.familyCard);
+            this.text1 = itemView.findViewById(R.id.text1);
+            this.text2 = itemView.findViewById(R.id.cardFamilyMembersbtn);
         }
     }
 

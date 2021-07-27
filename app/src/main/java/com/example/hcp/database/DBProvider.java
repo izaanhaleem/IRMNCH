@@ -11,6 +11,7 @@ import com.example.hcp.models.hcp.districtt;
 import com.example.hcp.models.hcp.divisionn;
 import com.example.hcp.models.hcp.healthFacilityy;
 import com.example.hcp.models.hcp.materialStatuss;
+import com.example.hcp.models.hcp.medicinee;
 import com.example.hcp.models.hcp.occuptaionn;
 import com.example.hcp.models.hcp.qualificationn;
 import com.example.hcp.models.hcp.tehsill;
@@ -38,6 +39,7 @@ public class DBProvider extends ContentProvider {
         builder.addModelClass(addvitalll.class);
         builder.addModelClass(Assessmentt.class);
         builder.addModelClass(Samplee.class);
+        builder.addModelClass(medicinee.class);
 
 
         return builder.create();

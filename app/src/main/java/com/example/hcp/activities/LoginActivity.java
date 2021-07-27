@@ -572,7 +572,7 @@ public class LoginActivity extends AppCompatActivity {
 
             for (int i = 0; i < data.size(); i++) {
                 userdataaa dat = new userdataaa();
-                dat.id= data.get(i).getId();
+                dat.patient_id= data.get(i).getId();
                 dat.mrn_no=data.get(i).getMrn_no();
                 dat.reg_date=data.get(i).getReg_date();
                 dat.patient_name=data.get(i).getPatient_name();
@@ -625,8 +625,27 @@ public class LoginActivity extends AppCompatActivity {
                 dat.patient_dob=data.get(i).getPatient_dob();
                 dat.is_type_change=data.get(i).getIs_type_change();
                 dat.lost_followup_id=data.get(i).getLost_followup_id();
+                if(data.get(i).getHcv_viral_count() == null){
+                    dat.hcv_viral_count = 0;
+                }else {
+                    dat.hcv_viral_count = data.get(i).getHcv_viral_count();
+                }
+                if(data.get(i).getHbv_viral_count() == null){
+                    dat.hbv_viral_count = 0;
+                }else {
+                    dat.hbv_viral_count = data.get(i).getHbv_viral_count();
+                }
+
+                if(data.get(i).getSample_id()==null){
+                    dat.sample_id = 0;
+                }else {
+                    dat.sample_id = data.get(i).getSample_id();
+                }
+
+                dat.is_cirrhotic_patient = data.get(i).getIs_cirrhotic_patient();
 
                 dat.save();
+//                Log.d("asdf","sadf");
             }
             ActiveAndroid.setTransactionSuccessful();
         } finally {

@@ -20,6 +20,8 @@ import com.example.hcp.models.hcp.addPatientResponse;
 import com.example.hcp.models.hcp.addVitalRequest;
 import com.example.hcp.models.hcp.districtResponse;
 import com.example.hcp.models.hcp.hfUserDataResponse;
+import com.example.hcp.models.hcp.medicineRequest;
+import com.example.hcp.models.hcp.medicineResponse;
 import com.example.hcp.models.hcp.sampleResponse;
 import com.example.hcp.models.hcp.tehsilResponse;
 import com.example.hcp.models.hcp.userdataRequest;
@@ -59,6 +61,9 @@ public interface GetDataService {
 
     @POST("Apis/Sample_api/AddSample")
     Call<sampleResponse> saveSamples(@Body SampleRequest re);
+
+    @POST("Apis/pending_enrollment_api/hcv_baseline_investigation")
+    Call<medicineResponse> savepending(@Body medicineRequest req);
 
     @GET("Blood_Bank_Apis/total_division")
     Call<DivisionsModel> divisions();

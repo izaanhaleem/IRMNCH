@@ -15,10 +15,10 @@ import java.util.List;
 
 public class userdataaa extends Model {
 
-    @Column(name = "_id",unique = true)
-    @SerializedName("id")
+    @Column(name = "patient_id",unique = true)
+    @SerializedName("patient_id")
     @Expose
-    public String id;
+    public Integer patient_id;
 
     @Column(name = "mrn_no")
     @SerializedName("mrn_no")
@@ -128,7 +128,7 @@ public class userdataaa extends Model {
     @Column(name = "hcv_medicine_duration")
     @SerializedName("hcv_medicine_duration")
     @Expose
-    public String hcv_medicine_duration;
+    public Integer hcv_medicine_duration;
 
     @Column(name = "next_status")
     @SerializedName("next_status")
@@ -280,6 +280,28 @@ public class userdataaa extends Model {
     @Expose
     public String lost_followup_id;
 
+    @Column(name = "hcv_viral_count")
+    @SerializedName("hcv_viral_count")
+    @Expose
+    public Integer hcv_viral_count;
+
+    @Column(name = "hbv_viral_count")
+    @SerializedName("hbv_viral_count")
+    @Expose
+    public Integer hbv_viral_count;
+
+
+    @Column(name = "sample_id")
+    @SerializedName("sample_id")
+    @Expose
+    public Integer sample_id;
+
+    @Column(name = "is_cirrhotic_patient")
+    @SerializedName("is_cirrhotic_patient")
+    @Expose
+    public String is_cirrhotic_patient;
+
+
     public static List<userdataaa> searchByCNICLeader(String cnic) {
         return new Select()
                 .from(userdataaa.class)
@@ -312,5 +334,25 @@ public class userdataaa extends Model {
         new Delete().from(userdataaa.class)
                 .execute();
     }
-
+    public static List<userdataaa> searchallhcvbaselineForm() {
+        return new Select()
+                .from(userdataaa.class)
+                .where("pcr_confirmation_hcv = ?","y" )
+                .where("cbl = ?","Y" )
+                .execute();
+    }
+    public static List<userdataaa> searchallhbvbaselineForm() {
+        return new Select()
+                .from(userdataaa.class)
+                .where("pcr_confirmation_hbv = ?","y" )
+                .where("bbl = ?","Y" )
+                .execute();
+    }
+    public static List<userdataaa> searchallbothbaselineForm() {
+        return new Select()
+                .from(userdataaa.class)
+                .where("pcr_confirmation_hbv = ?","y" )
+                .where("pcr_confirmation_hcv = ?","y" )
+                .execute();
+    }
 }

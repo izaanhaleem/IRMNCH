@@ -12,11 +12,14 @@ public class SearchResultDatavital {
         LeaderCNIC = leaderCNIC;
         patienttype = patientType;
         Pid = pid;
+
     }
 
     public SearchResultDatavital() {
 
     }
+
+
 
     public int getPid() {
         return Pid;

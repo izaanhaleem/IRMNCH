@@ -4,10 +4,10 @@
     <color name="black">#af000000</color>
     <color name="orange">#FE2E2E</color>
     <color name="blue">#6A0888</color>
-    <color name="colorAccent">@color/deep_orange_300</color>
-    <color name="colorPrimary">@color/deep_orange_300</color>
+    <color name="colorAccent">@color/blue_500</color>
+    <color name="colorPrimary">@color/blue_500</color>
 <!--    <color name="colorPrimary">#22a7cc</color>-->
-    <color name="colorPrimaryDark">@color/deep_orange_700</color>
+    <color name="colorPrimaryDark">@color/blue_800</color>
 <!--    <color name="colorPrimaryDark">#2994b2</color>-->
     <color name="bvp_subtitle_color">#ffffff</color>
     <color name="black_overlay">#66000000</color>

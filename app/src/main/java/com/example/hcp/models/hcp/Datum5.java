@@ -9,7 +9,7 @@ public class Datum5 {
 
         @SerializedName("id")
         @Expose
-        private String id;
+        private Integer id;
         @SerializedName("mrn_no")
         @Expose
         private String mrn_no;
@@ -75,7 +75,7 @@ public class Datum5 {
         private String no_of_hcv_followups;
         @SerializedName("hcv_medicine_duration")
         @Expose
-        private String hcv_medicine_duration;
+        private Integer hcv_medicine_duration;
         @SerializedName("next_status")
         @Expose
         private String next_status;
@@ -167,11 +167,59 @@ public class Datum5 {
         @Expose
         private String lost_followup_id;
 
-        public String getId() {
+    @SerializedName("hcv_viral_count")
+    @Expose
+    private Integer hcv_viral_count;
+
+    @SerializedName("hbv_viral_count")
+    @Expose
+    private Integer hbv_viral_count;
+
+    @SerializedName("sample_id")
+    @Expose
+    private Integer sample_id;
+
+    @SerializedName("is_cirrhotic_patient")
+    @Expose
+    private String is_cirrhotic_patient;
+
+    public Integer getSample_id() {
+        return sample_id;
+    }
+
+    public void setSample_id(Integer sample_id) {
+        this.sample_id = sample_id;
+    }
+
+    public String getIs_cirrhotic_patient() {
+        return is_cirrhotic_patient;
+    }
+
+    public void setIs_cirrhotic_patient(String is_cirrhotic_patient) {
+        this.is_cirrhotic_patient = is_cirrhotic_patient;
+    }
+
+    public Integer getHcv_viral_count() {
+        return hcv_viral_count;
+    }
+
+    public void setHcv_viral_count(Integer hcv_viral_count) {
+        this.hcv_viral_count = hcv_viral_count;
+    }
+
+    public Integer getHbv_viral_count() {
+        return hbv_viral_count;
+    }
+
+    public void setHbv_viral_count(Integer hbv_viral_count) {
+        this.hbv_viral_count = hbv_viral_count;
+    }
+
+    public Integer getId() {
             return id;
         }
 
-        public void setId(String id) {
+        public void setId(Integer id) {
             this.id = id;
         }
 
@@ -343,11 +391,11 @@ public class Datum5 {
             this.no_of_hcv_followups = no_of_hcv_followups;
         }
 
-        public String getHcv_medicine_duration() {
+        public Integer getHcv_medicine_duration() {
             return hcv_medicine_duration;
         }
 
-        public void setHcv_medicine_duration(String hcv_medicine_duration) {
+        public void setHcv_medicine_duration(Integer hcv_medicine_duration) {
             this.hcv_medicine_duration = hcv_medicine_duration;
         }
 

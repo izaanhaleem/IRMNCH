@@ -105,7 +105,7 @@ public class sampleForm extends Fragment {
             Validationstatus = false;
         }
 
-        int i=Integer.parseInt(new SharedPref(getContext()).GetLoggedInUser());
+        int i=Integer.parseInt(new SharedPref(getContext()).GetLoggedInRole());
         int h=Integer.parseInt(new SharedPref(getContext()).GetLoggedInUser());
 
 
