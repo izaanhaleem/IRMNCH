@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -79,7 +81,7 @@ public class DashboardFragment extends Fragment {
     int SelectedOptionIndex;
     EditText OptionValue;
     Button Search, Register, export_db;
-//   private ProgressDialog dialog;
+    //   private ProgressDialog dialog;
     ImageView scanner;
     LinearLayout sync_data;
     TextView total_record;
@@ -88,8 +90,8 @@ public class DashboardFragment extends Fragment {
     int assessmentsubmitcount = 0;
     int samplesubmitcount = 0;
     int pendingsubmitcount = 0;
-    int syncedpatients = 0, syncedvitals = 0, syncedassessment = 0,syncedpending = 0;
-
+    int syncedpatients = 0, syncedvitals = 0, syncedassessment = 0, syncedpending = 0;
+    int CurremtIndex = 0;
 
     List<addPatientModel> paitents;
     List<addvitalll> vitals;
@@ -98,6 +100,7 @@ public class DashboardFragment extends Fragment {
     List<medicinee> pending;
 
     public int totalSize;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -153,6 +156,7 @@ public class DashboardFragment extends Fragment {
                 scanner.startAnimation(rotate);
 
                 SyncRecord();
+
 //                submitmedicine();
             }
         });
@@ -382,7 +386,7 @@ public class DashboardFragment extends Fragment {
         List<Assessmentt> assessments = Assessmentt.searchBySync();
         List<Samplee> sample = Samplee.searchBySync();
 //        List<medicinee> medicine = medicinee.searchBySync();
-        totalSize = patient.size() + vitals.size()+assessments.size()+sample.size();
+        totalSize = patient.size() + vitals.size() + assessments.size() + sample.size();
         total_record.setText(totalSize + "");
 
     }
@@ -392,8 +396,8 @@ public class DashboardFragment extends Fragment {
 
 
         patientssubmitcount = 0;
-        vitalsubmitcount=0;
-        assessmentsubmitcount=0;
+        vitalsubmitcount = 0;
+        assessmentsubmitcount = 0;
         samplesubmitcount = 0;
 //        pendingsubmitcount = 0;
 
@@ -401,29 +405,56 @@ public class DashboardFragment extends Fragment {
         paitents = addPatientModel.searchBySync();
         patientssubmitcount = paitents.size();
 
-        vitals = addvitalll.searchBySync();
-        vitalsubmitcount= vitals.size();
 
-        assessmentts = Assessmentt.searchBySync();
-        assessmentsubmitcount=assessmentts.size();
+//        vitalsubmitcount= vitals.size();
 
-        sampless = Samplee.searchBySync();
-        samplesubmitcount = sampless.size();
+
+//        assessmentsubmitcount=assessmentts.size();
+
+
+//        samplesubmitcount = sampless.size();
 
 //        pending = medicinee.searchBySync();
 //        pendingsubmitcount = pending.size();
 
         if (paitents.size() > 0) {
             submitePatients();
-
+        } else {
+            submitvitalData();
+            submitAssessment();
+            submitSamples();
         }
+//       if(vitals.size()>0){
+//            submitvitalData();
+//        }
+//       if(assessmentts.size()>0){
+//            submitAssessment();
+//        }
+//       if(sampless.size()>0){
+//            submitSamples();
+//        }
+//      else  {
+//            Toast.makeText(getContext(), "All Data Synced", Toast.LENGTH_SHORT).show();
+//        }
+    }
+
+    void SubRes(addPatientModel pat)
+
+    {
 
     }
 
-    public void submitePatients() {
-        if (paitents.size() > 0) {
+    public void submitePatients()
 
-            for (int i = 0; i < paitents.size(); i++) {
+    {
+
+//        if (paitents.size() > 0 && paitents.size() > CurremtIndex)
+//
+//        {
+
+            for (int i = 0; i < paitents.size(); i++)
+
+            {
                 addPatientRequest fmb = new addPatientRequest();
                 if (paitents.get(i).getPatient_id() != null) {
                     fmb.setPatient_id(paitents.get(i).getPatient_id());
@@ -590,19 +621,31 @@ public class DashboardFragment extends Fragment {
                     fmb.setMobile_id(paitents.get(i).getId());
                 } else {
                     fmb.setMobile_id(0L);
-
                 }
 
 //                List<addPatientModel> pati = new ArrayList<addPatientModel>();
 //                pati.add(fmb);
-                SubmitLeader(fmb);
+
+
+//                final Handler handler = new Handler(Looper.getMainLooper());
+//                int finalI = i;
+//                handler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//
+//                    }
+//                }, 3300);
+
+                SubmitLeader(fmb, paitents.get(i), paitents.size(), i);
+
+
 //               SubmitLeader(fmb);
             }
 
         }
-    }
+//    }
 
-    public void SubmitLeader(addPatientRequest currentMember) {
+    public void SubmitLeader(addPatientRequest currentMember, addPatientModel addPatientModel, int totalPatient, int currentPatient) {
 
         ProgressDialog dialog = new ProgressDialog(getContext());
         dialog.setMessage("Saving Patient please wait . . ");
@@ -625,67 +668,76 @@ public class DashboardFragment extends Fragment {
                 dialog.dismiss();
 
 
-                    if (response.code() == 200) {
+                if (response.code() == 200) {
 
 
-                        ActiveAndroid.beginTransaction();
-                        try {
+                    ActiveAndroid.beginTransaction();
+                    try {
 
-                            List<addPatientModel> fl = addPatientModel.getall();
-                            for (int i = 0; i < fl.size(); i++) {
-
-                                addPatientModel mod = addPatientModel.load(addPatientModel.class, response.body().getData().getMobile_id());
-                                mod.IsSync = 1;
-                                mod.mrn_no = response.body().getData().getMrn_no();
-                                mod.patient_id = response.body().getData().getPatient_id();
-                                mod.save();
-                            }
-
-                            List<addvitalll> vti = addvitalll.getall();
-                            if (vti.size() > 0) {
-                                for (int i = 0; i < vti.size(); i++) {
-                                    addvitalll vtl = addvitalll.searchByid(response.body().getData().getMobile_id());
-                                    vtl.pid = response.body().getData().getPatient_id();
-                                    vtl.save();
-                                }
-                            }
+//                            List<addPatientModel> fl = addPatientModel.searchBySync();
+//                            for (int i = 0; i < fl.size(); i++) {
+//
+//                                addPatientModel mod = addPatientModel.load(addPatientModel.class, response.body().getData().getMobile_id());
+//                                mod.IsSync = 1;
+//                                mod.mrn_no = response.body().getData().getMrn_no();
+//                                mod.patient_id = response.body().getData().getPatient_id();
+//                                mod.save();
+//                            }
+                        addPatientModel.IsSync = 1;
+                        addPatientModel.mrn_no = response.body().getData().getMrn_no();
+                        addPatientModel.patient_id = response.body().getData().getPatient_id();
+                        addPatientModel.save();
 
 
-                            List<Assessmentt> Asses = Assessmentt.getall();
-                            if (Asses.size() > 0) {
-                                for (int i = 0; i < Asses.size(); i++) {
-                                    Assessmentt assess = Assessmentt.searchByid(response.body().getData().getMobile_id());
-                                    assess.patient_id = response.body().getData().getPatient_id();
-                                    assess.save();
-                                }
-                            }
-
-
-                            List<Samplee> sample = Samplee.getall();
-                            if (sample.size() > 0) {
-                                for (int i = 0; i < sample.size(); i++) {
-                                    Samplee ss = Samplee.searchByid(response.body().getData().getMobile_id());
-                                    ss.pid = response.body().getData().getPatient_id();
-                                    ss.save();
-                                }
-                            }
-                            ActiveAndroid.setTransactionSuccessful();
-                        } finally {
-                            ActiveAndroid.endTransaction();
+                        addvitalll vtl = addvitalll.searchBypid(response.body().getData().getMobile_id());
+                        if (vtl != null) {
+                            vtl.pid = response.body().getData().getPatient_id();
+                            vtl.save();
+                        } else {
+                            Toast.makeText(getContext(), "vital not found", Toast.LENGTH_SHORT).show();
                         }
 
-                    } else {
-                        Toast.makeText(getContext(), "" + response.message().toString(), Toast.LENGTH_SHORT).show();
+
+                        Assessmentt assess = Assessmentt.searchBypid(response.body().getData().getMobile_id());
+//                                   if(assess.patient_id == response.body().getData().getPatient_id()) {
+                        if (assess != null) {
+                            assess.patient_id = response.body().getData().getPatient_id();
+                            assess.save();
+                        } else {
+                            Toast.makeText(getContext(), "Assessment not found", Toast.LENGTH_SHORT).show();
+                        }
+
+
+                        Samplee ss = Samplee.searchBypid(response.body().getData().getMobile_id());
+                        if (ss != null) {
+                            ss.pid = response.body().getData().getPatient_id();
+                            ss.save();
+                        } else {
+                            Toast.makeText(getContext(), "sample not found", Toast.LENGTH_SHORT).show();
+                        }
+
+
+                        ActiveAndroid.setTransactionSuccessful();
+                    } finally {
+                        ActiveAndroid.endTransaction();
                     }
 
+                    if (currentPatient + 1 == totalPatient) {
+                        submitvitalData();
+                        submitAssessment();
+                        submitSamples();
+                    }
+                } else {
+                    Toast.makeText(getContext(), "" + response.message().toString(), Toast.LENGTH_SHORT).show();
+                }
 
-//
-                        syncedpatients = syncedpatients + 1;
-                        if (syncedpatients == patientssubmitcount) {
-                            if(response.code()==200) {
-                                submitvitalData();
-                            }
-                        }
+
+//                        syncedpatients = syncedpatients + 1;
+//                        if (syncedpatients == patientssubmitcount) {
+//                            if(response.code()==200) {
+//                                submitvitalData();
+//                            }
+//                        }
 //                    } catch (Exception error) {
 //                        syncedleaders = syncedleaders + 1;
 //                        if (syncedleaders == leadersubmitcount) {
@@ -734,7 +786,7 @@ public class DashboardFragment extends Fragment {
     }
 
     private void submitvitalData() {
-
+        vitals = addvitalll.searchBySync();
         if (vitals.size() > 0) {
 
             for (int i = 0; i < vitals.size(); i++) {
@@ -755,13 +807,13 @@ public class DashboardFragment extends Fragment {
 
                 }
                 if (vitals.get(i).getBp_systolic() != null) {
-                    fmb.setBp_systolic(vitals.get(i).getBp_systolic());
+                    fmb.setBp_systolic((int) Math.round(vitals.get(i).getBp_systolic()));
                 } else {
                     fmb.setBp_systolic(0);
 
                 }
                 if (vitals.get(i).getBp_diastolic() != null) {
-                    fmb.setBp_diastolic(vitals.get(i).getBp_diastolic());
+                    fmb.setBp_diastolic((int) Math.round(vitals.get(i).getBp_diastolic()));
                 } else {
                     fmb.setBp_diastolic(0);
 
@@ -790,9 +842,9 @@ public class DashboardFragment extends Fragment {
                     fmb.setMobile_id(0L);
                 }
 
-                List<addPatientModel> fl = addPatientModel.getall();
-
-                vitals.get(i).pid = fl.get(i).getPatient_id();
+//                List<addPatientModel> fl = addPatientModel.getall();
+//
+//                vitals.get(i).pid = fl.get(i).getPatient_id();
 
                 Submitvital(fmb);
 
@@ -818,23 +870,27 @@ public class DashboardFragment extends Fragment {
                     ActiveAndroid.beginTransaction();
                     try {
 
-                        List<addvitalll> fl = addvitalll.getall();
-                        for (int i = 0; i < fl.size(); i++) {
 
-                            addvitalll mod = addvitalll.load(addvitalll.class, response.body().getData().getMobile_id());
-                            mod.IsSync = 1;
-                            mod.save();
-
-                        }
+                        addvitalll vital = addvitalll.searchBypid(fmb.getPid());
+                        vital.IsSync = 1;
+                        vital.save();
+//                        List<addvitalll> fl = addvitalll.getall();
+//                        for (int i = 0; i < fl.size(); i++) {
+//
+//                            addvitalll mod = addvitalll.load(addvitalll.class, response.body().getData().getMobile_id());
+//                            mod.IsSync = 1;
+//                            mod.save();
+//
+//                        }
                         ActiveAndroid.setTransactionSuccessful();
                     } finally {
                         ActiveAndroid.endTransaction();
                     }
 
-                    syncedvitals = syncedvitals + 1;
-                    if (syncedvitals == vitalsubmitcount) {
-                        submitAssessment();
-                    }
+//                    syncedvitals = syncedvitals + 1;
+//                    if (syncedvitals == vitalsubmitcount) {
+//                        submitAssessment();
+//                    }
 
 
 //                    deleteformvitalList(response.body().getData().getMobile_id());
@@ -867,7 +923,7 @@ public class DashboardFragment extends Fragment {
     }
 
     private void submitAssessment() {
-
+        assessmentts = Assessmentt.searchBySync();
         if (assessmentts.size() > 0) {
 
             for (int i = 0; i < assessmentts.size(); i++) {
@@ -1114,9 +1170,9 @@ public class DashboardFragment extends Fragment {
                 }
 
 
-                List<addPatientModel> fl = addPatientModel.getall();
-
-                assessmentts.get(i).patient_id = fl.get(i).getPatient_id();
+//                List<addPatientModel> fl = addPatientModel.getall();
+//
+//                assessmentts.get(i).patient_id = fl.get(i).getPatient_id();
 
                 SubmitAssessment(asssess);
 
@@ -1141,25 +1197,29 @@ public class DashboardFragment extends Fragment {
 
 
                     ActiveAndroid.beginTransaction();
+
                     try {
-
-                        List<Assessmentt> flo = Assessmentt.getall();
-                        for (int i = 0; i < flo.size(); i++) {
-
-                            Assessmentt mo = Assessmentt.load(Assessmentt.class, response.body().getData().getMobile_id());
-                            mo.IsSync = 1;
-                            mo.save();
-
-                        }
+                        Assessmentt mo = Assessmentt.searchBypid(asssess.getPatient_id());
+                        mo.IsSync = 1;
+                        mo.save();
+//                        Assessmentt assessmentt= Assessmentt.searchBypid()
+//                        List<Assessmentt> flo = Assessmentt.getall();
+//                        for (int i = 0; i < flo.size(); i++) {
+//
+//                            Assessmentt mo = Assessmentt.load(Assessmentt.class, response.body().getData().getMobile_id());
+//                            mo.IsSync = 1;
+//                            mo.save();
+//
+//                        }
                         ActiveAndroid.setTransactionSuccessful();
                     } finally {
                         ActiveAndroid.endTransaction();
                     }
 
-                    syncedassessment = syncedassessment + 1;
-                    if (syncedassessment == assessmentsubmitcount) {
-                        submitSamples();
-                    }
+//                    syncedassessment = syncedassessment + 1;
+//                    if (syncedassessment == assessmentsubmitcount) {
+//                        submitSamples();
+//                    }
 
 
 //                    deleteformvitalList(response.body().getData().getMobile_id());
@@ -1192,6 +1252,7 @@ public class DashboardFragment extends Fragment {
     }
 
     private void submitSamples() {
+        sampless = Samplee.searchBySync();
         if (sampless.size() > 0) {
 
             for (int i = 0; i < sampless.size(); i++) {
@@ -1219,14 +1280,14 @@ public class DashboardFragment extends Fragment {
                 }
 
                 if (sampless.get(i).getId() != null) {
-                    smp.setMobile_id(vitals.get(i).getId());
+                    smp.setMobile_id(sampless.get(i).getId());
                 } else {
                     smp.setMobile_id(0L);
                 }
 
-                List<addPatientModel> fli = addPatientModel.getall();
-
-                sampless.get(i).pid = fli.get(i).getPatient_id();
+//                List<addPatientModel> fli = addPatientModel.getall();
+//
+//                sampless.get(i).pid = fli.get(i).getPatient_id();
 
                 SubmitSamples(smp);
 
@@ -1252,15 +1313,17 @@ public class DashboardFragment extends Fragment {
 
                     ActiveAndroid.beginTransaction();
                     try {
-
-                        List<Samplee> s = Samplee.getall();
-                        for (int i = 0; i < s.size(); i++) {
-
-                            Samplee mo = Samplee.load(Samplee.class, response.body().getData().getMobile_id());
-                            mo.IsSync = 1;
-                            mo.save();
-
-                        }
+                        Samplee mo = Samplee.searchBypid(smp.getPid());
+                        mo.IsSync = 1;
+                        mo.save();
+//                        List<Samplee> s = Samplee.getall();
+//                        for (int i = 0; i < s.size(); i++) {
+//
+//                            Samplee mo = Samplee.load(Samplee.class, response.body().getData().getMobile_id());
+//                            mo.IsSync = 1;
+//                            mo.save();
+//
+//                        }
                         ActiveAndroid.setTransactionSuccessful();
                     } finally {
                         ActiveAndroid.endTransaction();

@@ -18,6 +18,7 @@ public class APIClient {
 //  private static final String BASE_URL = "http://172.16.8.90:8982";
 //  private static final String BASE_URL = "http://172.16.8.90:33339";
 //private static final String BASE_URL = "http://172.16.19.132:8982";
+//    private static final String BASE_URL = "https://lhw.pshealthpunjab.gov.pk";
     private static final String BASE_URL = "https://lhw.pshealthpunjab.gov.pk";
 //  private static final String BASE_URL = "http://172.16.8.90";
 

@@ -33,7 +33,7 @@
     <string name="name">Victim Name</string>
 
 
-    <string name="contact_no">Contact No.</string>
+    <string name="contact_no">Contact No*</string>
     <string name="cancel">Cancel</string>
     <string name="please_enter_nature_of_emergency">Please enter nature of emergency</string>
     <string name="please_Enter_no_of_victim">Please enter no of victim</string>
@@ -140,7 +140,7 @@
     <string name="reg_no">REG. NO (اندراج نمبر)</string>
     <string name="department">Department (شعبہ)</string>
     <string name="unit_ward">Unit / Ward (یونٹ / وارڈ)</string>
-    <string name="patient_name">First Name</string>
+    <string name="patient_name">First Name*</string>
     <string name="s_o_d_o_w_o">S/O, D/O, W/O (بیٹا/ بیٹی/زوجہ)</string>
     <string name="patient_gaurdian_cnic">Deceased/Gaurdian CNIC (مریض / سرپرست کا قومی شناختی کارڈ نمبر)</string>
     <string name="guardian">Guardian</string>
@@ -212,8 +212,8 @@
     <string name="RelationHouseHolder"> سربراہ سے تعلق</string>
     <string name="NAME">نام *</string>
     <string name="NAME1">نام</string>
-    <string name="Last_NAME">Last Name</string>
-    <string name="fathername">Father/Spouse Name</string>
+    <string name="Last_NAME">Last Name*</string>
+    <string name="fathername">Father/Spouse Name*</string>
     <string name="Father_NAME">والد کا نام *</string>
     <string name="FHNAME">والد/ شوہر کا نام </string>
     <string name="schooling">Schooling Status</string>
@@ -244,7 +244,7 @@
     <string name="widowed">رنڈوا / بیوہ</string>
     <string name="TolalWife">زوجہ کی تعداد</string>
     <string name="TolalChid">بچوں کی تعداد</string>
-    <string name="Address">Address</string>
+    <string name="Address">Address*</string>
     <string name="District">ضلع *</string>
     <string name="Tehsil">تحصیل *</string>
     <string name="UC">یو سی *</string>
@@ -446,9 +446,9 @@
     <string name="menu_slideshow">Slideshow</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="perticulars_of_a_patient">Registration of a Patient</string>
-    <string name="addvital">Add Vital of a Patient</string>
-    <string name="addsample">Add Sample of a Patient</string>
+    <string name="perticulars_of_a_patient">Registration  Patient</string>
+    <string name="addvital">Add Vital  Patient</string>
+    <string name="addsample">Add Sample  Patient</string>
     <string name="pendingEnrollment">Patient Pending Treatment Enrollment</string>
     <string name="assessment">Patient Assessment</string>
 

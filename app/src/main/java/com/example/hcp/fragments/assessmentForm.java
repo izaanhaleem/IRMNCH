@@ -47,7 +47,8 @@ public class assessmentForm extends Fragment {
     LinearLayout three,five;
 
     String SelectedMrNo,patientCNINC,PatientName,PatientType;
-    int pid,pulse,BP_Systolic,BP_Diastolic;
+    int pid,pulse;
+    Double BP_Systolic,BP_Diastolic;
     Double tempera,Height,weight;
 
     @Override
@@ -63,12 +64,10 @@ public class assessmentForm extends Fragment {
         pid = getArguments().getInt("pid");
         String temp =  String.valueOf(tempera = getArguments().getDouble("temperature"));
         pulse = getArguments().getInt("puls");
-        BP_Systolic = getArguments().getInt("BP_Systolic");
-        BP_Diastolic = getArguments().getInt("BP_Diastolic");
+        BP_Systolic = getArguments().getDouble("BP_Systolic");
+        BP_Diastolic = getArguments().getDouble("BP_Diastolic");
         String height = String.valueOf(  Height = getArguments().getDouble("Height"));
         String weight =  String.valueOf(getArguments().getDouble("Weight"));
-
-
 
         name = view.findViewById(R.id.name);
         mrno = view.findViewById(R.id.mrno);
@@ -595,7 +594,7 @@ public class assessmentForm extends Fragment {
 
         AS.IsSync = 0;
         AS.setUser_hospital(new SharedPref(getContext()).GetLoggedInUser());
-        AS.setPatient_id(0);
+        AS.setPatient_id(pid);
         AS.setUser_id(new SharedPref(getContext()).GetLoggedInRole());
         AS.setCreated(0);
         AS.setUpdated(0);

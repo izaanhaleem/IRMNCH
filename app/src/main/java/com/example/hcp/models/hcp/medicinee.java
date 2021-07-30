@@ -75,7 +75,7 @@ public class medicinee extends Model {
     @Column(name = "other_lab_name")
     @SerializedName("other_lab_name")
     @Expose
-    public Object other_lab_name;
+    public String  other_lab_name;
 
     @Column(name = "id")
     @SerializedName("id")
@@ -170,6 +170,12 @@ public class medicinee extends Model {
     @Expose
     public String treatment_options;
 
+    @Column(name = "is_all_med_delivered_frm_baseline")
+    @SerializedName("is_all_med_delivered_frm_baseline")
+    @Expose
+    public String is_all_med_delivered_frm_baseline;
+
+
     @Column(name = "IsSync")
     @SerializedName("IsSync")
     @Expose
@@ -178,6 +184,12 @@ public class medicinee extends Model {
         return new Select()
                 .from(medicinee.class)
                 .where("IsSync = ?",0)
+                .execute();
+    }
+
+    public static List<medicinee> getall() {
+        return new Select()
+                .from(medicinee.class)
                 .execute();
     }
 }

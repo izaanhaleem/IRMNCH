@@ -37,6 +37,9 @@ public class Constants {
     public static final String DOBMissing1 = "سربراہ کی عمر 16 سال سے کم ہے.";
     public static final String NameMissing= "Plz Enter Patient Name";
     public static final String temp= "Enter Temperature in FH";
+    public static final String error= "Temperature Must be equal or less then 106";
+    public static final String bpsys= "BP(Systolic) Must be equal or less then 300";
+    public static final String bpdys= "BP(Diastolic) Must be equal or less then 200";
     public static final String sampleNoIncorrect= "Incorrect Sample No";
     public static final String FHNameMissing= "Missing Father Name";
     public static final String lName= "Missing Last Name";

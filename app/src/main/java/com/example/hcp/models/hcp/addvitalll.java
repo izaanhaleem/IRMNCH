@@ -32,12 +32,12 @@ public class addvitalll extends Model {
     @Column(name = "bp_systolic")
     @SerializedName("bp_systolic")
     @Expose
-    public Integer bp_systolic;
+    public Double bp_systolic;
 
     @Column(name = "bp_diastolic")
     @SerializedName("bp_diastolic")
     @Expose
-    public Integer bp_diastolic;
+    public Double bp_diastolic;
 
     @Column(name = "height")
     @SerializedName("height")
@@ -85,19 +85,19 @@ public class addvitalll extends Model {
         this.pulse = pulse;
     }
 
-    public Integer getBp_systolic() {
+    public Double getBp_systolic() {
         return bp_systolic;
     }
 
-    public void setBp_systolic(Integer bp_systolic) {
+    public void setBp_systolic(Double bp_systolic) {
         this.bp_systolic = bp_systolic;
     }
 
-    public Integer getBp_diastolic() {
+    public Double getBp_diastolic() {
         return bp_diastolic;
     }
 
-    public void setBp_diastolic(Integer bp_diastolic) {
+    public void setBp_diastolic(Double bp_diastolic) {
         this.bp_diastolic = bp_diastolic;
     }
 
@@ -152,6 +152,12 @@ public class addvitalll extends Model {
         return new Select()
                 .from(addvitalll.class)
                 .where("mobile_id = ?",id)
+                .executeSingle();
+    }
+    public static addvitalll searchBypid(Integer id) {
+        return new Select()
+                .from(addvitalll.class)
+                .where("pid = ?",id)
                 .executeSingle();
     }
 

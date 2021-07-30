@@ -152,8 +152,12 @@ public class AssessmentDashboard extends Fragment {
             FDP[i].LeaderCNIC = assessment.get(i).self_cnic;
             FDP[i].MrNo = assessment.get(i).mrn_no;
             FDP[i].patientType = assessment.get(i).patient_type;
-            FDP[i].pid = assessment.get(i).getId().intValue();
-
+//            FDP[i].pid = assessment.get(i).getId().intValue();
+            if(assessment.get(i).patient_id==0){
+                FDP[i].pid = assessment.get(i).getId().intValue();
+            }else {
+                FDP[i].pid = assessment.get(i).patient_id;
+            }
         }
 
         SearchResultDatavital[] myListData = new SearchResultDatavital[FDP.length] ;

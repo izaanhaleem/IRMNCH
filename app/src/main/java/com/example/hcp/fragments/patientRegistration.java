@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -134,9 +136,6 @@ public class patientRegistration extends Fragment {
 
             }
         }
-
-
-
 
 
         if (isEidt) {
@@ -279,7 +278,23 @@ public class patientRegistration extends Fragment {
 //            }
         }
 
+        etCNIC.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                layoutfirst.setVisibility(View.GONE);
+                layoutsecond.setVisibility(View.GONE);
+            }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Search();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         etAge.setEnabled(false);
         SelectedOption = "";
@@ -293,9 +308,9 @@ public class patientRegistration extends Fragment {
 
         SetSearchOptions();
 
-        btnSubmit.setOnClickListener(
-                v -> Search()
-        );
+//        btnSubmit.setOnClickListener(
+//                v -> Search()
+//        );
         Submit.setOnClickListener(
                 v -> FormValidation()
         );
@@ -525,12 +540,19 @@ public class patientRegistration extends Fragment {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
-                new DatePickerDialog(getContext(), date, myCalendar
+                DatePickerDialog dpd =new DatePickerDialog(getContext(), date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                        myCalendar.get(Calendar.DAY_OF_MONTH));
+                dpd.getDatePicker().setMaxDate(System.currentTimeMillis() - 1000);
+                dpd.show();
+                // TODO Auto-generated method stub
+//                new DatePickerDialog(getContext(), date, myCalendar
+//                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+//                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
+
         });
+
     }
 
     private void updateLabel() {
@@ -589,9 +611,9 @@ public class patientRegistration extends Fragment {
 
 
         List<String> categoriesEng = new ArrayList<String>();
-        categoriesEng.add("Select cnic");
+        categoriesEng.add("Select cnic*");
         categoriesEng.add("Self CNIC");
-        categoriesEng.add("AFGHAN CNINC");
+        categoriesEng.add("AFGHAN CNIC");
 
 
         // Creating adapter for spinner
@@ -636,7 +658,7 @@ public class patientRegistration extends Fragment {
         List<occuptaionn> occupationList = occuptaionn.getAll();
 
         String[] spinnerArray = new String[occupationList.size() + 1];
-        spinnerArray[0] = "Occupation*";
+        spinnerArray[0] = "Select*";
 
         for (int i = 1; i < spinnerArray.length; i++) {
             spinnerArray[i] = occupationList.get(i - 1).name;
@@ -688,7 +710,7 @@ public class patientRegistration extends Fragment {
         List<materialStatuss> materialList = materialStatuss.getAll();
 
         String[] spinnerArray = new String[materialList.size() + 1];
-        spinnerArray[0] = "Status*";
+        spinnerArray[0] = "Select*";
 
         for (int i = 1; i < spinnerArray.length; i++) {
             spinnerArray[i] = materialList.get(i - 1).name;
@@ -740,7 +762,7 @@ public class patientRegistration extends Fragment {
         List<qualificationn> qualificationList = qualificationn.getAll();
 
         String[] spinnerArray = new String[qualificationList.size() + 1];
-        spinnerArray[0] = "Status*";
+        spinnerArray[0] = "Select*";
 
         for (int i = 1; i < spinnerArray.length; i++) {
             spinnerArray[i] = qualificationList.get(i - 1).name;
@@ -789,10 +811,10 @@ public class patientRegistration extends Fragment {
     }
     private void SetGenderSpinner(){
        List<String> categoriesEng = new ArrayList<String>();
-       categoriesEng.add("Gender*");
+       categoriesEng.add("Select*");
        categoriesEng.add("Male");
        categoriesEng.add("Female");
-       categoriesEng.add("She Male");
+       categoriesEng.add("Transgender");
 
 
        // Creating adapter for spinner
@@ -1084,8 +1106,9 @@ public class patientRegistration extends Fragment {
       dataAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 
       // attaching data adapter to spinner
-      firsts.setAdapter(dataAdapter);
 
+      firsts.setAdapter(dataAdapter);
+      firsts.setSelection(2);
       firsts.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
           @Override
           public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -1098,6 +1121,7 @@ public class patientRegistration extends Fragment {
                   }
                   else if(Selectfirstyn==1){
                       firstVal="y";
+
                       secondlayout.setVisibility(View.VISIBLE);
                   }
 
@@ -1186,7 +1210,7 @@ public class patientRegistration extends Fragment {
 
         // attaching data adapter to spinner
         thirds.setAdapter(dataAdapter);
-
+        thirds.setSelection(2);
         thirds.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {

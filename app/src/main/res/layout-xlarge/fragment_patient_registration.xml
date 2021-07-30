@@ -283,7 +283,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:text="Gender"
+                            android:text="Gender*"
                             android:textSize="19sp"
                             android:textColor="@color/black"
                             android:textStyle="normal"/>
@@ -308,7 +308,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:text="Marital Status"
+                            android:text="Marital Status*"
                             android:textSize="19sp"
                             android:textStyle="normal"
                             android:textColor="@color/black"/>
@@ -342,7 +342,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:text="Occupation"
+                            android:text="Occupation*"
                             android:textSize="19sp"
                             android:textStyle="normal"
                             android:textColor="@color/black"/>
@@ -368,7 +368,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:text="Qualification "
+                            android:text="Qualification*"
                             android:textSize="19sp"
                             android:textStyle="normal"
                             android:textColor="@color/black"/>
@@ -863,42 +863,43 @@
                     </LinearLayout>
 
 
+
+
+
+                    <Button
+                        android:visibility="gone"
+                        android:id="@+id/btnSubmit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginEnd="25dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Register"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:background="@drawable/buttonstyle"
+
+                        tools:spb_showStripes="true" />
+                    <Button
+                        android:id="@+id/Submit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginEnd="25dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Submit"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:background="@drawable/buttonstyle"
+                        tools:spb_showStripes="true" />
                 </LinearLayout>
 
 
             </LinearLayout>
-
-
-            <Button
-                android:id="@+id/btnSubmit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="true"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="25dp"
-                android:layout_marginTop="10dp"
-                android:text="Register"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                android:background="@drawable/buttonstyle"
-
-                tools:spb_showStripes="true" />
-            <Button
-                android:id="@+id/Submit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="true"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="25dp"
-                android:layout_marginTop="10dp"
-                android:text="Submit"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                android:background="@drawable/buttonstyle"
-                tools:spb_showStripes="true" />
-
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

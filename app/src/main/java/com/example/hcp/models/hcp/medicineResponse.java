@@ -7,9 +7,9 @@ public class medicineResponse {
     @SerializedName("status")
     @Expose
     private Boolean status;
-    @SerializedName("datum8")
+    @SerializedName("data")
     @Expose
-    private Datum8 datum8;
+    private Data data;
     @SerializedName("message")
     @Expose
     private String message;
@@ -25,12 +25,12 @@ public class medicineResponse {
         this.status = status;
     }
 
-    public Datum8 getDatum8() {
-        return datum8;
+    public Data getData() {
+        return data;
     }
 
-    public void setDatum8(Datum8 datum8) {
-        this.datum8 = datum8;
+    public void setData(Data data) {
+        this.data = data;
     }
 
     public String getMessage() {

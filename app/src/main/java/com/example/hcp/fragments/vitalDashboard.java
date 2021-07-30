@@ -133,13 +133,13 @@ public class vitalDashboard extends Fragment {
 
                 }
                 if (vitalss.get(i).getBp_systolic() != null) {
-                    fmb.setBp_systolic(vitalss.get(i).getBp_systolic());
+                    fmb.setBp_systolic((int) Math.round(vitalss.get(i).getBp_systolic()));
                 } else {
                     fmb.setBp_systolic(0);
 
                 }
                 if (vitalss.get(i).getBp_diastolic() != null) {
-                    fmb.setBp_diastolic(vitalss.get(i).getBp_diastolic());
+                    fmb.setBp_diastolic((int) Math.round(vitalss.get(i).getBp_diastolic()));
                 } else {
                     fmb.setBp_diastolic(0);
 
@@ -341,7 +341,11 @@ public class vitalDashboard extends Fragment {
             FDP[i].LeaderCNIC = vitalpatient.get(i).self_cnic;
             FDP[i].MrNo = vitalpatient.get(i).mrn_no;
             FDP[i].patientType = vitalpatient.get(i).patient_type;
-            FDP[i].pid = vitalpatient.get(i).getId().intValue();
+            if(vitalpatient.get(i).patient_id==0){
+                FDP[i].pid = vitalpatient.get(i).getId().intValue();
+            }else {
+                FDP[i].pid = vitalpatient.get(i).patient_id;
+            }
 
         }
 

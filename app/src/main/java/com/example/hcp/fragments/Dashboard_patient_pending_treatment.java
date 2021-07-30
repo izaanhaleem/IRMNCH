@@ -22,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.activeandroid.ActiveAndroid;
 import com.example.hcp.R;
 import com.example.hcp.adapters.SearchResultAdapterAssessment;
 import com.example.hcp.adapters.SearchResultAdapterpendingTeatment;
@@ -134,6 +135,7 @@ public class Dashboard_patient_pending_treatment extends Fragment {
                     }
 
                     break;
+
                 case 2:
                     list = userdataaa.searchByCNICLeader(SelectedOptionVal);
                     if (list.size() > 0) {
@@ -242,18 +244,32 @@ public class Dashboard_patient_pending_treatment extends Fragment {
                 FDP[i].PatientName = "N/A";
             }
 
-            if(sample.get(i).pcr_confirmation_hcv=="y" && sample.get(i).cbl=="Y"){
+//            if(sample.get(i).pcr_confirmation_hcv=="y" && sample.get(i).cbl=="Y"){
                 FDP[i].text1 = "HCV";
                 FDP[i].text2 = "HCV Baseline Investigation Form";
-            }else if(sample.get(i).pcr_confirmation_hbv=="y" && sample.get(i).bbl=="Y"){
-                FDP[i].text1 = "HBV";
-                FDP[i].text2 = "HBV Baseline Investigation Form";
+//            }else if(sample.get(i).pcr_confirmation_hbv=="y" && sample.get(i).bbl=="Y"){
+//                FDP[i].text1 = "HBV";
+//                FDP[i].text2 = "HBV Baseline Investigation Form";
+//            }else {
+//                FDP[i].text1 = "Both";
+//                FDP[i].text2 = "Both Baseline Investigation Form";
+//            }
+            if(sample.get(i).hcv_viral_count != null){
+                FDP[i].hcvviralount = sample.get(i).hcv_viral_count;
             }else {
-                FDP[i].text1 = "Both";
-                FDP[i].text2 = "Both Baseline Investigation Form";
+                FDP[i].hcvviralount = 0;
             }
-             FDP[i].hcvviralount = sample.get(i).hcv_viral_count;
-             FDP[i].hbvviralcount = sample.get(i).hbv_viral_count;
+
+//             FDP[i].hcvviralount = sample.get(i).hcv_viral_count;
+
+            if(sample.get(i).hbv_viral_count !=null){
+                FDP[i].hbvviralcount = sample.get(i).hbv_viral_count;
+            }else {
+                FDP[i].hbvviralcount = 0;
+            }
+
+
+//             FDP[i].hbvviralcount = sample.get(i).hbv_viral_count;
 
 
             if (sample.get(i).sample_id != null) {
@@ -274,7 +290,6 @@ public class Dashboard_patient_pending_treatment extends Fragment {
             FDP[i].MrNo = sample.get(i).mrn_no;
             FDP[i].patientType = sample.get(i).patient_type;
             FDP[i].pid = sample.get(i).patient_id;
-
         }
 
         SearchResultDatapending[] myListData = new SearchResultDatapending[FDP.length] ;
@@ -462,7 +477,7 @@ public class Dashboard_patient_pending_treatment extends Fragment {
                     med.setUpdated("0");
                 }
                 if (pending.get(i).mobile_id != null) {
-                    med.setMobile_id(pending.get(i).mobile_id);
+                    med.setMobile_id(Math.toIntExact(pending.get(i).getId()));
                 } else {
                     med.setMobile_id(0);
                 }
@@ -487,18 +502,24 @@ public class Dashboard_patient_pending_treatment extends Fragment {
                     med.setTreatment_options("0");
                 }
 
+                if (pending.get(i).is_all_med_delivered_frm_baseline != null) {
+                    med.setIs_all_med_delivered_frm_baseline(pending.get(i).is_all_med_delivered_frm_baseline);
+                } else {
+                    med.setIs_all_med_delivered_frm_baseline("N");
+                }
+
 //                List<addPatientModel> fli = addPatientModel.getall();
 //
 //                sampless.get(i).pid = fli.get(i).getPatient_id();
 
-                submitpending(med);
+                submitpending(med,pending.get(i));
 
             }
 
         }
     }
 
-    private void submitpending(medicineRequest med) {
+    private void submitpending(medicineRequest med, medicinee medicinee) {
 
         ProgressDialog dialog = new ProgressDialog(getContext());
         dialog.setMessage("Saving Patient Vital please wait . . ");
@@ -515,13 +536,22 @@ public class Dashboard_patient_pending_treatment extends Fragment {
 //                    ActiveAndroid.beginTransaction();
 //                    try {
 //
-//                        List<Samplee> s = Samplee.getall();
+//                        List<medicinee> s = medicinee.getall();
 //                        for (int i = 0; i < s.size(); i++) {
 //
-//                            Samplee mo = Samplee.load(Samplee.class, response.body().getData().getMobile_id());
+//                            medicinee mo = medicinee.load(medicinee.class, response.body().getDatum8().getMobile_id());
 //                            mo.IsSync = 1;
 //                            mo.save();
-//
+
+
+
+                    medicinee.IsSync=1;
+                    medicinee.save();
+
+                    userdataaa s = userdataaa.searchByPatientId(response.body().getData().getPatient_id());
+                    s.IsActive = 0;
+                    s.save();
+//                    userdataaa FL = userdataaa.load(userdataaa.class, response.body().getDatum8().getPatient_id());
 //                        }
 //                        ActiveAndroid.setTransactionSuccessful();
 //                    } finally {

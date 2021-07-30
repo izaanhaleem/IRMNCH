@@ -67,8 +67,8 @@ public class SearchResultAdapterAssessment extends RecyclerView.Adapter<SearchRe
                 addvitalll fg = addvitalll.searchBycninc(sData[position].getLeaderCNIC());
                 args.putDouble("temperature",fg.temperature);
                 args.putInt("puls",fg.pulse);
-                args.putInt("BP_Systolic",fg.bp_systolic);
-                args.putInt("BP_Diastolic",fg.bp_diastolic);
+                args.putDouble("BP_Systolic",fg.bp_systolic);
+                args.putDouble("BP_Diastolic",fg.bp_diastolic);
                 args.putDouble("Height",fg.height);
                 args.putDouble("Weight",fg.weight);
 

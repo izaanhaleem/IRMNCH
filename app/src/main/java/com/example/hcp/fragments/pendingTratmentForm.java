@@ -32,12 +32,14 @@ import com.example.hcp.utils.Constants;
 import com.example.hcp.utils.SharedPref;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -141,16 +143,16 @@ public class pendingTratmentForm extends Fragment {
         hcvvira.setText(hcvviralcount+"");
         hbvviral.setText(hbvviralcount+"");
 
-        if(testtype.equalsIgnoreCase("HCV")){
-            hcvlayout.setVisibility(View.VISIBLE);
-            hbvlayout.setVisibility(View.GONE);
-        }else if(testtype.equalsIgnoreCase("HBV")){
-            hcvlayout.setVisibility(View.GONE);
-            hbvlayout.setVisibility(View.VISIBLE);
-        }else {
-            hbvlayout.setVisibility(View.VISIBLE);
-            hcvlayout.setVisibility(View.VISIBLE);
-        }
+//        if(testtype.equalsIgnoreCase("HCV")){
+//            hcvlayout.setVisibility(View.VISIBLE);
+//            hbvlayout.setVisibility(View.GONE);
+//        }else if(testtype.equalsIgnoreCase("HBV")){
+//            hcvlayout.setVisibility(View.GONE);
+//            hbvlayout.setVisibility(View.VISIBLE);
+//        }else {
+//            hbvlayout.setVisibility(View.VISIBLE);
+//            hcvlayout.setVisibility(View.VISIBLE);
+//        }
 
 
         setlabname();
@@ -541,10 +543,11 @@ alt.addTextChangedListener(new TextWatcher() {
 //          String matdate = date.getDate() + "-" + date.getMonth() + "-" + date.getYear();
 
 
-              DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-              LocalDateTime now = LocalDateTime.now();
-              String matdate = dtf.format(now);
-
+//              DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//              LocalDateTime now = LocalDateTime.now();
+//              String matdate = dtf.format(now);
+          SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+          String matdate = sdf.format(new Date());
 
           int i=Integer.parseInt(new SharedPref(getContext()).GetLoggedInRole());
           int h=Integer.parseInt(new SharedPref(getContext()).GetLoggedInUser());
@@ -636,6 +639,9 @@ alt.addTextChangedListener(new TextWatcher() {
           }
               Mad.treatment_options = ch;
 
+
+          Mad.is_all_med_delivered_frm_baseline = "Y";
+
               Mad.IsSync = 0;
 
           try {
@@ -647,31 +653,31 @@ alt.addTextChangedListener(new TextWatcher() {
           }
           final SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.BUTTON_NEUTRAL);
           pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.teal_700));
-          pDialog.setTitleText("Sample Save Successfully");
+          pDialog.setTitleText("Medicine Save Successfully");
           pDialog.setCancelable(false);
           pDialog.show();
 
 
-          Fragment FMFragment = new DashboardFragment();
-          Bundle args = new Bundle();
+//          Fragment FMFragment = new DashboardFragment();
+//          Bundle args = new Bundle();
 //            args.putString("SelectedMrNo", mMRNO);
 //            args.putInt("FamilyId", family_id);
-          if (FMFragment != null) {
+//          if (FMFragment != null) {
 
               getActivity().onBackPressed();
-
-              FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-
-              FMFragment.setArguments(args);
-              try {
-                  transaction.add(R.id.content_frame, FMFragment, "patientRegistrationFragment").addToBackStack("a").commit();
-
-              } catch (IllegalStateException ignored) {
-
-              }
-          } else {
-              Toast.makeText(getContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
-          }
+//
+//              FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//
+//              FMFragment.setArguments(args);
+//              try {
+//                  transaction.add(R.id.content_frame, FMFragment, "patientRegistrationFragment").addToBackStack("a").commit();
+//
+//              } catch (IllegalStateException ignored) {
+//
+//              }
+//          } else {
+//              Toast.makeText(getContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
+//          }
 
       }
 

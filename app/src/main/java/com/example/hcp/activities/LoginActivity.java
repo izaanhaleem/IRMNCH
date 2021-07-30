@@ -148,33 +148,39 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<loginResponse> call, Response<loginResponse> response) {
 
                 if (response.code() == 200) {
+                    if (response.body().getStatus()) {
 
-                    Prefs.edit().putString(Constants.USERNAME,username).apply();
-                    Prefs.edit().putString(Constants.PASSWORD,password).apply();
-                    Prefs.putInt("hospitalid", 0);
 
-                    loginResponse UR = response.body();
-                    new SharedPref(getApplicationContext()).SaveCredentials(null, UR.getData().getHospital_id(), null, UR.getData().getIdentifier(), UR.getData().getUser_id(), UR.getData().getStart_range(), UR.getData().getEnd_range(), null, null, null,null);
-                    String isdataloaded= new SharedPref(getApplicationContext()).GetDataLoaded();
-                    if(isdataloaded!=null){
-                        if(isdataloaded.equals("no")){
+                        Prefs.edit().putString(Constants.USERNAME, username).apply();
+                        Prefs.edit().putString(Constants.PASSWORD, password).apply();
+                        Prefs.putInt("hospitalid", 0);
+
+                        loginResponse UR = response.body();
+                        new SharedPref(getApplicationContext()).SaveCredentials(null, UR.getData().getHospital_id(), null, UR.getData().getIdentifier(), UR.getData().getUser_id(), UR.getData().getStart_range(), UR.getData().getEnd_range(), null, null, null, null);
+                        String isdataloaded = new SharedPref(getApplicationContext()).GetDataLoaded();
+                        if (isdataloaded != null) {
+                            if (isdataloaded.equals("no")) {
+                                GetDivisions();
+                            } else if (isdataloaded.equals("yes")) {
+                                Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        } else {
                             GetDivisions();
-                        }else  if (isdataloaded.equals("yes") ){
-                            Intent intent = new Intent(getBaseContext(), MainActivity.class);
-                            startActivity(intent);
-                            finish();
                         }
-                    }else {
-                        GetDivisions();
-                    }
 
 
 //
 
 
+                    }
+                    else {
+                        dialog.dismiss();
+                        Toast.makeText(LoginActivity.this, "Invalid Credentials .. ", Toast.LENGTH_SHORT).show();
 
-
-                } else {
+                    }
+                }else {
                     dialog.dismiss();
                     Toast.makeText(LoginActivity.this, "Invalid Credentials .. ", Toast.LENGTH_SHORT).show();
                 }
@@ -545,14 +551,16 @@ public class LoginActivity extends AppCompatActivity {
         call.enqueue(new Callback<hfUserDataResponse>() {
                          @Override
                          public void onResponse(Call<hfUserDataResponse> call, Response<hfUserDataResponse> response) {
-                             if (response.body() != null && response.body().getStatus()) {
 
-                                 SaveUserDataLocally(response.body().getData());
-                             } else {
-                                 Toast.makeText(getContext(), "==> " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                             }
+
+                                 if (response.body() != null && response.body().getStatus()) {
+
+                                     SaveUserDataLocally(response.body().getData());
+                                 } else {
+                                     Toast.makeText(getContext(), "==> " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                 }
+
                          }
-
                          @Override
                          public void onFailure(Call<hfUserDataResponse> call, Throwable t) {
                              Toast.makeText(getContext(), Constants.ServerError + t.getMessage(), Toast.LENGTH_SHORT).show();
@@ -560,7 +568,6 @@ public class LoginActivity extends AppCompatActivity {
                          }
                      }
         );
-
 
     }
 
@@ -628,22 +635,41 @@ public class LoginActivity extends AppCompatActivity {
                 if(data.get(i).getHcv_viral_count() == null){
                     dat.hcv_viral_count = 0;
                 }else {
-                    dat.hcv_viral_count = data.get(i).getHcv_viral_count();
+                    try{
+                        dat.hcv_viral_count = Integer.parseInt(data.get(i).getHcv_viral_count());
+                    } catch(NumberFormatException ex){ // handle your exception
+
+                    }
+//                    dat.hcv_viral_count = Integer.valueOf(data.get(i).getHcv_viral_count());
                 }
                 if(data.get(i).getHbv_viral_count() == null){
                     dat.hbv_viral_count = 0;
                 }else {
-                    dat.hbv_viral_count = data.get(i).getHbv_viral_count();
+
+                    try{
+                        dat.hbv_viral_count = Integer.parseInt(data.get(i).getHbv_viral_count());
+                    } catch(NumberFormatException ex){ // handle your exception
+
+                    }
+
+//                    dat.hbv_viral_count = Integer.valueOf(data.get(i).getHbv_viral_count());
                 }
 
                 if(data.get(i).getSample_id()==null){
                     dat.sample_id = 0;
                 }else {
-                    dat.sample_id = data.get(i).getSample_id();
+
+                    try{
+                        dat.sample_id = Integer.parseInt(data.get(i).getSample_id());
+                    } catch(NumberFormatException ex){ // handle your exception
+
+                    }
+
+//                    dat.sample_id = Integer.valueOf(data.get(i).getSample_id());
                 }
 
                 dat.is_cirrhotic_patient = data.get(i).getIs_cirrhotic_patient();
-
+                dat.IsActive = 1;
                 dat.save();
 //                Log.d("asdf","sadf");
             }

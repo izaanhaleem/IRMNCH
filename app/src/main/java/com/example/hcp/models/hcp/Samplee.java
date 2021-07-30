@@ -89,6 +89,14 @@ public class Samplee extends Model {
                 .where("mobile_id = ?",id)
                 .executeSingle();
     }
+
+    public static Samplee searchBypid(Integer id) {
+        return new Select()
+                .from(Samplee.class)
+                .where("pid = ?",id)
+                .executeSingle();
+    }
+
     public static List<Samplee> searchBySync() {
         return new Select()
                 .from(Samplee.class)

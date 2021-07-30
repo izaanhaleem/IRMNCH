@@ -46,35 +46,35 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         holder.LeaderName.setText(sData[position].getPatientName());
         holder.LeaderCNIC.setText(sData[position].getLeaderCNIC());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                String temp = holder.MrNo.getText().toString();
-                Constants.SelectedFamilyMrNo = temp;
-
-                Fragment FMFragment = new patientRegistration();
-                Bundle args = new Bundle();
-                args.putString("SelectedMrNo",temp);
-                args.putString("PatientCNIC",sData[position].getLeaderCNIC());
-                args.putString("PatientName",sData[position].getPatientName());
-                args.putBoolean("isEdit",true);
-                if(FMFragment != null)
-                {
-                    FragmentTransaction transaction = ((FragmentActivity) view.getContext()).getSupportFragmentManager().beginTransaction();
-
-                    FMFragment.setArguments(args);
-                    try {
-                        transaction.replace(R.id.content_frame, FMFragment,"FamilyMemberFragment").addToBackStack("a").commit();
-
-                    } catch (IllegalStateException ignored) {
-                    }
-                }
-                else {
-                    Toast.makeText(view.getContext(), holder.MrNo.getText(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                String temp = holder.MrNo.getText().toString();
+//                Constants.SelectedFamilyMrNo = temp;
+//
+//                Fragment FMFragment = new patientRegistration();
+//                Bundle args = new Bundle();
+//                args.putString("SelectedMrNo",temp);
+//                args.putString("PatientCNIC",sData[position].getLeaderCNIC());
+//                args.putString("PatientName",sData[position].getPatientName());
+//                args.putBoolean("isEdit",true);
+//                if(FMFragment != null)
+//                {
+//                    FragmentTransaction transaction = ((FragmentActivity) view.getContext()).getSupportFragmentManager().beginTransaction();
+//
+//                    FMFragment.setArguments(args);
+//                    try {
+//                        transaction.replace(R.id.content_frame, FMFragment,"FamilyMemberFragment").addToBackStack("a").commit();
+//
+//                    } catch (IllegalStateException ignored) {
+//                    }
+//                }
+//                else {
+//                    Toast.makeText(view.getContext(), holder.MrNo.getText(), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
     }
 
 
@@ -97,7 +97,5 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             this.FamilyCard = itemView.findViewById(R.id.familyCard);
         }
     }
-
-
 
 }

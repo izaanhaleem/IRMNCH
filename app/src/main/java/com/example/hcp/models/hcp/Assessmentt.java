@@ -672,6 +672,14 @@ public class Assessmentt extends Model {
                 .executeSingle();
     }
 
+    public static Assessmentt searchBypid(Integer id) {
+        return new Select()
+                .from(Assessmentt.class)
+                .where("patient_id = ?",id)
+                .executeSingle();
+    }
+
+
     public static List<Assessmentt> searchBySync() {
         return new Select()
                 .from(Assessmentt.class)

@@ -151,7 +151,11 @@ public class SampleDashboard extends Fragment {
             FDP[i].MrNo = samples.get(i).mrn_no;
             FDP[i].patientType = samples.get(i).patient_type;
             FDP[i].pid = samples.get(i).getId().intValue();
-
+            if(samples.get(i).patient_id==0){
+                FDP[i].pid = samples.get(i).getId().intValue();
+            }else {
+                FDP[i].pid = samples.get(i).patient_id;
+            }
         }
 
         SearchResultDatavital[] myListData = new SearchResultDatavital[FDP.length] ;

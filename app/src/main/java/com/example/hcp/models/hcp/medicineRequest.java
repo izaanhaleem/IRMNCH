@@ -43,7 +43,7 @@ public class medicineRequest {
     private String lab_name;
     @SerializedName("other_lab_name")
     @Expose
-    private Object other_lab_name;
+    private String other_lab_name;
     @SerializedName("id")
     @Expose
     private String id;
@@ -109,6 +109,19 @@ public class medicineRequest {
     @SerializedName("treatment_options")
     @Expose
     public String treatment_options;
+
+
+    @SerializedName("is_all_med_delivered_frm_baseline")
+    @Expose
+    public String is_all_med_delivered_frm_baseline;
+
+    public String getIs_all_med_delivered_frm_baseline() {
+        return is_all_med_delivered_frm_baseline;
+    }
+
+    public void setIs_all_med_delivered_frm_baseline(String is_all_med_delivered_frm_baseline) {
+        this.is_all_med_delivered_frm_baseline = is_all_med_delivered_frm_baseline;
+    }
 
     public String getTreatment_history() {
         return treatment_history;
@@ -238,11 +251,11 @@ public class medicineRequest {
         this.lab_name = lab_name;
     }
 
-    public Object getOther_lab_name() {
+    public String getOther_lab_name() {
         return other_lab_name;
     }
 
-    public void setOther_lab_name(Object other_lab_name) {
+    public void setOther_lab_name(String other_lab_name) {
         this.other_lab_name = other_lab_name;
     }
 

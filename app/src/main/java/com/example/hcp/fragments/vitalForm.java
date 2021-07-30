@@ -84,10 +84,36 @@ public class vitalForm extends Fragment {
             Toast.makeText(getContext(), Constants.temp, Toast.LENGTH_LONG).show();
             Validationstatus = false;
         }
+
+//        float val = Integer.parseInt(asdf);
+        Float f= Float.parseFloat(asdf);
+        if(f >= 106.0){
+            Toast.makeText(getContext(), Constants.error, Toast.LENGTH_LONG).show();
+            Validationstatus = false;
+        }
+
+        String  bps = BPSystolic.getText().toString();
+        Float B= Float.parseFloat(bps);
+        if(B >= 300.0){
+            Toast.makeText(getContext(), Constants.bpsys, Toast.LENGTH_LONG).show();
+            Validationstatus = false;
+        }
+
+        String  bpd = BPDiastolic.getText().toString();
+        Float D= Float.parseFloat(bpd);
+        if(D >= 200.0){
+            Toast.makeText(getContext(), Constants.bpdys, Toast.LENGTH_LONG).show();
+            Validationstatus = false;
+        }
+
+
         int i=Integer.parseInt(new SharedPref(getContext()).GetLoggedInUser());
 
         if (Validationstatus) {
             double temperatur = Double.parseDouble(temperature.getText().toString());
+            double bpsystolic = Double.parseDouble(BPSystolic.getText().toString());
+            double bdsystolic = Double.parseDouble(BPDiastolic.getText().toString());
+
 
             addvitalll FL = new addvitalll();
             ActiveAndroid.beginTransaction();
@@ -95,8 +121,8 @@ public class vitalForm extends Fragment {
             FL.IsSync = 0;
             FL.temperature= temperatur;
             FL.pulse=Integer.parseInt(pulseBPM.getText().toString());
-            FL.bp_systolic=Integer.parseInt(BPSystolic.getText().toString());
-            FL.bp_diastolic=Integer.parseInt(BPDiastolic.getText().toString());
+            FL.bp_systolic=bpsystolic;
+            FL.bp_diastolic=bdsystolic;
             FL.height=Double.parseDouble(HeightCM.getText().toString());
             FL.weight=Double.parseDouble(WeightKG.getText().toString());;
             FL.user_id=i;

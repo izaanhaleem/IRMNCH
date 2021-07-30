@@ -301,6 +301,10 @@ public class userdataaa extends Model {
     @Expose
     public String is_cirrhotic_patient;
 
+    @Column(name = "IsActive")
+    @SerializedName("IsActive")
+    @Expose
+    public Integer IsActive;
 
     public static List<userdataaa> searchByCNICLeader(String cnic) {
         return new Select()
@@ -312,6 +316,7 @@ public class userdataaa extends Model {
     public static List<userdataaa> searchByMRNOLeader(String mrno) {
         return new Select()
                 .from(userdataaa.class)
+                .where("IsActive = ?" ,1)
                 .where("mrn_no = ?",mrno )
                 .execute();
     }
@@ -320,12 +325,14 @@ public class userdataaa extends Model {
     public static List<userdataaa> searchBynameLeader(String name) {
         return new Select()
                 .from(userdataaa.class)
+                .where("IsActive = ?" ,1)
                 .where("patient_name LIKE ?", new String[]{'%' + name + '%'})
                 .execute();
     }
     public static List<userdataaa> searchByPhoneLeader(String phone) {
         return new Select()
                 .from(userdataaa.class)
+                .where("IsActive = ?" ,1)
                 .where("contact_no_self = ?",phone)
                 .execute();
     }
@@ -351,8 +358,17 @@ public class userdataaa extends Model {
     public static List<userdataaa> searchallbothbaselineForm() {
         return new Select()
                 .from(userdataaa.class)
+                .where("IsActive = ?" ,1)
                 .where("pcr_confirmation_hbv = ?","y" )
                 .where("pcr_confirmation_hcv = ?","y" )
                 .execute();
     }
+
+    public static userdataaa searchByPatientId(Integer patientid) {
+        return new Select()
+                .from(userdataaa.class)
+                .where("patient_id = ?",patientid )
+                .executeSingle();
+    }
+
 }
