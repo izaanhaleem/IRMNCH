@@ -32,11 +32,12 @@ public class sampleForm extends Fragment {
     FragmentManager fragmentManager;
     String SelectedMrNo,patientCNINC,PatientName,PatientType;
     EditText name,mrno,patient,cnic;
-    MaskEditText sampleno;
+    MaskEditText sampleno,samp;
     MaskEditText samplenoo;
     int pid;
     Button addsample;
     SwitchCompat samplecolect;
+   public int  sno,year;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -56,11 +57,12 @@ public class sampleForm extends Fragment {
         samplenoo = view.findViewById(R.id.samplenoo);
         addsample = view.findViewById(R.id.addsample);
         samplecolect = view.findViewById(R.id.samplecolect);
+        samp = view.findViewById(R.id.samp);
 
         addsample.setVisibility(View.GONE);
         fragmentManager = getFragmentManager();
 
-        sampleno.setText(new SharedPref(getContext()).GetserverID()+"-21-");
+        sampleno.setText(new SharedPref(getContext()).GetserverID()+"");
         name.setEnabled(false);
         mrno.setEnabled(false);
         cnic.setEnabled(false);
@@ -93,14 +95,22 @@ public class sampleForm extends Fragment {
 //        int startRange = Integer.parseInt(new SharedPref(getContext()).GetHFMISCode());
         int endRange = Integer.parseInt(new SharedPref(getContext()).GetHealthFacility());
 
+try {
+     sno = Integer.parseInt(samplenoo.getText().toString());
+    year = Integer.parseInt(samp.getText().toString());
+} catch(NumberFormatException ex){ // handle your exception
 
-        int  sno = Integer.parseInt(samplenoo.getText().toString());
+}
+
 
         boolean Validationstatus = true;
         if (sno>endRange) {
             Toast.makeText(getContext(), Constants.sampleNoIncorrect, Toast.LENGTH_LONG).show();
             Validationstatus = false;
         }else if(samplenoo.getText().length()!=6){
+            Toast.makeText(getContext(), Constants.sampleNoIncorrect, Toast.LENGTH_LONG).show();
+            Validationstatus = false;
+        }else if(samplenoo.getText().toString().equalsIgnoreCase("")){
             Toast.makeText(getContext(), Constants.sampleNoIncorrect, Toast.LENGTH_LONG).show();
             Validationstatus = false;
         }
@@ -115,7 +125,7 @@ public class sampleForm extends Fragment {
         FL.pid = pid;
         FL.IsSync = 0;
         FL.setHospital_id(h);
-        FL.setSample_no(new SharedPref(getContext()).GetserverID()+"-21-"+"00"+sno);
+        FL.setSample_no(new SharedPref(getContext()).GetserverID()+"-"+year+"-"+"00"+sno);
         FL.user_id=i;
 
 

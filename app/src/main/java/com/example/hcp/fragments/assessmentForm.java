@@ -66,8 +66,8 @@ public class assessmentForm extends Fragment {
         pulse = getArguments().getInt("puls");
         BP_Systolic = getArguments().getDouble("BP_Systolic");
         BP_Diastolic = getArguments().getDouble("BP_Diastolic");
-        String height = String.valueOf(  Height = getArguments().getDouble("Height"));
-        String weight =  String.valueOf(getArguments().getDouble("Weight"));
+//        String height = String.valueOf(  Height = getArguments().getDouble("Height"));
+//        String weight =  String.valueOf(getArguments().getDouble("Weight"));
 
         name = view.findViewById(R.id.name);
         mrno = view.findViewById(R.id.mrno);
@@ -88,8 +88,8 @@ public class assessmentForm extends Fragment {
         pulseBPM.setText(pulse+"");
         BPSystolic.setText(BP_Systolic+"");
         BPDiastolic.setText(BP_Diastolic+"");
-        HeightCM.setText(height);
-        WeightKG.setText(weight);
+//        HeightCM.setText(height);
+//        WeightKG.setText(weight);
 
         surgery_type = view.findViewById(R.id.surgery_type);
         MO_Notes = view.findViewById(R.id.MO_Notes);
@@ -636,8 +636,17 @@ public class assessmentForm extends Fragment {
         AS.setUnusual_urethral_discharge(Sswitch26);
 
         AS.setRapid_testing(rapidtesting);
-        AS.setIs_hbv_test(Sswitch28);
-        AS.setIs_hcv_test(Sswitch29);
+
+        if(Sswitch28 == null){
+            AS.setIs_hbv_test("N");
+        }else {
+            AS.setIs_hbv_test(Sswitch28);
+        }
+        if(Sswitch29 == null){
+            AS.setIs_hcv_test("N");
+        }else {
+            AS.setIs_hcv_test(Sswitch29);
+        }
         AS.setVaccination(Sswitch30);
         AS.setPcr_option(addvised.getText().toString());
         AS.setPcr(PCR);
@@ -646,7 +655,16 @@ public class assessmentForm extends Fragment {
 
         addPatientModel mod = addPatientModel.searchBycnic(patientCNINC);
 
-        mod.IS_assessment = 1;
+        if(Sswitch28 == null){
+            mod.IS_assessment = 1;
+        }
+        else {
+            mod.IS_assessment = 2;
+            mod.IS_Vaccination = 2;
+        }
+
+
+
 
         try {
             AS.save();

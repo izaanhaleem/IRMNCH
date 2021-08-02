@@ -155,6 +155,14 @@ public class addPatientModel extends Model {
     @Expose
     public String  mrn_no;
 
+    public String getMrn_no() {
+        return mrn_no;
+    }
+
+    public void setMrn_no(String mrn_no) {
+        this.mrn_no = mrn_no;
+    }
+
     @Column(name = "patient_type")
     @SerializedName("patient_type")
     @Expose
@@ -174,6 +182,11 @@ public class addPatientModel extends Model {
     @SerializedName("IS_assessment")
     @Expose
     public Integer IS_assessment;
+
+    @Column(name =  "IS_Vaccination")
+    @SerializedName("IS_Vaccination")
+    @Expose
+    public Integer IS_Vaccination;
 
     @Column(name = "ISSample")
     @SerializedName("ISSample")
@@ -398,6 +411,15 @@ public class addPatientModel extends Model {
     }
 
 
+//    public static List<addPatientModel> pendingvitals() {
+//        return new Select()
+//                .from(addPatientModel.class)
+//                .where("IsSync = ?",0)
+//                .execute();
+//    }
+
+
+
     public static List<addPatientModel> getall() {
         return new Select()
                 .from(addPatientModel.class)
@@ -427,11 +449,39 @@ public class addPatientModel extends Model {
                 .execute();
     }
 
+    public static List<addPatientModel> pendingassessments() {
+        return new Select()
+                .from(addPatientModel.class)
+                .where("IS_assessment = ?",0 )
+                .execute();
+    }
+    public static List<addPatientModel> pendingvaccination() {
+        return new Select()
+                .from(addPatientModel.class)
+                .where("IS_Vaccination = ?",0 )
+                .execute();
+    }
+    public static List<addPatientModel> pendingsamples() {
+        return new Select()
+                .from(addPatientModel.class)
+                .where("ISSample = ?",0 )
+                .execute();
+    }
+
     public static List<addPatientModel> searchallISAssessment() {
         return new Select()
                 .from(addPatientModel.class)
                 .where("IS_assessment = ?",0 )
                 .where("ISVital = ?",1 )
+                .execute();
+    }
+
+    public static List<addPatientModel> searchallISVaccination() {
+        return new Select()
+                .from(addPatientModel.class)
+                .where("ISVital = ?",1 )
+                .where("IS_assessment = ?",1 )
+                .where("IS_Vaccination = ?",0 )
                 .execute();
     }
 
@@ -465,6 +515,17 @@ public class addPatientModel extends Model {
                 .execute();
     }
 
+
+    public static List<addPatientModel> searchByISVaccination(String cnic) {
+        return new Select()
+                .from(addPatientModel.class)
+                .where("IS_Vaccination = ?",0 )
+                .where("IS_assessment = ?",1 )
+                .where("ISVital = ?",1 )
+                .where("self_cnic = ?",cnic)
+                .execute();
+    }
+
     public static List<addPatientModel> searchByCNICSample(String cnic) {
         return new Select()
                 .from(addPatientModel.class)
@@ -490,7 +551,15 @@ public class addPatientModel extends Model {
                 .where("patient_name LIKE ?", new String[]{'%' + name + '%'})
                 .execute();
     }
-
+    public static List<addPatientModel> searchByNameVaccination(String name) {
+        return new Select()
+                .from(addPatientModel.class)
+                .where("IS_Vaccination = ?",0 )
+                .where("IS_assessment = ?",1 )
+                .where("ISVital = ?",1 )
+                .where("patient_name LIKE ?", new String[]{'%' + name + '%'})
+                .execute();
+    }
 
     public static List<addPatientModel> searchByNameSample(String name) {
         return new Select()

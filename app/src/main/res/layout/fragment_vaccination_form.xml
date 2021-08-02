@@ -1,0 +1,342 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:title=" "
+        android:gravity="center"
+        android:background="@color/colorPrimaryDark">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+            <TextView
+                style="@style/LargeTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/vaccination"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/font_large" />
+        </LinearLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:weightSum="1">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="BASIC INFORMATION"
+                    android:gravity="center_horizontal"
+                    android:textStyle="normal"
+                    android:textColor="#fff"
+                    android:textSize="15sp"
+                    android:background="#364150">
+                </TextView>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                    app:hintTextAppearance="@style/NormalTextView">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_xsmall"
+                        android:inputType="text"
+                        android:hint="Name"
+                        android:textColor="#000"
+                        android:digits="qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM ."
+                        android:maxLength="30"
+                        android:maxLines="1"
+                        android:textSize="@dimen/font_normal" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                    app:hintTextAppearance="@style/NormalTextView">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/mrno"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_xsmall"
+                        android:inputType="text"
+                        android:hint="MRN"
+                        android:textColor="#000"
+                        android:digits="qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM ."
+                        android:maxLength="30"
+                        android:maxLines="1"
+                        android:textSize="@dimen/font_normal" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                    app:hintTextAppearance="@style/NormalTextView">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/patient"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_xsmall"
+                        android:inputType="text"
+                        android:hint="Patient Status"
+                        android:textColor="#000"
+                        android:digits="qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM ."
+                        android:maxLength="30"
+                        android:maxLines="1"
+                        android:textSize="@dimen/font_normal" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                    app:hintTextAppearance="@style/NormalTextView">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/cnic"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_xsmall"
+                        android:inputType="text"
+                        android:hint="CNIC"
+                        android:digits="qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM ."
+                        android:maxLength="30"
+                        android:maxLines="1"
+                        android:textColor="#000"
+                        android:textSize="@dimen/font_normal" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+             <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="1"
+    android:layout_marginTop="10dp"
+    >
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:layout_weight="0.5"
+      android:layout_marginRight="5dp">
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="Already taken no of doses"
+          android:textColor="@color/black"
+          android:textSize="14sp"/>
+      <com.google.android.material.textfield.TextInputLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:paddingRight="3dp"
+          style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+          app:hintTextAppearance="@style/NormalTextView">
+
+          <com.google.android.material.textfield.TextInputEditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_margin="@dimen/margin_xsmall"
+              android:clickable="true"
+              android:focusable="false"
+              android:inputType="text"
+              android:textSize="@dimen/font_normal"
+              android:text="0"
+              android:gravity="center_horizontal"/>
+      </com.google.android.material.textfield.TextInputLayout>
+
+  </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="0.5"
+        android:layout_marginLeft="5dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Eligible for doses"
+            android:textColor="@color/black"
+            android:textSize="14sp"/>
+            <com.google.android.material.textfield.TextInputLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:paddingRight="3dp"
+          style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+          app:hintTextAppearance="@style/NormalTextView">
+
+          <com.google.android.material.textfield.TextInputEditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_margin="@dimen/margin_xsmall"
+              android:clickable="true"
+              android:focusable="false"
+              android:inputType="text"
+              android:textSize="@dimen/font_normal"
+              android:text="0"
+              android:gravity="center_horizontal"/>
+      </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="10dp"
+                    >
+
+
+                     <androidx.appcompat.widget.SwitchCompat
+
+                            android:id="@+id/firsts"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="First Vaccination Dose : "
+                            android:textSize="17sp"
+                            app:switchPadding="20dp"
+                            >
+                        </androidx.appcompat.widget.SwitchCompat>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="3dp"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:hintTextAppearance="@style/NormalTextView">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/firstd"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin_xsmall"
+                            android:clickable="true"
+                            android:focusable="false"
+                            android:inputType="text"
+                            android:textSize="@dimen/font_normal"
+                            android:drawableRight="@drawable/calander"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/seconds"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="First Vaccination Dose : "
+                        android:textSize="17sp"
+                        app:switchPadding="20dp"
+                        >
+                    </androidx.appcompat.widget.SwitchCompat>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="3dp"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:hintTextAppearance="@style/NormalTextView">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/secondd"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin_xsmall"
+                            android:clickable="true"
+                            android:focusable="false"
+                            android:inputType="text"
+                            android:textSize="@dimen/font_normal"
+                            android:drawableRight="@drawable/calander"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/thirds"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="First Vaccination Dose : "
+                        android:textSize="17sp"
+                        app:switchPadding="20dp"
+                        >
+                    </androidx.appcompat.widget.SwitchCompat>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="3dp"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:hintTextAppearance="@style/NormalTextView">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/thirdd"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin_xsmall"
+                            android:clickable="true"
+                            android:focusable="false"
+                            android:inputType="text"
+                            android:textSize="@dimen/font_normal"
+                            android:drawableRight="@drawable/calander"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+            </LinearLayout>
+            </LinearLayout>
+            <Button
+                android:id="@+id/addAssessment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginTop="10dp"
+                android:text="Add"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:background="@drawable/buttonstyle"
+                tools:spb_showStripes="true"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+    </LinearLayout>

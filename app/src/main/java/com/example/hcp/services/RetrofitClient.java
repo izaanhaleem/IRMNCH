@@ -18,9 +18,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClient {
     private static final String AUTH = "Basic " + Base64.encodeToString(("admin:admin123").getBytes(), Base64.NO_WRAP);
 
-    private static final String BASE_URL = "https://phcp.pshealthpunjab.gov.pk/";
+//    private static final String BASE_URL = "https://phcp.pshealthpunjab.gov.pk/";
 //    private static final String BASE_URL = "http://172.16.25.194:8080/phcp-emr/";
-//    private static final String BASE_URL = "http://172.16.25.194:8080/testemr/";
+    private static final String BASE_URL = "http://172.16.25.194:8080/testemr/";
     private static RetrofitClient mInstance;
     private Retrofit retrofit;
 

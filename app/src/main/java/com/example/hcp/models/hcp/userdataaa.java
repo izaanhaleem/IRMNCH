@@ -290,7 +290,6 @@ public class userdataaa extends Model {
     @Expose
     public Integer hbv_viral_count;
 
-
     @Column(name = "sample_id")
     @SerializedName("sample_id")
     @Expose

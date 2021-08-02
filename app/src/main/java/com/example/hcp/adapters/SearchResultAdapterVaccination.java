@@ -15,19 +15,19 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hcp.R;
+import com.example.hcp.fragments.VaccinationForm;
 import com.example.hcp.fragments.assessmentForm;
-import com.example.hcp.fragments.vitalForm;
 import com.example.hcp.models.AdaptersData.SearchResultDatavital;
 import com.example.hcp.models.hcp.addvitalll;
 import com.example.hcp.utils.Constants;
 
-public class SearchResultAdapterAssessment extends RecyclerView.Adapter<SearchResultAdapterAssessment.ViewHolder> {
+public class SearchResultAdapterVaccination extends RecyclerView.Adapter<SearchResultAdapterVaccination.ViewHolder> {
 
     private  SearchResultDatavital[] sData;
 
 
     // RecyclerView recyclerView;
-    public SearchResultAdapterAssessment(SearchResultDatavital[] listdata) {
+    public SearchResultAdapterVaccination(SearchResultDatavital[] listdata) {
         this.sData = listdata;
 
     }
@@ -35,7 +35,7 @@ public class SearchResultAdapterAssessment extends RecyclerView.Adapter<SearchRe
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View listItem= layoutInflater.inflate(R.layout.search_result_item_assessment, parent, false);
+        View listItem= layoutInflater.inflate(R.layout.search_result_item_vaccination, parent, false);
         ViewHolder viewHolder = new ViewHolder(listItem);
         return viewHolder;
     }
@@ -54,7 +54,7 @@ public class SearchResultAdapterAssessment extends RecyclerView.Adapter<SearchRe
                 String temp = holder.MrNo.getText().toString();
                 Constants.SelectedFamilyMrNo = temp;
 
-                Fragment FMFragment = new assessmentForm();
+                Fragment FMFragment = new VaccinationForm();
                 Bundle args = new Bundle();
                 args.putString("SelectedMrNo",temp);
                 args.putString("PatientCNIC",sData[position].getLeaderCNIC());
@@ -64,11 +64,11 @@ public class SearchResultAdapterAssessment extends RecyclerView.Adapter<SearchRe
 
 
 
-                addvitalll fg = addvitalll.searchBycninc(sData[position].getLeaderCNIC());
-                args.putDouble("temperature",fg.temperature);
-                args.putInt("puls",fg.pulse);
-                args.putDouble("BP_Systolic",fg.bp_systolic);
-                args.putDouble("BP_Diastolic",fg.bp_diastolic);
+//                addvitalll fg = addvitalll.searchBycninc(sData[position].getLeaderCNIC());
+//                args.putDouble("temperature",fg.temperature);
+//                args.putInt("puls",fg.pulse);
+//                args.putDouble("BP_Systolic",fg.bp_systolic);
+//                args.putDouble("BP_Diastolic",fg.bp_diastolic);
 //                args.putDouble("Height",fg.height);
 //                args.putDouble("Weight",fg.weight);
 

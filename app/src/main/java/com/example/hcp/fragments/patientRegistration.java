@@ -442,6 +442,7 @@ public class patientRegistration extends Fragment {
             FL.setPatient_type("New Patient");
             FL.ISVital = 0;
             FL.IS_assessment = 0;
+            FL.IS_Vaccination = 0;
             FL.ISSample = 0;
 
             FL.setPcr_confirmation_hbv(secondVal);
@@ -462,15 +463,37 @@ public class patientRegistration extends Fragment {
 
             ActiveAndroid.endTransaction();
 
-            final SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.BUTTON_NEUTRAL);
-            pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.colorPrimaryDark));
-            pDialog.setTitleText("Patient Save Successfully");
-            pDialog.setCancelable(false);
-            pDialog.show();
-            Fragment FMFragment = new DashboardFragment();
+
+           addPatientModel assessment =new addPatientModel();
+            assessment=addPatientModel.searchBycnic(cnicNo);
+
+
+
+
+
+
+//            final SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.BUTTON_NEUTRAL);
+//            pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.colorPrimaryDark));
+//            pDialog.setTitleText("Patient Save Successfully");
+//            pDialog.setCancelable(false);
+//            pDialog.show();
+            Fragment FMFragment = new vitalForm();
             Bundle args = new Bundle();
-//            args.putString("SelectedMrNo", mMRNO);
+            args.putString("SelectedMrNo", assessment.getMrn_no());
 //            args.putInt("FamilyId", family_id);
+            args.putString("PatientCNIC",cnicNo);
+            args.putString("PatientName",Name);
+            args.putString("Patienttype","New Patient");
+            args.putInt("pid",assessment.getId().intValue());
+
+
+//            if(patient_id==0){
+//                FDP[i].pid = vitalpatient.get(i).getId().intValue();
+//            }else {
+//                FDP[i].pid = vitalpatient.get(i).patient_id;
+//            }
+
+
             if (FMFragment != null) {
 
                 getActivity().onBackPressed();
@@ -479,7 +502,7 @@ public class patientRegistration extends Fragment {
 
                 FMFragment.setArguments(args);
                 try {
-                    transaction.add(R.id.content_frame, FMFragment, "patientRegistrationFragment").addToBackStack("a").commit();
+                    transaction.replace(R.id.content_frame, FMFragment, "patientRegistrationFragment").addToBackStack("a").commit();
 
                 } catch (IllegalStateException ignored) {
                 }

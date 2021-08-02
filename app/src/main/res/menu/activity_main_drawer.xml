@@ -18,6 +18,12 @@
             android:id="@+id/nav_assessment"
             android:icon="@drawable/ic_assessment"
             android:title="Add Assessment" />
+
+        <item
+            android:id="@+id/nav_vaccination"
+            android:icon="@drawable/ic_syringe"
+            android:title="Vaccination" />
+
         <item
             android:id="@+id/nav_sample"
             android:icon="@drawable/ic_bloodsample"
@@ -26,6 +32,7 @@
             android:id="@+id/nav_pending"
             android:icon="@drawable/ic_pending"
             android:title="Patient Pending Treatment Enrollment" />
+
         <item
             android:id="@+id/nav_3"
             android:icon="@drawable/ic_logout"

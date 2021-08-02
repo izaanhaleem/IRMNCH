@@ -3,11 +3,12 @@ package com.example.hcp.fragments;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Path;
+import android.icu.number.NumberFormatter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
-import android.os.Looper;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,10 +32,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.activeandroid.ActiveAndroid;
+import com.example.hcp.EditTextTelefoneMask;
+import com.example.hcp.Mask;
 import com.example.hcp.R;
 import com.example.hcp.activities.MainActivity;
 
-import com.example.hcp.models.Parcables.FamilyDataParceable;
 import com.example.hcp.models.Parcables.PatientDataParceable;
 import com.example.hcp.models.Users.UserResponse;
 import com.example.hcp.models.hcp.AddVitalResponse;
@@ -48,8 +50,6 @@ import com.example.hcp.models.hcp.addPatientRequest;
 import com.example.hcp.models.hcp.addPatientResponse;
 import com.example.hcp.models.hcp.addVitalRequest;
 import com.example.hcp.models.hcp.addvitalll;
-import com.example.hcp.models.hcp.medicineRequest;
-import com.example.hcp.models.hcp.medicineResponse;
 import com.example.hcp.models.hcp.medicinee;
 import com.example.hcp.models.hcp.sampleResponse;
 import com.example.hcp.services.APIClient;
@@ -65,6 +65,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,7 +85,7 @@ public class DashboardFragment extends Fragment {
     //   private ProgressDialog dialog;
     ImageView scanner;
     LinearLayout sync_data;
-    TextView total_record;
+    TextView total_record,vitalcount,assessmentcount,vaccinationcount,samplecount;
     int patientssubmitcount = 0;
     int vitalsubmitcount = 0;
     int assessmentsubmitcount = 0;
@@ -98,6 +99,12 @@ public class DashboardFragment extends Fragment {
     List<Assessmentt> assessmentts;
     List<Samplee> sampless;
     List<medicinee> pending;
+
+
+
+
+
+
 
     public int totalSize;
 
@@ -115,6 +122,10 @@ public class DashboardFragment extends Fragment {
         scanner = view.findViewById(R.id.scanner);
         SelectedOptionIndex = 0;
         sync_data = view.findViewById(R.id.sync_data);
+        vitalcount = view.findViewById(R.id.vitalcount);
+        assessmentcount = view.findViewById(R.id.assessmentcount);
+        vaccinationcount = view.findViewById(R.id.vaccinationcount);
+        samplecount = view.findViewById(R.id.samplecount);
         SelectedOption = "";
         SelectedOptionVal = "";
 
@@ -123,6 +134,12 @@ public class DashboardFragment extends Fragment {
         SetSearchOptions();
 
         totalSYncREcord();
+
+        pendingvitals();
+//        pendingassessments();
+//        pendingvaccinations();
+//        pendingsampels();
+
 
         export_db.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,7 +177,7 @@ public class DashboardFragment extends Fragment {
 //                submitmedicine();
             }
         });
-
+//        OptionValue.addTextChangedListener(EditTextTelefoneMask.insert(OptionValue));
         return view;
     }
 
@@ -315,8 +332,19 @@ public class DashboardFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 
                 if (SearchOptions.getSelectedItemPosition() > 0) {
-                    SelectedOptionIndex = SearchOptions.getSelectedItemPosition();
 
+//                    if(SearchOptions.getSelectedItemPosition() == 1) {
+//                        OptionValue.addTextChangedListener(Mask.insert(Mask.Mrn_MASK, OptionValue));
+//                    }else if(SearchOptions.getSelectedItemPosition() == 2){
+//                        OptionValue.setInputType(InputType.TYPE_CLASS_NUMBER);
+//
+//                    }else if(SearchOptions.getSelectedItemPosition() == 3){
+////                        OptionValue.addTextChangedListener(new Mask("#############"));
+//                    }else if(SearchOptions.getSelectedItemPosition() == 4){
+////                        OptionValue.addTextChangedListener(new Mask("####-#######"));
+//                    }
+
+                    SelectedOptionIndex = SearchOptions.getSelectedItemPosition();
                     SelectedOption = categoriesEng.get(SelectedOptionIndex);
                     OptionValue.setText("");
                     //Toast.makeText(getContext(), SearchOptions.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
@@ -379,6 +407,19 @@ public class DashboardFragment extends Fragment {
     }
 
 
+
+
+    public void pendingvitals(){
+        List<addPatientModel> pendingvitals = addPatientModel.searchallISvital();
+        List<addPatientModel> pendingassessment = addPatientModel.pendingassessments();
+        List<addPatientModel> pendingvaccination = addPatientModel.pendingvaccination();
+        List<addPatientModel> pendingsamples = addPatientModel.pendingsamples();
+        vitalcount.setText(String.valueOf(pendingvitals.size()));
+        assessmentcount.setText(String.valueOf(pendingassessment.size()));
+        vaccinationcount.setText(String.valueOf(pendingvaccination.size()));
+        samplecount.setText(String.valueOf(pendingsamples.size()));
+    }
+
     public void totalSYncREcord() {
 
         List<addPatientModel> patient = addPatientModel.searchBySync();
@@ -388,7 +429,6 @@ public class DashboardFragment extends Fragment {
 //        List<medicinee> medicine = medicinee.searchBySync();
         totalSize = patient.size() + vitals.size() + assessments.size() + sample.size();
         total_record.setText(totalSize + "");
-
     }
 
     //

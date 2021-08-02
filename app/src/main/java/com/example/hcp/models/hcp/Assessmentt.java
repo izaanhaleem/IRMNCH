@@ -657,7 +657,12 @@ public class Assessmentt extends Model {
         this.pcr = pcr;
     }
 
-
+    public static List<Assessmentt> searchforvaccination() {
+        return new Select()
+                .from(Assessmentt.class)
+                .where("is_hbv_test = ?","N")
+                .execute();
+    }
 
     public static List<Assessmentt> getall() {
         return new Select()

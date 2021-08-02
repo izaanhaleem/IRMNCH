@@ -123,8 +123,8 @@ public class vitalForm extends Fragment {
             FL.pulse=Integer.parseInt(pulseBPM.getText().toString());
             FL.bp_systolic=bpsystolic;
             FL.bp_diastolic=bdsystolic;
-            FL.height=Double.parseDouble(HeightCM.getText().toString());
-            FL.weight=Double.parseDouble(WeightKG.getText().toString());;
+//            FL.height=Double.parseDouble(HeightCM.getText().toString());
+//            FL.weight=Double.parseDouble(WeightKG.getText().toString());;
             FL.user_id=i;
             FL.self_cnic = patientCNINC;
 
@@ -148,26 +148,26 @@ public class vitalForm extends Fragment {
             pDialog.setCancelable(false);
             pDialog.show();
 
-            Fragment FMFragment = new vitalDashboard();
+            Fragment FMFragment = new DashboardFragment();
             Bundle args = new Bundle();
 //            args.putString("SelectedMrNo", mMRNO);
 //            args.putInt("FamilyId", family_id);
-            if (FMFragment != null) {
-
+//            if (FMFragment != null) {
+//
                 getActivity().onBackPressed();
-
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-
-                FMFragment.setArguments(args);
-                try {
-                    transaction.add(R.id.content_frame, FMFragment, "patientRegistrationFragment").addToBackStack("a").commit();
-
-                } catch (IllegalStateException ignored) {
-
-                }
-            } else {
-                Toast.makeText(getContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
-            }
+//
+//                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//
+//                FMFragment.setArguments(args);
+//                try {
+//                    transaction.replace(R.id.content_frame, FMFragment, "patientRegistrationFragment").addToBackStack("a").commit();
+//
+//                } catch (IllegalStateException ignored) {
+//
+//                }
+//            } else {
+//                Toast.makeText(getContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
+//            }
         }
     }
 

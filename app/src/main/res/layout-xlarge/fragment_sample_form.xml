@@ -138,12 +138,12 @@
                     android:weightSum="1">
                     <com.santalu.maskara.widget.MaskEditText
                         android:id="@+id/sampleNo"
-
                         android:layout_weight="0.7"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
                         app:mask="___-__-____"
+                        android:hint="____00_____"
                         android:gravity="right"/>
                     <com.santalu.maskara.widget.MaskEditText
                         android:id="@+id/samplenoo"

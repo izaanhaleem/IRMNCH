@@ -578,6 +578,7 @@
                     </androidx.appcompat.widget.SwitchCompat>
 
                     <androidx.appcompat.widget.SwitchCompat
+                        android:visibility="gone"
                         android:id="@+id/switch18"
                         android:textSize="17sp"
                         android:layout_width="match_parent"
@@ -588,6 +589,7 @@
                     </androidx.appcompat.widget.SwitchCompat>
 
                     <androidx.appcompat.widget.SwitchCompat
+                        android:visibility="gone"
                         android:id="@+id/switch19"
                         android:textSize="17sp"
                         android:layout_width="match_parent"
@@ -598,6 +600,7 @@
                     </androidx.appcompat.widget.SwitchCompat>
 
                     <androidx.appcompat.widget.SwitchCompat
+                        android:visibility="gone"
                         android:id="@+id/switch20"
                         android:textSize="17sp"
                         android:layout_width="match_parent"
@@ -608,6 +611,7 @@
                     </androidx.appcompat.widget.SwitchCompat>
 
                     <androidx.appcompat.widget.SwitchCompat
+                        android:visibility="gone"
                         android:id="@+id/switch21"
                         android:textSize="17sp"
                         android:layout_width="match_parent"
@@ -618,6 +622,7 @@
                     </androidx.appcompat.widget.SwitchCompat>
 
                     <androidx.appcompat.widget.SwitchCompat
+                        android:visibility="gone"
                         android:id="@+id/switch22"
                         android:textSize="17sp"
                         android:layout_width="match_parent"
@@ -628,6 +633,7 @@
                     </androidx.appcompat.widget.SwitchCompat>
 
                     <androidx.appcompat.widget.SwitchCompat
+                        android:visibility="gone"
                         android:id="@+id/switch23"
                         android:textSize="17sp"
                         android:layout_width="match_parent"
@@ -638,6 +644,7 @@
                     </androidx.appcompat.widget.SwitchCompat>
 
                     <androidx.appcompat.widget.SwitchCompat
+                        android:visibility="gone"
                         android:id="@+id/switch24"
                         android:textSize="17sp"
                         android:layout_width="match_parent"
@@ -648,6 +655,7 @@
                     </androidx.appcompat.widget.SwitchCompat>
 
                     <androidx.appcompat.widget.SwitchCompat
+                        android:visibility="gone"
                         android:id="@+id/switch25"
                         android:textSize="17sp"
                         android:layout_width="match_parent"
@@ -658,6 +666,7 @@
                     </androidx.appcompat.widget.SwitchCompat>
 
                     <androidx.appcompat.widget.SwitchCompat
+                        android:visibility="gone"
                         android:id="@+id/switch26"
                         android:textSize="17sp"
                         android:layout_width="match_parent"
