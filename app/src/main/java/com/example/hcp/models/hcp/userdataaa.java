@@ -11,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-@Table(name = "UserDataTableee")
+@Table(name = "UserData_Tableee")
 
 public class userdataaa extends Model {
 
@@ -369,5 +369,10 @@ public class userdataaa extends Model {
                 .where("patient_id = ?",patientid )
                 .executeSingle();
     }
-
+    public static userdataaa searchByPatientcnic(String cnic) {
+        return new Select()
+                .from(userdataaa.class)
+                .where("self_cnic = ?",cnic )
+                .executeSingle();
+    }
 }

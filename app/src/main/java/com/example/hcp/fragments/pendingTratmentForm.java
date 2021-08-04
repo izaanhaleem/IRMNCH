@@ -46,7 +46,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class pendingTratmentForm extends Fragment {
     FragmentManager fragmentManager;
-    String SelectedMrNo,patientCNINC,PatientName,PatientType,testtype,isCorronic_patient;
+    String SelectedMrNo,patientCNINC,PatientName,PatientType,testtype,isCorronic_patient,baselineResultType;
     EditText name,mrno,patient,cnic,homoglobin,platelet,TLC,Urea,Creatinie,Blood_Sugar_Random,Pulse,Systolic,Diastolic,Weight,ast,alt,APRI;
     int shomoglobin,sast,salt,splatlets,stlc,surea,sBlood_Sugar_Random,sPulse,sSystolic,sDiastolic,sWeight;
     int pid,hcvviralcount,hbvviralcount,sampleID,hcv_medicine_duration;
@@ -72,10 +72,12 @@ public class pendingTratmentForm extends Fragment {
         patientCNINC = getArguments().getString("PatientCNIC");
         PatientName = getArguments().getString("PatientName");
         PatientType = getArguments().getString("Patienttype");
+        baselineResultType = getArguments().getString("resultType");
         pid = getArguments().getInt("pid");
         testtype = getArguments().getString("testType");
         hcvviralcount = getArguments().getInt("hcvviralcount");
         hbvviralcount = getArguments().getInt("hbvviralcount");
+
         sampleID = getArguments().getInt("sample_id");
         isCorronic_patient = getArguments().getString("iscorronic_patient");
         hcv_medicine_duration = getArguments().getInt("hcv_medicine_duration");
@@ -143,16 +145,22 @@ public class pendingTratmentForm extends Fragment {
         hcvvira.setText(hcvviralcount+"");
         hbvviral.setText(hbvviralcount+"");
 
-//        if(testtype.equalsIgnoreCase("HCV")){
-//            hcvlayout.setVisibility(View.VISIBLE);
-//            hbvlayout.setVisibility(View.GONE);
-//        }else if(testtype.equalsIgnoreCase("HBV")){
-//            hcvlayout.setVisibility(View.GONE);
-//            hbvlayout.setVisibility(View.VISIBLE);
+//        if(hcvviralcount>0){
+//            hcvpcrResult.setSelection(1);
 //        }else {
-//            hbvlayout.setVisibility(View.VISIBLE);
-//            hcvlayout.setVisibility(View.VISIBLE);
+//            hcvpcrResult.setSelection(0);
 //        }
+
+        if(testtype.equalsIgnoreCase("HCV")){
+            hcvlayout.setVisibility(View.VISIBLE);
+            hbvlayout.setVisibility(View.GONE);
+        }else if(testtype.equalsIgnoreCase("HBV")){
+            hcvlayout.setVisibility(View.GONE);
+            hbvlayout.setVisibility(View.VISIBLE);
+        }else {
+            hbvlayout.setVisibility(View.VISIBLE);
+            hcvlayout.setVisibility(View.VISIBLE);
+        }
 
 
         setlabname();
@@ -744,8 +752,17 @@ alt.addTextChangedListener(new TextWatcher() {
         resultType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-
+                if(baselineResultType!=null){
+                    if(baselineResultType.equalsIgnoreCase("Quantitative")){
+                        resultType.setSelection(1);
+                    }else if(baselineResultType.equalsIgnoreCase("Qualitative")){
+                        resultType.setSelection(2);
+                    }
+                }else {
+                    resultType.setSelection(0);
+                }
                 if (resultType.getSelectedItemPosition() > 0) {
+
                     SelectedOptionIndex = resultType.getSelectedItemPosition();
 
                     selectedResultType = categoriesEng.get(SelectedOptionIndex);
@@ -782,6 +799,13 @@ alt.addTextChangedListener(new TextWatcher() {
         hcvpcrResult.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+
+                if(hcvviralcount>0 ){
+                    hcvpcrResult.setSelection(1);
+                }else {
+                    hcvpcrResult.setSelection(0);
+                }
+
 
                 if (hcvpcrResult.getSelectedItemPosition() > 0) {
                     SelectedOptionIndex = hcvpcrResult.getSelectedItemPosition();
@@ -820,7 +844,11 @@ alt.addTextChangedListener(new TextWatcher() {
         hbvpcrResult.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-
+                if(hbvviralcount>0 ){
+                    hbvpcrResult.setSelection(1);
+                }else {
+                    hbvpcrResult.setSelection(0);
+                }
                 if (hbvpcrResult.getSelectedItemPosition() > 0) {
                     SelectedOptionIndex = hbvpcrResult.getSelectedItemPosition();
 

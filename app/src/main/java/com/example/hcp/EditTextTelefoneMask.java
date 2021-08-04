@@ -5,10 +5,10 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 
 public abstract class EditTextTelefoneMask {
-    private static final String mask8 = "####-####";
-    private static final String mask9 = "#####-####";
-    private static final String mask10 = "(##) ####-####";
-    private static final String mask11 = "(##) #####-####";
+    private static final String mask8 = "#####-#######-#";
+    private static final String mask9 = "#####-#######-#";
+    private static final String mask10 = "#####-#######-#";
+    private static final String mask11 = "###-##-##-######";
 
     public static String unmask(String s) {
         return s.replaceAll("[^0-9]*", "");
@@ -24,7 +24,7 @@ public abstract class EditTextTelefoneMask {
                 String mask;
                 String defaultMask = getDefaultMask(str);
                 switch (str.length()) {
-                    case 11:
+                    case 14:
                         mask = mask11;
                         break;
                     case 10:
@@ -70,7 +70,7 @@ public abstract class EditTextTelefoneMask {
 
     private static String getDefaultMask(String str) {
         String defaultMask = mask8;
-        if (str.length() > 11){
+        if (str.length() == 14){
             defaultMask = mask11;
         }
         return defaultMask;

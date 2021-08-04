@@ -14,6 +14,8 @@ import com.example.hcp.models.Users.UserResponse;
 import com.example.hcp.models.hcp.HFresponse;
 import com.example.hcp.models.hcp.OccupationResponse;
 import com.example.hcp.models.hcp.SampleRequest;
+import com.example.hcp.models.hcp.VaccinationRequest;
+import com.example.hcp.models.hcp.VaccinationResponse;
 import com.example.hcp.models.hcp.addAssessmentRequest;
 import com.example.hcp.models.hcp.addPatientRequest;
 import com.example.hcp.models.hcp.addPatientResponse;
@@ -58,6 +60,11 @@ public interface GetDataService {
 
     @POST("Apis/Assesment_api/AddAssesment")
     Call<AssessmentResponse> saveAssessment(@Body addAssessmentRequest reques);
+
+
+    @POST("Apis/Vaccination_api/Add")
+    Call<VaccinationResponse> saveVaccination(@Body VaccinationRequest va);
+
 
     @POST("Apis/Sample_api/AddSample")
     Call<sampleResponse> saveSamples(@Body SampleRequest re);

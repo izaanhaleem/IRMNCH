@@ -19,6 +19,7 @@ import com.example.hcp.fragments.VaccinationForm;
 import com.example.hcp.fragments.assessmentForm;
 import com.example.hcp.models.AdaptersData.SearchResultDatavital;
 import com.example.hcp.models.hcp.addvitalll;
+import com.example.hcp.models.hcp.userdataaa;
 import com.example.hcp.utils.Constants;
 
 public class SearchResultAdapterVaccination extends RecyclerView.Adapter<SearchResultAdapterVaccination.ViewHolder> {
@@ -63,8 +64,13 @@ public class SearchResultAdapterVaccination extends RecyclerView.Adapter<SearchR
                 args.putInt("pid",sData[position].getPid());
 
 
+//                userdataaa fg = userdataaa.searchByPatientcnic(sData[position].getLeaderCNIC());
+//                if(fg!=null){
+//                  args.putInt("AlreadytakenDose", Integer.parseInt(fg.next_status));
+//                }else {
+//                    args.putInt("AlreadytakenDose",0);
+//                }
 
-//                addvitalll fg = addvitalll.searchBycninc(sData[position].getLeaderCNIC());
 //                args.putDouble("temperature",fg.temperature);
 //                args.putInt("puls",fg.pulse);
 //                args.putDouble("BP_Systolic",fg.bp_systolic);

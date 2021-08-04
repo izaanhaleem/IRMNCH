@@ -2,10 +2,10 @@ package com.example.hcp.models.AdaptersData;
 
 public class SearchResultDatapending {
 
-    public String Gneder, MrNo,PatientName,LeaderCNIC,patienttype,Text1,Text2,Is_cirrhotic_patient;
+    public String Gneder, MrNo,PatientName,LeaderCNIC,patienttype,Text1,Text2,Is_cirrhotic_patient,Rsult_type;
     public int Pid,Hcvviralcount,Hbvviralcount,Sample_id,Hcv_medicine_duration;
 
-    public SearchResultDatapending(String gneder, String mrNo, String patientName, String leaderCNIC, String patientType, int pid,String  text1,String  text2,int hcvviralcount,int hbvviralcount,int sample_id,String is_cirrhotic_patient,int hcv_medicine_duration) {
+    public SearchResultDatapending(String gneder, String mrNo, String patientName, String leaderCNIC, String patientType, int pid,String  text1,String  text2,int hcvviralcount,int hbvviralcount,int sample_id,String is_cirrhotic_patient,int hcv_medicine_duration,String rsult_type) {
         Gneder = gneder;
         MrNo = mrNo;
         PatientName = patientName;
@@ -19,6 +19,15 @@ public class SearchResultDatapending {
         Sample_id = sample_id;
         Is_cirrhotic_patient = is_cirrhotic_patient;
         Hcv_medicine_duration = hcv_medicine_duration;
+        Rsult_type=rsult_type;
+    }
+
+    public String getRsult_type() {
+        return Rsult_type;
+    }
+
+    public void setRsult_type(String rsult_type) {
+        Rsult_type = rsult_type;
     }
 
     public int getHcv_medicine_duration() {

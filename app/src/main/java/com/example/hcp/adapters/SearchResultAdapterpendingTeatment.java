@@ -62,6 +62,7 @@ public class SearchResultAdapterpendingTeatment extends RecyclerView.Adapter<Sea
                 args.putString("PatientCNIC",sData[position].getLeaderCNIC());
                 args.putString("PatientName",sData[position].getPatientName());
                 args.putString("Patienttype",sData[position].getPatienttype());
+                args.putString("resultType",sData[position].getRsult_type());
                 args.putInt("pid",sData[position].getPid());
                 args.putString("testType",sData[position].getText1());
                 args.putInt("hcvviralcount",sData[position].getHcvviralcount());

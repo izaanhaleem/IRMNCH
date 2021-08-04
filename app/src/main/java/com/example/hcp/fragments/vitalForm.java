@@ -78,30 +78,45 @@ public class vitalForm extends Fragment {
 
     private void FormValidation() {
         String  asdf = temperature.getText().toString();
-
+        String pls = pulseBPM.getText().toString();
+        String  bps = BPSystolic.getText().toString();
+        String  bpd = BPDiastolic.getText().toString();
         boolean Validationstatus = true;
         if (asdf.isEmpty()) {
             Toast.makeText(getContext(), Constants.temp, Toast.LENGTH_LONG).show();
             Validationstatus = false;
+        }else if(bps.isEmpty()){
+            Toast.makeText(getContext(), "BPSystolic is empty", Toast.LENGTH_LONG).show();
+            Validationstatus = false;
+        }else if(bpd.isEmpty()){
+            Toast.makeText(getContext(), "BPDiastolic is empty", Toast.LENGTH_LONG).show();
+            Validationstatus = false;
+        }else if(pls.isEmpty()){
+            Toast.makeText(getContext(), "Pulse is empty", Toast.LENGTH_LONG).show();
+            Validationstatus = false;
         }
 
 //        float val = Integer.parseInt(asdf);
-        Float f= Float.parseFloat(asdf);
-        if(f >= 106.0){
+
+        try {
+            Float f= Float.parseFloat(asdf);
+            Float B= Float.parseFloat(bps);
+            Float D= Float.parseFloat(bpd);
+        if(f > 106.0){
             Toast.makeText(getContext(), Constants.error, Toast.LENGTH_LONG).show();
             Validationstatus = false;
         }
 
-        String  bps = BPSystolic.getText().toString();
-        Float B= Float.parseFloat(bps);
-        if(B >= 300.0){
+//        String  bps = BPSystolic.getText().toString();
+//        Float B= Float.parseFloat(bps);
+        if(B > 300.0){
             Toast.makeText(getContext(), Constants.bpsys, Toast.LENGTH_LONG).show();
             Validationstatus = false;
         }
 
-        String  bpd = BPDiastolic.getText().toString();
-        Float D= Float.parseFloat(bpd);
-        if(D >= 200.0){
+//        String  bpd = BPDiastolic.getText().toString();
+//        Float D= Float.parseFloat(bpd);
+        if(D > 200.0){
             Toast.makeText(getContext(), Constants.bpdys, Toast.LENGTH_LONG).show();
             Validationstatus = false;
         }
@@ -168,6 +183,9 @@ public class vitalForm extends Fragment {
 //            } else {
 //                Toast.makeText(getContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
 //            }
+        }
+        } catch (NumberFormatException nfe) {
+            nfe.printStackTrace();
         }
     }
 

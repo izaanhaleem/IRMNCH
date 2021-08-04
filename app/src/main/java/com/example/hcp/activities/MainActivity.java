@@ -98,13 +98,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDrawerToggle.syncState();
 
 
-        //String[] a = new SharedPref(MainActivity.main).GetUserName().split("@");
-        //String name = a[0];
+//        String[] a = new SharedPref(MainActivity.main).GetUserName().split("@");
+//        String name = a[0];
 
         View headerView = mNavigationView.getHeaderView(0);
         TextView navUsername = headerView.findViewById(R.id.navUsername);
 
-        //navUsername.setText(name);
+        String username = Prefs.getString(Constants.USERNAME, "");
+
+        navUsername.setText(username);
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 

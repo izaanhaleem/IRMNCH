@@ -1,6 +1,7 @@
 package com.example.hcp.fragments;
 
 import android.app.ProgressDialog;
+import android.graphics.Path;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.activeandroid.ActiveAndroid;
+import com.example.hcp.EditTextTelefoneMask;
 import com.example.hcp.R;
 import com.example.hcp.adapters.SearchResultAdapterAssessment;
 import com.example.hcp.adapters.SearchResultAdapterpendingTeatment;
@@ -45,6 +47,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.sapereaude.maskedEditText.MaskedEditText;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -76,6 +79,10 @@ public class Dashboard_patient_pending_treatment extends Fragment {
         sync_data = view.findViewById(R.id.sync_datapending);
         total_record = view.findViewById(R.id.total__sync_recordv);
         SetSearchOptions();
+
+
+//        OptionValue.addTextChangedListener(EditTextTelefoneMask.insert(OptionValue));
+
 
         btnSearch.setOnClickListener(
                 v -> Search()
@@ -124,7 +131,7 @@ public class Dashboard_patient_pending_treatment extends Fragment {
             List<userdataaa> list ;
 
             switch (SelectedOptionIndex) {
-                case 3:
+                case 2:
                     list = userdataaa.searchByMRNOLeader(SelectedOptionVal);
                     if (list.size() > 0) {
                         SetDataArrayy(list);
@@ -136,7 +143,7 @@ public class Dashboard_patient_pending_treatment extends Fragment {
 
                     break;
 
-                case 2:
+                case 1:
                     list = userdataaa.searchByCNICLeader(SelectedOptionVal);
                     if (list.size() > 0) {
 
@@ -147,15 +154,15 @@ public class Dashboard_patient_pending_treatment extends Fragment {
                         SetDataArrayy(list);
                     }
                     break;
-                case 1:
-                    list = userdataaa.searchBynameLeader(SelectedOptionVal);
-                    if (list.size() > 0) {
-                        SetDataArrayy(list);
-                    } else {
-                        Toast.makeText(getContext(), "NO Record Found", Toast.LENGTH_LONG).show();
-                        SetDataArrayy(list);
-                    }
-                    break;
+//                case 1:
+//                    list = userdataaa.searchBynameLeader(SelectedOptionVal);
+//                    if (list.size() > 0) {
+//                        SetDataArrayy(list);
+//                    } else {
+//                        Toast.makeText(getContext(), "NO Record Found", Toast.LENGTH_LONG).show();
+//                        SetDataArrayy(list);
+//                    }
+//                    break;
 
 
             }
@@ -173,7 +180,6 @@ public class Dashboard_patient_pending_treatment extends Fragment {
 
         List<String> categoriesEng = new ArrayList<String>();
         categoriesEng.add("select option");
-        categoriesEng.add("Name");
         categoriesEng.add("CNIC");
         categoriesEng.add("Mrn_no");
 
@@ -191,7 +197,11 @@ public class Dashboard_patient_pending_treatment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 
+
+
+
                 if (etSearchOptionpending.getSelectedItemPosition() > 0) {
+
                     SelectedOptionIndex = etSearchOptionpending.getSelectedItemPosition();
 
                     SelectedOption = categoriesEng.get(SelectedOptionIndex);
@@ -244,16 +254,23 @@ public class Dashboard_patient_pending_treatment extends Fragment {
                 FDP[i].PatientName = "N/A";
             }
 
-//            if(sample.get(i).pcr_confirmation_hcv=="y" && sample.get(i).cbl=="Y"){
-                FDP[i].text1 = "HCV";
-                FDP[i].text2 = "HCV Baseline Investigation Form";
-//            }else if(sample.get(i).pcr_confirmation_hbv=="y" && sample.get(i).bbl=="Y"){
-//                FDP[i].text1 = "HBV";
-//                FDP[i].text2 = "HBV Baseline Investigation Form";
-//            }else {
-//                FDP[i].text1 = "Both";
-//                FDP[i].text2 = "Both Baseline Investigation Form";
-//            }
+            if(sample.get(i).pcr_confirmation_hcv!=null && sample.get(i).cbl!=null && sample.get(i).pcr_confirmation_hbv!=null && sample.get(i).bbl!=null) {
+                if (sample.get(i).pcr_confirmation_hcv.equalsIgnoreCase("y") && sample.get(i).cbl.equalsIgnoreCase("Y")) {
+                    FDP[i].text1 = "HCV";
+                    FDP[i].text2 = "HCV Baseline Investigation Form";
+                } else if (sample.get(i).pcr_confirmation_hbv.equalsIgnoreCase("y") && sample.get(i).bbl.equalsIgnoreCase("Y")) {
+                    FDP[i].text1 = "HBV";
+                    FDP[i].text2 = "HBV Baseline Investigation Form";
+                } else {
+                    FDP[i].text1 = "Both";
+                    FDP[i].text2 = "Both Baseline Investigation Form";
+                }
+
+            }else {
+                FDP[i].text1 = "Both";
+                FDP[i].text2 = "Both Baseline Investigation Form";
+            }
+
             if(sample.get(i).hcv_viral_count != null){
                 FDP[i].hcvviralount = sample.get(i).hcv_viral_count;
             }else {
@@ -289,6 +306,7 @@ public class Dashboard_patient_pending_treatment extends Fragment {
             FDP[i].LeaderCNIC = sample.get(i).self_cnic;
             FDP[i].MrNo = sample.get(i).mrn_no;
             FDP[i].patientType = sample.get(i).patient_type;
+            FDP[i].rstultType = sample.get(i).baseline_result_type;
             FDP[i].pid = sample.get(i).patient_id;
         }
 
@@ -298,10 +316,11 @@ public class Dashboard_patient_pending_treatment extends Fragment {
         {
             myListData[i] = new SearchResultDatapending();
             myListData[i].setPatientName(FDP[i].PatientName);
-            myListData[i].setMrNo(FDP[i].pathentContactNo);
+            myListData[i].setMrNo(FDP[i].MrNo);
             myListData[i].setGneder(FDP[i].LastName);
             myListData[i].setLeaderCNIC(FDP[i].LeaderCNIC);
             myListData[i].setPatienttype(FDP[i].patientType);
+            myListData[i].setRsult_type(FDP[i].rstultType);
             myListData[i].setPid(FDP[i].pid);
             myListData[i].setText1(FDP[i].text1);
             myListData[i].setText2(FDP[i].text2);

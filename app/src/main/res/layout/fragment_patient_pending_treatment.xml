@@ -252,10 +252,9 @@
                 android:autofillHints="@string/user_name"
                 android:hint="XXXXXXXXXXXXXXXX"
                 android:background="@drawable/textfield_design"
-                android:inputType="text"
                 android:padding="5dp"
                 android:textSize="18sp"
-
+                android:inputType="text"
                 />
             <LinearLayout
                 android:layout_width="match_parent"

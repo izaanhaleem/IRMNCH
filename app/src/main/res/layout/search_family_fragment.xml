@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:mask="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
@@ -421,18 +423,22 @@
 <!--                app:smsp_itemListHintColor="#FFFFFF"-->
 <!--                app:smsp_multilineError="false"-->
 <!--                app:smsp_selectedItemListColor="#4CAF50" />-->
-            <EditText
-                android:id="@+id/etSearchVal"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:autofillHints="@string/user_name"
-                android:hint="XXXXXXXXXXXXXXXX"
-                android:paddingVertical="10dp"
-                android:background="@drawable/textfield_design"
-                android:inputType="text"
-                android:padding="5dp"
+                android:layout_height="50dp">
+                <EditText
+                    android:id="@+id/etSearchVal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="@string/user_name"
+                    android:hint="XXXXXXXXXXXXXXXXXXXX"
+                    android:paddingVertical="10dp"
+                    android:background="@drawable/textfield_design"
+                    android:padding="5dp"
+                    />
 
-                />
+            </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

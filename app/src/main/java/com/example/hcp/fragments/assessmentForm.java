@@ -139,6 +139,9 @@ public class assessmentForm extends Fragment {
         counsel_closed = view.findViewById(R.id.counsel_closed);
         pcr = view.findViewById(R.id.pcr);
 
+
+
+
         fragmentManager = getFragmentManager();
 
         name.setEnabled(false);
@@ -157,6 +160,102 @@ public class assessmentForm extends Fragment {
         setselect_year1();
         setblood_bank();
         setDental_Clinic();
+
+        Sswitch28 = "N";
+        Sswitch29 = "N";
+
+
+        switch28.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    Sswitch28 = "Y";
+                    rapidtesting = "Y";
+                    Sswitch30 = "N";
+                    Sswitch31 = "N";
+                    PCR = "Y";
+                    switch30.setVisibility(View.GONE);
+                    switch31.setVisibility(View.GONE);
+                    pcr.setVisibility(View.VISIBLE);
+                    addvised.setText("Advised for HBV");
+                    addvised.setVisibility(View.VISIBLE);
+                    counsel_closed.setText("Proceed to nurse for sample collection");
+
+                    if(switch29.isChecked()){
+                        addvised.setText("Advised for Both");
+                        PCR = "Y";
+                        Sswitch31 = "N";
+                    }else {
+                        addvised.setText("Advised for HBV");
+                        PCR = "N";
+                    }
+                } else {
+
+                    Sswitch28 = "N";
+                    rapidtesting = "N";
+                    PCR = "N";
+                    if(!switch29.isChecked()){
+                        Sswitch31 = "Y";
+                    }
+                    counsel_closed.setText("");
+                    switch30.setVisibility(View.VISIBLE);
+                    switch31.setVisibility(View.VISIBLE);
+                    pcr.setVisibility(View.GONE);
+                    addvised.setVisibility(View.GONE);
+                    counsel_closed.setText("Counsel and Closed");
+
+                }
+            }
+        });
+
+        switch29.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    Sswitch29 = "Y";
+                    rapidtesting = "Y";
+                    PCR = "Y";
+                    Sswitch31 = "N";
+                    switch31.setVisibility(View.GONE);
+                    pcr.setVisibility(View.VISIBLE);
+                    addvised.setText("Advised for HCV");
+                    addvised.setVisibility(View.VISIBLE);
+                    counsel_closed.setText("Proceed to nurse for sample collection and vaccination");
+                    if(switch28.isChecked()){
+                        addvised.setText("Advised for Both");
+                        PCR = "Y";
+                        Sswitch31 = "N";
+                    }else {
+                        addvised.setText("Advised for HCV");
+                        PCR = "N";
+                    }
+                }else {
+
+                    Sswitch29 = "N";
+                    rapidtesting = "N";
+                    PCR = "N";
+                    if(!switch28.isChecked()){
+                        Sswitch31 = "Y";
+                    }
+                    counsel_closed.setText("");
+                    switch31.setVisibility(View.VISIBLE);
+                    pcr.setVisibility(View.GONE);
+                    addvised.setVisibility(View.GONE);
+                    counsel_closed.setText("Counsel and Closed");
+                }
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
 
         switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -477,80 +576,7 @@ public class assessmentForm extends Fragment {
             }
         });
 
-        switch28.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    Sswitch28 = "Y";
-                    rapidtesting = "Y";
-                    Sswitch30 = "N";
-                    Sswitch31 = "N";
-                    PCR = "Y";
-                    switch30.setVisibility(View.GONE);
-                    switch31.setVisibility(View.GONE);
-                    pcr.setVisibility(View.VISIBLE);
-                    addvised.setText("Advised for HBV");
-                    addvised.setVisibility(View.VISIBLE);
-                    counsel_closed.setText("Proceed to nurse for sample collection");
 
-                    if(switch29.isChecked()){
-                        addvised.setText("Advised for Both");
-                        PCR = "Y";
-                        Sswitch31 = "N";
-                    }
-                } else {
-
-                    Sswitch28 = "N";
-                    rapidtesting = "N";
-                    PCR = "N";
-                    if(!switch29.isChecked()){
-                        Sswitch31 = "Y";
-                    }
-                    counsel_closed.setText("");
-                    switch30.setVisibility(View.VISIBLE);
-                    switch31.setVisibility(View.VISIBLE);
-                    pcr.setVisibility(View.GONE);
-                    addvised.setVisibility(View.GONE);
-                    counsel_closed.setText("Counsel and Closed");
-
-                }
-            }
-        });
-
-        switch29.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if(isChecked){
-            Sswitch29 = "Y";
-            rapidtesting = "Y";
-            PCR = "Y";
-            Sswitch31 = "N";
-            switch31.setVisibility(View.GONE);
-            pcr.setVisibility(View.VISIBLE);
-            addvised.setText("Advised for HCV");
-            addvised.setVisibility(View.VISIBLE);
-            counsel_closed.setText("Proceed to nurse for sample collection and vaccination");
-            if(switch28.isChecked()){
-                addvised.setText("Advised for Both");
-                PCR = "Y";
-                Sswitch31 = "N";
-            }
-        }else {
-
-            Sswitch29 = "N";
-            rapidtesting = "N";
-            PCR = "N";
-            if(!switch28.isChecked()){
-                Sswitch31 = "Y";
-            }
-            counsel_closed.setText("");
-            switch31.setVisibility(View.VISIBLE);
-            pcr.setVisibility(View.GONE);
-            addvised.setVisibility(View.GONE);
-            counsel_closed.setText("Counsel and Closed");
-        }
-    }
-});
 
         switch30.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -637,12 +663,12 @@ public class assessmentForm extends Fragment {
 
         AS.setRapid_testing(rapidtesting);
 
-        if(Sswitch28 == null){
+        if(Sswitch28.equalsIgnoreCase("N")){
             AS.setIs_hbv_test("N");
         }else {
             AS.setIs_hbv_test(Sswitch28);
         }
-        if(Sswitch29 == null){
+        if(Sswitch29.equalsIgnoreCase("N")){
             AS.setIs_hcv_test("N");
         }else {
             AS.setIs_hcv_test(Sswitch29);
@@ -655,16 +681,21 @@ public class assessmentForm extends Fragment {
 
         addPatientModel mod = addPatientModel.searchBycnic(patientCNINC);
 
-        if(Sswitch28 == null){
+        if(Sswitch28.equalsIgnoreCase("N") && Sswitch29.equalsIgnoreCase("N")){
+            mod.IS_assessment = 1;
+            mod.ISSample = 2;
+        }
+        if(Sswitch28.equalsIgnoreCase("N") && Sswitch29.equalsIgnoreCase("Y")) {
             mod.IS_assessment = 1;
         }
-        else {
-            mod.IS_assessment = 2;
+        if(Sswitch28.equalsIgnoreCase("Y") && Sswitch29.equalsIgnoreCase("Y")){
+            mod.IS_assessment = 1;
             mod.IS_Vaccination = 2;
         }
-
-
-
+         if(Sswitch28.equalsIgnoreCase("Y") && Sswitch29.equalsIgnoreCase("N")){
+            mod.IS_assessment = 1;
+            mod.IS_Vaccination = 2;
+        }
 
         try {
             AS.save();

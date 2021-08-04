@@ -26,8 +26,10 @@ import com.example.hcp.models.hcp.Datum4;
 import com.example.hcp.models.hcp.Datum5;
 import com.example.hcp.models.hcp.Datum6;
 import com.example.hcp.models.hcp.Samplee;
+import com.example.hcp.models.hcp.Vaccinationn;
 import com.example.hcp.models.hcp.addPatientModel;
 import com.example.hcp.models.hcp.addvitalll;
+import com.example.hcp.models.hcp.medicinee;
 import com.example.hcp.models.hcp.userdataaa;
 import com.example.hcp.models.hcp.HFresponse;
 import com.example.hcp.models.hcp.OccupationResponse;
@@ -121,6 +123,8 @@ public class LoginActivity extends AppCompatActivity {
             occuptaionn.deleteAll();
             qualificationn.deleteAll();
             materialStatuss.deleteAll();
+            medicinee.deleteAll();
+            Vaccinationn.deleteAll();
             ActiveAndroid.setTransactionSuccessful();
         } finally {
             ActiveAndroid.endTransaction();

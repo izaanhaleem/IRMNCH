@@ -3,6 +3,7 @@ package com.example.hcp.models.hcp;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -190,6 +191,11 @@ public class medicinee extends Model {
     public static List<medicinee> getall() {
         return new Select()
                 .from(medicinee.class)
+                .execute();
+    }
+
+    public static void deleteAll() {
+        new Delete().from(medicinee.class)
                 .execute();
     }
 }

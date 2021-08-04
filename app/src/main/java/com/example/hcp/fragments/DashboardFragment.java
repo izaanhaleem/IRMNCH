@@ -32,6 +32,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.activeandroid.ActiveAndroid;
+import com.example.hcp.CustomBroadCastReceiver;
 import com.example.hcp.EditTextTelefoneMask;
 import com.example.hcp.Mask;
 import com.example.hcp.R;
@@ -44,6 +45,9 @@ import com.example.hcp.models.hcp.AssessmentResponse;
 import com.example.hcp.models.hcp.Assessmentt;
 import com.example.hcp.models.hcp.SampleRequest;
 import com.example.hcp.models.hcp.Samplee;
+import com.example.hcp.models.hcp.VaccinationRequest;
+import com.example.hcp.models.hcp.VaccinationResponse;
+import com.example.hcp.models.hcp.Vaccinationn;
 import com.example.hcp.models.hcp.addAssessmentRequest;
 import com.example.hcp.models.hcp.addPatientModel;
 import com.example.hcp.models.hcp.addPatientRequest;
@@ -69,6 +73,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.sapereaude.maskedEditText.MaskedEditText;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -89,6 +94,7 @@ public class DashboardFragment extends Fragment {
     int patientssubmitcount = 0;
     int vitalsubmitcount = 0;
     int assessmentsubmitcount = 0;
+    int vaccinationsubmitcount = 0;
     int samplesubmitcount = 0;
     int pendingsubmitcount = 0;
     int syncedpatients = 0, syncedvitals = 0, syncedassessment = 0, syncedpending = 0;
@@ -97,6 +103,7 @@ public class DashboardFragment extends Fragment {
     List<addPatientModel> paitents;
     List<addvitalll> vitals;
     List<Assessmentt> assessmentts;
+    List<Vaccinationn> vaccinationns;
     List<Samplee> sampless;
     List<medicinee> pending;
 
@@ -156,6 +163,8 @@ public class DashboardFragment extends Fragment {
         Register.setOnClickListener(
                 v -> LoadRegistration()
         );
+
+
 
         sync_data.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -334,14 +343,34 @@ public class DashboardFragment extends Fragment {
                 if (SearchOptions.getSelectedItemPosition() > 0) {
 
 //                    if(SearchOptions.getSelectedItemPosition() == 1) {
-//                        OptionValue.addTextChangedListener(Mask.insert(Mask.Mrn_MASK, OptionValue));
-//                    }else if(SearchOptions.getSelectedItemPosition() == 2){
-//                        OptionValue.setInputType(InputType.TYPE_CLASS_NUMBER);
+//                        OptionValue.setInputType(InputType.TYPE_CLASS_TEXT);
+//                        OptionValue.setText("");
+//                        OptionValue.setMask("###-##-##-###########");
 //
+////                        OptionValue.addTextChangedListener(Mask.insert(Mask.Mrn_MASK, OptionValue));
+//                    }else if(SearchOptions.getSelectedItemPosition() == 2){
+//
+//                        OptionValue.setInputType(InputType.TYPE_CLASS_NUMBER);
+//                        OptionValue.setText("");
+//                        OptionValue.setMask("#####-#######-#");
+//
+//
+////                        OptionValue.setInputType(InputType.TYPE_CLASS_NUMBER);
+////
 //                    }else if(SearchOptions.getSelectedItemPosition() == 3){
-////                        OptionValue.addTextChangedListener(new Mask("#############"));
+//////                        OptionValue.addTextChangedListener(new Mask("#############"));
+//
+//                        OptionValue.setInputType(InputType.TYPE_CLASS_TEXT);
+//                        OptionValue.setText("");
+//                        OptionValue.setMask("###################");
+//
 //                    }else if(SearchOptions.getSelectedItemPosition() == 4){
-////                        OptionValue.addTextChangedListener(new Mask("####-#######"));
+//////                        OptionValue.addTextChangedListener(new Mask("####-#######"));
+//
+//                        OptionValue.setInputType(InputType.TYPE_CLASS_NUMBER);
+//                        OptionValue.setText("");
+//                        OptionValue.setMask("####-#######");
+//
 //                    }
 
                     SelectedOptionIndex = SearchOptions.getSelectedItemPosition();
@@ -406,9 +435,6 @@ public class DashboardFragment extends Fragment {
 
     }
 
-
-
-
     public void pendingvitals(){
         List<addPatientModel> pendingvitals = addPatientModel.searchallISvital();
         List<addPatientModel> pendingassessment = addPatientModel.pendingassessments();
@@ -425,9 +451,10 @@ public class DashboardFragment extends Fragment {
         List<addPatientModel> patient = addPatientModel.searchBySync();
         List<addvitalll> vitals = addvitalll.searchBySync();
         List<Assessmentt> assessments = Assessmentt.searchBySync();
+        List<Vaccinationn> vacc = Vaccinationn.searchBySync();
         List<Samplee> sample = Samplee.searchBySync();
 //        List<medicinee> medicine = medicinee.searchBySync();
-        totalSize = patient.size() + vitals.size() + assessments.size() + sample.size();
+        totalSize = patient.size() + vitals.size() + assessments.size() + sample.size()+vacc.size();
         total_record.setText(totalSize + "");
     }
 
@@ -438,6 +465,7 @@ public class DashboardFragment extends Fragment {
         patientssubmitcount = 0;
         vitalsubmitcount = 0;
         assessmentsubmitcount = 0;
+        vaccinationsubmitcount = 0;
         samplesubmitcount = 0;
 //        pendingsubmitcount = 0;
 
@@ -462,6 +490,7 @@ public class DashboardFragment extends Fragment {
         } else {
             submitvitalData();
             submitAssessment();
+            submitVaccination();
             submitSamples();
         }
 //       if(vitals.size()>0){
@@ -747,6 +776,18 @@ public class DashboardFragment extends Fragment {
                             Toast.makeText(getContext(), "Assessment not found", Toast.LENGTH_SHORT).show();
                         }
 
+                        Vaccinationn vac = Vaccinationn.searchBypid(response.body().getData().getMobile_id());
+//                                   if(assess.patient_id == response.body().getData().getPatient_id()) {
+                        if (vac != null) {
+                            vac.id = response.body().getData().getPatient_id();
+                            vac.save();
+                        } else {
+                            Toast.makeText(getContext(), "Vaccination not found", Toast.LENGTH_SHORT).show();
+                        }
+
+
+
+
 
                         Samplee ss = Samplee.searchBypid(response.body().getData().getMobile_id());
                         if (ss != null) {
@@ -765,7 +806,9 @@ public class DashboardFragment extends Fragment {
                     if (currentPatient + 1 == totalPatient) {
                         submitvitalData();
                         submitAssessment();
+                        submitVaccination();
                         submitSamples();
+
                     }
                 } else {
                     Toast.makeText(getContext(), "" + response.message().toString(), Toast.LENGTH_SHORT).show();
@@ -1290,6 +1333,139 @@ public class DashboardFragment extends Fragment {
         });
 
     }
+
+    private void submitVaccination(){
+        vaccinationns = Vaccinationn.searchBySync();
+        if (vaccinationns.size() > 0) {
+
+            for (int i = 0; i < vaccinationns.size(); i++) {
+                VaccinationRequest vac = new VaccinationRequest();
+                if (vaccinationns.get(i).id != null) {
+                    vac.setId(vaccinationns.get(i).id);
+                }
+                if (vaccinationns.get(i).stage != null) {
+                    vac.setStage(vaccinationns.get(i).stage);
+                } else {
+                    vac.setStage(0);
+
+                }
+                if (vaccinationns.get(i).dose_date != null) {
+                    vac.setDose_date(vaccinationns.get(i).dose_date);
+                } else {
+                    vac.setDose_date("0");
+
+                }
+
+                if (vaccinationns.get(i).created != null) {
+                    vac.setCreated(vaccinationns.get(i).created);
+                } else {
+                    vac.setCreated("0");
+
+                }
+
+                if (vaccinationns.get(i).user_id != null) {
+                    vac.setUser_id(vaccinationns.get(i).user_id);
+                } else {
+                    vac.setUser_id(0);
+
+                }
+
+                if (vaccinationns.get(i).hospital_id != null) {
+                    vac.setHospital_id(vaccinationns.get(i).hospital_id);
+                } else {
+                    vac.setHospital_id(0);
+                }
+
+                if (vaccinationns.get(i).updated != null) {
+                    vac.setUpdated(vaccinationns.get(i).updated);
+                } else {
+                    vac.setUpdated("0");
+                }
+
+                if (vaccinationns.get(i).mobile_id != null) {
+                    vac.setMobile_id(vaccinationns.get(i).mobile_id);
+                } else {
+                    vac.setMobile_id(0);
+                }
+
+//                List<addPatientModel> fli = addPatientModel.getall();
+//
+//                sampless.get(i).pid = fli.get(i).getPatient_id();
+
+                submitvaccine(vac);
+
+            }
+
+        }
+    }
+
+    private void submitvaccine(VaccinationRequest vac) {
+
+        ProgressDialog dialog = new ProgressDialog(getContext());
+        dialog.setMessage("Saving Patient Vital please wait . . ");
+        dialog.show();
+        Call<VaccinationResponse> call = RetrofitClient
+                .getInstance().getApi().saveVaccination(vac);
+        call.enqueue(new Callback<VaccinationResponse>() {
+            @Override
+            public void onResponse(Call<VaccinationResponse> call, Response<VaccinationResponse> response) {
+                dialog.dismiss();
+                if (response.body() != null) {
+
+
+                    ActiveAndroid.beginTransaction();
+                    try {
+                        Vaccinationn vc = Vaccinationn.searchBypid(vac.getId());
+                        vc.IsSync = 1;
+                        vc.save();
+//                        List<Samplee> s = Samplee.getall();
+//                        for (int i = 0; i < s.size(); i++) {
+//
+//                            Samplee mo = Samplee.load(Samplee.class, response.body().getData().getMobile_id());
+//                            mo.IsSync = 1;
+//                            mo.save();
+//
+//                        }
+                        ActiveAndroid.setTransactionSuccessful();
+                    } finally {
+                        ActiveAndroid.endTransaction();
+                    }
+
+//                    syncedpending = syncedpending + 1;
+//                    if (syncedpending == pendingsubmitcount) {
+//                        submitmedicine();
+//                    }
+
+
+//                    deleteformvitalList(response.body().getData().getMobile_id());
+                }
+
+                totalSYncREcord();
+
+
+            }
+
+            @Override
+            public void onFailure(Call<VaccinationResponse> call, Throwable t) {
+
+                try {
+//                    syncedleaders = syncedleaders+1;
+//                    if(syncedleaders==leadersubmitcount){
+////                        submitLmpData();
+//                    }
+//                    Toast.makeText(getContext(), Constants.ServerError + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                    Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
+
+                } catch (Exception exception) {
+                    dialog.dismiss();
+                }
+
+            }
+        });
+
+    }
+
 
     private void submitSamples() {
         sampless = Samplee.searchBySync();

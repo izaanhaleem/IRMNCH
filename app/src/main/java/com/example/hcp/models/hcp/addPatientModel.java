@@ -17,7 +17,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 
-@Table(name = "patientModelTable",id = "mobile_id")
+@Table(name = "patientModel_Table",id = "mobile_id")
 public class addPatientModel extends Model {
     @Column(name = "patient_id")
     @SerializedName("patient_id")
@@ -495,7 +495,6 @@ public class addPatientModel extends Model {
                 .execute();
     }
 
-
     public static List<addPatientModel> searchallpendingtreament() {
         return new Select()
                 .from(addPatientModel.class)
@@ -504,7 +503,6 @@ public class addPatientModel extends Model {
                 .where("IS_assessment = ?",1 )
                 .execute();
     }
-
 
     public static List<addPatientModel> searchByISAssessment(String cnic) {
         return new Select()
