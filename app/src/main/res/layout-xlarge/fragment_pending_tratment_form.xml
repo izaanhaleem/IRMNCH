@@ -130,7 +130,11 @@
                         android:maxLines="1"
                         android:textSize="@dimen/font_normal" />
                 </com.google.android.material.textfield.TextInputLayout>
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/allLayout">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -272,7 +276,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -919,6 +923,16 @@
                         android:spinnerMode="dropdown"
                         android:textSize="@dimen/font_xlarge" />
 
+                    <Spinner
+                        android:id="@+id/medicine_prescriptionhbv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="3dp"
+                        android:background="@drawable/dropdown_custom_bg"
+                        android:hint=""
+                        android:paddingVertical="13dp"
+                        android:spinnerMode="dropdown"
+                        android:textSize="@dimen/font_xlarge" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -960,8 +974,11 @@
                     android:textSize="14sp"
                     android:background="@drawable/buttonstyle"
                     tools:spb_showStripes="true" />
-
+</LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
+
+
 </LinearLayout>

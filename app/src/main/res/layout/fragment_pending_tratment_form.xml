@@ -919,6 +919,16 @@
                     android:spinnerMode="dropdown"
                     android:textSize="@dimen/font_xlarge" />
 
+                    <Spinner
+                        android:id="@+id/medicine_prescriptionhbv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="3dp"
+                        android:background="@drawable/dropdown_custom_bg"
+                        android:hint=""
+                        android:paddingVertical="13dp"
+                        android:spinnerMode="dropdown"
+                        android:textSize="@dimen/font_xlarge" />
 
                     <TextView
                         android:layout_width="match_parent"

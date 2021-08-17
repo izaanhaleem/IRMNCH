@@ -5,8 +5,8 @@ import android.os.Parcelable;
 
 public class pendingDataParceable implements Parcelable {
 
-    public String Gender, MrNo,PatientName,LastName,LeaderCNIC,patientType,pathentContactNo,text1,text2,is_cirrhotic_patient,rstultType;
-    public int pid,hcvviralount,hbvviralcount,sample_id,hcv_medicine_duration;
+    public String hcvviralount,hbvviralcount,sample_id,Gender, MrNo,PatientName,LastName,LeaderCNIC,patientType,pathentContactNo,text1,text2,is_cirrhotic_patient,rstultType;
+    public int pid,hcv_medicine_duration;
 
     public pendingDataParceable(Parcel in) {
         Gender = in.readString();
@@ -19,10 +19,10 @@ public class pendingDataParceable implements Parcelable {
         LastName = in.readString();
         text1 = in.readString();
         text2 = in.readString();
-        hcvviralount = in.readInt();
-        hcvviralount = in.readInt();
+        hcvviralount = in.readString();
+        hcvviralount = in.readString();
         hcv_medicine_duration = in.readInt();
-        sample_id = in.readInt();
+        sample_id = in.readString();
         is_cirrhotic_patient = in.readString();
         rstultType = in.readString();
     }
@@ -61,9 +61,9 @@ public class pendingDataParceable implements Parcelable {
         parcel.writeString(LastName);
         parcel.writeString(text1);
         parcel.writeString(text2);
-        parcel.writeInt(hcvviralount);
-        parcel.writeInt(hbvviralcount);
-        parcel.writeInt(sample_id);
+        parcel.writeString(hcvviralount);
+        parcel.writeString(hbvviralcount);
+        parcel.writeString(sample_id);
         parcel.writeInt(hcv_medicine_duration);
         parcel.writeString(is_cirrhotic_patient);
         parcel.writeString(rstultType);

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import com.example.hcp.models.hcp.Samplee;
 import com.example.hcp.models.hcp.addPatientModel;
 import com.example.hcp.models.hcp.addvitalll;
 import com.example.hcp.utils.Constants;
+import com.example.hcp.utils.InputFilterMinMax;
 import com.example.hcp.utils.SharedPref;
 import com.santalu.maskara.widget.MaskEditText;
 
@@ -32,7 +34,8 @@ public class sampleForm extends Fragment {
     FragmentManager fragmentManager;
     String SelectedMrNo,patientCNINC,PatientName,PatientType;
     EditText name,mrno,patient,cnic;
-    MaskEditText sampleno,samp;
+    MaskEditText sampleno;
+    EditText samp;
     MaskEditText samplenoo;
     int pid;
     Button addsample;
@@ -58,6 +61,7 @@ public class sampleForm extends Fragment {
         addsample = view.findViewById(R.id.addsample);
         samplecolect = view.findViewById(R.id.samplecolect);
         samp = view.findViewById(R.id.samp);
+        samp.setFilters(new InputFilter[]{ new InputFilterMinMax("1", "21")});
 
         addsample.setVisibility(View.GONE);
         fragmentManager = getFragmentManager();

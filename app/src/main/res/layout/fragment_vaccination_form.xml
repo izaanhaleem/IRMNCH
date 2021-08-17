@@ -259,6 +259,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <androidx.appcompat.widget.SwitchCompat
+                        android:enabled="false"
                         android:layout_marginTop="10dp"
                         android:id="@+id/seconds"
                         android:layout_width="wrap_content"
@@ -273,6 +274,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingRight="3dp"
+                        android:enabled="false"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         app:hintTextAppearance="@style/NormalTextView">
 
@@ -285,6 +287,8 @@
                             android:focusable="false"
                             android:inputType="text"
                             android:textSize="@dimen/font_normal"
+
+
                             android:drawableRight="@drawable/calander"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -295,6 +299,7 @@
                         android:layout_height="wrap_content"
                         android:text="Third Vaccination Dose : "
                         android:textSize="17sp"
+                        android:enabled="false"
                         app:switchPadding="20dp"
                         >
                     </androidx.appcompat.widget.SwitchCompat>
@@ -303,6 +308,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingRight="3dp"
+                        android:enabled="false"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         app:hintTextAppearance="@style/NormalTextView">
 

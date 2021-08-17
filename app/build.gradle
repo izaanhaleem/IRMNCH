@@ -79,6 +79,7 @@ dependencies {
     implementation 'com.github.nikartm:process-button:2.0.0'
     implementation 'com.github.sadra:AwesomeSpinner:1.5.2'
     implementation 'ru.egslava:MaskedEditText:1.0.5'
+    implementation 'com.kaopiz:kprogresshud:1.2.0'
 
 
 }

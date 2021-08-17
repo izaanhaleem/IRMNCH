@@ -131,58 +131,58 @@
                         android:textSize="@dimen/font_normal" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-               <LinearLayout
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:orientation="horizontal"
-                   android:weightSum="1">
-                <com.santalu.maskara.widget.MaskEditText
-                    android:id="@+id/sampleNo"
-                    android:layout_weight="0.4"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    app:mask="___"
-                    android:gravity="right"/>
-                   <com.santalu.maskara.widget.MaskEditText
-                       android:id="@+id/samp"
-                       android:layout_weight="0.4"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:inputType="number"
-                       app:mask="--"
-                       android:hint="-00-"
-                       android:gravity="center_horizontal"/>
-                   <com.santalu.maskara.widget.MaskEditText
-                       android:id="@+id/samplenoo"
-                       android:layout_weight="0.2"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:inputType="number"
-                       app:mask="______"
-                       android:hint="000000"
-                       android:gravity="left"/>
-<!--                   <com.google.android.material.textfield.TextInputLayout-->
-<!--                       android:layout_width="match_parent"-->
-<!--                       android:layout_height="match_parent"-->
-<!--                       android:layout_weight="0.3"-->
-<!--                       style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+                    <com.santalu.maskara.widget.MaskEditText
+                        android:id="@+id/sampleNo"
+                        android:layout_weight="0.4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        app:mask="___"
+                        android:gravity="right"/>
+                    <EditText
+                        android:id="@+id/samp"
+                        android:layout_weight="0.4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
 
-<!--                       app:hintTextAppearance="@style/NormalTextView">-->
+                        android:hint="-00-"
+                        android:gravity="center_horizontal"/>
+                    <com.santalu.maskara.widget.MaskEditText
+                        android:id="@+id/samplenoo"
+                        android:layout_weight="0.2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        app:mask="______"
+                        android:hint="000000"
+                        android:gravity="left"/>
+                    <!--                   <com.google.android.material.textfield.TextInputLayout-->
+                    <!--                       android:layout_width="match_parent"-->
+                    <!--                       android:layout_height="match_parent"-->
+                    <!--                       android:layout_weight="0.3"-->
+                    <!--                       style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
 
-<!--                       <com.google.android.material.textfield.TextInputEditText-->
-<!--                           android:id="@+id/samplenoo"-->
-<!--                           android:layout_width="match_parent"-->
-<!--                           android:layout_height="wrap_content"-->
-<!--                           android:layout_margin="@dimen/margin_xsmall"-->
-<!--                           android:inputType="number"-->
-<!--                           android:hint="Sample No"-->
-<!--                           android:maxLength="30"-->
-<!--                           android:maxLines="1"-->
-<!--                           android:textSize="@dimen/font_normal" />-->
-<!--                   </com.google.android.material.textfield.TextInputLayout>-->
+                    <!--                       app:hintTextAppearance="@style/NormalTextView">-->
 
-               </LinearLayout>
+                    <!--                       <com.google.android.material.textfield.TextInputEditText-->
+                    <!--                           android:id="@+id/samplenoo"-->
+                    <!--                           android:layout_width="match_parent"-->
+                    <!--                           android:layout_height="wrap_content"-->
+                    <!--                           android:layout_margin="@dimen/margin_xsmall"-->
+                    <!--                           android:inputType="number"-->
+                    <!--                           android:hint="Sample No"-->
+                    <!--                           android:maxLength="30"-->
+                    <!--                           android:maxLines="1"-->
+                    <!--                           android:textSize="@dimen/font_normal" />-->
+                    <!--                   </com.google.android.material.textfield.TextInputLayout>-->
+
+                </LinearLayout>
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/samplecolect"
                     android:layout_width="match_parent"
@@ -207,7 +207,7 @@
                     android:text="Add"
                     android:textColor="@color/white"
                     android:textSize="14sp"
-                   android:background="@drawable/buttonstyle"
+                    android:background="@drawable/buttonstyle"
                     tools:spb_showStripes="true" />
 
 

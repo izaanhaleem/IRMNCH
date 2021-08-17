@@ -15,7 +15,7 @@ import java.util.List;
 
 public class userdataaa extends Model {
 
-    @Column(name = "patient_id",unique = true)
+    @Column(name = "patient_id")
     @SerializedName("patient_id")
     @Expose
     public Integer patient_id;
@@ -283,17 +283,17 @@ public class userdataaa extends Model {
     @Column(name = "hcv_viral_count")
     @SerializedName("hcv_viral_count")
     @Expose
-    public Integer hcv_viral_count;
+    public String hcv_viral_count;
 
     @Column(name = "hbv_viral_count")
     @SerializedName("hbv_viral_count")
     @Expose
-    public Integer hbv_viral_count;
+    public String  hbv_viral_count;
 
     @Column(name = "sample_id")
     @SerializedName("sample_id")
     @Expose
-    public Integer sample_id;
+    public String sample_id;
 
     @Column(name = "is_cirrhotic_patient")
     @SerializedName("is_cirrhotic_patient")
@@ -308,6 +308,7 @@ public class userdataaa extends Model {
     public static List<userdataaa> searchByCNICLeader(String cnic) {
         return new Select()
                 .from(userdataaa.class)
+                .where("IsActive = ?",1)
                 .where("self_cnic = ?",cnic)
                 .execute();
     }

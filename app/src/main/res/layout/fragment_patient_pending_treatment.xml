@@ -245,17 +245,31 @@
                 android:gravity="center_horizontal"
                 android:textSize="14sp" />
 
-            <EditText
+<!--            <EditText-->
+<!--                android:id="@+id/Searchpending"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:autofillHints="@string/user_name"-->
+<!--                android:hint="XXXXXXXXXXXXXXXX"-->
+<!--                android:background="@drawable/textfield_design"-->
+<!--                android:padding="5dp"-->
+<!--                android:textSize="18sp"-->
+<!--                android:inputType="text"-->
+<!--                />-->
+
+            <com.example.hcp.utils.MaskedEditText
                 android:id="@+id/Searchpending"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="@string/user_name"
-                android:hint="XXXXXXXXXXXXXXXX"
-                android:background="@drawable/textfield_design"
-                android:padding="5dp"
-                android:textSize="18sp"
-                android:inputType="text"
-                />
+                android:inputType="textCapCharacters"
+                android:maxLines="1"
+                android:imeOptions="actionDone"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890/"
+                android:hint="XXXXXXXXXXXXXXXXXXXXXX"
+                android:padding="10dp"
+                android:singleLine="true"
+                app:mask="AAA/99/99/99999999999"
+                 />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

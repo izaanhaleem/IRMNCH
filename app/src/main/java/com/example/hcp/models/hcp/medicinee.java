@@ -113,6 +113,11 @@ public class medicinee extends Model {
     @Expose
     public String hcv_medicine_recommended;
 
+    @Column(name = "hbv_medicine_recommended")
+    @SerializedName("hbv_medicine_recommended")
+    @Expose
+    public String hbv_medicine_recommended;
+
     @Column(name = "disburse_6_mnth_dose")
     @SerializedName("disburse_6_mnth_dose")
     @Expose

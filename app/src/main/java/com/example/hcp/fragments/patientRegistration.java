@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -27,6 +29,7 @@ import android.widget.Toast;
 
 import com.activeandroid.ActiveAndroid;
 import com.example.hcp.models.hcp.vitalListt;
+import com.example.hcp.utils.MaskedEditText;
 import com.github.nikartm.support.StripedProcessButton;
 import com.example.hcp.R;
 
@@ -54,7 +57,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
-import br.com.sapereaude.maskedEditText.MaskedEditText;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import static android.media.CamcorderProfile.get;
@@ -65,7 +67,9 @@ import static com.example.hcp.utils.Constants.context;
 public class patientRegistration extends Fragment {
 
     FragmentManager fragmentManager;
-    MaskEditText  etCNIC,etContactNo;
+    MaskEditText etContactNo;
+    MaskedEditText etCNIC;
+
     Button btnSubmit,Submit;
     LinearLayout layoutfirst,layoutsecond,secondlayout,fourlayout;
     Spinner seacchcnic,occupation,materialstatus,qualification,gendr,division,district,tehsil,hf;
@@ -85,6 +89,8 @@ public class patientRegistration extends Fragment {
     boolean isEidt = false;
     String patientname,patientcnic;
     addPatientModel patient;
+    ImageView image_flag;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -96,6 +102,7 @@ public class patientRegistration extends Fragment {
         etContactNo = view.findViewById(R.id.etContactNo);
 
         btnSubmit = view.findViewById(R.id.btnSubmit);
+        image_flag = view.findViewById(R.id.image_flag);
         Submit = view.findViewById(R.id.Submit);
         layoutfirst = view.findViewById(R.id.layoutfirst);
         layoutsecond = view.findViewById(R.id.layoutsecond);
@@ -278,23 +285,23 @@ public class patientRegistration extends Fragment {
 //            }
         }
 
-        etCNIC.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                layoutfirst.setVisibility(View.GONE);
-                layoutsecond.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Search();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+//        etCNIC.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//                layoutfirst.setVisibility(View.GONE);
+//                layoutsecond.setVisibility(View.GONE);
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//            }
+//        });
 
         etAge.setEnabled(false);
         SelectedOption = "";
@@ -308,9 +315,14 @@ public class patientRegistration extends Fragment {
 
         SetSearchOptions();
 
-//        btnSubmit.setOnClickListener(
-//                v -> Search()
-//        );
+        btnSubmit.setOnClickListener(
+                v -> Search()
+        );
+
+        image_flag.setOnClickListener(
+                v -> Search()
+        );
+
         Submit.setOnClickListener(
                 v -> FormValidation()
         );
@@ -342,10 +354,21 @@ public class patientRegistration extends Fragment {
         String Address = etCompleteAddress.getText().toString();
 
         boolean Validationstatus = true;
+
         if (Name.isEmpty()) {
             Toast.makeText(getContext(), Constants.NameMissing, Toast.LENGTH_LONG).show();
             Validationstatus = false;
-        } else if (lastName.isEmpty()) {
+        } else if (seacchcnic.getSelectedItemPosition() == 1)   {
+            if(cnicNo.length() != 15){
+                Toast.makeText(getContext(), "Enter 13 Digit CNIC", Toast.LENGTH_LONG).show();
+                Validationstatus = false;
+            }
+
+        }
+        else if (seacchcnic.getSelectedItemPosition() == 2 && cnicNo.length() != 14) {
+            Toast.makeText(getContext(), "Enter 13 Digit CNIC", Toast.LENGTH_LONG).show();
+            Validationstatus = false;
+        }else if (lastName.isEmpty()) {
             Toast.makeText(getContext(), Constants.lName, Toast.LENGTH_LONG).show();
             Validationstatus = false;
         } else if (FatherName.isEmpty()) {
@@ -354,11 +377,13 @@ public class patientRegistration extends Fragment {
         } else if (Address.isEmpty()) {
             Toast.makeText(getContext(), Constants.AddressMissing, Toast.LENGTH_LONG).show();
             Validationstatus = false;
-        } else if (cnicNo.length() != 15) {
-            Toast.makeText(getContext(), Constants.CompleteCNIC, Toast.LENGTH_LONG).show();
-
-            Validationstatus = false;
-        } else if (ContactNo.length() != 12) {
+        }
+//        else if (cnicNo.length() != 15) {
+//            Toast.makeText(getContext(), Constants.CompleteCNIC, Toast.LENGTH_LONG).show();
+//
+//            Validationstatus = false;
+//        }
+        else if (ContactNo.length() != 12) {
             Toast.makeText(getContext(), Constants.PhoneMissing1, Toast.LENGTH_LONG).show();
 
             Validationstatus = false;
@@ -472,11 +497,11 @@ public class patientRegistration extends Fragment {
 
 
 
-//            final SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.BUTTON_NEUTRAL);
-//            pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.colorPrimaryDark));
-//            pDialog.setTitleText("Patient Save Successfully");
-//            pDialog.setCancelable(false);
-//            pDialog.show();
+            final SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.BUTTON_NEUTRAL);
+            pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.colorPrimaryDark));
+            pDialog.setTitleText("Patient Save Successfully");
+            pDialog.setCancelable(false);
+            pDialog.show();
             Fragment FMFragment = new vitalForm();
             Bundle args = new Bundle();
             args.putString("SelectedMrNo", assessment.getMrn_no());
@@ -594,15 +619,19 @@ public class patientRegistration extends Fragment {
 
     void Search() {
 
-        String SelectedOptionVal = etCNIC.getText().toString();
+        String SelectedOptionVal = etCNIC.getText().toString().trim();
 
         if (SelectedOptionVal.isEmpty()) {
             etCNIC.setError("Select this value");
         } else if (SelectedOption.isEmpty()) {
             Toast.makeText(getContext(), "Please Select Option from Search Dropdown", Toast.LENGTH_SHORT).show();
-        } else if (SelectedOptionVal.length() != 15) {
-            etCNIC.setError("Please Add CNIC");
-        } else {
+        }
+        else if (seacchcnic.getSelectedItemPosition() == 1 && SelectedOptionVal.length() != 15) {
+            etCNIC.setError("Please Add 13 Digit CNIC");
+        }else if(seacchcnic.getSelectedItemPosition() == 2 && SelectedOptionVal.length() != 14){
+            etCNIC.setError("Please Add 13 Digit CNIC");
+        }
+        else {
             List<userdataaa> leaders;
             switch (SelectedOptionIndex) {
                 case 1:
@@ -611,7 +640,8 @@ public class patientRegistration extends Fragment {
                     if (leaders.size() > 0) {
 
                         Toast.makeText(getContext(), "Patient Already Exist Against This CNIC", Toast.LENGTH_LONG).show();
-
+                        layoutfirst.setVisibility(View.GONE);
+                        layoutsecond.setVisibility(View.GONE);
                     } else {
 
                         layoutfirst.setVisibility(View.VISIBLE);
@@ -620,7 +650,6 @@ public class patientRegistration extends Fragment {
                         btnSubmit.setVisibility(View.GONE);
 
                         Toast.makeText(getContext(), "NO Record Found", Toast.LENGTH_LONG).show();
-
                     }
                     break;
 
@@ -647,18 +676,33 @@ public class patientRegistration extends Fragment {
 
         // attaching data adapter to spinner
         seacchcnic.setAdapter(dataAdapter);
-
+        seacchcnic.setSelection(1);
         seacchcnic.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 
                 if (seacchcnic.getSelectedItemPosition() > 0) {
+
+                    if(seacchcnic.getSelectedItemPosition() == 1) {
+                        etCNIC.setInputType(InputType.TYPE_CLASS_NUMBER);
+                        etCNIC.setText("");
+                        etCNIC.setMask("99999-9999999-9");
+
+//                        OptionValue.addTextChangedListener(Mask.insert(Mask.Mrn_MASK, OptionValue));
+                    }else if(seacchcnic.getSelectedItemPosition() == 2){
+
+                        etCNIC.setInputType(InputType.TYPE_CLASS_TEXT);
+                        etCNIC.setText("");
+                        etCNIC.setMask("AA-99999999999");
+
+//                        OptionValue.setInputType(InputType.TYPE_CLASS_NUMBER);
+//
+                    }
+
+
                     SelectedOptionIndex = seacchcnic.getSelectedItemPosition();
 
                     SelectedOption = categoriesEng.get(SelectedOptionIndex);
-
-
-
 
                     //                    OptionValue.setText("");
                     //Toast.makeText(getContext(), SearchOptions.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
@@ -756,7 +800,6 @@ public class patientRegistration extends Fragment {
                 }
 
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
                 // your code here
@@ -1073,7 +1116,7 @@ public class patientRegistration extends Fragment {
         List<healthFacilityy> hfi = healthFacilityy.searchById(tCode);
         String[] tspinnerArray = new String[hfi.size() + 1];
 
-        tspinnerArray[0] = "HF*";
+        tspinnerArray[0] = "Health Facility*";
 
         for (int i = 1; i < tspinnerArray.length; i++) {
             tspinnerArray[i] = hfi.get(i - 1).hf_name;

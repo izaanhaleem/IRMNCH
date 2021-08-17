@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.example.hcp.R;
 import com.example.hcp.models.hcp.addPatientModel;
 import com.example.hcp.models.hcp.addvitalll;
 import com.example.hcp.utils.Constants;
+import com.example.hcp.utils.InputFilterMinMax;
 import com.example.hcp.utils.SharedPref;
 
 import java.util.List;
@@ -55,7 +57,9 @@ public class vitalForm extends Fragment {
         HeightCM = view.findViewById(R.id.HeightCM);
         WeightKG = view.findViewById(R.id.WeightKG);
         addvital = view.findViewById(R.id.addvital);
-
+        temperature.setFilters(new InputFilter[]{ new InputFilterMinMax("1", "108")});
+        BPSystolic.setFilters(new InputFilter[]{ new InputFilterMinMax("1", "301")});
+        BPDiastolic.setFilters(new InputFilter[]{ new InputFilterMinMax("1", "202")});
         fragmentManager = getFragmentManager();
 
         name.setEnabled(false);
@@ -102,6 +106,7 @@ public class vitalForm extends Fragment {
             Float f= Float.parseFloat(asdf);
             Float B= Float.parseFloat(bps);
             Float D= Float.parseFloat(bpd);
+
         if(f > 106.0){
             Toast.makeText(getContext(), Constants.error, Toast.LENGTH_LONG).show();
             Validationstatus = false;

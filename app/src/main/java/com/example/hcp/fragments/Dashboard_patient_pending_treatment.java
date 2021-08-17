@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,12 +43,12 @@ import com.example.hcp.models.hcp.medicinee;
 import com.example.hcp.models.hcp.userdataaa;
 import com.example.hcp.services.RetrofitClient;
 import com.example.hcp.utils.Constants;
+import com.example.hcp.utils.MaskedEditText;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.sapereaude.maskedEditText.MaskedEditText;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -60,7 +61,7 @@ public class Dashboard_patient_pending_treatment extends Fragment {
     Button btnSearch;
     String SelectedOption, SelectedOptionVal;
     int SelectedOptionIndex;
-    EditText OptionValue;
+    MaskedEditText OptionValue;
     LinearLayout sync_data;
     List<medicinee> pending;
     public int totalSize;
@@ -120,7 +121,7 @@ public class Dashboard_patient_pending_treatment extends Fragment {
 
         
      
-        SelectedOptionVal = OptionValue.getText().toString();
+        SelectedOptionVal = OptionValue.getText().toString().trim();
 
         if (SelectedOptionVal.isEmpty()) {
             OptionValue.setError("Select this value");
@@ -181,7 +182,7 @@ public class Dashboard_patient_pending_treatment extends Fragment {
         List<String> categoriesEng = new ArrayList<String>();
         categoriesEng.add("select option");
         categoriesEng.add("CNIC");
-        categoriesEng.add("Mrn_no");
+        categoriesEng.add("Mrn No");
 
 
         // Creating adapter for spinner
@@ -192,7 +193,7 @@ public class Dashboard_patient_pending_treatment extends Fragment {
 
         // attaching data adapter to spinner
         etSearchOptionpending.setAdapter(dataAdapter);
-
+        etSearchOptionpending.setSelection(1);
         etSearchOptionpending.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -201,6 +202,23 @@ public class Dashboard_patient_pending_treatment extends Fragment {
 
 
                 if (etSearchOptionpending.getSelectedItemPosition() > 0) {
+
+                    if(etSearchOptionpending.getSelectedItemPosition() == 2) {
+                        OptionValue.setInputType(InputType.TYPE_CLASS_TEXT);
+                        OptionValue.setText("");
+                        OptionValue.setMask("AAA-99-99-9999999999999");
+
+//                        OptionValue.addTextChangedListener(Mask.insert(Mask.Mrn_MASK, OptionValue));
+                    }else if(etSearchOptionpending.getSelectedItemPosition() == 1){
+
+                        OptionValue.setInputType(InputType.TYPE_CLASS_NUMBER);
+                        OptionValue.setText("");
+                        OptionValue.setMask("99999-9999999-9");
+
+//                        OptionValue.setInputType(InputType.TYPE_CLASS_NUMBER);
+//
+                    }
+
 
                     SelectedOptionIndex = etSearchOptionpending.getSelectedItemPosition();
 
@@ -254,27 +272,29 @@ public class Dashboard_patient_pending_treatment extends Fragment {
                 FDP[i].PatientName = "N/A";
             }
 
-            if(sample.get(i).pcr_confirmation_hcv!=null && sample.get(i).cbl!=null && sample.get(i).pcr_confirmation_hbv!=null && sample.get(i).bbl!=null) {
-                if (sample.get(i).pcr_confirmation_hcv.equalsIgnoreCase("y") && sample.get(i).cbl.equalsIgnoreCase("Y")) {
-                    FDP[i].text1 = "HCV";
-                    FDP[i].text2 = "HCV Baseline Investigation Form";
-                } else if (sample.get(i).pcr_confirmation_hbv.equalsIgnoreCase("y") && sample.get(i).bbl.equalsIgnoreCase("Y")) {
-                    FDP[i].text1 = "HBV";
-                    FDP[i].text2 = "HBV Baseline Investigation Form";
-                } else {
+            if(sample.get(i).cbl!=null && sample.get(i).bbl!=null) {
+                if (sample.get(i).cbl.equalsIgnoreCase("Y") && sample.get(i).bbl.equalsIgnoreCase("Y")) {
                     FDP[i].text1 = "Both";
                     FDP[i].text2 = "Both Baseline Investigation Form";
-                }
-
+                } else if (sample.get(i).bbl.equalsIgnoreCase("Y")) {
+                    FDP[i].text1 = "HBV";
+                    FDP[i].text2 = "HBV Baseline Investigation Form";
+                } else if(sample.get(i).cbl.equalsIgnoreCase("Y") ) {
+                    FDP[i].text1 = "HCV";
+                    FDP[i].text2 = "HCV Baseline Investigation Form";
+                }else {
+                    FDP[i].text1 = "Null";
+                    FDP[i].text2 = "Null Baseline Investigation Form";               }
             }else {
-                FDP[i].text1 = "Both";
-                FDP[i].text2 = "Both Baseline Investigation Form";
+                Toast.makeText(getContext(), "Record Not Found", Toast.LENGTH_SHORT).show();
+//                FDP[i].text1 = "Both";
+//                FDP[i].text2 = "Both Baseline Investigation Form";
             }
 
             if(sample.get(i).hcv_viral_count != null){
                 FDP[i].hcvviralount = sample.get(i).hcv_viral_count;
             }else {
-                FDP[i].hcvviralount = 0;
+                FDP[i].hcvviralount = "0";
             }
 
 //             FDP[i].hcvviralount = sample.get(i).hcv_viral_count;
@@ -282,7 +302,7 @@ public class Dashboard_patient_pending_treatment extends Fragment {
             if(sample.get(i).hbv_viral_count !=null){
                 FDP[i].hbvviralcount = sample.get(i).hbv_viral_count;
             }else {
-                FDP[i].hbvviralcount = 0;
+                FDP[i].hbvviralcount = "0";
             }
 
 
@@ -292,7 +312,7 @@ public class Dashboard_patient_pending_treatment extends Fragment {
             if (sample.get(i).sample_id != null) {
                 FDP[i].sample_id = sample.get(i).sample_id;
             } else {
-                FDP[i].sample_id = 0;
+                FDP[i].sample_id = "0";
             }
             if (sample.get(i).hcv_medicine_duration != null) {
                 FDP[i].hcv_medicine_duration = sample.get(i).hcv_medicine_duration;
@@ -465,6 +485,11 @@ public class Dashboard_patient_pending_treatment extends Fragment {
                 } else {
                     med.setHcv_medicine_recommended("0");
                 }
+                if (pending.get(i).hbv_medicine_recommended != null) {
+                    med.setHbv_medicine_recommended(pending.get(i).hbv_medicine_recommended);
+                } else {
+                    med.setHbv_medicine_recommended("0");
+                }
                 if (pending.get(i).disburse_6_mnth_dose != null) {
                     med.setDisburse_6_mnth_dose(pending.get(i).disburse_6_mnth_dose);
                 } else {
@@ -584,6 +609,7 @@ public class Dashboard_patient_pending_treatment extends Fragment {
                 }
 
                 totalSYncREcord();
+
 
 
             }

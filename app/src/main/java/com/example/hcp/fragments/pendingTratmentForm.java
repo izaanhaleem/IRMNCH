@@ -46,15 +46,15 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class pendingTratmentForm extends Fragment {
     FragmentManager fragmentManager;
-    String SelectedMrNo,patientCNINC,PatientName,PatientType,testtype,isCorronic_patient,baselineResultType;
+    String hcvviralcount,hbvviralcount,sampleID,SelectedMrNo,patientCNINC,PatientName,PatientType,testtype,isCorronic_patient,baselineResultType;
     EditText name,mrno,patient,cnic,homoglobin,platelet,TLC,Urea,Creatinie,Blood_Sugar_Random,Pulse,Systolic,Diastolic,Weight,ast,alt,APRI;
     int shomoglobin,sast,salt,splatlets,stlc,surea,sBlood_Sugar_Random,sPulse,sSystolic,sDiastolic,sWeight;
-    int pid,hcvviralcount,hbvviralcount,sampleID,hcv_medicine_duration;
+    int pid,hcv_medicine_duration;
     double sCreatinie;
-    Spinner labname,resultType,hcvpcrResult,hbvpcrResult,nativeexp,medicine_prescription;
-    String selectedLabName,selectedResultType,selectedhcvpcrResult,selectedhbvpcrResult,selectednativeexp,selectedmedicine_prescription;
-    int SelectedOptionIndex,SelectedOptionIndexmed;
-    LinearLayout renalfunctionlayout,vitalandweightlayout,treatmentanddrugLayout,medicineLayout,checkboxsLayout,hcvlayout,hbvlayout;
+    Spinner labname,resultType,hcvpcrResult,hbvpcrResult,nativeexp,medicine_prescription,medicine_prescriptionhbv;
+    String selectedLabName,selectedResultType,selectedhcvpcrResult,selectedhbvpcrResult,selectednativeexp,selectedmedicine_prescription,selectedmedicine_prescriptionhbv;
+    int SelectedOptionIndex,SelectedOptionIndexmed,SelectedOptionIndexmedhbv;
+    LinearLayout allLayout,renalfunctionlayout,vitalandweightlayout,treatmentanddrugLayout,medicineLayout,checkboxsLayout,hcvlayout,hbvlayout;
     SwitchCompat drugconfirm;
     TextView text,hcvvira,hbvviral;
     Button addpendingBtn;
@@ -75,10 +75,10 @@ public class pendingTratmentForm extends Fragment {
         baselineResultType = getArguments().getString("resultType");
         pid = getArguments().getInt("pid");
         testtype = getArguments().getString("testType");
-        hcvviralcount = getArguments().getInt("hcvviralcount");
-        hbvviralcount = getArguments().getInt("hbvviralcount");
+        hcvviralcount = getArguments().getString("hcvviralcount");
+        hbvviralcount = getArguments().getString("hbvviralcount");
 
-        sampleID = getArguments().getInt("sample_id");
+        sampleID = getArguments().getString("sample_id");
         isCorronic_patient = getArguments().getString("iscorronic_patient");
         hcv_medicine_duration = getArguments().getInt("hcv_medicine_duration");
 
@@ -93,6 +93,7 @@ public class pendingTratmentForm extends Fragment {
         hbvpcrResult = view.findViewById(R.id.hbvpcrResult);
         nativeexp = view.findViewById(R.id.nativeexp);
         medicine_prescription = view.findViewById(R.id.medicine_prescription);
+        medicine_prescriptionhbv = view.findViewById(R.id.medicine_prescriptionhbv);
         homoglobin = view.findViewById(R.id.homoglobin);
         ast = view.findViewById(R.id.ast);
         alt = view.findViewById(R.id.alt);
@@ -123,6 +124,7 @@ public class pendingTratmentForm extends Fragment {
         );
 
 
+        allLayout = view.findViewById(R.id.allLayout);
         renalfunctionlayout = view.findViewById(R.id.renalfunction);
         vitalandweightlayout = view.findViewById(R.id.vitalandweight);
         treatmentanddrugLayout = view.findViewById(R.id.treatmentanddrugLayout);
@@ -142,8 +144,8 @@ public class pendingTratmentForm extends Fragment {
         mrno.setText(SelectedMrNo);
         cnic.setText(patientCNINC);
         patient.setText(PatientType);
-        hcvvira.setText(hcvviralcount+"");
-        hbvviral.setText(hbvviralcount+"");
+        hcvvira.setText(hcvviralcount);
+        hbvviral.setText(hbvviralcount);
 
 //        if(hcvviralcount>0){
 //            hcvpcrResult.setSelection(1);
@@ -154,12 +156,21 @@ public class pendingTratmentForm extends Fragment {
         if(testtype.equalsIgnoreCase("HCV")){
             hcvlayout.setVisibility(View.VISIBLE);
             hbvlayout.setVisibility(View.GONE);
+            medicine_prescription.setVisibility(View.VISIBLE);
+            medicine_prescriptionhbv.setVisibility(View.GONE);
         }else if(testtype.equalsIgnoreCase("HBV")){
             hcvlayout.setVisibility(View.GONE);
             hbvlayout.setVisibility(View.VISIBLE);
-        }else {
+            medicine_prescription.setVisibility(View.GONE);
+            medicine_prescriptionhbv.setVisibility(View.VISIBLE);
+        }else if(testtype.equalsIgnoreCase("Both")) {
             hbvlayout.setVisibility(View.VISIBLE);
             hcvlayout.setVisibility(View.VISIBLE);
+        }else {
+//            hbvlayout.setVisibility(View.GONE);
+//            hcvlayout.setVisibility(View.GONE);
+//            addpendingBtn.setVisibility(View.GONE);
+            allLayout.setVisibility(View.GONE);
         }
 
 
@@ -169,6 +180,7 @@ public class pendingTratmentForm extends Fragment {
         sethbvpcrResult();
         setnativeexp();
         setmedicine_prescription();
+        setmedicine_prescriptionhbv();
         renalfunctionlayout.setVisibility(View.GONE);
         renalfunctionlayout.setVisibility(View.GONE);
         treatmentanddrugLayout.setVisibility(View.GONE);
@@ -199,11 +211,21 @@ public class pendingTratmentForm extends Fragment {
                     if((splatlets<901&&splatlets>99) && (stlc<21&&stlc>3)) {
                         if (0.0 < apri_value && apri_value < 1000.0) {
                             renalfunctionlayout.setVisibility(View.VISIBLE);
+//                            treatmentanddrugLayout.setVisibility(View.VISIBLE);
+//                            medicineLayout.setVisibility(View.VISIBLE);
+//                            addpendingBtn.setVisibility(View.VISIBLE);
                         }
                     }
               }
                 else {
                     renalfunctionlayout.setVisibility(View.GONE);
+                    treatmentanddrugLayout.setVisibility(View.GONE);
+                    medicineLayout.setVisibility(View.GONE);
+                    addpendingBtn.setVisibility(View.GONE);
+
+                    Urea.setText("");
+                    Creatinie.setText("");
+                    Blood_Sugar_Random.setText("");
                     }
             }
         });
@@ -237,11 +259,17 @@ public class pendingTratmentForm extends Fragment {
                 if((splatlets<901&&splatlets>99) && (stlc<21&&stlc>3))
                 {
                     renalfunctionlayout.setVisibility(View.VISIBLE);
+//                    treatmentanddrugLayout.setVisibility(View.VISIBLE);
+//                    medicineLayout.setVisibility(View.VISIBLE);
+//                    addpendingBtn.setVisibility(View.VISIBLE);
                 }
             }
 //        }
         else {
             renalfunctionlayout.setVisibility(View.GONE);
+                treatmentanddrugLayout.setVisibility(View.GONE);
+                medicineLayout.setVisibility(View.GONE);
+                addpendingBtn.setVisibility(View.GONE);
         }
 
 //        else {
@@ -299,10 +327,20 @@ alt.addTextChangedListener(new TextWatcher() {
                     if((shomoglobin<19&&shomoglobin>5) && (stlc<21&&stlc>3)) {
                         if (0.0 < apri_value && apri_value < 1000.0) {
                             renalfunctionlayout.setVisibility(View.VISIBLE);
+//                            treatmentanddrugLayout.setVisibility(View.VISIBLE);
+//                            medicineLayout.setVisibility(View.VISIBLE);
+//                            addpendingBtn.setVisibility(View.VISIBLE);
                         }
                     }
                 }else {
                     renalfunctionlayout.setVisibility(View.GONE);
+                    treatmentanddrugLayout.setVisibility(View.GONE);
+                    medicineLayout.setVisibility(View.GONE);
+                    addpendingBtn.setVisibility(View.GONE);
+
+                    Urea.setText("");
+                    Creatinie.setText("");
+                    Blood_Sugar_Random.setText("");
                 }
             }
         });
@@ -326,12 +364,21 @@ alt.addTextChangedListener(new TextWatcher() {
                     if((shomoglobin<19&&shomoglobin>5) && (splatlets<901&&splatlets>99)) {
                         if (0.0 < apri_value && apri_value < 1000.0) {
                             renalfunctionlayout.setVisibility(View.VISIBLE);
+//                            treatmentanddrugLayout.setVisibility(View.VISIBLE);
+//                            medicineLayout.setVisibility(View.VISIBLE);
+//                            addpendingBtn.setVisibility(View.VISIBLE);
                         }
                     }
                 }else {
                     renalfunctionlayout.setVisibility(View.GONE);
-                }
+                    treatmentanddrugLayout.setVisibility(View.GONE);
+                    medicineLayout.setVisibility(View.GONE);
+                    addpendingBtn.setVisibility(View.GONE);
+                    Urea.setText("");
+                    Creatinie.setText("");
+                    Blood_Sugar_Random.setText("");
 
+                }
 
             }
         });
@@ -363,6 +410,8 @@ alt.addTextChangedListener(new TextWatcher() {
 
                 }else {
                     treatmentanddrugLayout.setVisibility(View.GONE);
+                    medicineLayout.setVisibility(View.GONE);
+                    addpendingBtn.setVisibility(View.GONE);
                 }
             }
         });
@@ -389,6 +438,8 @@ alt.addTextChangedListener(new TextWatcher() {
 
                 }else {
                     treatmentanddrugLayout.setVisibility(View.GONE);
+                    medicineLayout.setVisibility(View.GONE);
+                    addpendingBtn.setVisibility(View.GONE);
                 }
             }
         });
@@ -414,6 +465,8 @@ alt.addTextChangedListener(new TextWatcher() {
                     }
                 }else {
                     treatmentanddrugLayout.setVisibility(View.GONE);
+                    medicineLayout.setVisibility(View.GONE);
+                    addpendingBtn.setVisibility(View.GONE);
                 }
             }
         });
@@ -438,6 +491,8 @@ alt.addTextChangedListener(new TextWatcher() {
                     }
                 }else {
                     treatmentanddrugLayout.setVisibility(View.GONE);
+                    medicineLayout.setVisibility(View.GONE);
+                    addpendingBtn.setVisibility(View.GONE);
                 }
             }
         });
@@ -463,6 +518,8 @@ alt.addTextChangedListener(new TextWatcher() {
 
                 }else {
                     treatmentanddrugLayout.setVisibility(View.GONE);
+                    medicineLayout.setVisibility(View.GONE);
+                    addpendingBtn.setVisibility(View.GONE);
                 }
             }
         });
@@ -489,6 +546,8 @@ alt.addTextChangedListener(new TextWatcher() {
 
                 }else {
                     treatmentanddrugLayout.setVisibility(View.GONE);
+                    medicineLayout.setVisibility(View.GONE);
+                    addpendingBtn.setVisibility(View.GONE);
                 }
             }
         });
@@ -514,6 +573,8 @@ alt.addTextChangedListener(new TextWatcher() {
 
                 }else {
                     treatmentanddrugLayout.setVisibility(View.GONE);
+                    medicineLayout.setVisibility(View.GONE);
+                    addpendingBtn.setVisibility(View.GONE);
                 }
             }
         });
@@ -523,10 +584,12 @@ alt.addTextChangedListener(new TextWatcher() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     medicineLayout.setVisibility(View.VISIBLE);
+                    addpendingBtn.setVisibility(View.VISIBLE);
                      drug_interaction = "Y";
 
                 }else {
                     medicineLayout.setVisibility(View.GONE);
+                    addpendingBtn.setVisibility(View.GONE);
                     drug_interaction = "N";
                 }
             }
@@ -549,7 +612,6 @@ alt.addTextChangedListener(new TextWatcher() {
       if(Validationstatus){
 //          Date date = Calendar.getInstance().getTime();
 //          String matdate = date.getDate() + "-" + date.getMonth() + "-" + date.getYear();
-
 
 //              DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 //              LocalDateTime now = LocalDateTime.now();
@@ -588,13 +650,17 @@ alt.addTextChangedListener(new TextWatcher() {
           Mad.viral_count = hcvviralcount+"" ;
 
           Mad.pcr_result = selectedhcvpcrResult ;
-          Mad.sample_id = sampleID+"" ;
+          Mad.sample_id = sampleID ;
           Mad.lab_name = selectedLabName ;
           Mad.other_lab_name = "" ;
           Mad.id = pid+"" ;
-
+          if(testtype.equalsIgnoreCase("HCV"))
           Mad.baseline_type = "HCV" ;
-
+           else if(testtype.equalsIgnoreCase("HBV")){
+              Mad.baseline_type = "HBV" ;
+          }else {
+              Mad.baseline_type = "HCV,HBV" ;
+          }
           Mad.urea =  surea+"";
           Mad.creatinie = sCreatinie+"" ;
           Mad.blood_sugar_random = sBlood_Sugar_Random+"" ;
@@ -604,17 +670,29 @@ alt.addTextChangedListener(new TextWatcher() {
               Mad.hcv_medicine_recommended = "sd_pack" ;
               Mad.disburse_3_mnth_dose = "Y" ;
               Mad.disburse_6_mnth_dose  = "N";
-
           }else if(SelectedOptionIndexmed == 2){
               Mad.hcv_medicine_recommended = "sr_pack" ;
               Mad.disburse_3_mnth_dose = "N" ;
               Mad.disburse_6_mnth_dose  = "Y";
           }else if(SelectedOptionIndexmed == 3){
-              Mad.hcv_medicine_recommended = "sdr" ;
+              Mad.hcv_medicine_recommended = "sdr_pack" ;
               Mad.disburse_3_mnth_dose = "N" ;
               Mad.disburse_6_mnth_dose  = "Y";
           }else {
               Mad.hcv_medicine_recommended = "" ;
+              Mad.disburse_3_mnth_dose = "" ;
+          }
+
+          if(SelectedOptionIndexmedhbv == 1){
+              Mad.hbv_medicine_recommended = "enticavir" ;
+              Mad.disburse_3_mnth_dose = "Y" ;
+              Mad.disburse_6_mnth_dose  = "N";
+          }else if(SelectedOptionIndexmedhbv == 2){
+              Mad.hbv_medicine_recommended = "tenofovir" ;
+              Mad.disburse_3_mnth_dose = "Y" ;
+              Mad.disburse_6_mnth_dose  = "N";
+          }else {
+              Mad.hbv_medicine_recommended = "" ;
               Mad.disburse_3_mnth_dose = "" ;
           }
 
@@ -800,7 +878,7 @@ alt.addTextChangedListener(new TextWatcher() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 
-                if(hcvviralcount>0 ){
+                if(Integer.parseInt(hcvviralcount)>0 ){
                     hcvpcrResult.setSelection(1);
                 }else {
                     hcvpcrResult.setSelection(0);
@@ -844,7 +922,7 @@ alt.addTextChangedListener(new TextWatcher() {
         hbvpcrResult.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                if(hbvviralcount>0 ){
+                if(Integer.parseInt(hbvviralcount)>0 ){
                     hbvpcrResult.setSelection(1);
                 }else {
                     hbvpcrResult.setSelection(0);
@@ -952,6 +1030,55 @@ alt.addTextChangedListener(new TextWatcher() {
                 } else {
                     addpendingBtn.setVisibility(View.GONE);
                     selectedmedicine_prescription = "";
+                    text.setText("");
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+    }
+
+    private void setmedicine_prescriptionhbv() {
+        List<String> categoriesEng = new ArrayList<String>();
+        categoriesEng.add("Select Medicine");
+        categoriesEng.add("Entecavir for One Year");
+        categoriesEng.add("Tenofovir for One Year");
+
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, categoriesEng);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+
+        // attaching data adapter to spinner
+        medicine_prescriptionhbv.setAdapter(dataAdapter);
+
+        medicine_prescriptionhbv.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+
+                if (medicine_prescriptionhbv.getSelectedItemPosition() > 0) {
+                    addpendingBtn.setVisibility(View.VISIBLE);
+                    SelectedOptionIndexmedhbv = medicine_prescriptionhbv.getSelectedItemPosition();
+
+                    selectedmedicine_prescriptionhbv = categoriesEng.get(SelectedOptionIndexmedhbv);;
+
+                    if(medicine_prescriptionhbv.getSelectedItemPosition()==1){
+                        text.setText("Disburse 3 Monthly packs to Patient");
+                    }else {
+                        text.setText("Disburse 3 Monthly packs to Patient");
+                          }
+
+//                    OptionValue.setText("");
+                    //Toast.makeText(getContext(), SearchOptions.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+                } else {
+                    addpendingBtn.setVisibility(View.GONE);
+                    selectedmedicine_prescriptionhbv = "";
                     text.setText("");
                 }
             }

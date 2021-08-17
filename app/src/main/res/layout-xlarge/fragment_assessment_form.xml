@@ -709,7 +709,8 @@
                             app:switchPadding="0dp"
                             android:text="HBV : "
                             android:textSize="17sp"
-                            android:layout_weight="0.5">
+                            android:layout_weight="0.5"
+                            android:layout_marginRight="200dp">
                         </androidx.appcompat.widget.SwitchCompat>
 
                         <androidx.appcompat.widget.SwitchCompat
@@ -719,6 +720,7 @@
                             app:switchPadding="0dp"
                             android:text="HCV : "
                             android:textSize="17sp"
+                            android:layout_marginLeft="200dp"
                             android:layout_weight="0.5">
                         </androidx.appcompat.widget.SwitchCompat>
                     </LinearLayout>

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import com.example.hcp.models.AdaptersData.SearchResultDatavital;
 import com.example.hcp.models.Parcables.vitalDataParceable;
 import com.example.hcp.models.hcp.addPatientModel;
 import com.example.hcp.models.hcp.vitalListt;
+import com.example.hcp.utils.MaskedEditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +37,7 @@ public class AssessmentDashboard extends Fragment {
     Button Search,AllAssesementList;
     String SelectedOption, SelectedOptionVal;
     int SelectedOptionIndex;
-    EditText OptionValue;
+    MaskedEditText OptionValue;
     Spinner SearchOptions;
     RecyclerView recyclerView;
     TextView total_record;
@@ -77,7 +79,7 @@ public class AssessmentDashboard extends Fragment {
     }
 
     private void Search() {
-        SelectedOptionVal = OptionValue.getText().toString();
+        SelectedOptionVal = OptionValue.getText().toString().trim();
 
         if (SelectedOptionVal.isEmpty()) {
             OptionValue.setError("Select this value");
@@ -189,9 +191,9 @@ public class AssessmentDashboard extends Fragment {
 
         List<String> categoriesEng = new ArrayList<String>();
         categoriesEng.add("select option");
-        categoriesEng.add("MrNo");
+        categoriesEng.add("Mr No");
         categoriesEng.add("CNIC");
-        categoriesEng.add("FullName");
+        categoriesEng.add("Full Name");
 
 
         // Creating adapter for spinner
@@ -202,12 +204,40 @@ public class AssessmentDashboard extends Fragment {
 
         // attaching data adapter to spinner
         SearchOptions.setAdapter(dataAdapter);
-
+        SearchOptions.setSelection(2);
         SearchOptions.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 
                 if (SearchOptions.getSelectedItemPosition() > 0) {
+
+
+                    if(SearchOptions.getSelectedItemPosition() == 1) {
+                        OptionValue.setInputType(InputType.TYPE_CLASS_TEXT);
+                        OptionValue.setText("");
+                        OptionValue.setMask("AAA-99-99-99999999999");
+
+//                        OptionValue.addTextChangedListener(Mask.insert(Mask.Mrn_MASK, OptionValue));
+                    }else if(SearchOptions.getSelectedItemPosition() == 2){
+
+                        OptionValue.setInputType(InputType.TYPE_CLASS_NUMBER);
+                        OptionValue.setText("");
+                        OptionValue.setMask("99999-9999999-9");
+
+//                        OptionValue.setInputType(InputType.TYPE_CLASS_NUMBER);
+//
+                    }else if(SearchOptions.getSelectedItemPosition() == 3){
+////                        OptionValue.addTextChangedListener(new Mask("#############"));
+
+                        OptionValue.setInputType(InputType.TYPE_CLASS_TEXT);
+                        OptionValue.setText("");
+                        OptionValue.setMask("");
+
+                    }
+
+
+
+
                     SelectedOptionIndex = SearchOptions.getSelectedItemPosition();
 
                     SelectedOption = categoriesEng.get(SelectedOptionIndex);

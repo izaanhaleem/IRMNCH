@@ -169,7 +169,7 @@
             android:layout_marginVertical="@dimen/margin_small_1"
             android:background="@drawable/buttonstyle"
             android:paddingHorizontal="15dp"
-            android:text="Add Assessment"
+            android:text="Add Vaccination"
             android:textColor="@color/color_white"
             android:textSize="14sp"
             android:textStyle="bold" />

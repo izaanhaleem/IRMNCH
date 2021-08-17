@@ -18,9 +18,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClient {
     private static final String AUTH = "Basic " + Base64.encodeToString(("admin:admin123").getBytes(), Base64.NO_WRAP);
 
-//    private static final String BASE_URL = "https://phcp.pshealthpunjab.gov.pk/";
-//    private static final String BASE_URL = "http://172.16.25.194:8080/phcp-emr/";
-    private static final String BASE_URL = "http://172.16.25.194:8080/testemr/";
+    private static final String BASE_URL = "https://phcp.pshealthpunjab.gov.pk/"; //Live server with live database
+//    private static final String BASE_URL = "http://172.16.25.194:8080/phcp-emr/"; // Local server with live database
+//    private static final String BASE_URL = "http://172.16.25.194:8080/testemr/";  //Local server with test database
+//    private static final String BASE_URL = "http://125.209.111.69:5544/testemr/";  //Live test server with test database
     private static RetrofitClient mInstance;
     private Retrofit retrofit;
 

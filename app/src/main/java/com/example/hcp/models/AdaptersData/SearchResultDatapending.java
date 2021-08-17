@@ -2,10 +2,10 @@ package com.example.hcp.models.AdaptersData;
 
 public class SearchResultDatapending {
 
-    public String Gneder, MrNo,PatientName,LeaderCNIC,patienttype,Text1,Text2,Is_cirrhotic_patient,Rsult_type;
-    public int Pid,Hcvviralcount,Hbvviralcount,Sample_id,Hcv_medicine_duration;
+    public String Hcvviralcount,Hbvviralcount,Sample_id,Gneder, MrNo,PatientName,LeaderCNIC,patienttype,Text1,Text2,Is_cirrhotic_patient,Rsult_type;
+    public int Pid,Hcv_medicine_duration;
 
-    public SearchResultDatapending(String gneder, String mrNo, String patientName, String leaderCNIC, String patientType, int pid,String  text1,String  text2,int hcvviralcount,int hbvviralcount,int sample_id,String is_cirrhotic_patient,int hcv_medicine_duration,String rsult_type) {
+    public SearchResultDatapending(String gneder, String mrNo, String patientName, String leaderCNIC, String patientType, int pid,String  text1,String  text2,String hcvviralcount,String hbvviralcount,String sample_id,String is_cirrhotic_patient,int hcv_medicine_duration,String rsult_type) {
         Gneder = gneder;
         MrNo = mrNo;
         PatientName = patientName;
@@ -104,19 +104,19 @@ public class SearchResultDatapending {
         this.patienttype = patienttype;
     }
 
-    public int getHcvviralcount() {
+    public String getHcvviralcount() {
         return Hcvviralcount;
     }
 
-    public void setHcvviralcount(int hcvviralcount) {
+    public void setHcvviralcount(String hcvviralcount) {
         Hcvviralcount = hcvviralcount;
     }
 
-    public int getHbvviralcount() {
+    public String getHbvviralcount() {
         return Hbvviralcount;
     }
 
-    public void setHbvviralcount(int hbvviralcount) {
+    public void setHbvviralcount(String hbvviralcount) {
         Hbvviralcount = hbvviralcount;
     }
 
@@ -128,11 +128,11 @@ public class SearchResultDatapending {
         Is_cirrhotic_patient = is_cirrhotic_patient;
     }
 
-    public int getSample_id() {
+    public String getSample_id() {
         return Sample_id;
     }
 
-    public void setSample_id(int sample_id) {
+    public void setSample_id(String sample_id) {
         Sample_id = sample_id;
     }
 }

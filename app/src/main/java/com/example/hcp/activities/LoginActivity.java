@@ -57,9 +57,12 @@ import com.example.hcp.services.RetrofitClient;
 import com.example.hcp.utils.Constants;
 import com.example.hcp.utils.SharedPref;
 import com.example.hcp.utils.UtilsLocal;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -79,6 +82,10 @@ public class LoginActivity extends AppCompatActivity {
         Button btnlogin = findViewById(R.id.btnLogin);
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
+
+        dialog = new ProgressDialog(LoginActivity.this);
+        dialog.setMessage("برائے مہربانی انتظار کریں !");
+        dialog.setCancelable(false);
 
 
         btnlogin.setOnClickListener(
@@ -133,11 +140,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     void Login(String username, String password) {
-        dialog = new ProgressDialog(LoginActivity.this);
-        dialog.setMessage("برائے مہربانی انتظار کریں !");
-        dialog.setCancelable(false);
         dialog.show();
-
         loginRequest loginRequest = new loginRequest();
         loginRequest.setUsername(username);
         loginRequest.setPassword(password);
@@ -577,126 +580,153 @@ public class LoginActivity extends AppCompatActivity {
 
     private void SaveUserDataLocally(List<Datum5> data) {
 
-        ActiveAndroid.beginTransaction();
-        try {
-            //First Delete all Previous local record then add new Record
+//        KProgressHUD progressdilaog=  KProgressHUD.create(this)
+//                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+//                .setLabel("Please wait")
+//                .setDetailsLabel("Downloading data")
+//                .setCancellable(false)
+//                .setAnimationSpeed(2)
+//                .setDimAmount(0.5f)
+//                .show();
 
-            for (int i = 0; i < data.size(); i++) {
-                userdataaa dat = new userdataaa();
-                dat.patient_id= data.get(i).getId();
-                dat.mrn_no=data.get(i).getMrn_no();
-                dat.reg_date=data.get(i).getReg_date();
-                dat.patient_name=data.get(i).getPatient_name();
-                dat.lname=data.get(i).getLname();
-                dat.father_name=data.get(i).getFather_name();
-                dat.self_cnic=data.get(i).getSelf_cnic();
-                dat.patient_from=data.get(i).getPatient_from();
-                dat.user_id=data.get(i).getUser_id();
-                dat.user_hospital=data.get(i).getUser_hospital();
-                dat.hcv_screening_result=data.get(i).getHcv_screening_result();
-                dat.hbv_screening_result=data.get(i).getHbv_screening_result();
-                dat.pcr_confirmation_hcv=data.get(i).getPcr_confirmation_hcv();
-                dat.pcr_confirmation_hbv=data.get(i).getPcr_confirmation_hbv();
-                dat.is_refered=data.get(i).getIs_refered();
-                dat.patient_type=data.get(i).getPatient_type();
-                dat.cbl=data.get(i).getCbl();
-                dat.bbl=data.get(i).getBbl();
-                dat.hcv_medicine_name=data.get(i).getHcv_medicine_name();
-                dat.no_of_hcv_medicine_delivered=data.get(i).getNo_of_hcv_medicine_delivered();
-                dat.medicine_disbursment_date=data.get(i).getMedicine_disbursment_date();
-                dat.no_of_hcv_followups=data.get(i).getNo_of_hcv_followups();
-                dat.hcv_medicine_duration=data.get(i).getHcv_medicine_duration();
-                dat.next_status=data.get(i).getNext_status();
-                dat.is_ignore=data.get(i).getIs_ignore();
-                dat.is_assesment=data.get(i).getIs_assesment();
-                dat.is_sample=data.get(i).getIs_sample();
-                dat.collect_sample=data.get(i).getCollect_sample();
-                dat.is_svr_form_submitted=data.get(i).getIs_svr_form_submitted();
-                dat.is_svr_sample=data.get(i).getIs_svr_sample();
-                dat.previous_hbv=data.get(i).getPrevious_hbv();
-                dat.previous_hcv=data.get(i).getPrevious_hcv();
-                dat.rapid_testing=data.get(i).getRapid_testing();
-                dat.contact_no_self=data.get(i).getContact_no_self();
-                dat.postal_address=data.get(i).getPostal_address();
-                dat.is_re_register=data.get(i).getIs_re_register();
-                dat.is_vital=data.get(i).getIs_vital();
-                dat.next_of_kin_cnic=data.get(i).getNext_of_kin_cnic();
-                dat.is_referal=data.get(i).getIs_referal();
-                dat.no_of_medicine_delivered=data.get(i).getNo_of_medicine_delivered();
-                dat.is_treatment=data.get(i).getIs_treatment();
-                dat.is_closed=data.get(i).getIs_closed();
-                dat.is_terminate=data.get(i).getIs_terminate();
-                dat.baseline_result_type=data.get(i).getBaseline_result_type();
-                dat.vaccinate=data.get(i).getVaccinate();
-                dat.cnic_status=data.get(i).getCnic_status();
-                dat.division=data.get(i).getDivision();
-                dat.district=data.get(i).getDistrict();
-                dat.tehsil=data.get(i).getTehsil();
-                dat.hospital=data.get(i).getHospital();
-                dat.patient_dob=data.get(i).getPatient_dob();
-                dat.is_type_change=data.get(i).getIs_type_change();
-                dat.lost_followup_id=data.get(i).getLost_followup_id();
-                if(data.get(i).getHcv_viral_count() == null){
-                    dat.hcv_viral_count = 0;
-                }else {
-                    try{
-                        dat.hcv_viral_count = Integer.parseInt(data.get(i).getHcv_viral_count());
-                    } catch(NumberFormatException ex){ // handle your exception
+        ExecutorService executor = Executors.newSingleThreadExecutor();
 
-                    }
+        executor.execute(() -> {
+            //Background work here
+            try {
+                //First Delete all Previous local record then add new Record
+                ActiveAndroid.beginTransaction();
+
+                for (int i = 0; i < data.size(); i++) {
+                    userdataaa dat = new userdataaa();
+                    dat.patient_id= data.get(i).getId();
+                    dat.mrn_no=data.get(i).getMrn_no();
+                    dat.reg_date=data.get(i).getReg_date();
+                    dat.patient_name=data.get(i).getPatient_name();
+                    dat.lname=data.get(i).getLname();
+                    dat.father_name=data.get(i).getFather_name();
+                    dat.self_cnic=data.get(i).getSelf_cnic();
+                    dat.patient_from=data.get(i).getPatient_from();
+                    dat.user_id=data.get(i).getUser_id();
+                    dat.user_hospital=data.get(i).getUser_hospital();
+                    dat.hcv_screening_result=data.get(i).getHcv_screening_result();
+                    dat.hbv_screening_result=data.get(i).getHbv_screening_result();
+                    dat.pcr_confirmation_hcv=data.get(i).getPcr_confirmation_hcv();
+                    dat.pcr_confirmation_hbv=data.get(i).getPcr_confirmation_hbv();
+                    dat.is_refered=data.get(i).getIs_refered();
+                    dat.patient_type=data.get(i).getPatient_type();
+                    dat.cbl=data.get(i).getCbl();
+                    dat.bbl=data.get(i).getBbl();
+                    dat.hcv_medicine_name=data.get(i).getHcv_medicine_name();
+                    dat.no_of_hcv_medicine_delivered=data.get(i).getNo_of_hcv_medicine_delivered();
+                    dat.medicine_disbursment_date=data.get(i).getMedicine_disbursment_date();
+                    dat.no_of_hcv_followups=data.get(i).getNo_of_hcv_followups();
+                    dat.hcv_medicine_duration=data.get(i).getHcv_medicine_duration();
+                    dat.next_status=data.get(i).getNext_status();
+                    dat.is_ignore=data.get(i).getIs_ignore();
+                    dat.is_assesment=data.get(i).getIs_assesment();
+                    dat.is_sample=data.get(i).getIs_sample();
+                    dat.collect_sample=data.get(i).getCollect_sample();
+                    dat.is_svr_form_submitted=data.get(i).getIs_svr_form_submitted();
+                    dat.is_svr_sample=data.get(i).getIs_svr_sample();
+                    dat.previous_hbv=data.get(i).getPrevious_hbv();
+                    dat.previous_hcv=data.get(i).getPrevious_hcv();
+                    dat.rapid_testing=data.get(i).getRapid_testing();
+                    dat.contact_no_self=data.get(i).getContact_no_self();
+                    dat.postal_address=data.get(i).getPostal_address();
+                    dat.is_re_register=data.get(i).getIs_re_register();
+                    dat.is_vital=data.get(i).getIs_vital();
+                    dat.next_of_kin_cnic=data.get(i).getNext_of_kin_cnic();
+                    dat.is_referal=data.get(i).getIs_referal();
+                    dat.no_of_medicine_delivered=data.get(i).getNo_of_medicine_delivered();
+                    dat.is_treatment=data.get(i).getIs_treatment();
+                    dat.is_closed=data.get(i).getIs_closed();
+                    dat.is_terminate=data.get(i).getIs_terminate();
+                    dat.baseline_result_type=data.get(i).getBaseline_result_type();
+                    dat.vaccinate=data.get(i).getVaccinate();
+                    dat.cnic_status=data.get(i).getCnic_status();
+                    dat.division=data.get(i).getDivision();
+                    dat.district=data.get(i).getDistrict();
+                    dat.tehsil=data.get(i).getTehsil();
+                    dat.hospital=data.get(i).getHospital();
+                    dat.patient_dob=data.get(i).getPatient_dob();
+                    dat.is_type_change=data.get(i).getIs_type_change();
+                    dat.lost_followup_id=data.get(i).getLost_followup_id();
+                    if(data.get(i).getHcv_viral_count() == null){
+                        dat.hcv_viral_count = "0";
+                    }else {
+                        try{
+                        if(!data.get(i).getHcv_viral_count().equals("")){
+                            dat.hcv_viral_count = data.get(i).getHcv_viral_count();
+                        }
+
+                        } catch(NumberFormatException ex){ // handle your exception
+                            ex.printStackTrace();
+                        }
 //                    dat.hcv_viral_count = Integer.valueOf(data.get(i).getHcv_viral_count());
-                }
-                if(data.get(i).getHbv_viral_count() == null){
-                    dat.hbv_viral_count = 0;
-                }else {
-
-                    try{
-                        dat.hbv_viral_count = Integer.parseInt(data.get(i).getHbv_viral_count());
-                    } catch(NumberFormatException ex){ // handle your exception
-
                     }
+                    if(data.get(i).getHbv_viral_count() == null){
+                        dat.hbv_viral_count ="0";
+                    }else {
+
+                        try{
+                            if(!data.get(i).getHbv_viral_count().equals("")){
+                                dat.hbv_viral_count = data.get(i).getHbv_viral_count();
+
+                            }
+                        } catch(NumberFormatException ex){ // handle your exception
+                            ex.printStackTrace();
+                        }
 
 //                    dat.hbv_viral_count = Integer.valueOf(data.get(i).getHbv_viral_count());
-                }
-
-                if(data.get(i).getSample_id()==null){
-                    dat.sample_id = 0;
-                }else {
-
-                    try{
-                        dat.sample_id = Integer.parseInt(data.get(i).getSample_id());
-                    } catch(NumberFormatException ex){ // handle your exception
-
                     }
 
+                    if(data.get(i).getSample_id()==null){
+                        dat.sample_id = "0";
+                    }else {
+
+                        try{
+                            if(!data.get(i).getSample_id().equals("")){
+                                dat.sample_id = data.get(i).getSample_id();
+
+                            }
+                        } catch(NumberFormatException ex){ // handle your exception
+                            ex.printStackTrace();
+                        }
+
 //                    dat.sample_id = Integer.valueOf(data.get(i).getSample_id());
-                }
+                    }
 
-                dat.is_cirrhotic_patient = data.get(i).getIs_cirrhotic_patient();
-                dat.IsActive = 1;
-                dat.save();
+                    dat.is_cirrhotic_patient = data.get(i).getIs_cirrhotic_patient();
+                    dat.IsActive = 1;
+                    dat.save();
 //                Log.d("asdf","sadf");
-            }
-            ActiveAndroid.setTransactionSuccessful();
-        } finally {
-            ActiveAndroid.endTransaction();
-        }
 
-        final Handler handler = new Handler(Looper.getMainLooper());
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Prefs.edit().putBoolean(Constants.isDataLoaded,true).apply();
-                dialog.dismiss();
-                Intent intent = new Intent(getBaseContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
+                }
+                ActiveAndroid.setTransactionSuccessful();
+                final Handler handler = new Handler(Looper.getMainLooper());
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Prefs.edit().putBoolean(Constants.isDataLoaded,true).apply();
+                        dialog.dismiss();
+//                progressdilaog.dismiss();
+                        Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                        startActivity(intent);
+                        finish();
 //                Intent intent = new Intent(getBaseContext(), MainActivity.class);
 //                startActivity(intent);
 //                finish();
 //                GetVitalListData();
+                    }
+                }, 2000);
+            } finally {
+                ActiveAndroid.endTransaction();
             }
-        }, 2000);
+        });
+
+
+
 
 
 

@@ -92,7 +92,17 @@ public class medicineRequest {
     private Integer hcv_medicine_duration;
 
 
+    @SerializedName("hbv_medicine_recommended")
+    @Expose
+    private String hbv_medicine_recommended;
 
+    public String getHbv_medicine_recommended() {
+        return hbv_medicine_recommended;
+    }
+
+    public void setHbv_medicine_recommended(String hbv_medicine_recommended) {
+        this.hbv_medicine_recommended = hbv_medicine_recommended;
+    }
 
     @SerializedName("treatment_history")
     @Expose

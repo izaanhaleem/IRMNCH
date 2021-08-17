@@ -60,6 +60,7 @@ import com.example.hcp.services.APIClient;
 import com.example.hcp.services.GetDataService;
 import com.example.hcp.services.RetrofitClient;
 import com.example.hcp.utils.Constants;
+import com.example.hcp.utils.MaskedEditText;
 import com.example.hcp.utils.SharedPref;
 import com.pixplicity.easyprefs.library.Prefs;
 
@@ -73,7 +74,6 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.sapereaude.maskedEditText.MaskedEditText;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -85,7 +85,7 @@ public class DashboardFragment extends Fragment {
     Spinner SearchOptions;
     String SelectedOption, SelectedOptionVal;
     int SelectedOptionIndex;
-    EditText OptionValue;
+    MaskedEditText OptionValue;
     Button Search, Register, export_db;
     //   private ProgressDialog dialog;
     ImageView scanner;
@@ -270,7 +270,7 @@ public class DashboardFragment extends Fragment {
 
     void Search() {
 
-        SelectedOptionVal = OptionValue.getText().toString();
+        SelectedOptionVal = OptionValue.getText().toString().trim();
 
         if (SelectedOptionVal.isEmpty()) {
             OptionValue.setError("Select this value");
@@ -322,10 +322,10 @@ public class DashboardFragment extends Fragment {
     void SetSearchOptions() {
         List<String> categoriesEng = new ArrayList<String>();
         categoriesEng.add("Select Option");
-        categoriesEng.add("Mr_no");
+        categoriesEng.add("Mr No");
         categoriesEng.add("CNIC");
-        categoriesEng.add("Full_Name");
-        categoriesEng.add("Contact_No");
+        categoriesEng.add("Full Name");
+        categoriesEng.add("Contact No");
 
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, categoriesEng);
@@ -335,43 +335,43 @@ public class DashboardFragment extends Fragment {
 
         // attaching data adapter to spinner
         SearchOptions.setAdapter(dataAdapter);
-
+        SearchOptions.setSelection(2);
         SearchOptions.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 
                 if (SearchOptions.getSelectedItemPosition() > 0) {
 
-//                    if(SearchOptions.getSelectedItemPosition() == 1) {
-//                        OptionValue.setInputType(InputType.TYPE_CLASS_TEXT);
-//                        OptionValue.setText("");
-//                        OptionValue.setMask("###-##-##-###########");
-//
-////                        OptionValue.addTextChangedListener(Mask.insert(Mask.Mrn_MASK, OptionValue));
-//                    }else if(SearchOptions.getSelectedItemPosition() == 2){
-//
+                    if(SearchOptions.getSelectedItemPosition() == 1) {
+                        OptionValue.setInputType(InputType.TYPE_CLASS_TEXT);
+                        OptionValue.setText("");
+                        OptionValue.setMask("AAA-99-99-99999999999");
+
+//                        OptionValue.addTextChangedListener(Mask.insert(Mask.Mrn_MASK, OptionValue));
+                    }else if(SearchOptions.getSelectedItemPosition() == 2){
+
+                        OptionValue.setInputType(InputType.TYPE_CLASS_NUMBER);
+                        OptionValue.setText("");
+                        OptionValue.setMask("99999-9999999-9");
+
 //                        OptionValue.setInputType(InputType.TYPE_CLASS_NUMBER);
-//                        OptionValue.setText("");
-//                        OptionValue.setMask("#####-#######-#");
 //
-//
-////                        OptionValue.setInputType(InputType.TYPE_CLASS_NUMBER);
-////
-//                    }else if(SearchOptions.getSelectedItemPosition() == 3){
-//////                        OptionValue.addTextChangedListener(new Mask("#############"));
-//
-//                        OptionValue.setInputType(InputType.TYPE_CLASS_TEXT);
-//                        OptionValue.setText("");
-//                        OptionValue.setMask("###################");
-//
-//                    }else if(SearchOptions.getSelectedItemPosition() == 4){
-//////                        OptionValue.addTextChangedListener(new Mask("####-#######"));
-//
-//                        OptionValue.setInputType(InputType.TYPE_CLASS_NUMBER);
-//                        OptionValue.setText("");
-//                        OptionValue.setMask("####-#######");
-//
-//                    }
+                    }else if(SearchOptions.getSelectedItemPosition() == 3){
+////                        OptionValue.addTextChangedListener(new Mask("#############"));
+
+                        OptionValue.setInputType(InputType.TYPE_CLASS_TEXT);
+                        OptionValue.setText("");
+                        OptionValue.setMask("");
+
+                    }else if(SearchOptions.getSelectedItemPosition() == 4){
+////                        OptionValue.addTextChangedListener(new Mask("####-#######"));
+
+                        OptionValue.setInputType(InputType.TYPE_CLASS_NUMBER);
+                        OptionValue.setText("");
+                        OptionValue.setMask("9999-9999999");
+                        OptionValue.setHint("9999-9999999");
+
+                    }
 
                     SelectedOptionIndex = SearchOptions.getSelectedItemPosition();
                     SelectedOption = categoriesEng.get(SelectedOptionIndex);
