@@ -65,7 +65,7 @@ public class pendingTratmentForm extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        // Inflate the nur_ for this fragment
         View view =  inflater.inflate(R.layout.fragment_pending_tratment_form, container, false);
 
         SelectedMrNo = getArguments().getString("SelectedMrNo");

@@ -953,7 +953,6 @@ public class DashboardFragment extends Fragment {
                     ActiveAndroid.beginTransaction();
                     try {
 
-
                         addvitalll vital = addvitalll.searchBypid(fmb.getPid());
                         vital.IsSync = 1;
                         vital.save();

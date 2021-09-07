@@ -360,7 +360,6 @@ public class Dashboard_patient_pending_treatment extends Fragment {
 
 
 
-
     private void submitmedicine() {
 
         pending = medicinee.searchBySync();
