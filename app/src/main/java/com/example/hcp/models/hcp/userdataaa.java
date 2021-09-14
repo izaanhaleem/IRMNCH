@@ -305,11 +305,31 @@ public class userdataaa extends Model {
     @Expose
     public Integer IsActive;
 
+
+
+    @Column(name = "finger_print1")
+    @SerializedName("finger_print1")
+    @Expose
+    public String finger_print1;
+
+    @Column(name = "finger_print2")
+    @SerializedName("finger_print2")
+    @Expose
+    public String finger_print2;
+
+
     public static List<userdataaa> searchByCNICLeader(String cnic) {
         return new Select()
                 .from(userdataaa.class)
                 .where("IsActive = ?",1)
                 .where("self_cnic = ?",cnic)
+                .execute();
+    }
+
+    public static List<userdataaa> searchbyfingerprint(String fingerprint) {
+        return new Select()
+                .from(userdataaa.class)
+                .where("finger_print1 = ?",fingerprint)
                 .execute();
     }
 

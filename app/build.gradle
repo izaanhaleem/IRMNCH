@@ -18,9 +18,6 @@ android {
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://jitpack.io" }
-
-
-
     }
 
 
@@ -38,6 +35,10 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation files('libs/dpotapi.jar')
+    implementation files('libs/dpotjni.jar')
+    implementation files('libs/dpfpverification.jar')
+    implementation files('libs/dpfpenrollment.jar')
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'com.android.support:cardview-v7'
@@ -53,6 +54,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     implementation 'com.nabinbhandari.android:permissions:3.8'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation fileTree(dir: 'D:\\Android\\AndroidProjects\\hepatitisprisoners\\app\\libs', include: ['*.aar', '*.jar'], exclude: [])
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -81,5 +83,7 @@ dependencies {
     implementation 'ru.egslava:MaskedEditText:1.0.5'
     implementation 'com.kaopiz:kprogresshud:1.2.0'
 
-
+    implementation 'asia.kanopi.tools:fingerscan:0.1'
+    implementation 'com.github.LintraMax:SourceAFIS-Android:v3.10.0'
+    implementation "androidx.biometric:biometric:1.1.0"
 }

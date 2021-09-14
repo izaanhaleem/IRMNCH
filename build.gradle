@@ -3,6 +3,7 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven { url 'https://dl.bintray.com/shodgson/uareu4500reader' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.1.2'
@@ -25,7 +26,7 @@ allprojects {
         google()
         jcenter()
         maven { url 'https://jitpack.io' }
-
+        maven { url 'https://dl.bintray.com/shodgson/uareu4500reader' }
     }
 }
 

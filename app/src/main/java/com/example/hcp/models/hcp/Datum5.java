@@ -1,5 +1,6 @@
 package com.example.hcp.models.hcp;
 
+import com.activeandroid.annotation.Column;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -807,6 +808,34 @@ public class Datum5 {
     @SerializedName("is_cirrhotic_patient")
     @Expose
     private String is_cirrhotic_patient;
+
+
+
+
+    @SerializedName("finger_print1")
+    @Expose
+    public String finger_print1;
+
+
+    @SerializedName("finger_print2")
+    @Expose
+    public String finger_print2;
+
+    public String getFinger_print1() {
+        return finger_print1;
+    }
+
+    public void setFinger_print1(String finger_print1) {
+        this.finger_print1 = finger_print1;
+    }
+
+    public String getFinger_print2() {
+        return finger_print2;
+    }
+
+    public void setFinger_print2(String finger_print2) {
+        this.finger_print2 = finger_print2;
+    }
 
     public Integer getId() {
         return id;

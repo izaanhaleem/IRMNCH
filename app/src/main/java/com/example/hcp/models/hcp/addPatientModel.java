@@ -155,13 +155,7 @@ public class addPatientModel extends Model {
     @Expose
     public String  mrn_no;
 
-    public String getMrn_no() {
-        return mrn_no;
-    }
 
-    public void setMrn_no(String mrn_no) {
-        this.mrn_no = mrn_no;
-    }
 
     @Column(name = "patient_type")
     @SerializedName("patient_type")
@@ -193,6 +187,40 @@ public class addPatientModel extends Model {
     @Expose
     public Integer ISSample;
 
+
+    @Column(name = "finger_print1")
+    @SerializedName("finger_print1")
+    @Expose
+    public String finger_print1;
+
+    @Column(name = "finger_print2")
+    @SerializedName("finger_print2")
+    @Expose
+    public String finger_print2;
+
+    public String getFinger_print1() {
+        return finger_print1;
+    }
+
+    public void setFinger_print1(String finger_print1) {
+        this.finger_print1 = finger_print1;
+    }
+
+    public String getFinger_print2() {
+        return finger_print2;
+    }
+
+    public void setFinger_print2(String finger_print2) {
+        this.finger_print2 = finger_print2;
+    }
+
+    public String getMrn_no() {
+        return mrn_no;
+    }
+
+    public void setMrn_no(String mrn_no) {
+        this.mrn_no = mrn_no;
+    }
 
     public Long getMobile_id() {
         return mobile_id;
@@ -568,7 +596,12 @@ public class addPatientModel extends Model {
                 .execute();
     }
 
-
+    public static List<addPatientModel> searchbyfingerprint(String fingerprint) {
+        return new Select()
+                .from(addPatientModel.class)
+                .where("finger_print1 = ?",new String[]{'%' + fingerprint + '%'})
+                .execute();
+    }
 
 
 

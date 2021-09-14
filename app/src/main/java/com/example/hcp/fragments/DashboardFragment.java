@@ -3,12 +3,15 @@ package com.example.hcp.fragments;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Path;
 import android.icu.number.NumberFormatter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.InputType;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +29,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -38,6 +42,7 @@ import com.example.hcp.Mask;
 import com.example.hcp.R;
 import com.example.hcp.activities.MainActivity;
 
+import com.example.hcp.activities.ScanActivity;
 import com.example.hcp.models.Parcables.PatientDataParceable;
 import com.example.hcp.models.Users.UserResponse;
 import com.example.hcp.models.hcp.AddVitalResponse;
@@ -56,12 +61,16 @@ import com.example.hcp.models.hcp.addVitalRequest;
 import com.example.hcp.models.hcp.addvitalll;
 import com.example.hcp.models.hcp.medicinee;
 import com.example.hcp.models.hcp.sampleResponse;
+import com.example.hcp.models.hcp.userdataaa;
 import com.example.hcp.services.APIClient;
 import com.example.hcp.services.GetDataService;
 import com.example.hcp.services.RetrofitClient;
 import com.example.hcp.utils.Constants;
 import com.example.hcp.utils.MaskedEditText;
 import com.example.hcp.utils.SharedPref;
+
+import com.machinezoo.sourceafis.FingerprintMatcher;
+import com.machinezoo.sourceafis.FingerprintTemplate;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import java.io.File;
@@ -70,13 +79,17 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.ByteBuffer;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import asia.kanopi.fingerscan.Status;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.app.Activity.RESULT_OK;
 
 
 public class DashboardFragment extends Fragment {
@@ -88,8 +101,9 @@ public class DashboardFragment extends Fragment {
     MaskedEditText OptionValue;
     Button Search, Register, export_db;
     //   private ProgressDialog dialog;
-    ImageView scanner;
-    LinearLayout sync_data;
+    ImageView scanner,ma_iv_fingerprint;
+    public String encodedfingerprint;
+    LinearLayout sync_data,editlayout;
     TextView total_record,vitalcount,assessmentcount,vaccinationcount,samplecount;
     int patientssubmitcount = 0;
     int vitalsubmitcount = 0;
@@ -107,9 +121,9 @@ public class DashboardFragment extends Fragment {
     List<Samplee> sampless;
     List<medicinee> pending;
 
+    private static final int SCAN_FINGERPRINT = 1234;
 
-
-
+    FingerprintTemplate probe;
 
 
 
@@ -133,6 +147,8 @@ public class DashboardFragment extends Fragment {
         assessmentcount = view.findViewById(R.id.assessmentcount);
         vaccinationcount = view.findViewById(R.id.vaccinationcount);
         samplecount = view.findViewById(R.id.samplecount);
+        editlayout = view.findViewById(R.id.editlayout);
+        ma_iv_fingerprint = view.findViewById(R.id.ma_iv_fingerprint);
         SelectedOption = "";
         SelectedOptionVal = "";
 
@@ -186,11 +202,56 @@ public class DashboardFragment extends Fragment {
 //                submitmedicine();
             }
         });
+
+
+        ma_iv_fingerprint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ScanActivity.class);
+                startActivityForResult(intent, SCAN_FINGERPRINT);
+            }
+        });
+
+
 //        OptionValue.addTextChangedListener(EditTextTelefoneMask.insert(OptionValue));
         return view;
     }
 
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode){
+            case SCAN_FINGERPRINT:
+                if (resultCode == RESULT_OK) {
+
+                    int status = data.getIntExtra("status", Status.ERROR);
+
+                    if (status == Status.SUCCESS) {
+                        toast("Fingerprint OK!");
+
+                        byte[] img = data.getByteArrayExtra("img");
+                        Bitmap bm = BitmapFactory.decodeByteArray(img, 0, img.length);
+//                        probe = new FingerprintTemplate().dpi(500).create(img);
+
+//                        Toast.makeText(getContext(),""+probe,Toast.LENGTH_LONG).show();
+                        encodedfingerprint = Base64.encodeToString(img, Base64.DEFAULT);
+                        ma_iv_fingerprint.setImageBitmap(bm);
+
+                        return;
+                    }
+                    toast(data.getStringExtra("errorMessage"));
+                }
+                break;
+
+
+        }
+
+    }
+    private void toast(String msg){
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+    }
     void Login(String username, String password) {
         ProgressDialog dialog = new ProgressDialog(getContext());
         dialog.setMessage("Getting Token please wait...");
@@ -277,18 +338,18 @@ public class DashboardFragment extends Fragment {
         } else if (SelectedOption.isEmpty()) {
             Toast.makeText(getContext(), "Please Select Option from Search Dropdown", Toast.LENGTH_SHORT).show();
         } else {
-            List<addPatientModel> leaders;
+            List<userdataaa> leaders;
             switch (SelectedOptionIndex) {
                 case 1:
-//                    leaders = userdataaa.searchByMRNOLeader(SelectedOptionVal);
-//                    if (leaders.size() > 0) {
-//                        SetDataArrayy(leaders);
-//                    } else {
-//                        Toast.makeText(getContext(), "NO Record Found", Toast.LENGTH_LONG).show();
-//                    }
-//                    break;
+                    leaders = userdataaa.searchByMRNOLeader(SelectedOptionVal);
+                    if (leaders.size() > 0) {
+                        SetDataArrayy(leaders);
+                    } else {
+                        Toast.makeText(getContext(), "NO Record Found", Toast.LENGTH_LONG).show();
+                    }
+                    break;
                 case 2:
-                    leaders = addPatientModel.searchByCNICLeader(SelectedOptionVal);
+                    leaders = userdataaa.searchByCNICLeader(SelectedOptionVal);
                     if (leaders.size() > 0) {
                         SetDataArrayy(leaders);
                     } else {
@@ -296,7 +357,7 @@ public class DashboardFragment extends Fragment {
                     }
                     break;
                 case 3:
-                    leaders = addPatientModel.searchBynameLeader(SelectedOptionVal);
+                    leaders = userdataaa.searchBynameLeader(SelectedOptionVal);
                     if (leaders.size() > 0) {
                         SetDataArrayy(leaders);
                     } else {
@@ -304,14 +365,21 @@ public class DashboardFragment extends Fragment {
                     }
                     break;
                 case 4:
-//                    leaders = userdataaa.searchByPhoneLeader(SelectedOptionVal);
-//                    if (leaders.size() > 0) {
-//                        SetDataArrayy(leaders);
-//                    } else {
-//                        Toast.makeText(getContext(), "NO Record Found", Toast.LENGTH_LONG).show();
-//                    }
-//                    break;
-
+                    leaders = userdataaa.searchByPhoneLeader(SelectedOptionVal);
+                    if (leaders.size() > 0) {
+                        SetDataArrayy(leaders);
+                    } else {
+                        Toast.makeText(getContext(), "NO Record Found", Toast.LENGTH_LONG).show();
+                    }
+                    break;
+                case 5:
+                    leaders = userdataaa.searchbyfingerprint(encodedfingerprint);
+                    if (leaders.size() > 0) {
+                        SetDataArrayy(leaders);
+                    } else {
+                        Toast.makeText(getContext(), "NO Record Found", Toast.LENGTH_LONG).show();
+                    }
+                    break;
             }
 
 //            SearchCall(SelectedOption, SelectedOptionVal);
@@ -326,6 +394,7 @@ public class DashboardFragment extends Fragment {
         categoriesEng.add("CNIC");
         categoriesEng.add("Full Name");
         categoriesEng.add("Contact No");
+        categoriesEng.add("Finger Print");
 
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, categoriesEng);
@@ -346,14 +415,14 @@ public class DashboardFragment extends Fragment {
                         OptionValue.setInputType(InputType.TYPE_CLASS_TEXT);
                         OptionValue.setText("");
                         OptionValue.setMask("AAA-99-99-99999999999");
-
+//                        editlayout.setVisibility(View.VISIBLE);
 //                        OptionValue.addTextChangedListener(Mask.insert(Mask.Mrn_MASK, OptionValue));
                     }else if(SearchOptions.getSelectedItemPosition() == 2){
 
                         OptionValue.setInputType(InputType.TYPE_CLASS_NUMBER);
                         OptionValue.setText("");
                         OptionValue.setMask("99999-9999999-9");
-
+//                        editlayout.setVisibility(View.VISIBLE);
 //                        OptionValue.setInputType(InputType.TYPE_CLASS_NUMBER);
 //
                     }else if(SearchOptions.getSelectedItemPosition() == 3){
@@ -362,7 +431,7 @@ public class DashboardFragment extends Fragment {
                         OptionValue.setInputType(InputType.TYPE_CLASS_TEXT);
                         OptionValue.setText("");
                         OptionValue.setMask("");
-
+//                        editlayout.setVisibility(View.VISIBLE);
                     }else if(SearchOptions.getSelectedItemPosition() == 4){
 ////                        OptionValue.addTextChangedListener(new Mask("####-#######"));
 
@@ -370,6 +439,19 @@ public class DashboardFragment extends Fragment {
                         OptionValue.setText("");
                         OptionValue.setMask("9999-9999999");
                         OptionValue.setHint("9999-9999999");
+//                        editlayout.setVisibility(View.VISIBLE);
+                    }else if(SearchOptions.getSelectedItemPosition() == 5){
+////                        OptionValue.addTextChangedListener(new Mask("####-#######"));
+
+//                        OptionValue.setInputType(InputType.TYPE_CLASS_NUMBER);
+//                        OptionValue.setText("");
+//                        OptionValue.setMask("9999-9999999");
+//                        OptionValue.setHint("9999-9999999");
+
+//                        editlayout.setVisibility(View.GONE);
+
+                        ma_iv_fingerprint.setVisibility(View.VISIBLE);
+
 
                     }
 
@@ -391,7 +473,7 @@ public class DashboardFragment extends Fragment {
 
     }
 
-    public void SetDataArrayy(List<addPatientModel> SFR) {
+    public void SetDataArrayy(List<userdataaa> SFR) {
         PatientDataParceable[] FDP = new PatientDataParceable[SFR.size()];
         for (int i = 0; i < FDP.length; i++) {
             FDP[i] = new PatientDataParceable();
@@ -690,6 +772,16 @@ public class DashboardFragment extends Fragment {
                     fmb.setMobile_id(paitents.get(i).getId());
                 } else {
                     fmb.setMobile_id(0L);
+                }
+                if(paitents.get(i).getFinger_print1() !=null){
+                    fmb.setFinger_print1(paitents.get(i).getFinger_print1());
+                }else {
+                    fmb.setFinger_print1("");
+                }
+                if(paitents.get(i).getFinger_print2() !=null){
+                    fmb.setFinger_print2(paitents.get(i).getFinger_print2());
+                }else {
+                    fmb.setFinger_print2("");
                 }
 
 //                List<addPatientModel> pati = new ArrayList<addPatientModel>();

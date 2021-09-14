@@ -1,9 +1,12 @@
 package com.example.hcp.fragments;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -11,6 +14,8 @@ import androidx.fragment.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +33,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.activeandroid.ActiveAndroid;
+import com.example.hcp.activities.ScanActivity;
+import com.example.hcp.activities.ScanActivity2;
 import com.example.hcp.models.hcp.vitalListt;
 import com.example.hcp.utils.MaskedEditText;
 import com.github.nikartm.support.StripedProcessButton;
@@ -44,6 +51,8 @@ import com.example.hcp.models.hcp.tehsill;
 import com.example.hcp.models.hcp.userdataaa;
 import com.example.hcp.utils.Constants;
 import com.example.hcp.utils.SharedPref;
+
+
 import com.santalu.maskara.widget.MaskEditText;
 
 import org.joda.time.LocalDate;
@@ -57,8 +66,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
+import asia.kanopi.fingerscan.Status;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
+import static android.app.Activity.RESULT_OK;
 import static android.media.CamcorderProfile.get;
 import static com.activeandroid.Cache.getContext;
 import static com.example.hcp.utils.Constants.context;
@@ -66,6 +77,11 @@ import static com.example.hcp.utils.Constants.context;
 
 public class patientRegistration extends Fragment {
 
+    private ImageView ivFingerprint,ivFingerprint2;
+    private Button btScan,btScan2;
+
+    private static final int SCAN_FINGERPRINT = 1234;
+    private static final int SCAN_FINGERPRINT2 = 123;
     FragmentManager fragmentManager;
     MaskEditText etContactNo;
     MaskedEditText etCNIC;
@@ -90,6 +106,10 @@ public class patientRegistration extends Fragment {
     String patientname,patientcnic;
     addPatientModel patient;
     ImageView image_flag;
+    String encodedfingerprint;
+    String encodedfingerprint2;
+    List<addPatientModel> allData;
+//    FingerprintTemplate candidate,probe;
 
 
     @Override
@@ -128,6 +148,17 @@ public class patientRegistration extends Fragment {
         lastname = view.findViewById(R.id.lastname);
         etFatherSpouse = view.findViewById(R.id.etFatherSpouse);
         etCompleteAddress = view.findViewById(R.id.etCompleteAddress);
+        ivFingerprint = view.findViewById(R.id.ma_iv_fingerprint);
+        btScan = view.findViewById(R.id.ma_bt_scan);
+        ivFingerprint2 = view.findViewById(R.id.ma_iv_fingerprint2);
+        btScan2 = view.findViewById(R.id.ma_bt_scan2);
+
+
+        encodedfingerprint = "";
+        encodedfingerprint2 = "";
+
+        allData = addPatientModel.getall();
+
 
 
 
@@ -316,7 +347,7 @@ public class patientRegistration extends Fragment {
         SetSearchOptions();
 
         btnSubmit.setOnClickListener(
-                v -> Search()
+                v -> Searchfingerprint()
         );
 
         image_flag.setOnClickListener(
@@ -338,12 +369,107 @@ public class patientRegistration extends Fragment {
         SetSpinnerfour();
         SetSpinnerfive();
 
+        ivFingerprint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ScanActivity.class);
+                startActivityForResult(intent, SCAN_FINGERPRINT);
+            }
+        });
 
+        ivFingerprint2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ScanActivity2.class);
+                startActivityForResult(intent, SCAN_FINGERPRINT2);
+            }
+        });
 
         return view;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        switch (requestCode){
+            case SCAN_FINGERPRINT:
+                if (resultCode == RESULT_OK) {
+
+
+                    int status = data.getIntExtra("status", Status.ERROR);
+
+                    if (status == Status.SUCCESS) {
+                        toast("Fingerprint OK!");
+
+                        byte[] img = data.getByteArrayExtra("img");
+//                         probe = new FingerprintTemplate().dpi(500).create(img);
+
+                        Bitmap bm = BitmapFactory.decodeByteArray(img, 0, img.length);
+
+
+
+//                        for(int i=0;i<allData.size();i++){
+//                            byte[] decodedString1 = Base64.decode(allData.get(i).finger_print1, Base64.DEFAULT);
+//                            Bitmap decodedByte1 = BitmapFactory.decodeByteArray(decodedString1, 0, decodedString1.length);
+//
+//                            byte[] decodedString2 = Base64.decode(allData.get(i).finger_print2, Base64.DEFAULT);
+//                            Bitmap decodedByte2 = BitmapFactory.decodeByteArray(decodedString2, 0, decodedString2.length);
+//
+//
+//                            if(decodedByte1.sameAs(bm) || decodedByte2.sameAs(bm)){
+//                                Toast.makeText(getContext(),"RecordFind",Toast.LENGTH_LONG).show();
+//                            }else{
+//                                Toast.makeText(getContext(),"Record Not Find",Toast.LENGTH_LONG).show();
+//                            }
+//                        }
+
+//                        Toast.makeText(context,allData.size()+"",Toast.LENGTH_LONG).show();
+                        encodedfingerprint = Base64.encodeToString(img, Base64.DEFAULT);
+                        ivFingerprint.setImageBitmap(bm);
+
+
+
+
+                        return;
+                    }
+                    toast(data.getStringExtra("errorMessage"));
+                }
+                break;
+
+            case SCAN_FINGERPRINT2:
+                if (resultCode == RESULT_OK) {
+
+                    int status = data.getIntExtra("status", Status.ERROR);
+
+                    if (status == Status.SUCCESS) {
+                        toast("Fingerprint OK!");
+
+                        byte[] img = data.getByteArrayExtra("img");
+
+//                        candidate = new FingerprintTemplate()
+//                                .dpi(500)
+//                                .create(img);
+
+                        Bitmap bm = BitmapFactory.decodeByteArray(img, 0, img.length);
+                        encodedfingerprint2 = Base64.encodeToString(img, Base64.DEFAULT);
+                        ivFingerprint2.setImageBitmap(bm);
+                        return;
+                    }
+                    toast(data.getStringExtra("errorMessage"));
+                }
+                break;
+
+
+        }
+
+    }
+
+
+
+    private void toast(String msg){
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+    }
     private void FormValidation() {
 
         Name = etPatientName.getText().toString();
@@ -480,6 +606,9 @@ public class patientRegistration extends Fragment {
             FL.setIdentifier(new SharedPref(getContext()).GetserverID());
             FL.setUser_id(new SharedPref(getContext()).GetLoggedInRole());
             FL.setHospital_id(new SharedPref(getContext()).GetLoggedInUser());
+
+            FL.finger_print1 = encodedfingerprint;
+            FL.finger_print2 = encodedfingerprint2;
 
             FL.save();
 
@@ -659,6 +788,43 @@ public class patientRegistration extends Fragment {
         }
 
     }
+
+    void Searchfingerprint(){
+        if (encodedfingerprint.equals("")) {
+            Toast.makeText(getContext(), "Scan Finger Print", Toast.LENGTH_SHORT).show();
+            layoutfirst.setVisibility(View.GONE);
+            layoutsecond.setVisibility(View.GONE);
+        } else if (encodedfingerprint2.equals("")) {
+            Toast.makeText(getContext(), "Scan Finger Print 2", Toast.LENGTH_SHORT).show();
+            layoutfirst.setVisibility(View.GONE);
+            layoutsecond.setVisibility(View.GONE);
+        }
+        else {
+//            List<addPatientModel> patientlocal;
+//
+//            patientlocal = addPatientModel.searchbyfingerprint(encodedfingerprint);
+//            double score = new FingerprintMatcher()
+//                    .index(probe)
+//                    .match(candidate);
+//            if (score >= 40) {
+
+//                layoutfirst.setVisibility(View.GONE);
+//                layoutsecond.setVisibility(View.GONE);
+//                Submit.setVisibility(View.GONE);
+//                btnSubmit.setVisibility(View.VISIBLE);
+                // Found a match
+//            }else {
+                layoutfirst.setVisibility(View.VISIBLE);
+                layoutsecond.setVisibility(View.VISIBLE);
+                Submit.setVisibility(View.VISIBLE);
+                btnSubmit.setVisibility(View.GONE);
+//            }
+
+        }
+
+    }
+
+
     void SetSearchOptions() {
 
 

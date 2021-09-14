@@ -545,6 +545,7 @@ public class LoginActivity extends AppCompatActivity {
 //        finish();
 
 
+
     }
 
     private void GetUsersData() {
@@ -698,7 +699,13 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                     dat.is_cirrhotic_patient = data.get(i).getIs_cirrhotic_patient();
+
+                    dat.finger_print1 = data.get(i).getFinger_print1();
+                    dat.finger_print2 = data.get(i).getFinger_print2();
+
                     dat.IsActive = 1;
+
+
                     dat.save();
 //                Log.d("asdf","sadf");
 

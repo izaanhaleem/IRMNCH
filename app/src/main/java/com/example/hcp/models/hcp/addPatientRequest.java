@@ -124,6 +124,32 @@ public class addPatientRequest  {
     public Long mobile_id;
 
 
+
+    @SerializedName("finger_print1")
+    @Expose
+    public String finger_print1;
+
+
+    @SerializedName("finger_print2")
+    @Expose
+    public String finger_print2;
+
+    public String getFinger_print1() {
+        return finger_print1;
+    }
+
+    public void setFinger_print1(String finger_print1) {
+        this.finger_print1 = finger_print1;
+    }
+
+    public String getFinger_print2() {
+        return finger_print2;
+    }
+
+    public void setFinger_print2(String finger_print2) {
+        this.finger_print2 = finger_print2;
+    }
+
     public Long getMobile_id() {
         return mobile_id;
     }
