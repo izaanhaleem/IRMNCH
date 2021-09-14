@@ -36,6 +36,7 @@ import com.activeandroid.ActiveAndroid;
 import com.example.hcp.activities.ScanActivity;
 import com.example.hcp.activities.ScanActivity2;
 import com.example.hcp.models.hcp.vitalListt;
+import com.example.hcp.utils.LAPI;
 import com.example.hcp.utils.MaskedEditText;
 import com.github.nikartm.support.StripedProcessButton;
 import com.example.hcp.R;
@@ -77,25 +78,25 @@ import static com.example.hcp.utils.Constants.context;
 
 public class patientRegistration extends Fragment {
 
-    private ImageView ivFingerprint,ivFingerprint2;
-    private Button btScan,btScan2;
+    private ImageView ivFingerprint, ivFingerprint2;
+    private Button btScan, btScan2;
 
     private static final int SCAN_FINGERPRINT = 1234;
     private static final int SCAN_FINGERPRINT2 = 123;
     FragmentManager fragmentManager;
     MaskEditText etContactNo;
     MaskedEditText etCNIC;
-
-    Button btnSubmit,Submit;
-    LinearLayout layoutfirst,layoutsecond,secondlayout,fourlayout;
-    Spinner seacchcnic,occupation,materialstatus,qualification,gendr,division,district,tehsil,hf;
-    Spinner firsts,seconds,thirds,fours,fives;
+    private int m_hDevice = 0;
+    Button btnSubmit, Submit;
+    LinearLayout layoutfirst, layoutsecond, secondlayout, fourlayout;
+    Spinner seacchcnic, occupation, materialstatus, qualification, gendr, division, district, tehsil, hf;
+    Spinner firsts, seconds, thirds, fours, fives;
     String SelectedOption;
-    int SelectedOptionIndex,SelectedGenderIndex,SelectedDivisionCode,SelectedDistrictedCode;
-    int Selectfirstyn,Selectsecondyn,Selectthirdyn,Selectfouryn,Selectfiveyn,SelectTcode,SelectedHfcode;
-    String firstVal,secondVal,thirdVal,foursVal,fiveVal;
-    String OccupationVal,materialstatusVal,qualificationVal,GenderVal;
-    EditText dob,etAge,etPatientName,lastname,etFatherSpouse,etCompleteAddress;
+    int SelectedOptionIndex, SelectedGenderIndex, SelectedDivisionCode, SelectedDistrictedCode;
+    int Selectfirstyn, Selectsecondyn, Selectthirdyn, Selectfouryn, Selectfiveyn, SelectTcode, SelectedHfcode;
+    String firstVal, secondVal, thirdVal, foursVal, fiveVal;
+    String OccupationVal, materialstatusVal, qualificationVal, GenderVal;
+    EditText dob, etAge, etPatientName, lastname, etFatherSpouse, etCompleteAddress;
 
     Calendar myCalendar;
     String dateOfBirth;
@@ -103,12 +104,13 @@ public class patientRegistration extends Fragment {
     public String Name;
     public String cnicNo;
     boolean isEidt = false;
-    String patientname,patientcnic;
+    String patientname, patientcnic;
     addPatientModel patient;
     ImageView image_flag;
     String encodedfingerprint;
     String encodedfingerprint2;
     List<addPatientModel> allData;
+    private LAPI m_cLAPI;
 //    FingerprintTemplate candidate,probe;
 
 
@@ -153,13 +155,11 @@ public class patientRegistration extends Fragment {
         ivFingerprint2 = view.findViewById(R.id.ma_iv_fingerprint2);
         btScan2 = view.findViewById(R.id.ma_bt_scan2);
 
-
+        this.m_cLAPI = new LAPI(getActivity());
         encodedfingerprint = "";
         encodedfingerprint2 = "";
 
         allData = addPatientModel.getall();
-
-
 
 
         if (getArguments() != null) {
@@ -336,12 +336,11 @@ public class patientRegistration extends Fragment {
 
         etAge.setEnabled(false);
         SelectedOption = "";
-        SelectedOptionIndex= 0;
+        SelectedOptionIndex = 0;
 
         layoutfirst.setVisibility(View.GONE);
         layoutsecond.setVisibility(View.GONE);
         Submit.setVisibility(View.GONE);
-
 
 
         SetSearchOptions();
@@ -392,7 +391,7 @@ public class patientRegistration extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        switch (requestCode){
+        switch (requestCode) {
             case SCAN_FINGERPRINT:
                 if (resultCode == RESULT_OK) {
 
@@ -406,7 +405,6 @@ public class patientRegistration extends Fragment {
 //                         probe = new FingerprintTemplate().dpi(500).create(img);
 
                         Bitmap bm = BitmapFactory.decodeByteArray(img, 0, img.length);
-
 
 
 //                        for(int i=0;i<allData.size();i++){
@@ -424,11 +422,11 @@ public class patientRegistration extends Fragment {
 //                            }
 //                        }
 
-//                        Toast.makeText(context,allData.size()+"",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(),"Finger Detect",Toast.LENGTH_LONG).show();
+
+                        compareTemplates(img);
                         encodedfingerprint = Base64.encodeToString(img, Base64.DEFAULT);
                         ivFingerprint.setImageBitmap(bm);
-
-
 
 
                         return;
@@ -466,10 +464,10 @@ public class patientRegistration extends Fragment {
     }
 
 
-
-    private void toast(String msg){
+    private void toast(String msg) {
         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
+
     private void FormValidation() {
 
         Name = etPatientName.getText().toString();
@@ -484,17 +482,16 @@ public class patientRegistration extends Fragment {
         if (Name.isEmpty()) {
             Toast.makeText(getContext(), Constants.NameMissing, Toast.LENGTH_LONG).show();
             Validationstatus = false;
-        } else if (seacchcnic.getSelectedItemPosition() == 1)   {
-            if(cnicNo.length() != 15){
+        } else if (seacchcnic.getSelectedItemPosition() == 1) {
+            if (cnicNo.length() != 15) {
                 Toast.makeText(getContext(), "Enter 13 Digit CNIC", Toast.LENGTH_LONG).show();
                 Validationstatus = false;
             }
 
-        }
-        else if (seacchcnic.getSelectedItemPosition() == 2 && cnicNo.length() != 14) {
+        } else if (seacchcnic.getSelectedItemPosition() == 2 && cnicNo.length() != 14) {
             Toast.makeText(getContext(), "Enter 13 Digit CNIC", Toast.LENGTH_LONG).show();
             Validationstatus = false;
-        }else if (lastName.isEmpty()) {
+        } else if (lastName.isEmpty()) {
             Toast.makeText(getContext(), Constants.lName, Toast.LENGTH_LONG).show();
             Validationstatus = false;
         } else if (FatherName.isEmpty()) {
@@ -513,8 +510,7 @@ public class patientRegistration extends Fragment {
             Toast.makeText(getContext(), Constants.PhoneMissing1, Toast.LENGTH_LONG).show();
 
             Validationstatus = false;
-        }
-        else if (OccupationVal.isEmpty()) {
+        } else if (OccupationVal.isEmpty()) {
             Toast.makeText(getContext(), Constants.occupation, Toast.LENGTH_LONG).show();
 
             Validationstatus = false;
@@ -554,7 +550,7 @@ public class patientRegistration extends Fragment {
             Toast.makeText(getContext(), Constants.previoushcv, Toast.LENGTH_LONG).show();
 
             Validationstatus = false;
-        } else if (dateOfBirth==null) {
+        } else if (dateOfBirth == null) {
             Toast.makeText(getContext(), Constants.dateofbirth, Toast.LENGTH_LONG).show();
             Validationstatus = false;
         } else if (patientage <= 6) {
@@ -618,12 +614,8 @@ public class patientRegistration extends Fragment {
             ActiveAndroid.endTransaction();
 
 
-           addPatientModel assessment =new addPatientModel();
-            assessment=addPatientModel.searchBycnic(cnicNo);
-
-
-
-
+            addPatientModel assessment = new addPatientModel();
+            assessment = addPatientModel.searchBycnic(cnicNo);
 
 
             final SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.BUTTON_NEUTRAL);
@@ -633,12 +625,12 @@ public class patientRegistration extends Fragment {
             pDialog.show();
             Fragment FMFragment = new vitalForm();
             Bundle args = new Bundle();
-            args.putString("SelectedMrNo", assessment.getMrn_no());
+//            args.putString("SelectedMrNo", assessment.getMrn_no());
 //            args.putInt("FamilyId", family_id);
-            args.putString("PatientCNIC",cnicNo);
-            args.putString("PatientName",Name);
-            args.putString("Patienttype","New Patient");
-            args.putInt("pid",assessment.getId().intValue());
+            args.putString("PatientCNIC", cnicNo);
+            args.putString("PatientName", Name);
+            args.putString("Patienttype", "New Patient");
+            args.putInt("pid", assessment.getId().intValue());
 
 
 //            if(patient_id==0){
@@ -698,7 +690,7 @@ public class patientRegistration extends Fragment {
 
 
     private void DobCalculator() {
-         myCalendar = Calendar.getInstance();
+        myCalendar = Calendar.getInstance();
 
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
@@ -717,7 +709,7 @@ public class patientRegistration extends Fragment {
 
             @Override
             public void onClick(View v) {
-                DatePickerDialog dpd =new DatePickerDialog(getContext(), date, myCalendar
+                DatePickerDialog dpd = new DatePickerDialog(getContext(), date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH));
                 dpd.getDatePicker().setMaxDate(System.currentTimeMillis() - 1000);
@@ -738,10 +730,10 @@ public class patientRegistration extends Fragment {
 
         dob.setText(sdf.format(myCalendar.getTime()));
         dateOfBirth = dob.getText().toString();
-        LocalDate birthdate = new LocalDate(myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),  myCalendar.get(Calendar.DAY_OF_MONTH));
+        LocalDate birthdate = new LocalDate(myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH));
         LocalDate now = new LocalDate();
         Period period = new Period(birthdate, now, PeriodType.yearMonthDay());
-        etAge.setText(period.getYears()+"");
+        etAge.setText(period.getYears() + "");
         patientage = Integer.parseInt(etAge.getText().toString());
 
     }
@@ -754,13 +746,11 @@ public class patientRegistration extends Fragment {
             etCNIC.setError("Select this value");
         } else if (SelectedOption.isEmpty()) {
             Toast.makeText(getContext(), "Please Select Option from Search Dropdown", Toast.LENGTH_SHORT).show();
-        }
-        else if (seacchcnic.getSelectedItemPosition() == 1 && SelectedOptionVal.length() != 15) {
+        } else if (seacchcnic.getSelectedItemPosition() == 1 && SelectedOptionVal.length() != 15) {
             etCNIC.setError("Please Add 13 Digit CNIC");
-        }else if(seacchcnic.getSelectedItemPosition() == 2 && SelectedOptionVal.length() != 14){
+        } else if (seacchcnic.getSelectedItemPosition() == 2 && SelectedOptionVal.length() != 14) {
             etCNIC.setError("Please Add 13 Digit CNIC");
-        }
-        else {
+        } else {
             List<userdataaa> leaders;
             switch (SelectedOptionIndex) {
                 case 1:
@@ -789,16 +779,17 @@ public class patientRegistration extends Fragment {
 
     }
 
-    void Searchfingerprint(){
+    void Searchfingerprint() {
         if (encodedfingerprint.equals("")) {
             Toast.makeText(getContext(), "Scan Finger Print", Toast.LENGTH_SHORT).show();
             layoutfirst.setVisibility(View.GONE);
             layoutsecond.setVisibility(View.GONE);
-        } else if (encodedfingerprint2.equals("")) {
-            Toast.makeText(getContext(), "Scan Finger Print 2", Toast.LENGTH_SHORT).show();
-            layoutfirst.setVisibility(View.GONE);
-            layoutsecond.setVisibility(View.GONE);
         }
+//        else if (encodedfingerprint2.equals("")) {
+//            Toast.makeText(getContext(), "Scan Finger Print 2", Toast.LENGTH_SHORT).show();
+//            layoutfirst.setVisibility(View.GONE);
+//            layoutsecond.setVisibility(View.GONE);
+//        }
         else {
 //            List<addPatientModel> patientlocal;
 //
@@ -812,12 +803,12 @@ public class patientRegistration extends Fragment {
 //                layoutsecond.setVisibility(View.GONE);
 //                Submit.setVisibility(View.GONE);
 //                btnSubmit.setVisibility(View.VISIBLE);
-                // Found a match
+            // Found a match
 //            }else {
-                layoutfirst.setVisibility(View.VISIBLE);
-                layoutsecond.setVisibility(View.VISIBLE);
-                Submit.setVisibility(View.VISIBLE);
-                btnSubmit.setVisibility(View.GONE);
+            layoutfirst.setVisibility(View.VISIBLE);
+            layoutsecond.setVisibility(View.VISIBLE);
+            Submit.setVisibility(View.VISIBLE);
+            btnSubmit.setVisibility(View.GONE);
 //            }
 
         }
@@ -849,13 +840,13 @@ public class patientRegistration extends Fragment {
 
                 if (seacchcnic.getSelectedItemPosition() > 0) {
 
-                    if(seacchcnic.getSelectedItemPosition() == 1) {
+                    if (seacchcnic.getSelectedItemPosition() == 1) {
                         etCNIC.setInputType(InputType.TYPE_CLASS_NUMBER);
                         etCNIC.setText("");
                         etCNIC.setMask("99999-9999999-9");
 
 //                        OptionValue.addTextChangedListener(Mask.insert(Mask.Mrn_MASK, OptionValue));
-                    }else if(seacchcnic.getSelectedItemPosition() == 2){
+                    } else if (seacchcnic.getSelectedItemPosition() == 2) {
 
                         etCNIC.setInputType(InputType.TYPE_CLASS_TEXT);
                         etCNIC.setText("");
@@ -938,6 +929,7 @@ public class patientRegistration extends Fragment {
 //        }
 
     }
+
     private void SetMaterialSpinner() {
 
         List<materialStatuss> materialList = materialStatuss.getAll();
@@ -966,6 +958,7 @@ public class patientRegistration extends Fragment {
                 }
 
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
                 // your code here
@@ -989,6 +982,7 @@ public class patientRegistration extends Fragment {
 //        }
 
     }
+
     private void SetQualificationSpinner() {
 
         List<qualificationn> qualificationList = qualificationn.getAll();
@@ -1041,45 +1035,47 @@ public class patientRegistration extends Fragment {
 //        }
 
     }
-    private void SetGenderSpinner(){
-       List<String> categoriesEng = new ArrayList<String>();
-       categoriesEng.add("Select*");
-       categoriesEng.add("Male");
-       categoriesEng.add("Female");
-       categoriesEng.add("Transgender");
+
+    private void SetGenderSpinner() {
+        List<String> categoriesEng = new ArrayList<String>();
+        categoriesEng.add("Select*");
+        categoriesEng.add("Male");
+        categoriesEng.add("Female");
+        categoriesEng.add("Transgender");
 
 
-       // Creating adapter for spinner
-       ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, categoriesEng);
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, categoriesEng);
 
-       // Drop down layout style - list view with radio button
-       dataAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 
-       // attaching data adapter to spinner
-       gendr.setAdapter(dataAdapter);
+        // attaching data adapter to spinner
+        gendr.setAdapter(dataAdapter);
 
-       gendr.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-           @Override
-           public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+        gendr.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 
-               if (gendr.getSelectedItemPosition() > 0) {
-                   SelectedGenderIndex = gendr.getSelectedItemPosition();
+                if (gendr.getSelectedItemPosition() > 0) {
+                    SelectedGenderIndex = gendr.getSelectedItemPosition();
 
-                   GenderVal = categoriesEng.get(SelectedGenderIndex);
+                    GenderVal = categoriesEng.get(SelectedGenderIndex);
 //                    OptionValue.setText("");
-                   //Toast.makeText(getContext(), SearchOptions.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
-               } else {
-                   GenderVal = "";
-               }
-           }
+                    //Toast.makeText(getContext(), SearchOptions.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+                } else {
+                    GenderVal = "";
+                }
+            }
 
-           @Override
-           public void onNothingSelected(AdapterView<?> parentView) {
-               // your code here
-           }
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
 
-       });
-   }
+        });
+    }
+
     private void SetDivisions() {
 
         List<divisionn> DV = divisionn.getAll();
@@ -1151,6 +1147,7 @@ public class patientRegistration extends Fragment {
 
 
     }
+
     private void SetDistrict(String division_code) {
 
         tehsil.setVisibility(View.GONE);
@@ -1215,7 +1212,8 @@ public class patientRegistration extends Fragment {
 //        }
 
     }
-    private void SetTehsil(String  dCode) {
+
+    private void SetTehsil(String dCode) {
 
         hf.setVisibility(View.GONE);
         List<tehsill> tehsili = tehsill.getTahsilById(dCode);
@@ -1237,7 +1235,7 @@ public class patientRegistration extends Fragment {
 
                 if (tehsil.getSelectedItemPosition() > 0) {
 
-                    String  TCode = tehsili.get(tehsil.getSelectedItemPosition() - 1).tehsil_code;
+                    String TCode = tehsili.get(tehsil.getSelectedItemPosition() - 1).tehsil_code;
                     SelectTcode = Integer.parseInt(TCode);
 
 
@@ -1276,6 +1274,7 @@ public class patientRegistration extends Fragment {
 
 
     }
+
     private void SetHF(String tCode) {
 
 
@@ -1324,68 +1323,65 @@ public class patientRegistration extends Fragment {
 
     }
 
-    private void   SetSpinnerfirst(){
-      List<String> yesno = new ArrayList<String>();
-      yesno.add("select one");
-      yesno.add("Yes");
-      yesno.add("No");
-
-
-      // Creating adapter for spinner
-      ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, yesno);
-
-      // Drop down layout style - list view with radio button
-      dataAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-
-      // attaching data adapter to spinner
-
-      firsts.setAdapter(dataAdapter);
-      firsts.setSelection(2);
-      firsts.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-          @Override
-          public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-
-              if (firsts.getSelectedItemPosition() > 0) {
-                  Selectfirstyn = firsts.getSelectedItemPosition();
-                  if(Selectfirstyn==2){
-                      secondlayout.setVisibility(View.GONE);
-                      firstVal="n";
-                  }
-                  else if(Selectfirstyn==1){
-                      firstVal="y";
-
-                      secondlayout.setVisibility(View.VISIBLE);
-                  }
-
-                  else {
-                      secondlayout.setVisibility(View.VISIBLE);
-                  }
-
-
-//                  firstVal = yesno.get(Selectfirstyn);
-//                    OptionValue.setText("");
-                  //Toast.makeText(getContext(), SearchOptions.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
-              } else {
-                  firstVal = "";
-              }
-
-
-          }
-
-          @Override
-          public void onNothingSelected(AdapterView<?> parentView) {
-              // your code here
-          }
-
-      });
-
-  }
-    private void   SetSpinnersecond(){
+    private void SetSpinnerfirst() {
         List<String> yesno = new ArrayList<String>();
         yesno.add("select one");
         yesno.add("Yes");
         yesno.add("No");
 
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, yesno);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+
+        // attaching data adapter to spinner
+
+        firsts.setAdapter(dataAdapter);
+        firsts.setSelection(2);
+        firsts.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+
+                if (firsts.getSelectedItemPosition() > 0) {
+                    Selectfirstyn = firsts.getSelectedItemPosition();
+                    if (Selectfirstyn == 2) {
+                        secondlayout.setVisibility(View.GONE);
+                        firstVal = "n";
+                    } else if (Selectfirstyn == 1) {
+                        firstVal = "y";
+
+                        secondlayout.setVisibility(View.VISIBLE);
+                    } else {
+                        secondlayout.setVisibility(View.VISIBLE);
+                    }
+
+
+//                  firstVal = yesno.get(Selectfirstyn);
+//                    OptionValue.setText("");
+                    //Toast.makeText(getContext(), SearchOptions.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+                } else {
+                    firstVal = "";
+                }
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+
+    }
+
+    private void SetSpinnersecond() {
+        List<String> yesno = new ArrayList<String>();
+        yesno.add("select one");
+        yesno.add("Yes");
+        yesno.add("No");
 
 
         // Creating adapter for spinner
@@ -1404,11 +1400,11 @@ public class patientRegistration extends Fragment {
                 if (seconds.getSelectedItemPosition() > 0) {
                     Selectsecondyn = seconds.getSelectedItemPosition();
 
-                     if(Selectsecondyn==1){
-                         secondVal="y";
-                     }else {
-                         secondVal="n";
-                     }
+                    if (Selectsecondyn == 1) {
+                        secondVal = "y";
+                    } else {
+                        secondVal = "n";
+                    }
 
 //                    secondVal = yesno.get(Selectsecondyn);
 //                    OptionValue.setText("");
@@ -1426,12 +1422,12 @@ public class patientRegistration extends Fragment {
         });
 
     }
-    private void   SetSpinnerthree(){
+
+    private void SetSpinnerthree() {
         List<String> yesno = new ArrayList<String>();
         yesno.add("select one");
         yesno.add("Yes");
         yesno.add("No");
-
 
 
         // Creating adapter for spinner
@@ -1449,15 +1445,13 @@ public class patientRegistration extends Fragment {
 
                 if (thirds.getSelectedItemPosition() > 0) {
                     Selectthirdyn = thirds.getSelectedItemPosition();
-                    if(Selectthirdyn==2){
+                    if (Selectthirdyn == 2) {
                         fourlayout.setVisibility(View.GONE);
-                        thirdVal="n";
-                    }
-                    else if (Selectthirdyn==1){
+                        thirdVal = "n";
+                    } else if (Selectthirdyn == 1) {
                         fourlayout.setVisibility(View.VISIBLE);
-                        thirdVal="y";
-                    }
-                        else {
+                        thirdVal = "y";
+                    } else {
                         fourlayout.setVisibility(View.VISIBLE);
                     }
 //                    thirdVal = yesno.get(Selectthirdyn);
@@ -1476,12 +1470,12 @@ public class patientRegistration extends Fragment {
         });
 
     }
-    private void   SetSpinnerfour(){
+
+    private void SetSpinnerfour() {
         List<String> yesno = new ArrayList<String>();
         yesno.add("select one");
         yesno.add("Yes");
         yesno.add("No");
-
 
 
         // Creating adapter for spinner
@@ -1499,11 +1493,10 @@ public class patientRegistration extends Fragment {
 
                 if (fours.getSelectedItemPosition() > 0) {
                     Selectfouryn = fours.getSelectedItemPosition();
-                    if(Selectfouryn==2){
-                        foursVal="n";
-                    }
-                    else if (Selectfouryn==1){
-                        foursVal="y";
+                    if (Selectfouryn == 2) {
+                        foursVal = "n";
+                    } else if (Selectfouryn == 1) {
+                        foursVal = "y";
                     }
 //                    foursVal = yesno.get(Selectfouryn);
 //                    OptionValue.setText("");
@@ -1521,12 +1514,12 @@ public class patientRegistration extends Fragment {
         });
 
     }
-    private void   SetSpinnerfive(){
+
+    private void SetSpinnerfive() {
         List<String> yesno = new ArrayList<String>();
         yesno.add("select one");
         yesno.add("Yes");
         yesno.add("No");
-
 
 
         // Creating adapter for spinner
@@ -1544,12 +1537,11 @@ public class patientRegistration extends Fragment {
 
                 if (fives.getSelectedItemPosition() > 0) {
                     Selectfiveyn = fives.getSelectedItemPosition();
-if(Selectfiveyn==1){
-    fiveVal="y";
-}
-else {
-    fiveVal="n";
-}
+                    if (Selectfiveyn == 1) {
+                        fiveVal = "y";
+                    } else {
+                        fiveVal = "n";
+                    }
 //                    fiveVal = yesno.get(Selectfiveyn);
 //                    OptionValue.setText("");
                     //Toast.makeText(getContext(), SearchOptions.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
@@ -1567,4 +1559,33 @@ else {
 
     }
 
+    public void compareTemplates(byte[] img) {
+        boolean status = false;
+
+
+        String id = null;
+
+        byte[] decoded = org.apache.commons.codec.binary.Base64.decodeBase64(img);
+
+        for (int i = 0; i < allData.size(); i++) {
+
+            if (allData.get(i).getFinger_print1() != null) {
+                byte[] a = org.apache.commons.codec.binary.Base64.decodeBase64(allData.get(i).getFinger_print1().getBytes());
+
+                if (COMPARE_ISO_TEMPS(decoded, a) >= 50) {
+                    status = true;
+                    Toast.makeText(getContext(),"Find Result",Toast.LENGTH_LONG).show();
+                    break;
+                }
+            }
+
+        }
+
+    }
+
+    public int COMPARE_ISO_TEMPS(byte[] tempScanner, byte[] tempDatabase) {
+        int score = this.m_cLAPI.CompareISO_Templates(this.m_hDevice, tempScanner, tempDatabase);
+        String format = String.format("CompareANSITemplates() = %d", new Object[]{Integer.valueOf(score)});
+        return score;
+    }
 }
