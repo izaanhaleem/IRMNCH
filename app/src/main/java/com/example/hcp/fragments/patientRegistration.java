@@ -33,6 +33,13 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.activeandroid.ActiveAndroid;
+import com.digitalpersona.uareu.Engine;
+import com.digitalpersona.uareu.Fid;
+import com.digitalpersona.uareu.Fmd;
+import com.digitalpersona.uareu.Reader;
+import com.digitalpersona.uareu.UareUException;
+import com.digitalpersona.uareu.UareUGlobal;
+import com.digitalpersona.uareu.dpfpdd.ReaderCollectionImpl;
 import com.example.hcp.activities.ScanActivity;
 import com.example.hcp.activities.ScanActivity2;
 import com.example.hcp.models.hcp.vitalListt;
@@ -60,8 +67,10 @@ import org.joda.time.LocalDate;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
 
+import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -405,26 +414,75 @@ public class patientRegistration extends Fragment {
 //                         probe = new FingerprintTemplate().dpi(500).create(img);
 
                         Bitmap bm = BitmapFactory.decodeByteArray(img, 0, img.length);
+                        Engine enge= UareUGlobal.GetEngine();
+
+                        for(int i=0;i<allData.size();i++){
+
+                            byte[] decodedString1 = Base64.decode(allData.get(i).finger_print1, Base64.DEFAULT);
+                            Bitmap decodedByte1 = BitmapFactory.decodeByteArray(decodedString1, 0, decodedString1.length);
+
+                            byte[] decodedString2 = Base64.decode(allData.get(i).finger_print2, Base64.DEFAULT);
+                            Bitmap decodedByte2 = BitmapFactory.decodeByteArray(decodedString2, 0, decodedString2.length);
+
+                            try {
+                                int target_falsematch_rate = Engine.PROBABILITY_ONE / 100000;
 
 
-//                        for(int i=0;i<allData.size();i++){
-//                            byte[] decodedString1 = Base64.decode(allData.get(i).finger_print1, Base64.DEFAULT);
-//                            Bitmap decodedByte1 = BitmapFactory.decodeByteArray(decodedString1, 0, decodedString1.length);
-//
-//                            byte[] decodedString2 = Base64.decode(allData.get(i).finger_print2, Base64.DEFAULT);
-//                            Bitmap decodedByte2 = BitmapFactory.decodeByteArray(decodedString2, 0, decodedString2.length);
-//
-//
+                                 Reader.CaptureResult capture_result= new Reader.CaptureResult();
+                                Fmd dbfingerprint = UareUGlobal
+                                        .GetImporter()
+                                        .ImportFmd(
+                                                decodedString1,
+                                                com.digitalpersona.uareu.Fmd.Format.DP_REG_FEATURES,
+                                                com.digitalpersona.uareu.Fmd.Format.DP_REG_FEATURES);
+                                Fmd currentfinger = UareUGlobal
+                                        .GetImporter()
+                                        .ImportFmd(
+                                                img,
+                                                com.digitalpersona.uareu.Fmd.Format.DP_REG_FEATURES,
+                                                com.digitalpersona.uareu.Fmd.Format.DP_REG_FEATURES);
+
+//                                Fmd dbfingerprint = UareUGlobal.GetEngine().CreateFmd(decodedString1, 320, 350, 500, 1, 3407615, Fmd.Format.ANSI_378_2004);
+//                                Fmd currentfinger = UareUGlobal.GetEngine().CreateFmd(img, 320, 350, 500, 1, 3407615, Fmd.Format.ANSI_378_2004);
+
+//                                Engine engine = UareUGlobal.GetEngine();
+//                                Engine.Candidate[] matches = engine.Identify(currentfinger, 0,
+//                                        new Fmd[]{dbfingerprint}, target_falsematch_rate, 1);
+                                int falsematch_rate =enge.Compare(dbfingerprint, 0, currentfinger, 0);
+
+                                if (falsematch_rate < target_falsematch_rate) {
+                                    Toast.makeText(getContext(),"Finger Detect"+dbfingerprint,Toast.LENGTH_LONG).show();
+                                } else {
+                                    Toast.makeText(getContext(),"Finger not Detect"+currentfinger,Toast.LENGTH_LONG).show();
+                                }
+
+
+
+//                                Fmd dbfingerprint = UareUGlobal.GetImporter().ImportFmd(decodedString1, Fmd.Format.ANSI_378_2004, Fmd.Format.ANSI_378_2004);
+
+                            } catch (UareUException e) {
+                                e.printStackTrace();
+                            }
+
+
+
+
+//                            if(compareByteArrays(img,decodedString1)>99.0){
+//                                Toast.makeText(getContext(),"Finger Detect"+print,Toast.LENGTH_LONG).show();
+//                            }else {
+//                                Toast.makeText(getContext(),"Finger not Detect",Toast.LENGTH_LONG).show();
+//                            }
 //                            if(decodedByte1.sameAs(bm) || decodedByte2.sameAs(bm)){
 //                                Toast.makeText(getContext(),"RecordFind",Toast.LENGTH_LONG).show();
 //                            }else{
 //                                Toast.makeText(getContext(),"Record Not Find",Toast.LENGTH_LONG).show();
 //                            }
-//                        }
+                        }
 
-                        Toast.makeText(getContext(),"Finger Detect",Toast.LENGTH_LONG).show();
 
-                        compareTemplates(img);
+
+
+//                        compareTemplates(img);
                         encodedfingerprint = Base64.encodeToString(img, Base64.DEFAULT);
                         ivFingerprint.setImageBitmap(bm);
 
@@ -586,7 +644,15 @@ public class patientRegistration extends Fragment {
             }
             FL.setPrevious_hbv(firstVal);
 
-            FL.setPatient_type("New Patient");
+//            FL.setPatient_type("New Patient");
+            if(firstVal.equals("y") && secondVal.equals("y")){
+                FL.setPatient_type("Pre-diagnosed Patient");
+            }else if(thirdVal.equals("y") && foursVal.equals("y")){
+                FL.setPatient_type("Pre-diagnosed Patient");
+            }else {
+                FL.setPatient_type("New Patient");
+            }
+
             FL.ISVital = 0;
             FL.IS_assessment = 0;
             FL.IS_Vaccination = 0;
@@ -629,7 +695,37 @@ public class patientRegistration extends Fragment {
 //            args.putInt("FamilyId", family_id);
             args.putString("PatientCNIC", cnicNo);
             args.putString("PatientName", Name);
-            args.putString("Patienttype", "New Patient");
+
+
+
+           if(firstVal== "y" && secondVal == "y"){
+               args.putString("Patienttype", "Pre-diagnosed Patient");
+           }else if(thirdVal == "y" && foursVal == "y"){
+               args.putString("Patienttype", "Pre-diagnosed Patient");
+           }else {
+               args.putString("Patienttype", "New Patient");
+           }
+
+
+
+
+//            if(secondVal == "y"){
+//                args.putString("Patienttype", "Pre-diagnosed Patient");
+//            }else if (secondVal == "n"){
+//                args.putString("Patienttype", "New Patient");
+//            }else {
+//                args.putString("Patienttype", "New Patient");
+//            }
+//
+//            if(foursVal == "y"){
+//                args.putString("Patienttype", "Pre-diagnosed Patient");
+//            }else if(foursVal == "n"){
+//                args.putString("Patienttype", "New Patient");
+//            }else {
+//                args.putString("Patienttype", "New Patient");
+//            }
+
+//            args.putString("Patienttype", "New Patient");
             args.putInt("pid", assessment.getId().intValue());
 
 
@@ -780,17 +876,17 @@ public class patientRegistration extends Fragment {
     }
 
     void Searchfingerprint() {
-        if (encodedfingerprint.equals("")) {
-            Toast.makeText(getContext(), "Scan Finger Print", Toast.LENGTH_SHORT).show();
-            layoutfirst.setVisibility(View.GONE);
-            layoutsecond.setVisibility(View.GONE);
-        }
+//        if (encodedfingerprint.equals("")) {
+//            Toast.makeText(getContext(), "Scan Finger Print", Toast.LENGTH_SHORT).show();
+//            layoutfirst.setVisibility(View.GONE);
+//            layoutsecond.setVisibility(View.GONE);
+//        }
 //        else if (encodedfingerprint2.equals("")) {
 //            Toast.makeText(getContext(), "Scan Finger Print 2", Toast.LENGTH_SHORT).show();
 //            layoutfirst.setVisibility(View.GONE);
 //            layoutsecond.setVisibility(View.GONE);
 //        }
-        else {
+//        else {
 //            List<addPatientModel> patientlocal;
 //
 //            patientlocal = addPatientModel.searchbyfingerprint(encodedfingerprint);
@@ -811,7 +907,7 @@ public class patientRegistration extends Fragment {
             btnSubmit.setVisibility(View.GONE);
 //            }
 
-        }
+//        }
 
     }
 
@@ -1587,5 +1683,13 @@ public class patientRegistration extends Fragment {
         int score = this.m_cLAPI.CompareISO_Templates(this.m_hDevice, tempScanner, tempDatabase);
         String format = String.format("CompareANSITemplates() = %d", new Object[]{Integer.valueOf(score)});
         return score;
+    }
+
+    public double compareByteArrays(byte[] a, byte[] b) {
+        int n = Math.min(a.length, b.length), nLarge = Math.max(a.length, b.length);
+        int unequalCount = nLarge - n;
+        for (int i=0; i<n; i++)
+            if (a[i] != b[i]) unequalCount++;
+        return unequalCount * 100.0 / nLarge;
     }
 }

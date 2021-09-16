@@ -54,7 +54,7 @@ public class SampleDashboard extends Fragment {
         total_record = view.findViewById(R.id.total__sync_recordv);
         sync_data = view.findViewById(R.id.sync_datav);
         recyclerView = (RecyclerView) view.findViewById(R.id.AssessmentRecy);
-
+        allSampletList();
         SetSearchOptions();
         AllSampleList.setOnClickListener(
                 v -> allSampletList()

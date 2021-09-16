@@ -95,7 +95,7 @@
 
                     <com.example.hcp.utils.MaskedEditText
                         android:id="@+id/etCNIC"
-
+                        android:background="@drawable/spinner_background"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textCapCharacters"
@@ -536,7 +536,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
-                        app:mask="03__-_______"
+                        app:mask="____-_______"
                         android:hint="0300-0000000"
                         android:gravity="left"/>
 

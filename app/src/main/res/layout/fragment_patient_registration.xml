@@ -95,7 +95,7 @@
 
                     <com.example.hcp.utils.MaskedEditText
                         android:id="@+id/etCNIC"
-
+                        android:background="@drawable/spinner_background"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textCapCharacters"
@@ -148,31 +148,31 @@
                     android:orientation="vertical"
                     >
 
-                <ImageView
-                    android:id="@+id/ma_iv_fingerprint"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginTop="8dp"
-                    app:srcCompat="@drawable/ic_fingerprint"
-                    android:layout_alignParentLeft="true"/>
+                    <ImageView
+                        android:id="@+id/ma_iv_fingerprint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="8dp"
+                        app:srcCompat="@drawable/ic_fingerprint"
+                        android:layout_alignParentLeft="true"/>
 
-                <Button
-                    android:visibility="gone"
-                    android:id="@+id/ma_bt_scan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="Scan 1"
-                    android:layout_below="@+id/ma_iv_fingerprint"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/buttonstyle"
-                    android:textColor="@color/white"
-                    android:layout_alignParentLeft="true"
-                    />
-</RelativeLayout>
+                    <Button
+                        android:visibility="gone"
+                        android:id="@+id/ma_bt_scan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="Scan 1"
+                        android:layout_below="@+id/ma_iv_fingerprint"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/buttonstyle"
+                        android:textColor="@color/white"
+                        android:layout_alignParentLeft="true"
+                        />
+                </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -536,7 +536,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
-                        app:mask="03__-_______"
+                        app:mask="____-_______"
                         android:hint="0300-0000000"
                         android:gravity="left"/>
 

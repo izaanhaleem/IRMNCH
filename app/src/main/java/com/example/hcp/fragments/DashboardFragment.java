@@ -392,6 +392,7 @@ public class DashboardFragment extends Fragment {
         categoriesEng.add("Select Option");
         categoriesEng.add("Mr No");
         categoriesEng.add("CNIC");
+        categoriesEng.add("Afghan CNIC");
         categoriesEng.add("Full Name");
         categoriesEng.add("Contact No");
         categoriesEng.add("Finger Print");
@@ -430,29 +431,28 @@ public class DashboardFragment extends Fragment {
 
                         OptionValue.setInputType(InputType.TYPE_CLASS_TEXT);
                         OptionValue.setText("");
-                        OptionValue.setMask("");
+                        OptionValue.setMask("AA-99999999999");
+
 //                        editlayout.setVisibility(View.VISIBLE);
                     }else if(SearchOptions.getSelectedItemPosition() == 4){
 ////                        OptionValue.addTextChangedListener(new Mask("####-#######"));
+
+                        OptionValue.setInputType(InputType.TYPE_CLASS_TEXT);
+                        OptionValue.setText("");
+                        OptionValue.setMask("");
+
+
+
+//                        editlayout.setVisibility(View.VISIBLE);
+                    }else if(SearchOptions.getSelectedItemPosition() == 5){
 
                         OptionValue.setInputType(InputType.TYPE_CLASS_NUMBER);
                         OptionValue.setText("");
                         OptionValue.setMask("9999-9999999");
                         OptionValue.setHint("9999-9999999");
-//                        editlayout.setVisibility(View.VISIBLE);
-                    }else if(SearchOptions.getSelectedItemPosition() == 5){
-////                        OptionValue.addTextChangedListener(new Mask("####-#######"));
 
-//                        OptionValue.setInputType(InputType.TYPE_CLASS_NUMBER);
-//                        OptionValue.setText("");
-//                        OptionValue.setMask("9999-9999999");
-//                        OptionValue.setHint("9999-9999999");
-
-//                        editlayout.setVisibility(View.GONE);
-
+                    }else if(SearchOptions.getSelectedItemPosition() == 6){
                         ma_iv_fingerprint.setVisibility(View.VISIBLE);
-
-
                     }
 
                     SelectedOptionIndex = SearchOptions.getSelectedItemPosition();
@@ -461,7 +461,7 @@ public class DashboardFragment extends Fragment {
                     //Toast.makeText(getContext(), SearchOptions.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
                 } else {
                     SelectedOption = "";
-                }
+                      }
             }
 
             @Override

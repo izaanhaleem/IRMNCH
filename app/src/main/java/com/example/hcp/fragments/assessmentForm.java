@@ -165,6 +165,115 @@ public class assessmentForm extends Fragment {
         Sswitch29 = "N";
 
 
+
+        addPatientModel mod = addPatientModel.searchBycnic(patientCNINC);
+
+             String pcrconfirmHbv  =  mod.getPcr_confirmation_hbv();
+
+             String pcrconfirmHcv  =  mod.getPcr_confirmation_hcv();
+
+
+
+          if(pcrconfirmHbv.equals("y") && pcrconfirmHcv.equals("y")){
+              switch29.setChecked(true);
+              switch29.setClickable(false);
+              switch28.setChecked(true);
+              switch28.setClickable(false);
+              addvised.setText("Advised for Both");
+              addvised.setVisibility(View.VISIBLE);
+              pcr.setVisibility(View.VISIBLE);
+              counsel_closed.setText("Proceed to nurse for sample collection");
+               switch30.setVisibility(View.GONE);
+               switch31.setVisibility(View.GONE);
+              PCR = "Y";
+              Sswitch31 = "N";
+              Sswitch30 = "N";
+              Sswitch27 = "Y";
+              Sswitch28 = "Y";
+              Sswitch29 = "Y";
+
+           } else if(pcrconfirmHbv.equals("y")) {
+               switch28.setChecked(true);
+               switch28.setClickable(false);
+               switch29.setClickable(false);
+               Sswitch28 = "Y";
+               Sswitch29 = "N";
+               rapidtesting = "Y";
+               Sswitch30 = "N";
+               Sswitch31 = "N";
+               PCR = "Y";
+               switch30.setVisibility(View.GONE);
+               switch31.setVisibility(View.GONE);
+               pcr.setVisibility(View.VISIBLE);
+               addvised.setText("Advised for HBV");
+               addvised.setVisibility(View.VISIBLE);
+               counsel_closed.setText("Proceed to nurse for sample collection");
+           }else if(pcrconfirmHcv.equals("y")){
+               switch29.setChecked(true);
+               switch29.setClickable(false);
+               switch28.setClickable(false);
+               Sswitch29 = "Y";
+               Sswitch28 = "N";
+               rapidtesting = "Y";
+               PCR = "Y";
+               Sswitch31 = "N";
+               switch31.setVisibility(View.GONE);
+               pcr.setVisibility(View.VISIBLE);
+               addvised.setText("Advised for HCV");
+               addvised.setVisibility(View.VISIBLE);
+               counsel_closed.setText("Proceed to nurse for sample collection and vaccination");
+           }
+          else {
+              Sswitch28 = "N";
+              Sswitch29 = "N";
+              rapidtesting = "N";
+              PCR = "N";
+              Sswitch31 = "Y";
+              counsel_closed.setText("");
+              switch30.setVisibility(View.VISIBLE);
+              switch31.setVisibility(View.VISIBLE);
+              pcr.setVisibility(View.GONE);
+              addvised.setVisibility(View.GONE);
+              counsel_closed.setText("Counsel and Closed");
+              Sswitch29 = "N";
+              PCR = "N";
+
+
+          }
+
+
+
+
+//        if(pcrconfirmHcv.equals("y")){
+//
+//            if(pcrconfirmHbv=="y"){
+//                addvised.setText("Advised for Both");
+//                PCR = "Y";
+//                Sswitch31 = "N";
+//            }else {
+//                addvised.setText("Advised for HCV");
+//                PCR = "N";
+//            }
+//
+//        }else {
+//            switch29.setClickable(false);
+//            Sswitch29 = "N";
+//            rapidtesting = "N";
+//            PCR = "N";
+//            if(!pcrconfirmHbv.equals("y")){
+//                Sswitch31 = "Y";
+//            }
+//            counsel_closed.setText("");
+//            switch31.setVisibility(View.VISIBLE);
+//            pcr.setVisibility(View.GONE);
+//            addvised.setVisibility(View.GONE);
+//            counsel_closed.setText("Counsel and Closed");
+//        }
+//
+
+
+
+
         switch28.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

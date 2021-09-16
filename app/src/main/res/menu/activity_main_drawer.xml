@@ -22,7 +22,7 @@
         <item
             android:id="@+id/nav_vaccination"
             android:icon="@drawable/ic_syringe"
-            android:title="Vaccination" />
+            android:title="Add Vaccination" />
 
         <item
             android:id="@+id/nav_sample"
