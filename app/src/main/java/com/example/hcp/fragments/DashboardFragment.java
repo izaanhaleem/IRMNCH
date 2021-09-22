@@ -1,11 +1,16 @@
 package com.example.hcp.fragments;
 
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Path;
+import android.hardware.usb.UsbDevice;
+import android.hardware.usb.UsbManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -29,12 +34,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.activeandroid.ActiveAndroid;
+import com.digitalpersona.uareu.Engine;
+import com.digitalpersona.uareu.Fid;
+import com.digitalpersona.uareu.Fmd;
+import com.digitalpersona.uareu.Reader;
+import com.digitalpersona.uareu.UareUException;
+import com.digitalpersona.uareu.UareUGlobal;
+import com.digitalpersona.uareu.dpfpddusbhost.DPFPDDUsbException;
+import com.digitalpersona.uareu.dpfpddusbhost.DPFPDDUsbHost;
 import com.example.hcp.CustomBroadCastReceiver;
 import com.example.hcp.EditTextTelefoneMask;
 import com.example.hcp.Mask;
@@ -42,6 +56,7 @@ import com.example.hcp.R;
 import com.example.hcp.activities.MainActivity;
 
 import com.example.hcp.activities.ScanActivity;
+import com.example.hcp.activities.VerificationActivity;
 import com.example.hcp.models.Parcables.PatientDataParceable;
 import com.example.hcp.models.Users.UserResponse;
 import com.example.hcp.models.hcp.AddVitalResponse;
@@ -65,6 +80,8 @@ import com.example.hcp.services.APIClient;
 import com.example.hcp.services.GetDataService;
 import com.example.hcp.services.RetrofitClient;
 import com.example.hcp.utils.Constants;
+import com.example.hcp.utils.GetReaderActivity;
+import com.example.hcp.utils.Globals;
 import com.example.hcp.utils.MaskedEditText;
 import com.example.hcp.utils.SharedPref;
 
@@ -88,7 +105,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
+import static com.digitalpersona.uareu.Fmd.Format.ANSI_378_2004;
 
 
 public class DashboardFragment extends Fragment {
@@ -113,26 +132,33 @@ public class DashboardFragment extends Fragment {
     int syncedpatients = 0, syncedvitals = 0, syncedassessment = 0, syncedpending = 0;
     int CurremtIndex = 0;
 
+
+
     List<addPatientModel> paitents;
     List<addvitalll> vitals;
     List<Assessmentt> assessmentts;
     List<Vaccinationn> vaccinationns;
     List<Samplee> sampless;
     List<medicinee> pending;
+    public String current_fmd;
 
     private static final int SCAN_FINGERPRINT = 1234;
 
     FingerprintTemplate probe;
-
-
-
+    private String m_sn = "";
+    private String m_deviceName = "";
+    Reader m_reader;
+    private final int GENERAL_ACTIVITY_RESULT = 1;
+    private static final String ACTION_USB_PERMISSION = "com.digitalpersona.uareu.dpfpddusbhost.USB_PERMISSION";
+    private Engine m_engine = null;
+    List<userdataaa> allData = new ArrayList<>();
     public int totalSize;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.search_family_fragment, container, false);
-
+        m_engine = UareUGlobal.GetEngine();
         fragmentManager = getFragmentManager();
         total_record = view.findViewById(R.id.total__sync_record);
         SearchOptions = view.findViewById(R.id.etSearchOption);
@@ -147,10 +173,10 @@ public class DashboardFragment extends Fragment {
         vaccinationcount = view.findViewById(R.id.vaccinationcount);
         samplecount = view.findViewById(R.id.samplecount);
         editlayout = view.findViewById(R.id.editlayout);
-        ma_iv_fingerprint = view.findViewById(R.id.ma_iv_fingerprint);
+        ma_iv_fingerprint = view.findViewById(R.id.ma_iv_fingerprint_dashboard);
         SelectedOption = "";
         SelectedOptionVal = "";
-
+        allData = userdataaa.getall();
         export_db = view.findViewById(R.id.export_db);
 
         SetSearchOptions();
@@ -206,8 +232,9 @@ public class DashboardFragment extends Fragment {
         ma_iv_fingerprint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), ScanActivity.class);
-                startActivityForResult(intent, SCAN_FINGERPRINT);
+//                Intent intent = new Intent(getContext(), ScanActivity.class);
+//                startActivityForResult(intent, SCAN_FINGERPRINT);
+                launchGetReader();
             }
         });
 
@@ -216,41 +243,228 @@ public class DashboardFragment extends Fragment {
         return view;
     }
 
+    protected void launchGetReader()
+    {
+        Intent i = new Intent(getContext(), GetReaderActivity.class);
+        i.putExtra("serial_number", m_sn);
+        i.putExtra("device_name", m_deviceName);
+        startActivityForResult(i, 1);
+    }
+
+    public void CheckDevice()
+
+    {
+        try {
+            m_reader.Open(Reader.Priority.EXCLUSIVE);
+            launchCaptureFingerprint();
+            m_reader.Close();
+
+        } catch (UareUException e1) {
+            displayReaderNotFound();
+        }
+
+    }
+    protected void launchCaptureFingerprint() {
+
+        Intent i = new Intent(getContext(), VerificationActivity.class);
+        i.putExtra("serial_number", m_sn);
+        i.putExtra("device_name", m_deviceName);
+        startActivityForResult(i, 2);
+    }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+
+    {
+
         super.onActivityResult(requestCode, resultCode, data);
 
-        switch (requestCode){
-            case SCAN_FINGERPRINT:
-                if (resultCode == RESULT_OK) {
 
-                    int status = data.getIntExtra("status", Status.ERROR);
+        switch (requestCode)
+        {
 
-                    if (status == Status.SUCCESS) {
-                        toast("Fingerprint OK!");
+            case (1):
 
-                        byte[] img = data.getByteArrayExtra("img");
-                        Bitmap bm = BitmapFactory.decodeByteArray(img, 0, img.length);
-//                        probe = new FingerprintTemplate().dpi(500).create(img);
+            {
+                if (data == null)
 
-//                        Toast.makeText(getContext(),""+probe,Toast.LENGTH_LONG).show();
-                        encodedfingerprint = Base64.encodeToString(img, Base64.DEFAULT);
-                        ma_iv_fingerprint.setImageBitmap(bm);
-
-                        return;
-                    }
-                    toast(data.getStringExtra("errorMessage"));
+                {
+                    displayReaderNotFound();
+                    return;
                 }
-                break;
 
+                Globals.ClearLastBitmap();
+                m_sn         = (String) data.getExtras().get("serial_number");
+                m_deviceName = (String) data.getExtras().get("device_name");
+
+                if ((m_deviceName != null) && !m_deviceName.isEmpty()) {
+
+                    try
+
+                    {
+                        Context applContext = getContext();
+                        m_reader = Globals.getInstance().getReader(m_deviceName, applContext);
+
+                        {
+                            PendingIntent mPermissionIntent;
+                            mPermissionIntent = PendingIntent.getBroadcast(applContext, 0, new Intent(ACTION_USB_PERMISSION), 0);
+                            IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
+                            applContext.registerReceiver(mUsbReceiver, filter);
+
+                            if (DPFPDDUsbHost.DPFPDDUsbCheckAndRequestPermissions(applContext, mPermissionIntent, m_deviceName)) {
+                                CheckDevice();
+                            }
+                        }
+                    }
+
+                    catch (UareUException | DPFPDDUsbException e1)
+
+                    {
+                        displayReaderNotFound();
+                    }
+
+                }
+
+                else
+
+                {
+                    displayReaderNotFound();
+                }
+
+                break;
+            }
+
+            case (2):
+
+            {
+                if (resultCode == RESULT_OK)
+
+                {
+                    byte[] decodedString = Base64.decode(Constants.FmdBase64, Base64.DEFAULT);
+                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                    ma_iv_fingerprint.setImageBitmap(decodedByte);
+
+                    if(allData.size() > 0)
+
+                    {
+                        for(int i=0;i<allData.size();i++)
+
+                            if(allData.get(i).getFinger_print2()!=null) {
+                                {
+                                    byte[] xml64Bytes = Base64.decode(allData.get(i).getFinger_print2(), Base64.DEFAULT);//allData.get(i).getFinger_fmd().getBytes(StandardCharsets.UTF_8);//Base64.decode(allData.get(i).getFinger_fmd(), Base64.DEFAULT);
+                                    Fmd d_fmd = null;
+                                    Fid d_fid = null;
+                                    try {
+                                        d_fid = UareUGlobal.GetImporter().ImportFid(xml64Bytes, Fid.Format.ANSI_381_2004);
+                                        d_fmd = m_engine.CreateFmd(d_fid, ANSI_378_2004);
+
+                                        try {
+
+                                            if (d_fmd != null) {
+                                                int m_score = m_engine.Compare(d_fmd, 0, m_engine.CreateFmd(Constants.cap_result, ANSI_378_2004), 0);
+                                                if (m_score < (0x7FFFFFFF / 100000)) {
+                                                    Toast.makeText(getContext(), "Patient Already Registered matched!", Toast.LENGTH_LONG).show();
+
+                                                    current_fmd = Base64.encodeToString(Constants.cap_result.getData(), Base64.DEFAULT);
+                                                    List<userdataaa> leaders = userdataaa.searchbyfingerprint(current_fmd);
+                                                    if (leaders.size() > 0) {
+                                                        SetDataArrayy(leaders);
+                                                    } else {
+                                                        Toast.makeText(getContext(), "NO Record Found", Toast.LENGTH_LONG).show();
+                                                    }
+//                                                    break;
+
+                                                } else {
+//                                                Toast.makeText(getContext(), "not matched", Toast.LENGTH_LONG).show();
+
+                                                }
+                                            }
+
+                                        } catch (UareUException e) {
+                                            e.printStackTrace();
+                                            Log.d("----", e.getMessage());
+                                        }
+                                    } catch (UareUException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                }
+                            }
+                    }
+
+                    Log.d("---d---",Constants.Fmd + "");
+                }
+
+                if (resultCode == RESULT_CANCELED)
+
+                {
+                    Toast.makeText(getContext(), "Operation Canceled", Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+
+            break;
 
         }
 
     }
-    private void toast(String msg){
-        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+
+
+//
+
+    private void displayReaderNotFound()
+
+    {
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+
+        alertDialogBuilder.setTitle("Reader Not Found");
+
+        alertDialogBuilder
+                .setMessage("Plug in a reader and try again.")
+                .setCancelable(false)
+                .setPositiveButton("Ok",
+                        (dialog, id) -> {
+                        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
+    private final BroadcastReceiver mUsbReceiver = new BroadcastReceiver()
+
+    {
+        public void onReceive(Context context, Intent intent)
+        {
+
+            String action = intent.getAction();
+
+            if (ACTION_USB_PERMISSION.equals(action))
+
+            {
+                synchronized (this)
+
+                {
+                    UsbDevice device = (UsbDevice)intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+                    if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false))
+                    {
+                        if(device != null)
+                        {
+                            //call method to set up device communication
+                            CheckDevice();
+                        }
+                    }
+                    else
+                    {
+                        // setButtonsEnabled(false);
+                    }
+                }
+            }
+        }
+    };
+    //    private void toast(String msg){
+//        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+//    }
     void Login(String username, String password) {
         ProgressDialog dialog = new ProgressDialog(getContext());
         dialog.setMessage("Getting Token please wait...");
@@ -368,7 +582,7 @@ public class DashboardFragment extends Fragment {
                         SetDataArrayylocal(localpatinets);
                     }else {
                         Toast.makeText(getContext(), "NO Record Found", Toast.LENGTH_LONG).show();
-                          }
+                    }
                     break;
                 case 5:
                     leaders = userdataaa.searchByPhoneLeader(SelectedOptionVal);
@@ -474,7 +688,7 @@ public class DashboardFragment extends Fragment {
                     //Toast.makeText(getContext(), SearchOptions.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
                 } else {
                     SelectedOption = "";
-                      }
+                }
             }
 
             @Override
@@ -597,6 +811,14 @@ public class DashboardFragment extends Fragment {
 
     //
     public void SyncRecord() {
+//
+//
+//        ActiveAndroid.setTransactionSuccessful();
+//
+//        ActiveAndroid.endTransaction();
+//
+//
+
 
 
         patientssubmitcount = 0;
@@ -609,6 +831,10 @@ public class DashboardFragment extends Fragment {
 
         paitents = addPatientModel.searchBySync();
         patientssubmitcount = paitents.size();
+
+
+
+
 
 
 //        vitalsubmitcount= vitals.size();
@@ -658,126 +884,190 @@ public class DashboardFragment extends Fragment {
 //
 //        {
 
-            for (int i = 0; i < paitents.size(); i++)
+        for (int i = 0; i < paitents.size(); i++)
 
-            {
-                addPatientRequest fmb = new addPatientRequest();
-                if (paitents.get(i).getPatient_id() != null) {
-                    fmb.setPatient_id(paitents.get(i).getPatient_id());
-                }
-                if (paitents.get(i).getPatient_name() != null) {
-                    fmb.setPatient_name(paitents.get(i).getPatient_name());
-                }
-                if (paitents.get(i).getLname() != null) {
-                    fmb.setLname(paitents.get(i).getLname());
-                }
-                if (paitents.get(i).getFather_name() != null) {
-                    fmb.setFather_name(paitents.get(i).getFather_name());
-                }
-                if (paitents.get(i).getPatient_age() != null) {
-                    fmb.setPatient_age(paitents.get(i).getPatient_age());
-                } else {
-                    fmb.setPatient_age(0);
+        {
 
-                }
-                if (paitents.get(i).getPatient_dob() != null) {
-                    fmb.setPatient_dob(paitents.get(i).getPatient_dob());
-                }
-                if (paitents.get(i).getGender() != null) {
-                    fmb.setGender(paitents.get(i).getGender());
-                } else {
-                    fmb.setGender(0);
+            userdataaa FL = new userdataaa();
+            ActiveAndroid.beginTransaction();
+            try {
+                FL.setIsActive(1);
+                FL.mrn_no = "";
+//                FL.IsSync = 0;
+                FL.setPatient_id(0);
+                FL.setPatient_name(paitents.get(i).getPatient_name());
+                FL.setLname(paitents.get(i).getLname());
+                FL.setFather_name(paitents.get(i).getFather_name());
+//                FL.setPatient_age(paitents.get(i).getPatient_age());
+                FL.setPatient_dob(paitents.get(i).getPatient_dob());
+//                FL.setGender(paitents.get(i).getGender());
+                FL.setSelf_cnic(paitents.get(i).getSelf_cnic());
+                FL.setContact_no_self(paitents.get(i).getContact_no_self());
+//                FL.setAddress(paitents.get(i).getAddress());
+//                FL.setMarital_status(paitents.get(i).getMarital_status());
+//                FL.setOccupation(paitents.get(i).getOccupation());
+//                FL.setQualification(paitents.get(i).getQualification());
 
-                }
-                if (paitents.get(i).getSelf_cnic() != null) {
-                    fmb.setSelf_cnic(paitents.get(i).getSelf_cnic());
-                }
-                if (paitents.get(i).getContact_no_self() != null) {
-                    fmb.setContact_no_self(paitents.get(i).getContact_no_self());
-                }
-                if (paitents.get(i).getAddress() != null) {
-                    fmb.setAddress(paitents.get(i).getAddress());
-                }
-                if (paitents.get(i).getMarital_status() != null) {
-                    fmb.setMarital_status(paitents.get(i).getMarital_status());
-                }
-                if (paitents.get(i).getOccupation() != null) {
-                    fmb.setOccupation(paitents.get(i).getOccupation());
-                }
-                if (paitents.get(i).getQualification() != null) {
-                    fmb.setQualification(paitents.get(i).getQualification());
-                }
-                if (paitents.get(i).getPatient_age_80() != null) {
-                    fmb.setPatient_age_80(paitents.get(i).getPatient_age_80());
-                }
-                if (paitents.get(i).getPrevious_hbv() != null) {
-                    fmb.setPrevious_hbv(paitents.get(i).getPrevious_hbv());
-                }
-                if (paitents.get(i).getPrevious_hcv() != null) {
-                    fmb.setPrevious_hcv(paitents.get(i).getPrevious_hcv());
-                }
+                FL.setPrevious_hbv(paitents.get(i).getPrevious_hbv());
+
+//            FL.setPatient_type("New Patient");
+//                if(firstVal.equals("y") && secondVal.equals("y")){
+//                    FL.setPatient_type("Pre-diagnosed Patient");
+//                }else if(thirdVal.equals("y") && foursVal.equals("y")){
+//                    FL.setPatient_type("Pre-diagnosed Patient");
+//                }else {
+                FL.setPatient_type("New Patient");
+//                }
+
+//                FL.ISVital = 0;
+//                FL.IS_assessment = 0;
+//                FL.IS_Vaccination = 0;
+//                FL.ISSample = 0;
+
+                FL.setPcr_confirmation_hbv(paitents.get(i).getPcr_confirmation_hbv());
+                FL.setPrevious_hcv(paitents.get(i).getPrevious_hcv());
+                FL.setPcr_confirmation_hcv(paitents.get(i).getPcr_confirmation_hcv());
+//                FL.setDivision(paitents.get(i).getDivision());
+//                FL.setDistrict(paitents.get(i).getDistrict());
+//                FL.setTehsil(paitents.get(i).getTehsil());
+//                FL.setHospital(paitents.get(i).getHospital());
+//                FL.setIdentifier(new SharedPref(getContext()).GetserverID());
+                FL.setUser_id(new SharedPref(getContext()).GetLoggedInRole());
+//                FL.setHospital_id(new SharedPref(getContext()).GetLoggedInUser());
+//                FL.setFinger_base64(Constants.FmdBase64);
+//                final String xml64 = Base64.encodeToString(Constants.cap_result.getData(), Base64.DEFAULT);
+//                FL.setFinger_fmd(xml64.trim());
+//                FL.setFinger_fmd(Constants.cap_result.toString());
+//                FL.setWidth(Constants.width);
+//                FL.setHeight(Constants.height);
+//                FL.setCbeff_id(Constants.cbeff_id);
+//                FL.setQuality(Constants.quality);
+
+                FL.setFinger_print2(paitents.get(i).getFinger_fmd());
+
+                FL.save();
+                ActiveAndroid.setTransactionSuccessful();
+            } finally {
+                ActiveAndroid.endTransaction();
+            }
+
+            addPatientRequest fmb = new addPatientRequest();
+            if (paitents.get(i).getPatient_id() != null) {
+                fmb.setPatient_id(paitents.get(i).getPatient_id());
+            }
+            if (paitents.get(i).getPatient_name() != null) {
+                fmb.setPatient_name(paitents.get(i).getPatient_name());
+            }
+            if (paitents.get(i).getLname() != null) {
+                fmb.setLname(paitents.get(i).getLname());
+            }
+            if (paitents.get(i).getFather_name() != null) {
+                fmb.setFather_name(paitents.get(i).getFather_name());
+            }
+            if (paitents.get(i).getPatient_age() != null) {
+                fmb.setPatient_age(paitents.get(i).getPatient_age());
+            } else {
+                fmb.setPatient_age(0);
+
+            }
+            if (paitents.get(i).getPatient_dob() != null) {
+                fmb.setPatient_dob(paitents.get(i).getPatient_dob());
+            }
+            if (paitents.get(i).getGender() != null) {
+                fmb.setGender(paitents.get(i).getGender());
+            } else {
+                fmb.setGender(0);
+
+            }
+            if (paitents.get(i).getSelf_cnic() != null) {
+                fmb.setSelf_cnic(paitents.get(i).getSelf_cnic());
+            }
+            if (paitents.get(i).getContact_no_self() != null) {
+                fmb.setContact_no_self(paitents.get(i).getContact_no_self());
+            }
+            if (paitents.get(i).getAddress() != null) {
+                fmb.setAddress(paitents.get(i).getAddress());
+            }
+            if (paitents.get(i).getMarital_status() != null) {
+                fmb.setMarital_status(paitents.get(i).getMarital_status());
+            }
+            if (paitents.get(i).getOccupation() != null) {
+                fmb.setOccupation(paitents.get(i).getOccupation());
+            }
+            if (paitents.get(i).getQualification() != null) {
+                fmb.setQualification(paitents.get(i).getQualification());
+            }
+            if (paitents.get(i).getPatient_age_80() != null) {
+                fmb.setPatient_age_80(paitents.get(i).getPatient_age_80());
+            }
+            if (paitents.get(i).getPrevious_hbv() != null) {
+                fmb.setPrevious_hbv(paitents.get(i).getPrevious_hbv());
+            }
+            if (paitents.get(i).getPrevious_hcv() != null) {
+                fmb.setPrevious_hcv(paitents.get(i).getPrevious_hcv());
+            }
 
 //            fmb.setIsActive(leaders.get(i).getIsActive());
-                if (paitents.get(i).getPcr_confirmation_hbv() != null) {
-                    fmb.setPcr_confirmation_hbv(paitents.get(i).getPcr_confirmation_hbv());
-                }
+            if (paitents.get(i).getPcr_confirmation_hbv() != null) {
+                fmb.setPcr_confirmation_hbv(paitents.get(i).getPcr_confirmation_hbv());
+            }
 
-                if (paitents.get(i).getPcr_confirmation_hcv() != null) {
-                    fmb.setPcr_confirmation_hcv(paitents.get(i).getPcr_confirmation_hcv());
-                }
+            if (paitents.get(i).getPcr_confirmation_hcv() != null) {
+                fmb.setPcr_confirmation_hcv(paitents.get(i).getPcr_confirmation_hcv());
+            }
 
-                if (paitents.get(i).getDivision() != null) {
-                    fmb.setDivision(paitents.get(i).getDivision());
-                } else {
-                    fmb.setDivision(0);
+            if (paitents.get(i).getDivision() != null) {
+                fmb.setDivision(paitents.get(i).getDivision());
+            } else {
+                fmb.setDivision(0);
 
-                }
+            }
 
-                if (paitents.get(i).getDistrict() != null) {
-                    fmb.setDistrict(paitents.get(i).getDistrict());
-                } else {
-                    fmb.setDistrict(0);
+            if (paitents.get(i).getDistrict() != null) {
+                fmb.setDistrict(paitents.get(i).getDistrict());
+            } else {
+                fmb.setDistrict(0);
 
-                }
+            }
 
-                if (paitents.get(i).getTehsil() != null) {
-                    fmb.setTehsil(paitents.get(i).getTehsil());
-                } else {
-                    fmb.setTehsil(0);
+            if (paitents.get(i).getTehsil() != null) {
+                fmb.setTehsil(paitents.get(i).getTehsil());
+            } else {
+                fmb.setTehsil(0);
 
-                }
+            }
 
-                if (paitents.get(i).getHospital() != null) {
-                    fmb.setHospital(paitents.get(i).getHospital());
-                } else {
-                    fmb.setHospital(0);
+            if (paitents.get(i).getHospital() != null) {
+                fmb.setHospital(paitents.get(i).getHospital());
+            } else {
+                fmb.setHospital(0);
 
-                }
-                if (paitents.get(i).getIdentifier() != null) {
-                    fmb.setIdentifier(paitents.get(i).getIdentifier());
-                }
+            }
+            if (paitents.get(i).getIdentifier() != null) {
+                fmb.setIdentifier(paitents.get(i).getIdentifier());
+            }
 
-                if (paitents.get(i).getUser_id() != null) {
-                    fmb.setUser_id(paitents.get(i).getUser_id());
-                }
+            if (paitents.get(i).getUser_id() != null) {
+                fmb.setUser_id(paitents.get(i).getUser_id());
+            }
 
-                if (paitents.get(i).getHospital_id() != null) {
-                    fmb.setHospital_id(paitents.get(i).getHospital_id());
-                }
-                if (paitents.get(i).getPatient_type() != null) {
-                    fmb.setPatient_type(paitents.get(i).getPatient_type());
-                }
-                if (paitents.get(i).getId() != null) {
-                    fmb.setMobile_id(paitents.get(i).getId());
-                } else {
-                    fmb.setMobile_id(0L);
-                }
-                if(paitents.get(i).getFinger_base64() !=null){
-                    fmb.setFinger_print1(paitents.get(i).getFinger_base64());
-                }
-                if(paitents.get(i).getFinger_fmd() !=null){
-                    fmb.setFinger_print2(paitents.get(i).getFinger_fmd());
-                }
+            if (paitents.get(i).getHospital_id() != null) {
+                fmb.setHospital_id(paitents.get(i).getHospital_id());
+            }
+            if (paitents.get(i).getPatient_type() != null) {
+                fmb.setPatient_type(paitents.get(i).getPatient_type());
+            }
+            if (paitents.get(i).getId() != null) {
+                fmb.setMobile_id(paitents.get(i).getId());
+            } else {
+                fmb.setMobile_id(0L);
+            }
+            if(paitents.get(i).getFinger_base64() !=null){
+                fmb.setFinger_print1(paitents.get(i).getFinger_base64());
+            }
+            if(paitents.get(i).getFinger_fmd() !=null){
+                fmb.setFinger_print2(paitents.get(i).getFinger_fmd());
+            }
 
 //                List<addPatientModel> pati = new ArrayList<addPatientModel>();
 //                pati.add(fmb);
@@ -792,13 +1082,14 @@ public class DashboardFragment extends Fragment {
 //                    }
 //                }, 3300);
 
-                SubmitLeader(fmb, paitents.get(i), paitents.size(), i);
+
+            SubmitLeader(fmb, paitents.get(i), paitents.size(), i);
 
 
 //               SubmitLeader(fmb);
-            }
-
         }
+
+    }
 //    }
 
     public void SubmitLeader(addPatientRequest currentMember, addPatientModel addPatientModel, int totalPatient, int currentPatient) {

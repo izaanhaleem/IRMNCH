@@ -667,7 +667,7 @@ public class addPatientModel extends Model {
     public static List<addPatientModel> searchbyfingerprint(String fingerprint) {
         return new Select()
                 .from(addPatientModel.class)
-                .where("finger_print1 = ?",new String[]{'%' + fingerprint + '%'})
+                .where("finger_print2 = ?",new String[]{'%' + fingerprint + '%'})
                 .execute();
     }
 

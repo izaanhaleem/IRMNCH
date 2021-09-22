@@ -543,64 +543,65 @@ public class patientRegistration extends Fragment {
 
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK)
 
+        switch (requestCode)
         {
-            switch (requestCode)
-            {
 
-                case (1):
+            case (1):
+
+            {
+                if (data == null)
 
                 {
-                    if (data == null)
-
-                    {
-                        displayReaderNotFound();
-                        return;
-                    }
-
-                    Globals.ClearLastBitmap();
-                    m_sn         = (String) data.getExtras().get("serial_number");
-                    m_deviceName = (String) data.getExtras().get("device_name");
-
-                    if ((m_deviceName != null) && !m_deviceName.isEmpty()) {
-
-                        try
-
-                        {
-                            Context applContext = getContext();
-                            m_reader = Globals.getInstance().getReader(m_deviceName, applContext);
-
-                            {
-                                PendingIntent mPermissionIntent;
-                                mPermissionIntent = PendingIntent.getBroadcast(applContext, 0, new Intent(ACTION_USB_PERMISSION), 0);
-                                IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
-                                applContext.registerReceiver(mUsbReceiver, filter);
-
-                                if (DPFPDDUsbHost.DPFPDDUsbCheckAndRequestPermissions(applContext, mPermissionIntent, m_deviceName)) {
-                                    CheckDevice();
-                                }
-                            }
-                        }
-
-                        catch (UareUException | DPFPDDUsbException e1)
-
-                        {
-                            displayReaderNotFound();
-                        }
-
-                    }
-
-                    else
-
-                    {
-                        displayReaderNotFound();
-                    }
-
-                    break;
+                    displayReaderNotFound();
+                    return;
                 }
 
-                case (2):
+                Globals.ClearLastBitmap();
+                m_sn         = (String) data.getExtras().get("serial_number");
+                m_deviceName = (String) data.getExtras().get("device_name");
+
+                if ((m_deviceName != null) && !m_deviceName.isEmpty()) {
+
+                    try
+
+                    {
+                        Context applContext = getContext();
+                        m_reader = Globals.getInstance().getReader(m_deviceName, applContext);
+
+                        {
+                            PendingIntent mPermissionIntent;
+                            mPermissionIntent = PendingIntent.getBroadcast(applContext, 0, new Intent(ACTION_USB_PERMISSION), 0);
+                            IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
+                            applContext.registerReceiver(mUsbReceiver, filter);
+
+                            if (DPFPDDUsbHost.DPFPDDUsbCheckAndRequestPermissions(applContext, mPermissionIntent, m_deviceName)) {
+                                CheckDevice();
+                            }
+                        }
+                    }
+
+                    catch (UareUException | DPFPDDUsbException e1)
+
+                    {
+                        displayReaderNotFound();
+                    }
+
+                }
+
+                else
+
+                {
+                    displayReaderNotFound();
+                }
+
+                break;
+            }
+
+            case (2):
+
+            {
+                if (resultCode == RESULT_OK)
 
                 {
                     byte[] decodedString = Base64.decode(Constants.FmdBase64, Base64.DEFAULT);
@@ -611,60 +612,66 @@ public class patientRegistration extends Fragment {
 
                     {
                         for(int i=0;i<allData.size();i++)
-                            if(allData.get(i).finger_print2!=null) {
-                                {
-                                    byte[] xml64Bytes = Base64.decode(allData.get(i).finger_print2, Base64.DEFAULT);//allData.get(i).getFinger_fmd().getBytes(StandardCharsets.UTF_8);//Base64.decode(allData.get(i).getFinger_fmd(), Base64.DEFAULT);
-                                    Fmd d_fmd = null;
-                                    Fid d_fid = null;
+
+//                            final String xml64 = Base64.encodeToString(Constants.cap_result.getData(), Base64.DEFAULT);
+//                        FL.setFinger_fmd(xml64.trim());
+//                        List<userdataaa> abc = userdataaa.searchbyfingerprint(xml64)
+
+
+                        if(allData.get(i).getFinger_print2()!=null) {
+                            {
+                                byte[] xml64Bytes = Base64.decode(allData.get(i).getFinger_print2(), Base64.DEFAULT);//allData.get(i).getFinger_fmd().getBytes(StandardCharsets.UTF_8);//Base64.decode(allData.get(i).getFinger_fmd(), Base64.DEFAULT);
+                                Fmd d_fmd = null;
+                                Fid d_fid = null;
+                                try {
+                                    d_fid = UareUGlobal.GetImporter().ImportFid(xml64Bytes, Fid.Format.ANSI_381_2004);
+                                    d_fmd = m_engine.CreateFmd(d_fid, ANSI_378_2004);
+
                                     try {
-                                        d_fid = UareUGlobal.GetImporter().ImportFid(xml64Bytes, Fid.Format.ANSI_381_2004);
-                                        d_fmd = m_engine.CreateFmd(d_fid, ANSI_378_2004);
 
-                                        try {
+                                        if (d_fmd != null) {
+                                            int m_score = m_engine.Compare(d_fmd, 0, m_engine.CreateFmd(Constants.cap_result, ANSI_378_2004), 0);
+                                            if (m_score < (0x7FFFFFFF / 100000)) {
+                                                Toast.makeText(getContext(), "Patient Already Registered matched!", Toast.LENGTH_LONG).show();
+                                                layoutfirst.setVisibility(View.GONE);
+                                                layoutsecond.setVisibility(View.GONE);
+                                                Submit.setVisibility(View.GONE);
+                                                break;
+                                            } else {
+//                                                Toast.makeText(getContext(), "not matched", Toast.LENGTH_LONG).show();
+                                                layoutfirst.setVisibility(View.VISIBLE);
+                                                layoutsecond.setVisibility(View.VISIBLE);
+                                                Submit.setVisibility(View.VISIBLE);
 
-                                            if (d_fmd != null) {
-                                                int m_score = m_engine.Compare(d_fmd, 0, m_engine.CreateFmd(Constants.cap_result, ANSI_378_2004), 0);
-                                                if (m_score < (0x7FFFFFFF / 100000)) {
-                                                    Toast.makeText(getContext(), "matched", Toast.LENGTH_LONG).show();
-                                                    layoutfirst.setVisibility(View.GONE);
-                                                    layoutsecond.setVisibility(View.GONE);
-                                                    Submit.setVisibility(View.GONE);
-//                                            btnSubmit.setVisibility(View.GONE);
-                                                } else {
-                                                    Toast.makeText(getContext(), "not matched", Toast.LENGTH_LONG).show();
-                                                    layoutfirst.setVisibility(View.VISIBLE);
-                                                    layoutsecond.setVisibility(View.VISIBLE);
-                                                    Submit.setVisibility(View.VISIBLE);
-//                                                btnSubmit.setVisibility(View.GONE);
-                                                }
                                             }
-
-                                        } catch (UareUException e) {
-                                            e.printStackTrace();
-                                            Log.d("----", e.getMessage());
                                         }
+
                                     } catch (UareUException e) {
                                         e.printStackTrace();
+                                        Log.d("----", e.getMessage());
                                     }
-
+                                } catch (UareUException e) {
+                                    e.printStackTrace();
                                 }
-                            }else {
-                                Toast.makeText(getContext(), "No Finger Print fount", Toast.LENGTH_SHORT).show();
+
                             }
+                        }
                     }
 
                     Log.d("---d---",Constants.Fmd + "");
                 }
 
-                break;
+                if (resultCode == RESULT_CANCELED)
+
+                {
+                    Toast.makeText(getContext(), "Operation Canceled", Toast.LENGTH_SHORT).show();
+                }
+
 
             }
-        }
 
-        if (resultCode == RESULT_CANCELED)
+            break;
 
-        {
-            Toast.makeText(getContext(), "Operation Canceled", Toast.LENGTH_SHORT).show();
         }
 
     }

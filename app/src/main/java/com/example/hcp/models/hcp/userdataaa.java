@@ -813,7 +813,7 @@ public class userdataaa extends Model {
     public static List<userdataaa> searchbyfingerprint(String fingerprint) {
         return new Select()
                 .from(userdataaa.class)
-                .where("finger_print1 = ?",fingerprint)
+                .where("finger_print2 = ?",fingerprint)
                 .execute();
     }
 
