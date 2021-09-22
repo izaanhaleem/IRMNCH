@@ -156,7 +156,6 @@ public class addPatientModel extends Model {
     public String  mrn_no;
 
 
-
     @Column(name = "patient_type")
     @SerializedName("patient_type")
     @Expose
@@ -188,22 +187,87 @@ public class addPatientModel extends Model {
     public Integer ISSample;
 
 
-    @Column(name = "finger_print1")
-    @SerializedName("finger_print1")
+    @Column(name = "finger_base64")
+    @SerializedName("finger_base64")
     @Expose
-    public String finger_print1;
+    public String finger_base64;
+
+    @Column(name = "finger_fmd")
+    @SerializedName("finger_fmd")
+    @Expose
+    public String finger_fmd;
+
+    @Column(name = "width")
+    @SerializedName("width")
+    @Expose
+    public int width;
+
+    @Column(name = "height")
+    @SerializedName("height")
+    @Expose
+    public int height;
+
+    @Column(name = "quality")
+    @SerializedName("quality")
+    @Expose
+    public int quality;
+
+    @Column(name = "cbeff_id")
+    @SerializedName("cbeff_id")
+    @Expose
+    public int cbeff_id;
 
     @Column(name = "finger_print2")
     @SerializedName("finger_print2")
     @Expose
     public String finger_print2;
 
-    public String getFinger_print1() {
-        return finger_print1;
+    public int getCbeff_id() {
+        return cbeff_id;
     }
 
-    public void setFinger_print1(String finger_print1) {
-        this.finger_print1 = finger_print1;
+    public void setCbeff_id(int cbeff_id) {
+        this.cbeff_id = cbeff_id;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public int getQuality() {
+        return quality;
+    }
+
+    public void setQuality(int quality) {
+        this.quality = quality;
+    }
+
+    public String getFinger_base64() {
+        return finger_base64;
+    }
+
+    public void setFinger_base64(String finger_base64) {
+        this.finger_base64 = finger_base64;
+    }
+
+    public String getFinger_fmd() {
+        return finger_fmd;
+    }
+
+    public void setFinger_fmd(String finger_fmd) {
+        this.finger_fmd = finger_fmd;
     }
 
     public String getFinger_print2() {

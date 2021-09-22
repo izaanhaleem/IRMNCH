@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Path;
-import android.icu.number.NumberFormatter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -773,8 +772,8 @@ public class DashboardFragment extends Fragment {
                 } else {
                     fmb.setMobile_id(0L);
                 }
-                if(paitents.get(i).getFinger_print1() !=null){
-                    fmb.setFinger_print1(paitents.get(i).getFinger_print1());
+                if(paitents.get(i).getFinger_base64() !=null){
+                    fmb.setFinger_print1(paitents.get(i).getFinger_base64());
                 }else {
                     fmb.setFinger_print1("");
                 }

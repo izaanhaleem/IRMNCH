@@ -60,7 +60,7 @@
         <activity
             android:name=".activities.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".activities.LoginActivity"
             android:screenOrientation="portrait" />
@@ -73,6 +73,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activities.VerificationActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".utils.GetCapabilitiesActivity" />
+        <activity android:name=".utils.GetReaderActivity" />
     </application>
 
 </manifest>

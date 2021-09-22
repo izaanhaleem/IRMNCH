@@ -1,12 +1,20 @@
 package com.example.hcp.fragments;
 
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.hardware.usb.UsbDevice;
+import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -40,9 +48,15 @@ import com.digitalpersona.uareu.Reader;
 import com.digitalpersona.uareu.UareUException;
 import com.digitalpersona.uareu.UareUGlobal;
 import com.digitalpersona.uareu.dpfpdd.ReaderCollectionImpl;
+import com.digitalpersona.uareu.dpfpddusbhost.DPFPDDUsbException;
+import com.digitalpersona.uareu.dpfpddusbhost.DPFPDDUsbHost;
 import com.example.hcp.activities.ScanActivity;
 import com.example.hcp.activities.ScanActivity2;
+import com.example.hcp.activities.VerificationActivity;
 import com.example.hcp.models.hcp.vitalListt;
+import com.example.hcp.utils.FormatHelper;
+import com.example.hcp.utils.GetReaderActivity;
+import com.example.hcp.utils.Globals;
 import com.example.hcp.utils.LAPI;
 import com.example.hcp.utils.MaskedEditText;
 import com.github.nikartm.support.StripedProcessButton;
@@ -68,6 +82,7 @@ import org.joda.time.Period;
 import org.joda.time.PeriodType;
 
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -79,9 +94,11 @@ import java.util.regex.Pattern;
 import asia.kanopi.fingerscan.Status;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
+import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static android.media.CamcorderProfile.get;
 import static com.activeandroid.Cache.getContext;
+import static com.digitalpersona.uareu.Fmd.Format.ANSI_378_2004;
 import static com.example.hcp.utils.Constants.context;
 
 
@@ -118,10 +135,13 @@ public class patientRegistration extends Fragment {
     ImageView image_flag;
     String encodedfingerprint;
     String encodedfingerprint2;
-    List<addPatientModel> allData;
-    private LAPI m_cLAPI;
-//    FingerprintTemplate candidate,probe;
-
+    List<addPatientModel> allData = new ArrayList<>();
+    private String m_sn = "";
+    private String m_deviceName = "";
+    Reader m_reader;
+    private final int GENERAL_ACTIVITY_RESULT = 1;
+    private static final String ACTION_USB_PERMISSION = "com.digitalpersona.uareu.dpfpddusbhost.USB_PERMISSION";
+    private Engine m_engine = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -164,12 +184,12 @@ public class patientRegistration extends Fragment {
         ivFingerprint2 = view.findViewById(R.id.ma_iv_fingerprint2);
         btScan2 = view.findViewById(R.id.ma_bt_scan2);
 
-        this.m_cLAPI = new LAPI(getActivity());
+        m_engine = UareUGlobal.GetEngine();
+
         encodedfingerprint = "";
         encodedfingerprint2 = "";
 
         allData = addPatientModel.getall();
-
 
         if (getArguments() != null) {
             isEidt = getArguments().getBoolean("isEdit");
@@ -183,7 +203,6 @@ public class patientRegistration extends Fragment {
 
             }
         }
-
 
         if (isEidt) {
 
@@ -380,8 +399,9 @@ public class patientRegistration extends Fragment {
         ivFingerprint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), ScanActivity.class);
-                startActivityForResult(intent, SCAN_FINGERPRINT);
+//                Intent intent = new Intent(getContext(), ScanActivity.class);
+//                startActivityForResult(intent, SCAN_FINGERPRINT);
+                launchGetReader();
             }
         });
 
@@ -396,131 +416,261 @@ public class patientRegistration extends Fragment {
         return view;
     }
 
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        switch (requestCode) {
+//            case SCAN_FINGERPRINT:
+//                if (resultCode == RESULT_OK) {
+//
+//
+//                    int status = data.getIntExtra("status", Status.ERROR);
+//
+//                    if (status == Status.SUCCESS) {
+//                        toast("Fingerprint OK!");
+//
+//                        byte[] img = data.getByteArrayExtra("img");
+////                         probe = new FingerprintTemplate().dpi(500).create(img);
+//
+//                        Bitmap bm = BitmapFactory.decodeByteArray(img, 0, img.length);
+//
+//                        c_fmd = m_engine.CreateFmd(img, ANSI_378_2004);
+//
+//                        for(int i=0;i<allData.size();i++)
+//
+//                        {
+//
+//                            byte[] decodedString1 = Base64.decode(allData.get(i).finger_print1, Base64.DEFAULT);
+//                            Bitmap decodedByte1 = BitmapFactory.decodeByteArray(decodedString1, 0, decodedString1.length);
+//
+//                            byte[] decodedString2 = Base64.decode(allData.get(i).finger_print2, Base64.DEFAULT);
+//                            Bitmap decodedByte2 = BitmapFactory.decodeByteArray(decodedString2, 0, decodedString2.length);
+//
+//                            try {
+//                                int target_falsematch_rate = Engine.PROBABILITY_ONE / 100000;
+//
+//
+//
+//
+//                                Reader.CaptureResult capture_result= new Reader.CaptureResult();
+//
+//                                Fmd dbfingerprint = UareUGlobal.GetImporter().ImportFmd(decodedString1, com.digitalpersona.uareu.Fmd.Format.DP_REG_FEATURES, com.digitalpersona.uareu.Fmd.Format.DP_REG_FEATURES);
+//                                Fmd currentfinger = UareUGlobal.GetImporter().ImportFmd(img, com.digitalpersona.uareu.Fmd.Format.DP_REG_FEATURES, com.digitalpersona.uareu.Fmd.Format.DP_REG_FEATURES);
+//
+////                                Fmd dbfingerprint = UareUGlobal.GetEngine().CreateFmd(decodedString1, 320, 350, 500, 1, 3407615, Fmd.Format.ANSI_378_2004);
+////                                Fmd currentfinger = UareUGlobal.GetEngine().CreateFmd(img, 320, 350, 500, 1, 3407615, Fmd.Format.ANSI_378_2004);
+//
+//                                Engine.Candidate[] matches = m_engine.Identify(currentfinger, 0, new Fmd[]{dbfingerprint}, target_falsematch_rate, 1);
+//
+//                                int falsematch_rate = m_engine.Compare(dbfingerprint, 0, currentfinger, 0);
+//
+//                                if (falsematch_rate < target_falsematch_rate) {
+//                                    Toast.makeText(getContext(),"Finger Detect"+dbfingerprint,Toast.LENGTH_LONG).show();
+//                                } else {
+//                                    Toast.makeText(getContext(),"Finger not Detect"+currentfinger,Toast.LENGTH_LONG).show();
+//                                }
+//
+//
+//
+////                                Fmd dbfingerprint = UareUGlobal.GetImporter().ImportFmd(decodedString1, Fmd.Format.ANSI_378_2004, Fmd.Format.ANSI_378_2004);
+//
+//                            } catch (UareUException e) {
+//                                e.printStackTrace();
+//                            }
+//
+//
+//
+//
+////                            if(compareByteArrays(img,decodedString1)>99.0){
+////                                Toast.makeText(getContext(),"Finger Detect"+print,Toast.LENGTH_LONG).show();
+////                            }else {
+////                                Toast.makeText(getContext(),"Finger not Detect",Toast.LENGTH_LONG).show();
+////                            }
+////                            if(decodedByte1.sameAs(bm) || decodedByte2.sameAs(bm)){
+////                                Toast.makeText(getContext(),"RecordFind",Toast.LENGTH_LONG).show();
+////                            }else{
+////                                Toast.makeText(getContext(),"Record Not Find",Toast.LENGTH_LONG).show();
+////                            }
+//                        }
+//
+//
+//
+//
+////                        compareTemplates(img);
+//                        encodedfingerprint = Base64.encodeToString(img, Base64.DEFAULT);
+//                        ivFingerprint.setImageBitmap(bm);
+//
+//
+//                        return;
+//                    }
+//                    toast(data.getStringExtra("errorMessage"));
+//                }
+//                break;
+//
+//            case SCAN_FINGERPRINT2:
+//                if (resultCode == RESULT_OK) {
+//
+//                    int status = data.getIntExtra("status", Status.ERROR);
+//
+//                    if (status == Status.SUCCESS) {
+//                        toast("Fingerprint OK!");
+//
+//                        byte[] img = data.getByteArrayExtra("img");
+//
+////                        candidate = new FingerprintTemplate()
+////                                .dpi(500)
+////                                .create(img);
+//
+//                        Bitmap bm = BitmapFactory.decodeByteArray(img, 0, img.length);
+//                        encodedfingerprint2 = Base64.encodeToString(img, Base64.DEFAULT);
+//                        ivFingerprint2.setImageBitmap(bm);
+//                        return;
+//                    }
+//                    toast(data.getStringExtra("errorMessage"));
+//                }
+//                break;
+//
+//
+//        }
+//
+//    }
+
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+
+    {
+
         super.onActivityResult(requestCode, resultCode, data);
 
-        switch (requestCode) {
-            case SCAN_FINGERPRINT:
-                if (resultCode == RESULT_OK) {
 
+        switch (requestCode)
+        {
 
-                    int status = data.getIntExtra("status", Status.ERROR);
+            case (1):
 
-                    if (status == Status.SUCCESS) {
-                        toast("Fingerprint OK!");
+            {
+                if (data == null)
 
-                        byte[] img = data.getByteArrayExtra("img");
-//                         probe = new FingerprintTemplate().dpi(500).create(img);
+                {
+                    displayReaderNotFound();
+                    return;
+                }
 
-                        Bitmap bm = BitmapFactory.decodeByteArray(img, 0, img.length);
-                        Engine enge= UareUGlobal.GetEngine();
+                Globals.ClearLastBitmap();
+                m_sn         = (String) data.getExtras().get("serial_number");
+                m_deviceName = (String) data.getExtras().get("device_name");
 
-                        for(int i=0;i<allData.size();i++){
+                if ((m_deviceName != null) && !m_deviceName.isEmpty()) {
 
-                            byte[] decodedString1 = Base64.decode(allData.get(i).finger_print1, Base64.DEFAULT);
-                            Bitmap decodedByte1 = BitmapFactory.decodeByteArray(decodedString1, 0, decodedString1.length);
+                    try
 
-                            byte[] decodedString2 = Base64.decode(allData.get(i).finger_print2, Base64.DEFAULT);
-                            Bitmap decodedByte2 = BitmapFactory.decodeByteArray(decodedString2, 0, decodedString2.length);
+                    {
+                        Context applContext = getContext();
+                        m_reader = Globals.getInstance().getReader(m_deviceName, applContext);
 
-                            try {
-                                int target_falsematch_rate = Engine.PROBABILITY_ONE / 100000;
+                        {
+                            PendingIntent mPermissionIntent;
+                            mPermissionIntent = PendingIntent.getBroadcast(applContext, 0, new Intent(ACTION_USB_PERMISSION), 0);
+                            IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
+                            applContext.registerReceiver(mUsbReceiver, filter);
 
+                            if (DPFPDDUsbHost.DPFPDDUsbCheckAndRequestPermissions(applContext, mPermissionIntent, m_deviceName)) {
+                                CheckDevice();
+                            }
+                        }
+                    }
 
-                                 Reader.CaptureResult capture_result= new Reader.CaptureResult();
-                                Fmd dbfingerprint = UareUGlobal
-                                        .GetImporter()
-                                        .ImportFmd(
-                                                decodedString1,
-                                                com.digitalpersona.uareu.Fmd.Format.DP_REG_FEATURES,
-                                                com.digitalpersona.uareu.Fmd.Format.DP_REG_FEATURES);
-                                Fmd currentfinger = UareUGlobal
-                                        .GetImporter()
-                                        .ImportFmd(
-                                                img,
-                                                com.digitalpersona.uareu.Fmd.Format.DP_REG_FEATURES,
-                                                com.digitalpersona.uareu.Fmd.Format.DP_REG_FEATURES);
+                    catch (UareUException | DPFPDDUsbException e1)
 
-//                                Fmd dbfingerprint = UareUGlobal.GetEngine().CreateFmd(decodedString1, 320, 350, 500, 1, 3407615, Fmd.Format.ANSI_378_2004);
-//                                Fmd currentfinger = UareUGlobal.GetEngine().CreateFmd(img, 320, 350, 500, 1, 3407615, Fmd.Format.ANSI_378_2004);
+                    {
+                        displayReaderNotFound();
+                    }
 
-//                                Engine engine = UareUGlobal.GetEngine();
-//                                Engine.Candidate[] matches = engine.Identify(currentfinger, 0,
-//                                        new Fmd[]{dbfingerprint}, target_falsematch_rate, 1);
-                                int falsematch_rate =enge.Compare(dbfingerprint, 0, currentfinger, 0);
+                }
 
-                                if (falsematch_rate < target_falsematch_rate) {
-                                    Toast.makeText(getContext(),"Finger Detect"+dbfingerprint,Toast.LENGTH_LONG).show();
-                                } else {
-                                    Toast.makeText(getContext(),"Finger not Detect"+currentfinger,Toast.LENGTH_LONG).show();
+                else
+
+                {
+                    displayReaderNotFound();
+                }
+
+                break;
+            }
+
+            case (2):
+
+            {
+                if (resultCode == RESULT_OK)
+
+                {
+                    byte[] decodedString = Base64.decode(Constants.FmdBase64, Base64.DEFAULT);
+                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                    ivFingerprint.setImageBitmap(decodedByte);
+
+                    if(allData.size() > 0)
+
+                    {
+                        for(int i=0;i<allData.size();i++)
+
+                        {
+                            byte[] xml64Bytes = Base64.decode(allData.get(i).getFinger_fmd(), Base64.DEFAULT);//allData.get(i).getFinger_fmd().getBytes(StandardCharsets.UTF_8);//Base64.decode(allData.get(i).getFinger_fmd(), Base64.DEFAULT);
+                            Fmd d_fmd = null;
+                            Fid d_fid = null;
+                            try
+
+                            {
+                                d_fid = UareUGlobal.GetImporter().ImportFid(xml64Bytes, Fid.Format.ANSI_381_2004);
+                                d_fmd = m_engine.CreateFmd(d_fid, ANSI_378_2004);
+
+                                try {
+
+                                    if(d_fmd != null)
+                                    {
+                                        int m_score = m_engine.Compare(d_fmd, 0, m_engine.CreateFmd(Constants.cap_result, ANSI_378_2004), 0);
+                                        if (m_score < (0x7FFFFFFF / 100000))
+                                        {
+                                            Toast.makeText(getContext(),"matched",Toast.LENGTH_LONG).show();
+                                        }
+
+                                        else
+
+                                            {
+                                                Toast.makeText(getContext(),"not matched",Toast.LENGTH_LONG).show();
+                                            }
+                                    }
+
+                                } catch (UareUException e) {
+                                    e.printStackTrace();
+                                    Log.d("----",e.getMessage());
                                 }
+                            }
+                            catch (UareUException e)
 
-
-
-//                                Fmd dbfingerprint = UareUGlobal.GetImporter().ImportFmd(decodedString1, Fmd.Format.ANSI_378_2004, Fmd.Format.ANSI_378_2004);
-
-                            } catch (UareUException e) {
+                            {
                                 e.printStackTrace();
                             }
 
-
-
-
-//                            if(compareByteArrays(img,decodedString1)>99.0){
-//                                Toast.makeText(getContext(),"Finger Detect"+print,Toast.LENGTH_LONG).show();
-//                            }else {
-//                                Toast.makeText(getContext(),"Finger not Detect",Toast.LENGTH_LONG).show();
-//                            }
-//                            if(decodedByte1.sameAs(bm) || decodedByte2.sameAs(bm)){
-//                                Toast.makeText(getContext(),"RecordFind",Toast.LENGTH_LONG).show();
-//                            }else{
-//                                Toast.makeText(getContext(),"Record Not Find",Toast.LENGTH_LONG).show();
-//                            }
                         }
-
-
-
-
-//                        compareTemplates(img);
-                        encodedfingerprint = Base64.encodeToString(img, Base64.DEFAULT);
-                        ivFingerprint.setImageBitmap(bm);
-
-
-                        return;
                     }
-                    toast(data.getStringExtra("errorMessage"));
+
+                    Log.d("---d---",Constants.Fmd + "");
                 }
-                break;
 
-            case SCAN_FINGERPRINT2:
-                if (resultCode == RESULT_OK) {
+                if (resultCode == RESULT_CANCELED)
 
-                    int status = data.getIntExtra("status", Status.ERROR);
-
-                    if (status == Status.SUCCESS) {
-                        toast("Fingerprint OK!");
-
-                        byte[] img = data.getByteArrayExtra("img");
-
-//                        candidate = new FingerprintTemplate()
-//                                .dpi(500)
-//                                .create(img);
-
-                        Bitmap bm = BitmapFactory.decodeByteArray(img, 0, img.length);
-                        encodedfingerprint2 = Base64.encodeToString(img, Base64.DEFAULT);
-                        ivFingerprint2.setImageBitmap(bm);
-                        return;
-                    }
-                    toast(data.getStringExtra("errorMessage"));
+                {
+                    Toast.makeText(getContext(), "Operation Canceled", Toast.LENGTH_SHORT).show();
                 }
-                break;
 
+
+            }
+
+            break;
 
         }
 
     }
-
 
     private void toast(String msg) {
         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
@@ -668,9 +818,14 @@ public class patientRegistration extends Fragment {
             FL.setIdentifier(new SharedPref(getContext()).GetserverID());
             FL.setUser_id(new SharedPref(getContext()).GetLoggedInRole());
             FL.setHospital_id(new SharedPref(getContext()).GetLoggedInUser());
+            FL.setFinger_base64(Constants.FmdBase64);
+            final String xml64 = Base64.encodeToString(Constants.cap_result.getData(), Base64.DEFAULT);
+            FL.setFinger_fmd(xml64);
+            FL.setWidth(Constants.width);
+            FL.setHeight(Constants.height);
+            FL.setCbeff_id(Constants.cbeff_id);
+            FL.setQuality(Constants.quality);
 
-            FL.finger_print1 = encodedfingerprint;
-            FL.finger_print2 = encodedfingerprint2;
 
             FL.save();
 
@@ -1655,35 +1810,35 @@ public class patientRegistration extends Fragment {
 
     }
 
-    public void compareTemplates(byte[] img) {
-        boolean status = false;
-
-
-        String id = null;
-
-        byte[] decoded = org.apache.commons.codec.binary.Base64.decodeBase64(img);
-
-        for (int i = 0; i < allData.size(); i++) {
-
-            if (allData.get(i).getFinger_print1() != null) {
-                byte[] a = org.apache.commons.codec.binary.Base64.decodeBase64(allData.get(i).getFinger_print1().getBytes());
-
-                if (COMPARE_ISO_TEMPS(decoded, a) >= 50) {
-                    status = true;
-                    Toast.makeText(getContext(),"Find Result",Toast.LENGTH_LONG).show();
-                    break;
-                }
-            }
-
-        }
-
-    }
-
-    public int COMPARE_ISO_TEMPS(byte[] tempScanner, byte[] tempDatabase) {
-        int score = this.m_cLAPI.CompareISO_Templates(this.m_hDevice, tempScanner, tempDatabase);
-        String format = String.format("CompareANSITemplates() = %d", new Object[]{Integer.valueOf(score)});
-        return score;
-    }
+//    public void compareTemplates(byte[] img) {
+//        boolean status = false;
+//
+//
+//        String id = null;
+//
+//        byte[] decoded = org.apache.commons.codec.binary.Base64.decodeBase64(img);
+//
+//        for (int i = 0; i < allData.size(); i++) {
+//
+//            if (allData.get(i).getFinger_print1() != null) {
+//                byte[] a = org.apache.commons.codec.binary.Base64.decodeBase64(allData.get(i).getFinger_print1().getBytes());
+//
+//                if (COMPARE_ISO_TEMPS(decoded, a) >= 50) {
+//                    status = true;
+//                    Toast.makeText(getContext(),"Find Result",Toast.LENGTH_LONG).show();
+//                    break;
+//                }
+//            }
+//
+//        }
+//
+//    }
+//
+//    public int COMPARE_ISO_TEMPS(byte[] tempScanner, byte[] tempDatabase) {
+//        int score = this.m_cLAPI.CompareISO_Templates(this.m_hDevice, tempScanner, tempDatabase);
+//        String format = String.format("CompareANSITemplates() = %d", new Object[]{Integer.valueOf(score)});
+//        return score;
+//    }
 
     public double compareByteArrays(byte[] a, byte[] b) {
         int n = Math.min(a.length, b.length), nLarge = Math.max(a.length, b.length);
@@ -1692,4 +1847,87 @@ public class patientRegistration extends Fragment {
             if (a[i] != b[i]) unequalCount++;
         return unequalCount * 100.0 / nLarge;
     }
+
+
+    protected void launchGetReader()
+    {
+        Intent i = new Intent(getContext(), GetReaderActivity.class);
+        i.putExtra("serial_number", m_sn);
+        i.putExtra("device_name", m_deviceName);
+        startActivityForResult(i, 1);
+    }
+
+    public void CheckDevice()
+
+    {
+        try {
+            m_reader.Open(Reader.Priority.EXCLUSIVE);
+            launchCaptureFingerprint();
+            m_reader.Close();
+
+        } catch (UareUException e1) {
+            displayReaderNotFound();
+        }
+
+    }
+
+    protected void launchCaptureFingerprint() {
+
+        Intent i = new Intent(getContext(), VerificationActivity.class);
+        i.putExtra("serial_number", m_sn);
+        i.putExtra("device_name", m_deviceName);
+        startActivityForResult(i, 2);
+    }
+
+    private void displayReaderNotFound()
+
+    {
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+
+        alertDialogBuilder.setTitle("Reader Not Found");
+
+        alertDialogBuilder
+                .setMessage("Plug in a reader and try again.")
+                .setCancelable(false)
+                .setPositiveButton("Ok",
+                        (dialog, id) -> {
+                        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    private final BroadcastReceiver mUsbReceiver = new BroadcastReceiver()
+
+    {
+        public void onReceive(Context context, Intent intent)
+        {
+
+            String action = intent.getAction();
+
+            if (ACTION_USB_PERMISSION.equals(action))
+
+            {
+                synchronized (this)
+
+                {
+                    UsbDevice device = (UsbDevice)intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+                    if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false))
+                    {
+                        if(device != null)
+                        {
+                            //call method to set up device communication
+                            CheckDevice();
+                        }
+                    }
+                    else
+                    {
+                        // setButtonsEnabled(false);
+                    }
+                }
+            }
+        }
+    };
+
 }

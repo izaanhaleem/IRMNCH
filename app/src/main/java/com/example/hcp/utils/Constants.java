@@ -2,6 +2,10 @@ package com.example.hcp.utils;
 
 import android.content.Context;
 
+import com.digitalpersona.uareu.Fid;
+import com.digitalpersona.uareu.Fmd;
+import com.digitalpersona.uareu.Reader;
+
 public class Constants {
 
 //    private static Constants _instance = null;
@@ -68,6 +72,16 @@ public class Constants {
     public static final String ErrorLog = "ErrorLog";
     public static final String USERNAME = "USERNAME";
     public static final String PASSWORD = "PASSWORD";
+
+    public static Fmd FmdTest = null;
+    public static String FmdBase64 = null;
+    public static String Fmd = null;
+    public static int width = 0;
+    public static int height = 0;
+    public static int quality = 0;
+    public static int cbeff_id = 0;
+
+    public static Fid cap_result = null;
 
 
 

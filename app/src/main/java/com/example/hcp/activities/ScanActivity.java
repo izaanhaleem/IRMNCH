@@ -9,7 +9,6 @@ import android.os.Looper;
 import android.os.Message;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.hcp.R;
 
 import asia.kanopi.fingerscan.Fingerprint;
@@ -93,9 +92,17 @@ public class ScanActivity extends AppCompatActivity {
             Intent intent = new Intent();
             intent.putExtra("status", status);
 
-            if (status == Status.SUCCESS) {
+            if (status == Status.SUCCESS)
+
+            {
+               // Reader.CaptureResult cap_result = null;
+               // cap_result = m_reader.Capture(Fid.Format.ANSI_381_2004, Reader.ImageProcessing.IMG_PROC_DEFAULT, 500, -1);
                 intent.putExtra("img", msg.getData().getByteArray("img"));
-            } else {
+            }
+
+            else
+
+            {
                 intent.putExtra("errorMessage", msg.getData().getString("errorMessage"));
             }
             setResult(RESULT_OK, intent);
