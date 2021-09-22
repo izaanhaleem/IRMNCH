@@ -88,7 +88,7 @@ public class AssessmentDashboard extends Fragment {
         } else {
             List<addPatientModel> vitals;
             switch (SelectedOptionIndex) {
-                case 3:
+                case 4:
                     vitals = addPatientModel.searchByNameAssessment(SelectedOptionVal);
                     if (vitals.size() > 0) {
 
@@ -100,6 +100,7 @@ public class AssessmentDashboard extends Fragment {
 
                     break;
                 case 2:
+                case 3:
                     vitals = addPatientModel.searchByISAssessment(SelectedOptionVal);
                     if (vitals.size() > 0) {
 
@@ -109,14 +110,14 @@ public class AssessmentDashboard extends Fragment {
                         Toast.makeText(getContext(), "NO Record Found", Toast.LENGTH_LONG).show();
                     }
                     break;
-                case 1:
-//                    vitalpatient = vitalListt.searchBymrno(SelectedOptionVal);
-//                    if (vitalpatient.size() > 0) {
-//                        SetDataArrayy(vitalpatient);
+//                case 1:
+//                    vitals = addPatientModel.searchByMRNISAssessment(SelectedOptionVal);
+//                    if (vitals.size() > 0) {
+//                        SetDataArrayy(vitals);
 //                    } else {
 //                        Toast.makeText(getContext(), "NO Record Found", Toast.LENGTH_LONG).show();
 //                    }
-                    break;
+//                    break;
 
 
             }
@@ -193,6 +194,7 @@ public class AssessmentDashboard extends Fragment {
         categoriesEng.add("select option");
         categoriesEng.add("Mr No");
         categoriesEng.add("CNIC");
+        categoriesEng.add("Afghan CNIC");
         categoriesEng.add("Full Name");
 
 
@@ -227,6 +229,13 @@ public class AssessmentDashboard extends Fragment {
 //                        OptionValue.setInputType(InputType.TYPE_CLASS_NUMBER);
 //
                     }else if(SearchOptions.getSelectedItemPosition() == 3){
+////                        OptionValue.addTextChangedListener(new Mask("#############"));
+
+                        OptionValue.setInputType(InputType.TYPE_CLASS_TEXT);
+                        OptionValue.setText("");
+                        OptionValue.setMask("AA-99999999999");
+
+                    }else if(SearchOptions.getSelectedItemPosition() == 4){
 ////                        OptionValue.addTextChangedListener(new Mask("#############"));
 
                         OptionValue.setInputType(InputType.TYPE_CLASS_TEXT);

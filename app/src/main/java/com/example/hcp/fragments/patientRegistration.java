@@ -135,7 +135,7 @@ public class patientRegistration extends Fragment {
     ImageView image_flag;
     String encodedfingerprint;
     String encodedfingerprint2;
-    List<addPatientModel> allData = new ArrayList<>();
+    List<userdataaa> allData = new ArrayList<>();
     private String m_sn = "";
     private String m_deviceName = "";
     Reader m_reader;
@@ -189,7 +189,7 @@ public class patientRegistration extends Fragment {
         encodedfingerprint = "";
         encodedfingerprint2 = "";
 
-        allData = addPatientModel.getall();
+        allData = userdataaa.getall();
 
         if (getArguments() != null) {
             isEidt = getArguments().getBoolean("isEdit");
@@ -405,13 +405,13 @@ public class patientRegistration extends Fragment {
             }
         });
 
-        ivFingerprint2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), ScanActivity2.class);
-                startActivityForResult(intent, SCAN_FINGERPRINT2);
-            }
-        });
+//        ivFingerprint2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getContext(), ScanActivity2.class);
+//                startActivityForResult(intent, SCAN_FINGERPRINT2);
+//            }
+//        });
 
         return view;
     }
@@ -543,65 +543,64 @@ public class patientRegistration extends Fragment {
 
         super.onActivityResult(requestCode, resultCode, data);
 
+        if (resultCode == RESULT_OK)
 
-        switch (requestCode)
         {
-
-            case (1):
-
+            switch (requestCode)
             {
-                if (data == null)
+
+                case (1):
 
                 {
-                    displayReaderNotFound();
-                    return;
-                }
-
-                Globals.ClearLastBitmap();
-                m_sn         = (String) data.getExtras().get("serial_number");
-                m_deviceName = (String) data.getExtras().get("device_name");
-
-                if ((m_deviceName != null) && !m_deviceName.isEmpty()) {
-
-                    try
+                    if (data == null)
 
                     {
-                        Context applContext = getContext();
-                        m_reader = Globals.getInstance().getReader(m_deviceName, applContext);
-
-                        {
-                            PendingIntent mPermissionIntent;
-                            mPermissionIntent = PendingIntent.getBroadcast(applContext, 0, new Intent(ACTION_USB_PERMISSION), 0);
-                            IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
-                            applContext.registerReceiver(mUsbReceiver, filter);
-
-                            if (DPFPDDUsbHost.DPFPDDUsbCheckAndRequestPermissions(applContext, mPermissionIntent, m_deviceName)) {
-                                CheckDevice();
-                            }
-                        }
+                        displayReaderNotFound();
+                        return;
                     }
 
-                    catch (UareUException | DPFPDDUsbException e1)
+                    Globals.ClearLastBitmap();
+                    m_sn         = (String) data.getExtras().get("serial_number");
+                    m_deviceName = (String) data.getExtras().get("device_name");
+
+                    if ((m_deviceName != null) && !m_deviceName.isEmpty()) {
+
+                        try
+
+                        {
+                            Context applContext = getContext();
+                            m_reader = Globals.getInstance().getReader(m_deviceName, applContext);
+
+                            {
+                                PendingIntent mPermissionIntent;
+                                mPermissionIntent = PendingIntent.getBroadcast(applContext, 0, new Intent(ACTION_USB_PERMISSION), 0);
+                                IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
+                                applContext.registerReceiver(mUsbReceiver, filter);
+
+                                if (DPFPDDUsbHost.DPFPDDUsbCheckAndRequestPermissions(applContext, mPermissionIntent, m_deviceName)) {
+                                    CheckDevice();
+                                }
+                            }
+                        }
+
+                        catch (UareUException | DPFPDDUsbException e1)
+
+                        {
+                            displayReaderNotFound();
+                        }
+
+                    }
+
+                    else
 
                     {
                         displayReaderNotFound();
                     }
 
+                    break;
                 }
 
-                else
-
-                {
-                    displayReaderNotFound();
-                }
-
-                break;
-            }
-
-            case (2):
-
-            {
-                if (resultCode == RESULT_OK)
+                case (2):
 
                 {
                     byte[] decodedString = Base64.decode(Constants.FmdBase64, Base64.DEFAULT);
@@ -612,62 +611,60 @@ public class patientRegistration extends Fragment {
 
                     {
                         for(int i=0;i<allData.size();i++)
+                            if(allData.get(i).finger_print2!=null) {
+                                {
+                                    byte[] xml64Bytes = Base64.decode(allData.get(i).finger_print2, Base64.DEFAULT);//allData.get(i).getFinger_fmd().getBytes(StandardCharsets.UTF_8);//Base64.decode(allData.get(i).getFinger_fmd(), Base64.DEFAULT);
+                                    Fmd d_fmd = null;
+                                    Fid d_fid = null;
+                                    try {
+                                        d_fid = UareUGlobal.GetImporter().ImportFid(xml64Bytes, Fid.Format.ANSI_381_2004);
+                                        d_fmd = m_engine.CreateFmd(d_fid, ANSI_378_2004);
 
-                        {
-                            byte[] xml64Bytes = Base64.decode(allData.get(i).getFinger_fmd(), Base64.DEFAULT);//allData.get(i).getFinger_fmd().getBytes(StandardCharsets.UTF_8);//Base64.decode(allData.get(i).getFinger_fmd(), Base64.DEFAULT);
-                            Fmd d_fmd = null;
-                            Fid d_fid = null;
-                            try
+                                        try {
 
-                            {
-                                d_fid = UareUGlobal.GetImporter().ImportFid(xml64Bytes, Fid.Format.ANSI_381_2004);
-                                d_fmd = m_engine.CreateFmd(d_fid, ANSI_378_2004);
-
-                                try {
-
-                                    if(d_fmd != null)
-                                    {
-                                        int m_score = m_engine.Compare(d_fmd, 0, m_engine.CreateFmd(Constants.cap_result, ANSI_378_2004), 0);
-                                        if (m_score < (0x7FFFFFFF / 100000))
-                                        {
-                                            Toast.makeText(getContext(),"matched",Toast.LENGTH_LONG).show();
-                                        }
-
-                                        else
-
-                                            {
-                                                Toast.makeText(getContext(),"not matched",Toast.LENGTH_LONG).show();
+                                            if (d_fmd != null) {
+                                                int m_score = m_engine.Compare(d_fmd, 0, m_engine.CreateFmd(Constants.cap_result, ANSI_378_2004), 0);
+                                                if (m_score < (0x7FFFFFFF / 100000)) {
+                                                    Toast.makeText(getContext(), "matched", Toast.LENGTH_LONG).show();
+                                                    layoutfirst.setVisibility(View.GONE);
+                                                    layoutsecond.setVisibility(View.GONE);
+                                                    Submit.setVisibility(View.GONE);
+//                                            btnSubmit.setVisibility(View.GONE);
+                                                } else {
+                                                    Toast.makeText(getContext(), "not matched", Toast.LENGTH_LONG).show();
+                                                    layoutfirst.setVisibility(View.VISIBLE);
+                                                    layoutsecond.setVisibility(View.VISIBLE);
+                                                    Submit.setVisibility(View.VISIBLE);
+//                                                btnSubmit.setVisibility(View.GONE);
+                                                }
                                             }
+
+                                        } catch (UareUException e) {
+                                            e.printStackTrace();
+                                            Log.d("----", e.getMessage());
+                                        }
+                                    } catch (UareUException e) {
+                                        e.printStackTrace();
                                     }
 
-                                } catch (UareUException e) {
-                                    e.printStackTrace();
-                                    Log.d("----",e.getMessage());
                                 }
+                            }else {
+                                Toast.makeText(getContext(), "No Finger Print fount", Toast.LENGTH_SHORT).show();
                             }
-                            catch (UareUException e)
-
-                            {
-                                e.printStackTrace();
-                            }
-
-                        }
                     }
 
                     Log.d("---d---",Constants.Fmd + "");
                 }
 
-                if (resultCode == RESULT_CANCELED)
-
-                {
-                    Toast.makeText(getContext(), "Operation Canceled", Toast.LENGTH_SHORT).show();
-                }
-
+                break;
 
             }
+        }
 
-            break;
+        if (resultCode == RESULT_CANCELED)
 
+        {
+            Toast.makeText(getContext(), "Operation Canceled", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -1017,7 +1014,7 @@ public class patientRegistration extends Fragment {
                         layoutfirst.setVisibility(View.VISIBLE);
                         layoutsecond.setVisibility(View.VISIBLE);
                         Submit.setVisibility(View.VISIBLE);
-                        btnSubmit.setVisibility(View.GONE);
+//                        btnSubmit.setVisibility(View.GONE);
 
                         Toast.makeText(getContext(), "NO Record Found", Toast.LENGTH_LONG).show();
                     }
@@ -1059,7 +1056,7 @@ public class patientRegistration extends Fragment {
             layoutfirst.setVisibility(View.VISIBLE);
             layoutsecond.setVisibility(View.VISIBLE);
             Submit.setVisibility(View.VISIBLE);
-            btnSubmit.setVisibility(View.GONE);
+//            btnSubmit.setVisibility(View.GONE);
 //            }
 
 //        }

@@ -86,7 +86,7 @@ public class SampleDashboard extends Fragment {
         } else {
             List<addPatientModel> vitals;
             switch (SelectedOptionIndex) {
-                case 3:
+                case 4:
                     vitals = addPatientModel.searchByNameSample(SelectedOptionVal);
                     if (vitals.size() > 0) {
 
@@ -98,6 +98,7 @@ public class SampleDashboard extends Fragment {
 
                     break;
                 case 2:
+                case 3:
                     vitals = addPatientModel.searchByCNICSample(SelectedOptionVal);
                     if (vitals.size() > 0) {
 
@@ -191,6 +192,7 @@ public class SampleDashboard extends Fragment {
         categoriesEng.add("select option");
         categoriesEng.add("Mr No");
         categoriesEng.add("CNIC");
+        categoriesEng.add("Afghan CNIC");
         categoriesEng.add("Full Name");
 
 

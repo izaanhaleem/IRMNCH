@@ -30,7 +30,7 @@
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation_view"
-        android:layout_width="220dp"
+        android:layout_width="350dp"
         android:layout_height="match_parent"
         android:background="#FFF"
         android:clickable="true"

@@ -325,7 +325,6 @@ public class DashboardFragment extends Fragment {
             } catch (IllegalStateException ignored) {
             }
         }
-
     }
 
     void Search() {
@@ -338,6 +337,7 @@ public class DashboardFragment extends Fragment {
             Toast.makeText(getContext(), "Please Select Option from Search Dropdown", Toast.LENGTH_SHORT).show();
         } else {
             List<userdataaa> leaders;
+            List<addPatientModel> localpatinets;
             switch (SelectedOptionIndex) {
                 case 1:
                     leaders = userdataaa.searchByMRNOLeader(SelectedOptionVal);
@@ -347,31 +347,42 @@ public class DashboardFragment extends Fragment {
                         Toast.makeText(getContext(), "NO Record Found", Toast.LENGTH_LONG).show();
                     }
                     break;
-                case 2:
-                    leaders = userdataaa.searchByCNICLeader(SelectedOptionVal);
-                    if (leaders.size() > 0) {
-                        SetDataArrayy(leaders);
-                    } else {
-                        Toast.makeText(getContext(), "NO Record Found", Toast.LENGTH_LONG).show();
-                    }
-                    break;
                 case 3:
-                    leaders = userdataaa.searchBynameLeader(SelectedOptionVal);
-                    if (leaders.size() > 0) {
+                case 2:
+
+                    leaders = userdataaa.searchByCNICLeader(SelectedOptionVal);
+                    localpatinets = addPatientModel.searchByCNICLeader(SelectedOptionVal);
+
+                    if (leaders.size() != 0) {
                         SetDataArrayy(leaders);
                     } else {
                         Toast.makeText(getContext(), "NO Record Found", Toast.LENGTH_LONG).show();
                     }
                     break;
                 case 4:
+                    leaders = userdataaa.searchBynameLeader(SelectedOptionVal);
+                    localpatinets = addPatientModel.searchBynameLeader(SelectedOptionVal);
+                    if (leaders.size() != 0) {
+                        SetDataArrayy(leaders);
+                    } else if(localpatinets.size()!=0) {
+                        SetDataArrayylocal(localpatinets);
+                    }else {
+                        Toast.makeText(getContext(), "NO Record Found", Toast.LENGTH_LONG).show();
+                          }
+                    break;
+                case 5:
                     leaders = userdataaa.searchByPhoneLeader(SelectedOptionVal);
                     if (leaders.size() > 0) {
                         SetDataArrayy(leaders);
-                    } else {
+                    }
+//                    else if(localpatinets.size() !=0){
+//                        SetDataArrayylocal(localpatinets);
+//                    }
+                    else {
                         Toast.makeText(getContext(), "NO Record Found", Toast.LENGTH_LONG).show();
                     }
                     break;
-                case 5:
+                case 6:
                     leaders = userdataaa.searchbyfingerprint(encodedfingerprint);
                     if (leaders.size() > 0) {
                         SetDataArrayy(leaders);
@@ -415,6 +426,7 @@ public class DashboardFragment extends Fragment {
                         OptionValue.setInputType(InputType.TYPE_CLASS_TEXT);
                         OptionValue.setText("");
                         OptionValue.setMask("AAA-99-99-99999999999");
+                        ma_iv_fingerprint.setVisibility(View.GONE);
 //                        editlayout.setVisibility(View.VISIBLE);
 //                        OptionValue.addTextChangedListener(Mask.insert(Mask.Mrn_MASK, OptionValue));
                     }else if(SearchOptions.getSelectedItemPosition() == 2){
@@ -424,14 +436,14 @@ public class DashboardFragment extends Fragment {
                         OptionValue.setMask("99999-9999999-9");
 //                        editlayout.setVisibility(View.VISIBLE);
 //                        OptionValue.setInputType(InputType.TYPE_CLASS_NUMBER);
-//
+                        ma_iv_fingerprint.setVisibility(View.GONE);
                     }else if(SearchOptions.getSelectedItemPosition() == 3){
 ////                        OptionValue.addTextChangedListener(new Mask("#############"));
 
                         OptionValue.setInputType(InputType.TYPE_CLASS_TEXT);
                         OptionValue.setText("");
                         OptionValue.setMask("AA-99999999999");
-
+                        ma_iv_fingerprint.setVisibility(View.GONE);
 //                        editlayout.setVisibility(View.VISIBLE);
                     }else if(SearchOptions.getSelectedItemPosition() == 4){
 ////                        OptionValue.addTextChangedListener(new Mask("####-#######"));
@@ -441,7 +453,7 @@ public class DashboardFragment extends Fragment {
                         OptionValue.setMask("");
 
 
-
+                        ma_iv_fingerprint.setVisibility(View.GONE);
 //                        editlayout.setVisibility(View.VISIBLE);
                     }else if(SearchOptions.getSelectedItemPosition() == 5){
 
@@ -449,8 +461,10 @@ public class DashboardFragment extends Fragment {
                         OptionValue.setText("");
                         OptionValue.setMask("9999-9999999");
                         OptionValue.setHint("9999-9999999");
-
+                        ma_iv_fingerprint.setVisibility(View.GONE);
                     }else if(SearchOptions.getSelectedItemPosition() == 6){
+                        //finger print search
+
                         ma_iv_fingerprint.setVisibility(View.VISIBLE);
                     }
 
@@ -515,7 +529,49 @@ public class DashboardFragment extends Fragment {
         }
 
     }
+    public void SetDataArrayylocal(List<addPatientModel> lcoal) {
+        PatientDataParceable[] FDP = new PatientDataParceable[lcoal.size()];
+        for (int i = 0; i < FDP.length; i++) {
+            FDP[i] = new PatientDataParceable();
+//            FDP[i].Address        =    SFR.get(i).getAddress();
 
+//            FDP[i].Address = "Address";
+//            FDP[i].FamilyId = SFR.get(i).getFamilyId().toString();
+//            FDP[i].MrNo = SFR.get(i).mrn_no;
+//            if (SFR.get(i).getFamilyMemberId() != null) {
+//                FDP[i].LeaderId = SFR.get(i).getFamilyMemberId().toString();
+//            } else {
+//                FDP[i].LeaderId = "N/A";
+//
+//            }
+
+            if (lcoal.get(i).patient_name != null) {
+                FDP[i].PatientName = lcoal.get(i).patient_name;
+            } else {
+                FDP[i].PatientName = "N/A";
+
+            }
+            FDP[i].contactNo = lcoal.get(i).contact_no_self;
+            FDP[i].LeaderCNIC = lcoal.get(i).self_cnic;
+            FDP[i].MrNo = lcoal.get(i).mrn_no;
+        }
+
+        Fragment SRFragment = new SearchResultFragment();
+
+        Bundle args = new Bundle();
+        args.putSerializable("FDP", FDP);
+
+        if (SRFragment != null) {
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+            SRFragment.setArguments(args);
+            try {
+                transaction.add(R.id.content_frame, SRFragment, "searchFragment").addToBackStack(null).commit();
+            } catch (IllegalStateException ignored) {
+            }
+        }
+
+    }
     public void pendingvitals(){
         List<addPatientModel> pendingvitals = addPatientModel.searchallISvital();
         List<addPatientModel> pendingassessment = addPatientModel.pendingassessments();
@@ -611,21 +667,12 @@ public class DashboardFragment extends Fragment {
                 }
                 if (paitents.get(i).getPatient_name() != null) {
                     fmb.setPatient_name(paitents.get(i).getPatient_name());
-                } else {
-                    fmb.setPatient_name("");
-
                 }
                 if (paitents.get(i).getLname() != null) {
                     fmb.setLname(paitents.get(i).getLname());
-                } else {
-                    fmb.setLname("");
-
                 }
                 if (paitents.get(i).getFather_name() != null) {
                     fmb.setFather_name(paitents.get(i).getFather_name());
-                } else {
-                    fmb.setFather_name("");
-
                 }
                 if (paitents.get(i).getPatient_age() != null) {
                     fmb.setPatient_age(paitents.get(i).getPatient_age());
@@ -635,9 +682,6 @@ public class DashboardFragment extends Fragment {
                 }
                 if (paitents.get(i).getPatient_dob() != null) {
                     fmb.setPatient_dob(paitents.get(i).getPatient_dob());
-                } else {
-                    fmb.setPatient_dob("");
-
                 }
                 if (paitents.get(i).getGender() != null) {
                     fmb.setGender(paitents.get(i).getGender());
@@ -647,72 +691,39 @@ public class DashboardFragment extends Fragment {
                 }
                 if (paitents.get(i).getSelf_cnic() != null) {
                     fmb.setSelf_cnic(paitents.get(i).getSelf_cnic());
-                } else {
-                    fmb.setSelf_cnic("");
-
                 }
                 if (paitents.get(i).getContact_no_self() != null) {
                     fmb.setContact_no_self(paitents.get(i).getContact_no_self());
-                } else {
-                    fmb.setContact_no_self("");
-
                 }
                 if (paitents.get(i).getAddress() != null) {
                     fmb.setAddress(paitents.get(i).getAddress());
-                } else {
-                    fmb.setAddress("");
-
                 }
                 if (paitents.get(i).getMarital_status() != null) {
                     fmb.setMarital_status(paitents.get(i).getMarital_status());
-                } else {
-                    fmb.setMarital_status("");
-
                 }
                 if (paitents.get(i).getOccupation() != null) {
                     fmb.setOccupation(paitents.get(i).getOccupation());
-                } else {
-                    fmb.setOccupation("");
-
                 }
                 if (paitents.get(i).getQualification() != null) {
                     fmb.setQualification(paitents.get(i).getQualification());
-                } else {
-                    fmb.setQualification("");
-
                 }
                 if (paitents.get(i).getPatient_age_80() != null) {
                     fmb.setPatient_age_80(paitents.get(i).getPatient_age_80());
-                } else {
-                    fmb.setPatient_age_80("");
-
                 }
                 if (paitents.get(i).getPrevious_hbv() != null) {
                     fmb.setPrevious_hbv(paitents.get(i).getPrevious_hbv());
-                } else {
-                    fmb.setPrevious_hbv("");
-
                 }
                 if (paitents.get(i).getPrevious_hcv() != null) {
                     fmb.setPrevious_hcv(paitents.get(i).getPrevious_hcv());
-                } else {
-                    fmb.setPrevious_hcv("");
-
                 }
 
 //            fmb.setIsActive(leaders.get(i).getIsActive());
                 if (paitents.get(i).getPcr_confirmation_hbv() != null) {
                     fmb.setPcr_confirmation_hbv(paitents.get(i).getPcr_confirmation_hbv());
-                } else {
-                    fmb.setPcr_confirmation_hbv("");
-
                 }
 
                 if (paitents.get(i).getPcr_confirmation_hcv() != null) {
                     fmb.setPcr_confirmation_hcv(paitents.get(i).getPcr_confirmation_hcv());
-                } else {
-                    fmb.setPcr_confirmation_hcv("");
-
                 }
 
                 if (paitents.get(i).getDivision() != null) {
@@ -744,28 +755,17 @@ public class DashboardFragment extends Fragment {
                 }
                 if (paitents.get(i).getIdentifier() != null) {
                     fmb.setIdentifier(paitents.get(i).getIdentifier());
-                } else {
-                    fmb.setIdentifier("");
-
                 }
 
                 if (paitents.get(i).getUser_id() != null) {
                     fmb.setUser_id(paitents.get(i).getUser_id());
-                } else {
-                    fmb.setUser_id("");
                 }
 
                 if (paitents.get(i).getHospital_id() != null) {
                     fmb.setHospital_id(paitents.get(i).getHospital_id());
-                } else {
-                    fmb.setHospital_id("");
-
                 }
                 if (paitents.get(i).getPatient_type() != null) {
                     fmb.setPatient_type(paitents.get(i).getPatient_type());
-                } else {
-                    fmb.setPatient_type("");
-
                 }
                 if (paitents.get(i).getId() != null) {
                     fmb.setMobile_id(paitents.get(i).getId());
@@ -774,13 +774,9 @@ public class DashboardFragment extends Fragment {
                 }
                 if(paitents.get(i).getFinger_base64() !=null){
                     fmb.setFinger_print1(paitents.get(i).getFinger_base64());
-                }else {
-                    fmb.setFinger_print1("");
                 }
-                if(paitents.get(i).getFinger_print2() !=null){
-                    fmb.setFinger_print2(paitents.get(i).getFinger_print2());
-                }else {
-                    fmb.setFinger_print2("");
+                if(paitents.get(i).getFinger_fmd() !=null){
+                    fmb.setFinger_print2(paitents.get(i).getFinger_fmd());
                 }
 
 //                List<addPatientModel> pati = new ArrayList<addPatientModel>();

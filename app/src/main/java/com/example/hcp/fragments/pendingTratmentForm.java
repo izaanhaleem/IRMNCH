@@ -56,7 +56,7 @@ public class pendingTratmentForm extends Fragment {
     int SelectedOptionIndex,SelectedOptionIndexmed,SelectedOptionIndexmedhbv;
     LinearLayout allLayout,renalfunctionlayout,vitalandweightlayout,treatmentanddrugLayout,medicineLayout,checkboxsLayout,hcvlayout,hbvlayout;
     SwitchCompat drugconfirm;
-    TextView text,hcvvira,hbvviral;
+    TextView text,text2,hcvvira,hbvviral;
     Button addpendingBtn;
     public double apri_value;
     public String drug_interaction;
@@ -109,6 +109,7 @@ public class pendingTratmentForm extends Fragment {
         Weight = view.findViewById(R.id.Weight);
         drugconfirm = view.findViewById(R.id.drugconfirm);
         text = view.findViewById(R.id.text);
+        text2 = view.findViewById(R.id.text2);
         hcvvira = view.findViewById(R.id.hcvvira);
         hbvviral = view.findViewById(R.id.hbvviral);
         addpendingBtn = view.findViewById(R.id.addpendingBtn);
@@ -1020,9 +1021,9 @@ alt.addTextChangedListener(new TextWatcher() {
                     selectedmedicine_prescription = categoriesEng.get(SelectedOptionIndexmed);
 
                     if(medicine_prescription.getSelectedItemPosition()==1){
-                       text.setText("Disburse 3 Monthly packs to Patient");
+                       text.setText("HCV: Disburse 3 Monthly packs to Patient");
                     }else {
-                        text.setText("Disburse 6 Monthly packs to Patient");
+                        text.setText("HCV: Disburse 6 Monthly packs to Patient");
                     }
 
 //                    OptionValue.setText("");
@@ -1069,9 +1070,9 @@ alt.addTextChangedListener(new TextWatcher() {
                     selectedmedicine_prescriptionhbv = categoriesEng.get(SelectedOptionIndexmedhbv);;
 
                     if(medicine_prescriptionhbv.getSelectedItemPosition()==1){
-                        text.setText("Disburse 3 Monthly packs to Patient");
+                        text2.setText("HBV: Disburse 3 Monthly packs to Patient");
                     }else {
-                        text.setText("Disburse 3 Monthly packs to Patient");
+                        text2.setText("HBV: Disburse 3 Monthly packs to Patient");
                           }
 
 //                    OptionValue.setText("");

@@ -197,6 +197,19 @@ public class addPatientModel extends Model {
     @Expose
     public String finger_fmd;
 
+
+    @Column(name = "cbeff_id")
+    @SerializedName("cbeff_id")
+    @Expose
+    public int cbeff_id;
+
+    @Column(name = "finger_print2")
+    @SerializedName("finger_print2")
+    @Expose
+    public String finger_print2;
+
+
+
     @Column(name = "width")
     @SerializedName("width")
     @Expose
@@ -212,15 +225,6 @@ public class addPatientModel extends Model {
     @Expose
     public int quality;
 
-    @Column(name = "cbeff_id")
-    @SerializedName("cbeff_id")
-    @Expose
-    public int cbeff_id;
-
-    @Column(name = "finger_print2")
-    @SerializedName("finger_print2")
-    @Expose
-    public String finger_print2;
 
     public int getCbeff_id() {
         return cbeff_id;

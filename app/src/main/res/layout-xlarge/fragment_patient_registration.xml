@@ -152,11 +152,13 @@
                         android:id="@+id/ma_iv_fingerprint"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
                         android:layout_marginBottom="8dp"
-                        app:srcCompat="@drawable/ic_fingerprint" />
+                        android:layout_marginEnd="8dp"
+
+                        android:layout_marginTop="10dp"
+                        app:srcCompat="@drawable/ic_fingerprint"
+                        android:layout_centerInParent="true"
+                        />
 
                     <Button
                         android:visibility="gone"
@@ -170,7 +172,8 @@
                         android:layout_marginTop="20dp"
                         android:background="@drawable/buttonstyle"
                         android:textColor="@color/white"
-                        android:layout_alignParentLeft="true" />
+                        android:layout_alignParentLeft="true"
+                        />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -179,6 +182,7 @@
                     android:orientation="vertical">
 
                     <ImageView
+                        android:visibility="gone"
                         android:id="@+id/ma_iv_fingerprint2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -208,7 +212,7 @@
             </RelativeLayout>
 
             <Button
-                android:visibility="visible"
+                android:visibility="gone"
                 android:id="@+id/btnSubmit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

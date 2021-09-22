@@ -145,6 +145,7 @@ public class Dashboard_patient_pending_treatment extends Fragment {
                     break;
 
                 case 1:
+                case 3:
                     list = userdataaa.searchByCNICLeader(SelectedOptionVal);
                     if (list.size() > 0) {
 
@@ -155,15 +156,6 @@ public class Dashboard_patient_pending_treatment extends Fragment {
                         SetDataArrayy(list);
                     }
                     break;
-//                case 1:
-//                    list = userdataaa.searchBynameLeader(SelectedOptionVal);
-//                    if (list.size() > 0) {
-//                        SetDataArrayy(list);
-//                    } else {
-//                        Toast.makeText(getContext(), "NO Record Found", Toast.LENGTH_LONG).show();
-//                        SetDataArrayy(list);
-//                    }
-//                    break;
 
 
             }
@@ -183,6 +175,7 @@ public class Dashboard_patient_pending_treatment extends Fragment {
         categoriesEng.add("select option");
         categoriesEng.add("CNIC");
         categoriesEng.add("Mrn No");
+        categoriesEng.add("Afghan CNIC");
 
 
         // Creating adapter for spinner
@@ -203,22 +196,25 @@ public class Dashboard_patient_pending_treatment extends Fragment {
 
                 if (etSearchOptionpending.getSelectedItemPosition() > 0) {
 
-                    if(etSearchOptionpending.getSelectedItemPosition() == 2) {
-                        OptionValue.setInputType(InputType.TYPE_CLASS_TEXT);
-                        OptionValue.setText("");
-                        OptionValue.setMask("AAA-99-99-9999999999999");
-
-//                        OptionValue.addTextChangedListener(Mask.insert(Mask.Mrn_MASK, OptionValue));
-                    }else if(etSearchOptionpending.getSelectedItemPosition() == 1){
-
+                    if(etSearchOptionpending.getSelectedItemPosition() == 1) {
                         OptionValue.setInputType(InputType.TYPE_CLASS_NUMBER);
                         OptionValue.setText("");
                         OptionValue.setMask("99999-9999999-9");
 
+
+//                        OptionValue.addTextChangedListener(Mask.insert(Mask.Mrn_MASK, OptionValue));
+                    }else if(etSearchOptionpending.getSelectedItemPosition() == 2){
+                        OptionValue.setInputType(InputType.TYPE_CLASS_TEXT);
+                        OptionValue.setText("");
+                        OptionValue.setMask("AAA-99-99-9999999999999");
+
 //                        OptionValue.setInputType(InputType.TYPE_CLASS_NUMBER);
 //
+                    }else if(etSearchOptionpending.getSelectedItemPosition() == 3){
+                        OptionValue.setInputType(InputType.TYPE_CLASS_TEXT);
+                        OptionValue.setText("");
+                        OptionValue.setMask("AA-99999999999");
                     }
-
 
                     SelectedOptionIndex = etSearchOptionpending.getSelectedItemPosition();
 
