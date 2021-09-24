@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:gravity="center">
             <TextView
+                android:id="@+id/toolbartext"
                 style="@style/LargeTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -30,10 +31,102 @@
     </androidx.appcompat.widget.Toolbar>
 
 
+    <LinearLayout
+        android:id="@+id/edit_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+        <TextView
+            android:gravity="right"
+            android:layout_marginRight="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Patient Name:"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:layout_weight="0.5"
+            />
 
+    <TextView
+        android:layout_weight="0.5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Patient Name"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:id="@+id/patient_name_foredit"
+        />
 
+</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+            <TextView
+                android:gravity="right"
+                android:layout_marginRight="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Patient CNIC:"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:layout_weight="0.5"
+                />
 
+            <TextView
+                android:layout_weight="0.5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Patient CNIN"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:id="@+id/patient_cnic_edit"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            >
+
+            <ImageView
+                android:id="@+id/ma_iv_fingerprint_edit"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+
+                android:layout_marginTop="10dp"
+                app:srcCompat="@drawable/ic_fingerprint"
+                android:layout_centerInParent="true"
+                />
+
+            <Button
+                android:visibility="visible"
+                android:id="@+id/ma_bt_scan_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="Save"
+                android:layout_below="@+id/ma_iv_fingerprint_edit"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/buttonstyle"
+                android:textColor="@color/white"
+                android:layout_alignParentRight="true"
+                />
+        </LinearLayout>
+    </LinearLayout>
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -41,6 +134,7 @@
 
 
         <LinearLayout
+            android:id="@+id/allformlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -135,6 +229,10 @@
 
 
             </LinearLayout>
+
+
+
+
 
             <RelativeLayout
                 android:layout_width="match_parent"

@@ -27,7 +27,6 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
     // RecyclerView recyclerView;
     public SearchResultAdapter(SearchResultData[] listdata) {
         this.sData = listdata;
-
     }
 
     @Override
@@ -45,14 +44,52 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         holder.Address.setText(sData[position].getContactNo());
         holder.LeaderName.setText(sData[position].getPatientName());
         holder.LeaderCNIC.setText(sData[position].getLeaderCNIC());
+          
+        String fingerprint = sData[position].fingerprint;
+        
+        if (fingerprint.equalsIgnoreCase("notfound")){
+            holder.addfingerprint.setVisibility(View.VISIBLE);
+        }else {
+            holder.addfingerprint.setVisibility(View.GONE);
+        }
+        
+        
+        holder.addfingerprint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+//                Toast.makeText(view.getContext(), "Hello world", Toast.LENGTH_SHORT).show();
+                Fragment FMFragment = new patientRegistration();
+                Bundle args = new Bundle();
+                args.putString("PatientCNIC",sData[position].getLeaderCNIC());
+                args.putString("PatientName",sData[position].getPatientName());
+                args.putBoolean("isEdit",true);
+                if(FMFragment != null)
+                {
+                    FragmentTransaction transaction = ((FragmentActivity) view.getContext()).getSupportFragmentManager().beginTransaction();
+
+                    FMFragment.setArguments(args);
+                    try {
+                        transaction.replace(R.id.content_frame, FMFragment,"FamilyMemberFragment").addToBackStack("a").commit();
+
+                    } catch (IllegalStateException ignored) {
+                    }
+                }
+                else {
+                    Toast.makeText(view.getContext(), holder.MrNo.getText(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        
+        
+        
 //        holder.itemView.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
 //
 //                String temp = holder.MrNo.getText().toString();
 //                Constants.SelectedFamilyMrNo = temp;
-//
+////
 //                Fragment FMFragment = new patientRegistration();
 //                Bundle args = new Bundle();
 //                args.putString("SelectedMrNo",temp);
@@ -86,13 +123,13 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView LeaderName,Address,MrNo,LeaderCNIC;
         public CardView FamilyCard;
-        public Button FamilyMembers;
+        public Button addfingerprint;
         public ViewHolder(View itemView) {
             super(itemView);
             this.LeaderName = itemView.findViewById(R.id.cardLeaderName);
             this.Address =  itemView.findViewById(R.id.cardFamilyAddress);
             this.MrNo = itemView.findViewById(R.id.cardFamilyMrNo);
-            this.FamilyMembers = itemView.findViewById(R.id.cardFamilyMembersbtn);
+            this.addfingerprint = itemView.findViewById(R.id.addfingerprint);
             this.LeaderCNIC = itemView.findViewById(R.id.cardLeaderCNIC);
             this.FamilyCard = itemView.findViewById(R.id.familyCard);
         }

@@ -23,6 +23,7 @@ import com.example.hcp.R;
 import com.example.hcp.models.hcp.Samplee;
 import com.example.hcp.models.hcp.Vaccinationn;
 import com.example.hcp.models.hcp.addPatientModel;
+import com.example.hcp.models.hcp.userdataaa;
 import com.example.hcp.utils.Constants;
 import com.example.hcp.utils.SharedPref;
 
@@ -138,7 +139,7 @@ public class VaccinationForm extends Fragment {
             va.updated = matdate ;
             va.IsSync = 0;
 
-            addPatientModel mod = addPatientModel.searchBycnic(patientCNINC);
+            userdataaa mod = userdataaa.searchBycnic(patientCNINC);
 
             mod.IS_Vaccination = 1;
 

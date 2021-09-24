@@ -25,6 +25,7 @@ import com.example.hcp.adapters.SearchResultAdapterVaccination;
 import com.example.hcp.models.AdaptersData.SearchResultDatavital;
 import com.example.hcp.models.Parcables.vitalDataParceable;
 import com.example.hcp.models.hcp.addPatientModel;
+import com.example.hcp.models.hcp.userdataaa;
 import com.example.hcp.utils.MaskedEditText;
 
 import java.util.ArrayList;
@@ -71,8 +72,8 @@ public class VaccinationDashboard extends Fragment {
 
     private void allVaccinationList() {
 
-        List<addPatientModel> vaccination;
-        vaccination=addPatientModel.searchallISVaccination();
+        List<userdataaa> vaccination;
+        vaccination=userdataaa.searchallISVaccination();
         SetDataArrayy(vaccination);
 
 
@@ -87,10 +88,10 @@ public class VaccinationDashboard extends Fragment {
         } else if (SelectedOption.isEmpty()) {
             Toast.makeText(getContext(), "Please Select Option from Search Dropdown", Toast.LENGTH_SHORT).show();
         } else {
-            List<addPatientModel> vaccine;
+            List<userdataaa> vaccine;
             switch (SelectedOptionIndex) {
                 case 3:
-                    vaccine = addPatientModel.searchByNameVaccination(SelectedOptionVal);
+                    vaccine = userdataaa.searchByNameVaccination(SelectedOptionVal);
                     if (vaccine.size() > 0) {
 
                         SetDataArrayy(vaccine);
@@ -101,7 +102,7 @@ public class VaccinationDashboard extends Fragment {
 
                     break;
                 case 2:
-                    vaccine = addPatientModel.searchByISVaccination(SelectedOptionVal);
+                    vaccine = userdataaa.searchByISVaccination(SelectedOptionVal);
                     if (vaccine.size() > 0) {
 
                         SetDataArrayy(vaccine);
@@ -125,7 +126,7 @@ public class VaccinationDashboard extends Fragment {
 //            SearchCall(SelectedOption, SelectedOptionVal);
         }
     }
-    private void SetDataArrayy(List<addPatientModel> vaccination) {
+    private void SetDataArrayy(List<userdataaa> vaccination) {
 
         vitalDataParceable[] FDP = new vitalDataParceable[vaccination.size()];
         for (int i = 0; i < FDP.length; i++) {

@@ -18,6 +18,7 @@ import com.activeandroid.ActiveAndroid;
 import com.example.hcp.R;
 import com.example.hcp.models.hcp.addPatientModel;
 import com.example.hcp.models.hcp.addvitalll;
+import com.example.hcp.models.hcp.userdataaa;
 import com.example.hcp.utils.Constants;
 import com.example.hcp.utils.InputFilterMinMax;
 import com.example.hcp.utils.SharedPref;
@@ -148,7 +149,7 @@ public class vitalForm extends Fragment {
             FL.user_id=i;
             FL.self_cnic = patientCNINC;
 
-            addPatientModel mod = addPatientModel.searchBycnic(patientCNINC);
+            userdataaa mod = userdataaa.searchBycnic(patientCNINC);
 
             mod.ISVital = 1;
 

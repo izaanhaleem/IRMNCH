@@ -21,6 +21,7 @@ import com.example.hcp.R;
 import com.example.hcp.models.hcp.Samplee;
 import com.example.hcp.models.hcp.addPatientModel;
 import com.example.hcp.models.hcp.addvitalll;
+import com.example.hcp.models.hcp.userdataaa;
 import com.example.hcp.utils.Constants;
 import com.example.hcp.utils.InputFilterMinMax;
 import com.example.hcp.utils.SharedPref;
@@ -133,7 +134,7 @@ try {
         FL.user_id=i;
 
 
-        addPatientModel mod = addPatientModel.searchBycnic(patientCNINC);
+        userdataaa mod = userdataaa.searchBycnic(patientCNINC);
 
         mod.ISSample = 1;
 

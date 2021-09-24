@@ -123,7 +123,7 @@ public class LoginActivity extends AppCompatActivity {
             Assessmentt.deleteAll();
             Samplee.deleteAll();
             userdataaa.deleteAll();
-            addPatientModel.deleteAll();
+//            addPatientModel.deleteAll();
             districtt.deleteAll();
             divisionn.deleteAll();
             tehsill.deleteAll();
@@ -563,9 +563,13 @@ public class LoginActivity extends AppCompatActivity {
 
                                  if (response.body() != null && response.body().getStatus()) {
 
-                                     SaveUserDataLocally(response.body().getData());
+                                         SaveUserDataLocally(response.body().getData());
+
                                  } else {
                                      Toast.makeText(getContext(), "==> " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                     Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                                     startActivity(intent);
+                                     finish();
                                  }
 
                          }
@@ -646,10 +650,18 @@ public class LoginActivity extends AppCompatActivity {
                     dat.baseline_result_type=data.get(i).getBaseline_result_type();
                     dat.vaccinate=data.get(i).getVaccinate();
                     dat.cnic_status=data.get(i).getCnic_status();
-                    dat.division=data.get(i).getDivision();
-                    dat.district=data.get(i).getDistrict();
-                    dat.tehsil=data.get(i).getTehsil();
-                    dat.hospital=data.get(i).getHospital();
+                    if(data.get(i).getDivision()!=null){
+                        dat.division=Integer.parseInt(data.get(i).getDivision());
+                    }
+                    if(data.get(i).getDistrict()!=null){
+                        dat.district=Integer.parseInt(data.get(i).getDistrict());
+                    }
+                    if(data.get(i).getTehsil()!=null){
+                        dat.tehsil=Integer.parseInt(data.get(i).getTehsil());
+                    }
+                    if(data.get(i).getHospital()!=null){
+                        dat.hospital=Integer.parseInt(data.get(i).getHospital());
+                    }
                     dat.patient_dob=data.get(i).getPatient_dob();
                     dat.is_type_change=data.get(i).getIs_type_change();
                     dat.lost_followup_id=data.get(i).getLost_followup_id();

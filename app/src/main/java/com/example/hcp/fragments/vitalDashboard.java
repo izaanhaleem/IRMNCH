@@ -35,6 +35,7 @@ import com.example.hcp.models.hcp.addPatientRequest;
 import com.example.hcp.models.hcp.addPatientResponse;
 import com.example.hcp.models.hcp.addVitalRequest;
 import com.example.hcp.models.hcp.addvitalll;
+import com.example.hcp.models.hcp.userdataaa;
 import com.example.hcp.models.hcp.vitalListt;
 import com.example.hcp.services.RetrofitClient;
 import com.example.hcp.utils.Constants;
@@ -97,8 +98,8 @@ public class vitalDashboard extends Fragment {
 
     private void allvitalList() {
 
-        List<addPatientModel> vitals;
-        vitals=addPatientModel.searchallISvital();
+        List<userdataaa> vitals;
+        vitals=userdataaa.searchallISvital();
         SetDataArrayy(vitals);
 
     }
@@ -272,11 +273,11 @@ public class vitalDashboard extends Fragment {
             Toast.makeText(getContext(), "Please Select Option from Search Dropdown", Toast.LENGTH_SHORT).show();
         } else {
 //            List<addPatientModel> vitals; addPatientModel.searchByISvital();
-            List<addPatientModel> patientlist;
-            List<addPatientModel> vitals;
+            List<userdataaa> patientlist;
+            List<userdataaa> vitals;
             switch (SelectedOptionIndex) {
                 case 3:
-                    vitals = addPatientModel.searchByName(SelectedOptionVal);
+                    vitals = userdataaa.searchByName(SelectedOptionVal);
                     if (vitals.size() > 0) {
 
                         SetDataArrayy(vitals);
@@ -288,7 +289,7 @@ public class vitalDashboard extends Fragment {
                     break;
                 case 2:
 
-                    vitals = addPatientModel.searchByISvital(SelectedOptionVal);
+                    vitals = userdataaa.searchByISvital(SelectedOptionVal);
                     if (vitals.size() > 0) {
 
                                 SetDataArrayy(vitals);
@@ -314,7 +315,7 @@ public class vitalDashboard extends Fragment {
         }
     }
 
-    private void SetDataArrayy(List<addPatientModel> vitalpatient) {
+    private void SetDataArrayy(List<userdataaa> vitalpatient) {
 
         vitalDataParceable[] FDP = new vitalDataParceable[vitalpatient.size()];
         for (int i = 0; i < FDP.length; i++) {

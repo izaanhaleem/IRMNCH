@@ -39,6 +39,8 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.activeandroid.ActiveAndroid;
 import com.digitalpersona.uareu.Engine;
@@ -57,6 +59,8 @@ import com.example.hcp.activities.MainActivity;
 
 import com.example.hcp.activities.ScanActivity;
 import com.example.hcp.activities.VerificationActivity;
+import com.example.hcp.adapters.SearchResultAdapter;
+import com.example.hcp.models.AdaptersData.SearchResultData;
 import com.example.hcp.models.Parcables.PatientDataParceable;
 import com.example.hcp.models.Users.UserResponse;
 import com.example.hcp.models.hcp.AddVitalResponse;
@@ -134,7 +138,7 @@ public class DashboardFragment extends Fragment {
 
 
 
-    List<addPatientModel> paitents;
+    List<userdataaa> paitents;
     List<addvitalll> vitals;
     List<Assessmentt> assessmentts;
     List<Vaccinationn> vaccinationns;
@@ -153,7 +157,7 @@ public class DashboardFragment extends Fragment {
     private Engine m_engine = null;
     List<userdataaa> allData = new ArrayList<>();
     public int totalSize;
-
+    RecyclerView recyclerView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -178,6 +182,10 @@ public class DashboardFragment extends Fragment {
         SelectedOptionVal = "";
         allData = userdataaa.getall();
         export_db = view.findViewById(R.id.export_db);
+        recyclerView = (RecyclerView) view.findViewById(R.id.newpatient);
+
+        allnewpatientList();
+
 
         SetSearchOptions();
 
@@ -241,6 +249,61 @@ public class DashboardFragment extends Fragment {
 
 //        OptionValue.addTextChangedListener(EditTextTelefoneMask.insert(OptionValue));
         return view;
+    }
+
+    private void allnewpatientList() {
+        List<userdataaa> newpatient;
+        newpatient=userdataaa.searchallnewPatients();
+        SetDataArrayynewpatient(newpatient);
+    }
+
+    private void SetDataArrayynewpatient(List<userdataaa> newpatient) {
+        PatientDataParceable[] FDP = new PatientDataParceable[newpatient.size()];
+        for (int i = 0; i < FDP.length; i++) {
+            FDP[i] = new PatientDataParceable();
+//            FDP[i].Address        =    SFR.get(i).getAddress();
+
+//            FDP[i].Address = "Address";
+//            FDP[i].FamilyId = SFR.get(i).getFamilyId().toString();
+//            FDP[i].MrNo = SFR.get(i).mrn_no;
+//            if (SFR.get(i).getFamilyMemberId() != null) {
+//                FDP[i].LeaderId = SFR.get(i).getFamilyMemberId().toString();
+//            } else {
+//                FDP[i].LeaderId = "N/A";
+//
+//            }
+
+            if (newpatient.get(i).patient_name != null) {
+                FDP[i].PatientName = newpatient.get(i).patient_name;
+            } else {
+                FDP[i].PatientName = "N/A";
+
+            }
+            FDP[i].contactNo = newpatient.get(i).contact_no_self;
+            FDP[i].LeaderCNIC = newpatient.get(i).self_cnic;
+            FDP[i].MrNo = newpatient.get(i).mrn_no;
+
+
+
+
+        }
+        SearchResultData[] myListData = new SearchResultData[FDP.length] ;
+
+        for(int i=0;i<myListData.length ; i++)
+        {
+            myListData[i] = new SearchResultData();
+            myListData[i].setPatientName(FDP[i].PatientName);
+            myListData[i].setMrNo(FDP[i].MrNo);
+            myListData[i].setContactNo(FDP[i].contactNo);
+            myListData[i].setLeaderCNIC(FDP[i].LeaderCNIC);
+        }
+
+        SearchResultAdapter adapter = new SearchResultAdapter(myListData);
+//        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
+
+
     }
 
     protected void launchGetReader()
@@ -363,20 +426,16 @@ public class DashboardFragment extends Fragment {
                                             if (d_fmd != null) {
                                                 int m_score = m_engine.Compare(d_fmd, 0, m_engine.CreateFmd(Constants.cap_result, ANSI_378_2004), 0);
                                                 if (m_score < (0x7FFFFFFF / 100000)) {
-                                                    Toast.makeText(getContext(), "Patient Already Registered matched!", Toast.LENGTH_LONG).show();
-
-                                                    current_fmd = Base64.encodeToString(Constants.cap_result.getData(), Base64.DEFAULT);
-                                                    List<userdataaa> leaders = userdataaa.searchbyfingerprint(current_fmd);
-                                                    if (leaders.size() > 0) {
-                                                        SetDataArrayy(leaders);
-                                                    } else {
-                                                        Toast.makeText(getContext(), "NO Record Found", Toast.LENGTH_LONG).show();
-                                                    }
-//                                                    break;
-
-                                                } else {
-//                                                Toast.makeText(getContext(), "not matched", Toast.LENGTH_LONG).show();
-
+                                                    Toast.makeText(getContext(), "Finger Print Found!", Toast.LENGTH_LONG).show();
+                                                   List<userdataaa> patient ;
+                                                   patient = userdataaa.searchByCNICLeader(allData.get(i).getSelf_cnic());
+                                                    SetDataArrayy(patient);
+//                                                    SetDataArrayyl(allData.get(i));
+//                                                    allData.get(i).getFinger_print2();
+                                                    break;
+                                                }
+                                                else {
+                                                Toast.makeText(getContext(), "!", Toast.LENGTH_SHORT).show();
                                                 }
                                             }
 
@@ -409,6 +468,73 @@ public class DashboardFragment extends Fragment {
         }
 
     }
+
+//    private void SetDataArrayyl(userdataaa userdataaa) {
+//        PatientDataParceable FDP = new PatientDataParceable();
+//
+//
+//            if (userdataaa.patient_name != null) {
+//                FDP.PatientName = userdataaa.patient_name;
+//            } else {
+//                FDP.PatientName = "N/A";
+//
+//            }
+//            FDP.contactNo = userdataaa.contact_no_self;
+//            FDP.LeaderCNIC = userdataaa.self_cnic;
+//            FDP.MrNo = userdataaa.mrn_no;
+//
+////        PatientDataParceable[] FDP = new PatientDataParceable[SFR.size()];
+////        for (int i = 0; i < FDP.length; i++) {
+////            FDP[i] = new PatientDataParceable();
+//////            FDP[i].Address        =    SFR.get(i).getAddress();
+////
+//////            FDP[i].Address = "Address";
+//////            FDP[i].FamilyId = SFR.get(i).getFamilyId().toString();
+//////            FDP[i].MrNo = SFR.get(i).mrn_no;
+//////            if (SFR.get(i).getFamilyMemberId() != null) {
+//////                FDP[i].LeaderId = SFR.get(i).getFamilyMemberId().toString();
+//////            } else {
+//////                FDP[i].LeaderId = "N/A";
+//////
+//////            }
+////
+////            if (SFR.get(i).patient_name != null) {
+////                FDP[i].PatientName = SFR.get(i).patient_name;
+////            } else {
+////                FDP[i].PatientName = "N/A";
+////
+////            }
+////            FDP[i].contactNo = SFR.get(i).contact_no_self;
+////            FDP[i].LeaderCNIC = SFR.get(i).self_cnic;
+////            FDP[i].MrNo = SFR.get(i).mrn_no;
+////        }
+//
+//
+//
+//
+//
+//        Fragment SRFragment = new SearchResultFingerprint();
+//
+//        Bundle args = new Bundle();
+////        args.putParcelable("FDP", FDP);
+//        args.putString("name",userdataaa.getPatient_name());
+//        args.putString("mrno",userdataaa.mrn_no);
+//        args.putString("contact",userdataaa.contact_no_self);
+//        args.putString("cnic",userdataaa.getSelf_cnic());
+//
+//        if (SRFragment != null) {
+//            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//
+//            SRFragment.setArguments(args);
+//            try {
+//                transaction.add(R.id.content_frame, SRFragment, "searchFragment").addToBackStack(null).commit();
+//            } catch (IllegalStateException ignored) {
+//            }
+//        }
+//
+//
+//    }
+//
 
 
 //
@@ -578,9 +704,11 @@ public class DashboardFragment extends Fragment {
                     localpatinets = addPatientModel.searchBynameLeader(SelectedOptionVal);
                     if (leaders.size() != 0) {
                         SetDataArrayy(leaders);
-                    } else if(localpatinets.size()!=0) {
-                        SetDataArrayylocal(localpatinets);
-                    }else {
+                    }
+//                    else if(localpatinets.size()!=0) {
+//                        SetDataArrayylocal(localpatinets);
+//                    }
+                    else {
                         Toast.makeText(getContext(), "NO Record Found", Toast.LENGTH_LONG).show();
                     }
                     break;
@@ -597,13 +725,13 @@ public class DashboardFragment extends Fragment {
                     }
                     break;
                 case 6:
-                    leaders = userdataaa.searchbyfingerprint(encodedfingerprint);
-                    if (leaders.size() > 0) {
-                        SetDataArrayy(leaders);
-                    } else {
-                        Toast.makeText(getContext(), "NO Record Found", Toast.LENGTH_LONG).show();
-                    }
-                    break;
+//                    leaders = userdataaa.searchbyfingerprint(encodedfingerprint);
+//                    if (leaders.size() > 0) {
+//                        SetDataArrayy(leaders);
+//                    } else {
+//                        Toast.makeText(getContext(), "NO Record Found", Toast.LENGTH_LONG).show();
+//                    }
+//                    break;
             }
 
 //            SearchCall(SelectedOption, SelectedOptionVal);
@@ -725,6 +853,13 @@ public class DashboardFragment extends Fragment {
             FDP[i].contactNo = SFR.get(i).contact_no_self;
             FDP[i].LeaderCNIC = SFR.get(i).self_cnic;
             FDP[i].MrNo = SFR.get(i).mrn_no;
+
+            if(SFR.get(i).finger_print2==null){
+                FDP[i].fingerprint = "notfound";
+            }else {
+                FDP[i].fingerprint = SFR.get(i).finger_print2;
+            }
+
         }
 
         Fragment SRFragment = new SearchResultFragment();
@@ -787,10 +922,10 @@ public class DashboardFragment extends Fragment {
 
     }
     public void pendingvitals(){
-        List<addPatientModel> pendingvitals = addPatientModel.searchallISvital();
-        List<addPatientModel> pendingassessment = addPatientModel.pendingassessments();
-        List<addPatientModel> pendingvaccination = addPatientModel.pendingvaccination();
-        List<addPatientModel> pendingsamples = addPatientModel.pendingsamples();
+        List<userdataaa> pendingvitals = userdataaa.searchallISvital();
+        List<userdataaa> pendingassessment = userdataaa.pendingassessments();
+        List<userdataaa> pendingvaccination = userdataaa.pendingvaccination();
+        List<userdataaa> pendingsamples = userdataaa.pendingsamples();
         vitalcount.setText(String.valueOf(pendingvitals.size()));
         assessmentcount.setText(String.valueOf(pendingassessment.size()));
         vaccinationcount.setText(String.valueOf(pendingvaccination.size()));
@@ -799,7 +934,7 @@ public class DashboardFragment extends Fragment {
 
     public void totalSYncREcord() {
 
-        List<addPatientModel> patient = addPatientModel.searchBySync();
+        List<userdataaa> patient = userdataaa.searchBySync();
         List<addvitalll> vitals = addvitalll.searchBySync();
         List<Assessmentt> assessments = Assessmentt.searchBySync();
         List<Vaccinationn> vacc = Vaccinationn.searchBySync();
@@ -829,7 +964,7 @@ public class DashboardFragment extends Fragment {
 //        pendingsubmitcount = 0;
 
 
-        paitents = addPatientModel.searchBySync();
+        paitents = userdataaa.searchBySync();
         patientssubmitcount = paitents.size();
 
 
@@ -880,76 +1015,9 @@ public class DashboardFragment extends Fragment {
 
     {
 
-//        if (paitents.size() > 0 && paitents.size() > CurremtIndex)
-//
-//        {
-
         for (int i = 0; i < paitents.size(); i++)
 
         {
-
-            userdataaa FL = new userdataaa();
-            ActiveAndroid.beginTransaction();
-            try {
-                FL.setIsActive(1);
-                FL.mrn_no = "";
-//                FL.IsSync = 0;
-                FL.setPatient_id(0);
-                FL.setPatient_name(paitents.get(i).getPatient_name());
-                FL.setLname(paitents.get(i).getLname());
-                FL.setFather_name(paitents.get(i).getFather_name());
-//                FL.setPatient_age(paitents.get(i).getPatient_age());
-                FL.setPatient_dob(paitents.get(i).getPatient_dob());
-//                FL.setGender(paitents.get(i).getGender());
-                FL.setSelf_cnic(paitents.get(i).getSelf_cnic());
-                FL.setContact_no_self(paitents.get(i).getContact_no_self());
-//                FL.setAddress(paitents.get(i).getAddress());
-//                FL.setMarital_status(paitents.get(i).getMarital_status());
-//                FL.setOccupation(paitents.get(i).getOccupation());
-//                FL.setQualification(paitents.get(i).getQualification());
-
-                FL.setPrevious_hbv(paitents.get(i).getPrevious_hbv());
-
-//            FL.setPatient_type("New Patient");
-//                if(firstVal.equals("y") && secondVal.equals("y")){
-//                    FL.setPatient_type("Pre-diagnosed Patient");
-//                }else if(thirdVal.equals("y") && foursVal.equals("y")){
-//                    FL.setPatient_type("Pre-diagnosed Patient");
-//                }else {
-                FL.setPatient_type("New Patient");
-//                }
-
-//                FL.ISVital = 0;
-//                FL.IS_assessment = 0;
-//                FL.IS_Vaccination = 0;
-//                FL.ISSample = 0;
-
-                FL.setPcr_confirmation_hbv(paitents.get(i).getPcr_confirmation_hbv());
-                FL.setPrevious_hcv(paitents.get(i).getPrevious_hcv());
-                FL.setPcr_confirmation_hcv(paitents.get(i).getPcr_confirmation_hcv());
-//                FL.setDivision(paitents.get(i).getDivision());
-//                FL.setDistrict(paitents.get(i).getDistrict());
-//                FL.setTehsil(paitents.get(i).getTehsil());
-//                FL.setHospital(paitents.get(i).getHospital());
-//                FL.setIdentifier(new SharedPref(getContext()).GetserverID());
-                FL.setUser_id(new SharedPref(getContext()).GetLoggedInRole());
-//                FL.setHospital_id(new SharedPref(getContext()).GetLoggedInUser());
-//                FL.setFinger_base64(Constants.FmdBase64);
-//                final String xml64 = Base64.encodeToString(Constants.cap_result.getData(), Base64.DEFAULT);
-//                FL.setFinger_fmd(xml64.trim());
-//                FL.setFinger_fmd(Constants.cap_result.toString());
-//                FL.setWidth(Constants.width);
-//                FL.setHeight(Constants.height);
-//                FL.setCbeff_id(Constants.cbeff_id);
-//                FL.setQuality(Constants.quality);
-
-                FL.setFinger_print2(paitents.get(i).getFinger_fmd());
-
-                FL.save();
-                ActiveAndroid.setTransactionSuccessful();
-            } finally {
-                ActiveAndroid.endTransaction();
-            }
 
             addPatientRequest fmb = new addPatientRequest();
             if (paitents.get(i).getPatient_id() != null) {
@@ -1016,28 +1084,28 @@ public class DashboardFragment extends Fragment {
                 fmb.setPcr_confirmation_hcv(paitents.get(i).getPcr_confirmation_hcv());
             }
 
-            if (paitents.get(i).getDivision() != null) {
+            if (paitents.get(i).getDivision() != 0) {
                 fmb.setDivision(paitents.get(i).getDivision());
             } else {
                 fmb.setDivision(0);
 
             }
 
-            if (paitents.get(i).getDistrict() != null) {
+            if (paitents.get(i).getDistrict() != 0) {
                 fmb.setDistrict(paitents.get(i).getDistrict());
             } else {
                 fmb.setDistrict(0);
 
             }
 
-            if (paitents.get(i).getTehsil() != null) {
+            if (paitents.get(i).getTehsil() != 0) {
                 fmb.setTehsil(paitents.get(i).getTehsil());
             } else {
                 fmb.setTehsil(0);
 
             }
 
-            if (paitents.get(i).getHospital() != null) {
+            if (paitents.get(i).getHospital() != 0) {
                 fmb.setHospital(paitents.get(i).getHospital());
             } else {
                 fmb.setHospital(0);
@@ -1062,11 +1130,11 @@ public class DashboardFragment extends Fragment {
             } else {
                 fmb.setMobile_id(0L);
             }
-            if(paitents.get(i).getFinger_base64() !=null){
-                fmb.setFinger_print1(paitents.get(i).getFinger_base64());
+            if(paitents.get(i).getFinger_print1() !=null){
+                fmb.setFinger_print1(paitents.get(i).getFinger_print1());
             }
-            if(paitents.get(i).getFinger_fmd() !=null){
-                fmb.setFinger_print2(paitents.get(i).getFinger_fmd());
+            if(paitents.get(i).getFinger_print2() !=null){
+                fmb.setFinger_print2(paitents.get(i).getFinger_print2());
             }
 
 //                List<addPatientModel> pati = new ArrayList<addPatientModel>();
@@ -1092,7 +1160,7 @@ public class DashboardFragment extends Fragment {
     }
 //    }
 
-    public void SubmitLeader(addPatientRequest currentMember, addPatientModel addPatientModel, int totalPatient, int currentPatient) {
+    public void SubmitLeader(addPatientRequest currentMember, userdataaa patientTable, int totalPatient, int currentPatient) {
 
         ProgressDialog dialog = new ProgressDialog(getContext());
         dialog.setMessage("Saving Patient please wait . . ");
@@ -1130,10 +1198,10 @@ public class DashboardFragment extends Fragment {
 //                                mod.patient_id = response.body().getData().getPatient_id();
 //                                mod.save();
 //                            }
-                        addPatientModel.IsSync = 1;
-                        addPatientModel.mrn_no = response.body().getData().getMrn_no();
-                        addPatientModel.patient_id = response.body().getData().getPatient_id();
-                        addPatientModel.save();
+                        patientTable.IsSync = 1;
+                        patientTable.mrn_no = response.body().getData().getMrn_no();
+                        patientTable.patient_id = response.body().getData().getPatient_id();
+                        patientTable.save();
 
 
                         addvitalll vtl = addvitalll.searchBypid(response.body().getData().getMobile_id());
@@ -1724,13 +1792,11 @@ public class DashboardFragment extends Fragment {
                     vac.setStage(vaccinationns.get(i).stage);
                 } else {
                     vac.setStage(0);
-
                 }
                 if (vaccinationns.get(i).dose_date != null) {
                     vac.setDose_date(vaccinationns.get(i).dose_date);
                 } else {
                     vac.setDose_date("0");
-
                 }
 
                 if (vaccinationns.get(i).created != null) {

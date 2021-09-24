@@ -33,7 +33,7 @@
     <string name="name">Victim Name</string>
 
 
-    <string name="contact_no">Contact No*</string>
+    <string name="contact_no">Contact</string>
     <string name="cancel">Cancel</string>
     <string name="please_enter_nature_of_emergency">Please enter nature of emergency</string>
     <string name="please_Enter_no_of_victim">Please enter no of victim</string>

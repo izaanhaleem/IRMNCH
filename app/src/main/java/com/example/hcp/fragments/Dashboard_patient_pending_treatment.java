@@ -90,7 +90,6 @@ public class Dashboard_patient_pending_treatment extends Fragment {
         );
 
 
-
         AllpendingList.setOnClickListener(
                 v -> allpendingpatientList()
         );

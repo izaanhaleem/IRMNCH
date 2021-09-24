@@ -11,9 +11,237 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-@Table(name = "UserData_Tableee")
+@Table(name = "UserData_Tableee",id = "mobile_id")
 
 public class userdataaa extends Model {
+
+    @Column(name = "IsSync")
+    @SerializedName("IsSync")
+    @Expose
+    public Integer IsSync;
+
+    @Column(name = "patient_age")
+    @SerializedName("patient_age")
+    @Expose
+    public Integer patient_age;
+
+    @Column(name = "gender")
+    @SerializedName("gender")
+    @Expose
+    public Integer gender;
+
+    @Column(name = "address")
+    @SerializedName("address")
+    @Expose
+    public String address;
+
+    @Column(name = "marital_status")
+    @SerializedName("marital_status")
+    @Expose
+    public String marital_status;
+
+    @Column(name = "occupation")
+    @SerializedName("occupation")
+    @Expose
+    public String occupation;
+
+    @Column(name = "qualification")
+    @SerializedName("qualification")
+    @Expose
+    public String qualification;
+
+    @Column(name = "patient_age_80")
+    @SerializedName("patient_age_80")
+    @Expose
+    public String patient_age_80;
+
+    @Column(name = "ISVital")
+    @SerializedName("ISVital")
+    @Expose
+    public Integer ISVital;
+
+    @Column(name = "IS_assessment")
+    @SerializedName("IS_assessment")
+    @Expose
+    public Integer IS_assessment;
+
+    @Column(name =  "IS_Vaccination")
+    @SerializedName("IS_Vaccination")
+    @Expose
+    public Integer IS_Vaccination;
+
+    @Column(name = "ISSample")
+    @SerializedName("ISSample")
+    @Expose
+    public Integer ISSample;
+
+    @Column(name = "identifier")
+    @SerializedName("identifier")
+    @Expose
+    public String identifier;
+
+    @Column(name = "hospital_id")
+    @SerializedName("hospital_id")
+    @Expose
+    public String hospital_id;
+
+    @Column(name = "finger_base64")
+    @SerializedName("finger_base64")
+    @Expose
+    public String finger_base64;
+
+
+    @Column(name = "finger_fmd")
+    @SerializedName("finger_fmd")
+    @Expose
+    public String finger_fmd;
+
+    @Column(name = "new_patient")
+    @SerializedName("new_patient")
+    @Expose
+    public Integer new_patient;
+
+
+
+    public Integer getNew_patient() {
+        return new_patient;
+    }
+
+    public void setNew_patient(Integer new_patient) {
+        this.new_patient = new_patient;
+    }
+
+    public Integer getIsSync() {
+        return IsSync;
+    }
+
+    public void setIsSync(Integer isSync) {
+        IsSync = isSync;
+    }
+
+    public Integer getPatient_age() {
+        return patient_age;
+    }
+
+    public void setPatient_age(Integer patient_age) {
+        this.patient_age = patient_age;
+    }
+
+    public Integer getGender() {
+        return gender;
+    }
+
+    public void setGender(Integer gender) {
+        this.gender = gender;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getMarital_status() {
+        return marital_status;
+    }
+
+    public void setMarital_status(String marital_status) {
+        this.marital_status = marital_status;
+    }
+
+    public String getOccupation() {
+        return occupation;
+    }
+
+    public void setOccupation(String occupation) {
+        this.occupation = occupation;
+    }
+
+    public String getQualification() {
+        return qualification;
+    }
+
+    public void setQualification(String qualification) {
+        this.qualification = qualification;
+    }
+
+    public String getPatient_age_80() {
+        return patient_age_80;
+    }
+
+    public void setPatient_age_80(String patient_age_80) {
+        this.patient_age_80 = patient_age_80;
+    }
+
+    public Integer getISVital() {
+        return ISVital;
+    }
+
+    public void setISVital(Integer ISVital) {
+        this.ISVital = ISVital;
+    }
+
+    public Integer getIS_assessment() {
+        return IS_assessment;
+    }
+
+    public void setIS_assessment(Integer IS_assessment) {
+        this.IS_assessment = IS_assessment;
+    }
+
+    public Integer getIS_Vaccination() {
+        return IS_Vaccination;
+    }
+
+    public void setIS_Vaccination(Integer IS_Vaccination) {
+        this.IS_Vaccination = IS_Vaccination;
+    }
+
+    public Integer getISSample() {
+        return ISSample;
+    }
+
+    public void setISSample(Integer ISSample) {
+        this.ISSample = ISSample;
+    }
+
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
+    }
+
+    public String getHospital_id() {
+        return hospital_id;
+    }
+
+    public void setHospital_id(String hospital_id) {
+        this.hospital_id = hospital_id;
+    }
+
+    public String getFinger_base64() {
+        return finger_base64;
+    }
+
+    public void setFinger_base64(String finger_base64) {
+        this.finger_base64 = finger_base64;
+    }
+
+    public String getFinger_fmd() {
+        return finger_fmd;
+    }
+
+    public void setFinger_fmd(String finger_fmd) {
+        this.finger_fmd = finger_fmd;
+    }
+
+
+
+
 
     @Column(name = "patient_id")
     @SerializedName("patient_id")
@@ -248,22 +476,22 @@ public class userdataaa extends Model {
     @Column(name = "division")
     @SerializedName("division")
     @Expose
-    public String division;
+    public int division;
 
     @Column(name = "district")
     @SerializedName("district")
     @Expose
-    public String district;
+    public int district;
 
     @Column(name = "tehsil")
     @SerializedName("tehsil")
     @Expose
-    public String tehsil;
+    public int tehsil;
 
     @Column(name = "hospital")
     @SerializedName("hospital")
     @Expose
-    public String hospital;
+    public int hospital;
 
     @Column(name = "patient_dob")
     @SerializedName("patient_dob")
@@ -685,35 +913,35 @@ public class userdataaa extends Model {
         this.cnic_status = cnic_status;
     }
 
-    public String getDivision() {
+    public int getDivision() {
         return division;
     }
 
-    public void setDivision(String division) {
+    public void setDivision(int division) {
         this.division = division;
     }
 
-    public String getDistrict() {
+    public int getDistrict() {
         return district;
     }
 
-    public void setDistrict(String district) {
+    public void setDistrict(int district) {
         this.district = district;
     }
 
-    public String getTehsil() {
+    public int getTehsil() {
         return tehsil;
     }
 
-    public void setTehsil(String tehsil) {
+    public void setTehsil(int tehsil) {
         this.tehsil = tehsil;
     }
 
-    public String getHospital() {
+    public int getHospital() {
         return hospital;
     }
 
-    public void setHospital(String hospital) {
+    public void setHospital(int hospital) {
         this.hospital = hospital;
     }
 
@@ -880,4 +1108,147 @@ public class userdataaa extends Model {
                 .where("self_cnic = ?",cnic )
                 .executeSingle();
     }
+
+    public static List<userdataaa> searchBySync() {
+        return new Select()
+                .from(userdataaa.class)
+                .where("IsSync = ?",0)
+                .execute();
+    }
+    public static userdataaa searchBycnic(String cnic) {
+        return new Select()
+                .from(userdataaa.class)
+                .where("self_cnic = ?",cnic)
+                .executeSingle();
+    }
+    public static List<userdataaa> searchallISvital() {
+        return new Select()
+                .from(userdataaa.class)
+                .where("ISVital = ?",0 )
+                .execute();
+    }
+
+    public static List<userdataaa> pendingassessments() {
+        return new Select()
+                .from(userdataaa.class)
+                .where("IS_assessment = ?",0 )
+                .execute();
+    }
+
+    public static List<userdataaa> pendingvaccination() {
+        return new Select()
+                .from(userdataaa.class)
+                .where("IS_Vaccination = ?",0 )
+                .execute();
+    }
+    public static List<userdataaa> pendingsamples() {
+        return new Select()
+                .from(userdataaa.class)
+                .where("ISSample = ?",0 )
+                .execute();
+    }
+
+    public static List<userdataaa> searchByName(String name) {
+        return new Select()
+                .from(userdataaa.class)
+                .where("ISVital = ?",0 )
+                .where("patient_name LIKE ?", new String[]{'%' + name + '%'})
+                .execute();
+    }
+    public static List<userdataaa> searchByISvital(String cnic) {
+        return new Select()
+                .from(userdataaa.class)
+                .where("ISVital = ?",0 )
+                .where("self_cnic = ?",cnic)
+                .execute();
+    }
+
+    public static List<userdataaa> searchallISAssessment() {
+        return new Select()
+                .from(userdataaa.class)
+                .where("IS_assessment = ?",0 )
+                .where("ISVital = ?",1 )
+                .execute();
+    }
+    public static List<userdataaa> searchByNameAssessment(String name) {
+        return new Select()
+                .from(userdataaa.class)
+                .where("IS_assessment = ?",0 )
+                .where("ISVital = ?",1 )
+                .where("patient_name LIKE ?", new String[]{'%' + name + '%'})
+                .execute();
+    }
+
+    public static List<userdataaa> searchByISAssessment(String cnic) {
+        return new Select()
+                .from(userdataaa.class)
+                .where("IS_assessment = ?",0 )
+                .where("ISVital = ?",1 )
+                .where("self_cnic = ?",cnic)
+                .execute();
+    }
+    public static List<userdataaa> searchallISSample() {
+        return new Select()
+                .from(userdataaa.class)
+                .where("ISSample = ?",0 )
+                .where("ISVital = ?",1 )
+                .where("IS_assessment = ?",1 )
+                .execute();
+    }
+
+    public static List<userdataaa> searchallnewPatients() {
+        return new Select()
+                .from(userdataaa.class)
+                .where("IsActive = ?",1 )
+                .where("new_patient = ?",1 )
+                .execute();
+    }
+
+
+    public static List<userdataaa> searchByNameSample(String name) {
+        return new Select()
+                .from(userdataaa.class)
+                .where("IS_assessment = ?",1 )
+                .where("ISVital = ?",1 )
+                .where("patient_name LIKE ?", new String[]{'%' + name + '%'})
+                .execute();
+    }
+    public static List<userdataaa> searchByCNICSample(String cnic) {
+        return new Select()
+                .from(userdataaa.class)
+                .where("IS_assessment = ?",1 )
+                .where("ISVital = ?",1 )
+                .where("self_cnic = ?",cnic)
+                .execute();
+    }
+
+    public static List<userdataaa> searchallISVaccination() {
+        return new Select()
+                .from(userdataaa.class)
+                .where("ISVital = ?",1 )
+                .where("IS_assessment = ?",1 )
+                .where("IS_Vaccination = ?",0 )
+                .execute();
+    }
+
+    public static List<userdataaa> searchByNameVaccination(String name) {
+        return new Select()
+                .from(userdataaa.class)
+                .where("IS_Vaccination = ?",0 )
+                .where("IS_assessment = ?",1 )
+                .where("ISVital = ?",1 )
+                .where("patient_name LIKE ?", new String[]{'%' + name + '%'})
+                .execute();
+    }
+
+    public static List<userdataaa> searchByISVaccination(String cnic) {
+        return new Select()
+                .from(userdataaa.class)
+                .where("IS_Vaccination = ?",0 )
+                .where("IS_assessment = ?",1 )
+                .where("ISVital = ?",1 )
+                .where("self_cnic = ?",cnic)
+                .execute();
+    }
+
 }

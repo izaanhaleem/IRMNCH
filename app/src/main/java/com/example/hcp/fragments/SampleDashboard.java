@@ -24,6 +24,7 @@ import com.example.hcp.adapters.SearchResultAdapterSample;
 import com.example.hcp.models.AdaptersData.SearchResultDatavital;
 import com.example.hcp.models.Parcables.vitalDataParceable;
 import com.example.hcp.models.hcp.addPatientModel;
+import com.example.hcp.models.hcp.userdataaa;
 import com.example.hcp.utils.MaskedEditText;
 
 import java.util.ArrayList;
@@ -70,8 +71,8 @@ public class SampleDashboard extends Fragment {
 
     private void allSampletList() {
 
-        List<addPatientModel> assessment;
-        assessment=addPatientModel.searchallISSample();
+        List<userdataaa> assessment;
+        assessment=userdataaa.searchallISSample();
         SetDataArrayy(assessment);
 
     }
@@ -84,10 +85,10 @@ public class SampleDashboard extends Fragment {
         } else if (SelectedOption.isEmpty()) {
             Toast.makeText(getContext(), "Please Select Option from Search Dropdown", Toast.LENGTH_SHORT).show();
         } else {
-            List<addPatientModel> vitals;
+            List<userdataaa> vitals;
             switch (SelectedOptionIndex) {
                 case 4:
-                    vitals = addPatientModel.searchByNameSample(SelectedOptionVal);
+                    vitals = userdataaa.searchByNameSample(SelectedOptionVal);
                     if (vitals.size() > 0) {
 
                         SetDataArrayy(vitals);
@@ -99,7 +100,7 @@ public class SampleDashboard extends Fragment {
                     break;
                 case 2:
                 case 3:
-                    vitals = addPatientModel.searchByCNICSample(SelectedOptionVal);
+                    vitals = userdataaa.searchByCNICSample(SelectedOptionVal);
                     if (vitals.size() > 0) {
 
                         SetDataArrayy(vitals);
@@ -124,7 +125,7 @@ public class SampleDashboard extends Fragment {
         }
     }
 
-    private void SetDataArrayy(List<addPatientModel> samples) {
+    private void SetDataArrayy(List<userdataaa> samples) {
 
         vitalDataParceable[] FDP = new vitalDataParceable[samples.size()];
         for (int i = 0; i < FDP.length; i++) {

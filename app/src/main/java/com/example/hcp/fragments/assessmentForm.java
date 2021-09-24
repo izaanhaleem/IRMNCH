@@ -24,6 +24,7 @@ import com.activeandroid.ActiveAndroid;
 import com.example.hcp.R;
 import com.example.hcp.models.hcp.Assessmentt;
 import com.example.hcp.models.hcp.addPatientModel;
+import com.example.hcp.models.hcp.userdataaa;
 import com.example.hcp.utils.SharedPref;
 
 import java.util.ArrayList;
@@ -166,7 +167,7 @@ public class assessmentForm extends Fragment {
 
 
 
-        addPatientModel mod = addPatientModel.searchBycnic(patientCNINC);
+        userdataaa mod = userdataaa.searchBycnic(patientCNINC);
 
              String pcrconfirmHbv  =  mod.getPcr_confirmation_hbv();
 
@@ -786,7 +787,7 @@ public class assessmentForm extends Fragment {
         AS.counselling = Sswitch31;
         AS.is_new_patient = "true";
 
-        addPatientModel mod = addPatientModel.searchBycnic(patientCNINC);
+        userdataaa mod = userdataaa.searchBycnic(patientCNINC);
 
         if(Sswitch28.equalsIgnoreCase("N") && Sswitch29.equalsIgnoreCase("N")){
             mod.IS_assessment = 1;

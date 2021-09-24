@@ -25,6 +25,7 @@ import com.example.hcp.adapters.SearchResultAdaptervital;
 import com.example.hcp.models.AdaptersData.SearchResultDatavital;
 import com.example.hcp.models.Parcables.vitalDataParceable;
 import com.example.hcp.models.hcp.addPatientModel;
+import com.example.hcp.models.hcp.userdataaa;
 import com.example.hcp.models.hcp.vitalListt;
 import com.example.hcp.utils.MaskedEditText;
 
@@ -72,8 +73,8 @@ public class AssessmentDashboard extends Fragment {
 
     private void allAssessmentList() {
 
-        List<addPatientModel> assessment;
-        assessment=addPatientModel.searchallISAssessment();
+        List<userdataaa> assessment;
+        assessment=userdataaa.searchallISAssessment();
         SetDataArrayy(assessment);
 
     }
@@ -86,10 +87,10 @@ public class AssessmentDashboard extends Fragment {
         } else if (SelectedOption.isEmpty()) {
             Toast.makeText(getContext(), "Please Select Option from Search Dropdown", Toast.LENGTH_SHORT).show();
         } else {
-            List<addPatientModel> vitals;
+            List<userdataaa> vitals;
             switch (SelectedOptionIndex) {
                 case 4:
-                    vitals = addPatientModel.searchByNameAssessment(SelectedOptionVal);
+                    vitals = userdataaa.searchByNameAssessment(SelectedOptionVal);
                     if (vitals.size() > 0) {
 
                         SetDataArrayy(vitals);
@@ -101,7 +102,7 @@ public class AssessmentDashboard extends Fragment {
                     break;
                 case 2:
                 case 3:
-                    vitals = addPatientModel.searchByISAssessment(SelectedOptionVal);
+                    vitals = userdataaa.searchByISAssessment(SelectedOptionVal);
                     if (vitals.size() > 0) {
 
                         SetDataArrayy(vitals);
@@ -126,7 +127,7 @@ public class AssessmentDashboard extends Fragment {
         }
     }
 
-    private void SetDataArrayy(List<addPatientModel> assessment) {
+    private void SetDataArrayy(List<userdataaa> assessment) {
 
         vitalDataParceable[] FDP = new vitalDataParceable[assessment.size()];
         for (int i = 0; i < FDP.length; i++) {

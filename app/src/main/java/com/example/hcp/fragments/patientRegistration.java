@@ -38,6 +38,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.activeandroid.ActiveAndroid;
@@ -53,6 +54,10 @@ import com.digitalpersona.uareu.dpfpddusbhost.DPFPDDUsbHost;
 import com.example.hcp.activities.ScanActivity;
 import com.example.hcp.activities.ScanActivity2;
 import com.example.hcp.activities.VerificationActivity;
+import com.example.hcp.models.hcp.Assessmentt;
+import com.example.hcp.models.hcp.Samplee;
+import com.example.hcp.models.hcp.Vaccinationn;
+import com.example.hcp.models.hcp.addvitalll;
 import com.example.hcp.models.hcp.vitalListt;
 import com.example.hcp.utils.FormatHelper;
 import com.example.hcp.utils.GetReaderActivity;
@@ -104,7 +109,7 @@ import static com.example.hcp.utils.Constants.context;
 
 public class patientRegistration extends Fragment {
 
-    private ImageView ivFingerprint, ivFingerprint2;
+    private ImageView ivFingerprint, ivFingerprint2,ma_iv_fingerprint_edit;
     private Button btScan, btScan2;
 
     private static final int SCAN_FINGERPRINT = 1234;
@@ -113,7 +118,7 @@ public class patientRegistration extends Fragment {
     MaskEditText etContactNo;
     MaskedEditText etCNIC;
     private int m_hDevice = 0;
-    Button btnSubmit, Submit;
+    Button btnSubmit, Submit,ma_bt_scan_edit;
     LinearLayout layoutfirst, layoutsecond, secondlayout, fourlayout;
     Spinner seacchcnic, occupation, materialstatus, qualification, gendr, division, district, tehsil, hf;
     Spinner firsts, seconds, thirds, fours, fives;
@@ -131,17 +136,23 @@ public class patientRegistration extends Fragment {
     public String cnicNo;
     boolean isEidt = false;
     String patientname, patientcnic;
-    addPatientModel patient;
+    userdataaa patient;
     ImageView image_flag;
     String encodedfingerprint;
     String encodedfingerprint2;
     List<userdataaa> allData = new ArrayList<>();
+
     private String m_sn = "";
     private String m_deviceName = "";
     Reader m_reader;
     private final int GENERAL_ACTIVITY_RESULT = 1;
     private static final String ACTION_USB_PERMISSION = "com.digitalpersona.uareu.dpfpddusbhost.USB_PERMISSION";
     private Engine m_engine = null;
+
+
+    LinearLayout edit_layout,allformlayout;
+    TextView eidt_patient_name,toolbartext,patient_cnic_edit;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -176,15 +187,32 @@ public class patientRegistration extends Fragment {
         secondlayout = view.findViewById(R.id.secondlayout);
         fourlayout = view.findViewById(R.id.fourlayout);
         etPatientName = view.findViewById(R.id.etPatientName);
+        toolbartext = view.findViewById(R.id.toolbartext);
         lastname = view.findViewById(R.id.lastname);
         etFatherSpouse = view.findViewById(R.id.etFatherSpouse);
         etCompleteAddress = view.findViewById(R.id.etCompleteAddress);
         ivFingerprint = view.findViewById(R.id.ma_iv_fingerprint);
         btScan = view.findViewById(R.id.ma_bt_scan);
         ivFingerprint2 = view.findViewById(R.id.ma_iv_fingerprint2);
+        ma_bt_scan_edit = view.findViewById(R.id.ma_bt_scan_edit);
+
+        eidt_patient_name = view.findViewById(R.id.patient_name_foredit);
+        patient_cnic_edit = view.findViewById(R.id.patient_cnic_edit);
+
+
+        ma_iv_fingerprint_edit = view.findViewById(R.id.ma_iv_fingerprint_edit);
+
         btScan2 = view.findViewById(R.id.ma_bt_scan2);
+        edit_layout = view.findViewById(R.id.edit_layout);
+        allformlayout = view.findViewById(R.id.allformlayout);
 
         m_engine = UareUGlobal.GetEngine();
+
+
+
+        edit_layout.setVisibility(View.GONE);
+        allformlayout.setVisibility(View.VISIBLE);
+
 
         encodedfingerprint = "";
         encodedfingerprint2 = "";
@@ -194,7 +222,8 @@ public class patientRegistration extends Fragment {
         if (getArguments() != null) {
             isEidt = getArguments().getBoolean("isEdit");
             try {
-
+                edit_layout.setVisibility(View.VISIBLE);
+                allformlayout.setVisibility(View.GONE);
                 patientname = getArguments().getString("PatientName");
                 patientcnic = getArguments().getString("PatientCNIC");
 
@@ -206,21 +235,77 @@ public class patientRegistration extends Fragment {
 
         if (isEidt) {
 
+            toolbartext.setText("Add Finger Print");
+
             if (patientcnic != null) {
-                List<addPatientModel> mleader = null;
+                List<userdataaa> patinetforfingerprint = null;
                 if (patientcnic != "") {
-                    mleader = addPatientModel.searchByCNICLeader(patientcnic);
+                    patinetforfingerprint = userdataaa.searchByCNICLeader(patientcnic);
                 } else {
-                    mleader = addPatientModel.searchBynameLeader(patientname);
+                    patinetforfingerprint = userdataaa.searchBynameLeader(patientname);
                 }
 
 
-                for (int i = 0; i < mleader.size(); i++) {
-                    patient = mleader.get(i);
+                for (int i = 0; i < patinetforfingerprint.size(); i++) {
+                    patient = patinetforfingerprint.get(i);
+
                 }
             }
 
-//            memberName = member.getFullName();
+           String editpatientname = patient.getPatient_name();
+            String editpatientcnic = patient.getSelf_cnic();
+          eidt_patient_name.setText(editpatientname);
+            patient_cnic_edit.setText(editpatientcnic);
+
+
+            ma_bt_scan_edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ActiveAndroid.beginTransaction();
+                    try {
+                        final String xml64 = Base64.encodeToString(Constants.cap_result.getData(), Base64.DEFAULT);
+                        patient.setFinger_print2(xml64);
+                        patient.IsSync = 0;
+                        patient.save();
+                        ActiveAndroid.setTransactionSuccessful();
+                    } finally {
+                        ActiveAndroid.endTransaction();
+                    }
+
+                    final SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.BUTTON_NEUTRAL);
+                    pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.colorPrimaryDark));
+                    pDialog.setTitleText("Finger Print Saved");
+                    pDialog.setCancelable(false);
+                    pDialog.show();
+                    Fragment FMFragment = new DashboardFragment();
+                    Bundle args = new Bundle();
+//            args.putString("SelectedMrNo", assessment.getMrn_no());
+//            args.putInt("FamilyId", family_id);
+                    args.putString("PatientCNIC", cnicNo);
+                    args.putString("PatientName", Name);
+
+                    if (FMFragment != null) {
+
+                        getActivity().onBackPressed();
+
+                        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+                        FMFragment.setArguments(args);
+                        try {
+                            transaction.replace(R.id.content_frame, FMFragment, "patientRegistrationFragment").addToBackStack("a").commit();
+
+                        } catch (IllegalStateException ignored) {
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                }
+            });
+
+
+
 //            memberAge = member.getAge();
 //            membercnic = member.getCNIC();
 //            gender = member.getGender();
@@ -231,7 +316,7 @@ public class patientRegistration extends Fragment {
 //            if (SelectedMrNo != null) {
 //                singalFamily = FamilyBody.searchByMRNO(SelectedMrNo);
 //            }
-//            Name.setText(memberName);
+
 //            FHName.setText(member.getFatherName());
 //            CNIC.setText(membercnic);
 //            registration_tvAge.setText(memberAge);
@@ -404,6 +489,17 @@ public class patientRegistration extends Fragment {
                 launchGetReader();
             }
         });
+
+
+        ma_iv_fingerprint_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(getContext(), ScanActivity.class);
+//                startActivityForResult(intent, SCAN_FINGERPRINT);
+                launchGetReader();
+            }
+        });
+
 
 //        ivFingerprint2.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -606,56 +702,66 @@ public class patientRegistration extends Fragment {
                 {
                     byte[] decodedString = Base64.decode(Constants.FmdBase64, Base64.DEFAULT);
                     Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                    ivFingerprint.setImageBitmap(decodedByte);
-
-                    if(allData.size() > 0)
-
-                    {
-                        for(int i=0;i<allData.size();i++)
-
-//                            final String xml64 = Base64.encodeToString(Constants.cap_result.getData(), Base64.DEFAULT);
-//                        FL.setFinger_fmd(xml64.trim());
-//                        List<userdataaa> abc = userdataaa.searchbyfingerprint(xml64)
+                    if(isEidt){
+                        ma_iv_fingerprint_edit.setImageBitmap(decodedByte);
+                    }else {
+                        ivFingerprint.setImageBitmap(decodedByte);
 
 
-                        if(allData.get(i).getFinger_print2()!=null) {
-                            {
-                                byte[] xml64Bytes = Base64.decode(allData.get(i).getFinger_print2(), Base64.DEFAULT);//allData.get(i).getFinger_fmd().getBytes(StandardCharsets.UTF_8);//Base64.decode(allData.get(i).getFinger_fmd(), Base64.DEFAULT);
-                                Fmd d_fmd = null;
-                                Fid d_fid = null;
-                                try {
-                                    d_fid = UareUGlobal.GetImporter().ImportFid(xml64Bytes, Fid.Format.ANSI_381_2004);
-                                    d_fmd = m_engine.CreateFmd(d_fid, ANSI_378_2004);
-
+                        if (allData.size() > 0) {
+                            for (int i = 0; i < allData.size(); i++) {
+                                if (allData.get(i).getFinger_print2() != null && !allData.get(i).getFinger_print2().isEmpty()) {
+                                    byte[] xml64Bytes = Base64.decode(allData.get(i).getFinger_print2(), Base64.DEFAULT);//allData.get(i).getFinger_fmd().getBytes(StandardCharsets.UTF_8);//Base64.decode(allData.get(i).getFinger_fmd(), Base64.DEFAULT);
+                                    Fmd d_fmd = null;
+                                    Fid d_fid = null;
                                     try {
+                                        d_fid = UareUGlobal.GetImporter().ImportFid(xml64Bytes, Fid.Format.ANSI_381_2004);
+                                        d_fmd = m_engine.CreateFmd(d_fid, ANSI_378_2004);
 
-                                        if (d_fmd != null) {
-                                            int m_score = m_engine.Compare(d_fmd, 0, m_engine.CreateFmd(Constants.cap_result, ANSI_378_2004), 0);
-                                            if (m_score < (0x7FFFFFFF / 100000)) {
-                                                Toast.makeText(getContext(), "Patient Already Registered matched!", Toast.LENGTH_LONG).show();
-                                                layoutfirst.setVisibility(View.GONE);
-                                                layoutsecond.setVisibility(View.GONE);
-                                                Submit.setVisibility(View.GONE);
-                                                break;
-                                            } else {
+                                        try {
+
+                                            if (d_fmd != null) {
+                                                int m_score = m_engine.Compare(d_fmd, 0, m_engine.CreateFmd(Constants.cap_result, ANSI_378_2004), 0);
+                                                if (m_score < (0x7FFFFFFF / 100000)) {
+                                                    Toast.makeText(getContext(), "Patient Already Registered matched!", Toast.LENGTH_LONG).show();
+                                                    layoutfirst.setVisibility(View.GONE);
+                                                    layoutsecond.setVisibility(View.GONE);
+                                                    Submit.setVisibility(View.GONE);
+                                                    break;
+                                                } else {
 //                                                Toast.makeText(getContext(), "not matched", Toast.LENGTH_LONG).show();
-                                                layoutfirst.setVisibility(View.VISIBLE);
-                                                layoutsecond.setVisibility(View.VISIBLE);
-                                                Submit.setVisibility(View.VISIBLE);
+                                                    layoutfirst.setVisibility(View.VISIBLE);
+                                                    layoutsecond.setVisibility(View.VISIBLE);
+                                                    Submit.setVisibility(View.VISIBLE);
 
+                                                }
                                             }
-                                        }
 
+                                        } catch (UareUException e) {
+                                            e.printStackTrace();
+                                            Log.d("----", e.getMessage());
+                                        }
                                     } catch (UareUException e) {
                                         e.printStackTrace();
-                                        Log.d("----", e.getMessage());
                                     }
-                                } catch (UareUException e) {
-                                    e.printStackTrace();
-                                }
 
+                                } else {
+
+                                    layoutfirst.setVisibility(View.VISIBLE);
+                                    layoutsecond.setVisibility(View.VISIBLE);
+                                    Submit.setVisibility(View.VISIBLE);
+                                }
+//                          Toast.makeText(getContext(), "Finger Print not found!", Toast.LENGTH_LONG).show();
                             }
+
+                        } else {
+                            layoutfirst.setVisibility(View.VISIBLE);
+                            layoutsecond.setVisibility(View.VISIBLE);
+                            Submit.setVisibility(View.VISIBLE);
                         }
+//                    verfityPatient();
+
+
                     }
 
                     Log.d("---d---",Constants.Fmd + "");
@@ -676,9 +782,69 @@ public class patientRegistration extends Fragment {
 
     }
 
+
+    public void verfityPatient(){
+        List<addPatientModel> patientModel = new ArrayList<>();
+        patientModel = addPatientModel.getall();
+        if(patientModel.size() > 0)
+
+
+        {
+            for(int i=0;i<patientModel.size();i++)
+
+//                            final String xml64 = Base64.encodeToString(Constants.cap_result.getData(), Base64.DEFAULT);
+//                        FL.setFinger_fmd(xml64.trim());
+//                        List<userdataaa> abc = userdataaa.searchbyfingerprint(xml64)
+
+
+                if(patientModel.get(i).getFinger_fmd()!=null) {
+                    {
+                        byte[] xml64Bytes = Base64.decode(patientModel.get(i).getFinger_fmd(), Base64.DEFAULT);//allData.get(i).getFinger_fmd().getBytes(StandardCharsets.UTF_8);//Base64.decode(allData.get(i).getFinger_fmd(), Base64.DEFAULT);
+                        Fmd d_fmd = null;
+                        Fid d_fid = null;
+                        try {
+                            d_fid = UareUGlobal.GetImporter().ImportFid(xml64Bytes, Fid.Format.ANSI_381_2004);
+                            d_fmd = m_engine.CreateFmd(d_fid, ANSI_378_2004);
+
+                            try {
+
+                                if (d_fmd != null) {
+                                    int m_score = m_engine.Compare(d_fmd, 0, m_engine.CreateFmd(Constants.cap_result, ANSI_378_2004), 0);
+                                    if (m_score < (0x7FFFFFFF / 100000)) {
+                                        Toast.makeText(getContext(), "Patient Already Registered matched!", Toast.LENGTH_LONG).show();
+                                        layoutfirst.setVisibility(View.GONE);
+                                        layoutsecond.setVisibility(View.GONE);
+                                        Submit.setVisibility(View.GONE);
+                                        break;
+                                    } else {
+//                                                Toast.makeText(getContext(), "not matched", Toast.LENGTH_LONG).show();
+                                        layoutfirst.setVisibility(View.VISIBLE);
+                                        layoutsecond.setVisibility(View.VISIBLE);
+                                        Submit.setVisibility(View.VISIBLE);
+
+                                    }
+                                }
+
+                            } catch (UareUException e) {
+                                e.printStackTrace();
+                                Log.d("----", e.getMessage());
+                            }
+                        } catch (UareUException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }
+        }
+
+
+    }
     private void toast(String msg) {
         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
+
+
+
 
     private void FormValidation() {
 
@@ -774,8 +940,10 @@ public class patientRegistration extends Fragment {
         }
         if (Validationstatus) {
 
-            addPatientModel FL = new addPatientModel();
+            userdataaa FL = new userdataaa();
             ActiveAndroid.beginTransaction();
+            FL.new_patient = 1;
+            FL.IsActive = 1;
             FL.mrn_no = "";
             FL.IsSync = 0;
             FL.setPatient_id(0);
@@ -822,14 +990,13 @@ public class patientRegistration extends Fragment {
             FL.setIdentifier(new SharedPref(getContext()).GetserverID());
             FL.setUser_id(new SharedPref(getContext()).GetLoggedInRole());
             FL.setHospital_id(new SharedPref(getContext()).GetLoggedInUser());
-            FL.setFinger_base64(Constants.FmdBase64);
+            FL.setFinger_print1(Constants.FmdBase64);
             final String xml64 = Base64.encodeToString(Constants.cap_result.getData(), Base64.DEFAULT);
-            FL.setFinger_fmd(xml64);
-            FL.setWidth(Constants.width);
-            FL.setHeight(Constants.height);
-            FL.setCbeff_id(Constants.cbeff_id);
-            FL.setQuality(Constants.quality);
-
+            FL.setFinger_print2(xml64);
+//            FL.setWidth(Constants.width);
+//            FL.setHeight(Constants.height);
+//            FL.setCbeff_id(Constants.cbeff_id);
+//            FL.setQuality(Constants.quality);
 
             FL.save();
 
@@ -839,8 +1006,8 @@ public class patientRegistration extends Fragment {
             ActiveAndroid.endTransaction();
 
 
-            addPatientModel assessment = new addPatientModel();
-            assessment = addPatientModel.searchBycnic(cnicNo);
+            userdataaa patientid = new userdataaa();
+            patientid = userdataaa.searchBycnic(cnicNo);
 
 
             final SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.BUTTON_NEUTRAL);
@@ -885,7 +1052,7 @@ public class patientRegistration extends Fragment {
 //            }
 
 //            args.putString("Patienttype", "New Patient");
-            args.putInt("pid", assessment.getId().intValue());
+            args.putInt("pid", patientid.getId().intValue());
 
 
 //            if(patient_id==0){
@@ -911,6 +1078,8 @@ public class patientRegistration extends Fragment {
                 Toast.makeText(getContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
             }
         }
+
+
     }
 
 //    private void addforvital() {
