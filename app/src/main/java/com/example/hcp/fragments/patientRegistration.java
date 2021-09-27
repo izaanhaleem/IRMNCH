@@ -860,16 +860,19 @@ public class patientRegistration extends Fragment {
         if (Name.isEmpty()) {
             Toast.makeText(getContext(), Constants.NameMissing, Toast.LENGTH_LONG).show();
             Validationstatus = false;
-        }  if (seacchcnic.getSelectedItemPosition() == 1) {
-            if (cnicNo.length() != 15) {
-                Toast.makeText(getContext(), "Enter 13 Digit CNIC", Toast.LENGTH_LONG).show();
-                Validationstatus = false;
-            }
-
-        }  if (seacchcnic.getSelectedItemPosition() == 2 && cnicNo.length() != 14) {
-            Toast.makeText(getContext(), "Enter 13 Digit CNIC", Toast.LENGTH_LONG).show();
-            Validationstatus = false;
-        }  if (lastName.isEmpty()) {
+        }
+//        if (seacchcnic.getSelectedItemPosition() == 1) {
+//            if (cnicNo.length() != 15) {
+//                Toast.makeText(getContext(), "Enter 13 Digit CNIC", Toast.LENGTH_LONG).show();
+//                Validationstatus = false;
+//            }
+//
+//        }
+//        if (seacchcnic.getSelectedItemPosition() == 2 && cnicNo.length() != 14) {
+//            Toast.makeText(getContext(), "Enter 13 Digit CNIC", Toast.LENGTH_LONG).show();
+//            Validationstatus = false;
+//        }
+        if (lastName.isEmpty()) {
             Toast.makeText(getContext(), Constants.lName, Toast.LENGTH_LONG).show();
             Validationstatus = false;
         }  if (FatherName.isEmpty()) {
@@ -888,39 +891,45 @@ public class patientRegistration extends Fragment {
             Toast.makeText(getContext(), Constants.PhoneMissing1, Toast.LENGTH_LONG).show();
 
             Validationstatus = false;
-        }  if (OccupationVal.isEmpty()) {
-            Toast.makeText(getContext(), Constants.occupation, Toast.LENGTH_LONG).show();
-
-            Validationstatus = false;
-        }  if (materialstatusVal.isEmpty()) {
+        }
+//         if (OccupationVal.isEmpty()) {
+//            Toast.makeText(getContext(), Constants.occupation, Toast.LENGTH_LONG).show();
+//
+//            Validationstatus = false;
+//        }
+         if (materialstatusVal.isEmpty()) {
             Toast.makeText(getContext(), Constants.MaritalStatusMissing, Toast.LENGTH_LONG).show();
 
             Validationstatus = false;
-        }  if (qualificationVal.isEmpty()) {
-            Toast.makeText(getContext(), Constants.EducationOccupationMissing, Toast.LENGTH_LONG).show();
-
-            Validationstatus = false;
-        }  if (SelectedGenderIndex == 0) {
+        }
+//         if (qualificationVal.isEmpty()) {
+//            Toast.makeText(getContext(), Constants.EducationOccupationMissing, Toast.LENGTH_LONG).show();
+//
+//            Validationstatus = false;
+//        }
+         if (SelectedGenderIndex == 0) {
             Toast.makeText(getContext(), Constants.GenderMissing, Toast.LENGTH_LONG).show();
 
             Validationstatus = false;
-        }  if (SelectedDivisionCode == 0) {
-            Toast.makeText(getContext(), Constants.division, Toast.LENGTH_LONG).show();
-
-            Validationstatus = false;
-        }  if (SelectedDistrictedCode == 0) {
-            Toast.makeText(getContext(), Constants.district, Toast.LENGTH_LONG).show();
-
-            Validationstatus = false;
-        }  if (SelectTcode == 0) {
-            Toast.makeText(getContext(), Constants.tehsil, Toast.LENGTH_LONG).show();
-
-            Validationstatus = false;
-        }  if (SelectedHfcode == 0) {
-            Toast.makeText(getContext(), Constants.healthfacility, Toast.LENGTH_LONG).show();
-
-            Validationstatus = false;
-        }  if (firstVal.equals("")) {
+        }
+//         if (SelectedDivisionCode == 0) {
+//            Toast.makeText(getContext(), Constants.division, Toast.LENGTH_LONG).show();
+//
+//            Validationstatus = false;
+//        }  if (SelectedDistrictedCode == 0) {
+//            Toast.makeText(getContext(), Constants.district, Toast.LENGTH_LONG).show();
+//
+//            Validationstatus = false;
+//        }  if (SelectTcode == 0) {
+//            Toast.makeText(getContext(), Constants.tehsil, Toast.LENGTH_LONG).show();
+//
+//            Validationstatus = false;
+//        }  if (SelectedHfcode == 0) {
+//            Toast.makeText(getContext(), Constants.healthfacility, Toast.LENGTH_LONG).show();
+//
+//            Validationstatus = false;
+//        }
+         if (firstVal.equals("")) {
             Toast.makeText(getContext(), Constants.previoushbv, Toast.LENGTH_LONG).show();
 
             Validationstatus = false;
@@ -995,8 +1004,12 @@ public class patientRegistration extends Fragment {
             FL.setHospital_id(new SharedPref(getContext()).GetLoggedInUser());
             FL.setFinger_print1(Constants.FmdBase64);
 
+
+
             final String xml64 = Base64.encodeToString(Constants.cap_result.getData(), Base64.DEFAULT);
             FL.setFinger_print2(xml64);
+//            byte[] adf = Constants.cap_result.getData();
+//            FL.setFinger_fmd(adf);
 //            FL.setWidth(Constants.width);
 //            FL.setHeight(Constants.height);
 //            FL.setCbeff_id(Constants.cbeff_id);

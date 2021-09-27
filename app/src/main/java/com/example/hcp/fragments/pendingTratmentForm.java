@@ -28,6 +28,7 @@ import com.example.hcp.R;
 import com.example.hcp.models.hcp.Samplee;
 import com.example.hcp.models.hcp.addPatientModel;
 import com.example.hcp.models.hcp.medicinee;
+import com.example.hcp.models.hcp.userdataaa;
 import com.example.hcp.utils.Constants;
 import com.example.hcp.utils.SharedPref;
 
@@ -731,9 +732,14 @@ alt.addTextChangedListener(new TextWatcher() {
 
               Mad.IsSync = 0;
 
+
+          userdataaa s = userdataaa.searchByPatientId(pid);
+          s.IsMedicine = 0;
+
+
           try {
               Mad.save();
-
+              s.save();
               ActiveAndroid.setTransactionSuccessful();
           } finally {
               ActiveAndroid.endTransaction();

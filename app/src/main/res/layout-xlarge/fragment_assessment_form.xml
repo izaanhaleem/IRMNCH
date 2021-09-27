@@ -568,6 +568,7 @@
                     </androidx.appcompat.widget.SwitchCompat>
 
                     <androidx.appcompat.widget.SwitchCompat
+                        android:visibility="gone"
                         android:id="@+id/switch17"
                         android:textSize="17sp"
                         android:layout_width="match_parent"

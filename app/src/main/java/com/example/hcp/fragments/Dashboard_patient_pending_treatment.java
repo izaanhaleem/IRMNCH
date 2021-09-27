@@ -110,7 +110,7 @@ public class Dashboard_patient_pending_treatment extends Fragment {
 
     private void allBaselineList() {
         List<userdataaa> baseline;
-        baseline=userdataaa.getall();
+        baseline=userdataaa.getallISMedicine();
         SetDataArrayy(baseline);
     }
 

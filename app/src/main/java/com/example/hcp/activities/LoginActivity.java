@@ -717,6 +717,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     dat.IsActive = 1;
 
+                    dat.IsMedicine = 1;
 
                     dat.save();
 //                Log.d("asdf","sadf");

@@ -61,6 +61,7 @@ import com.example.hcp.activities.ScanActivity;
 import com.example.hcp.activities.VerificationActivity;
 import com.example.hcp.adapters.SearchResultAdapter;
 import com.example.hcp.adapters.SearchResultAdapterforFingerprint;
+import com.example.hcp.adapters.SearchResultAdapternewpatieints;
 import com.example.hcp.models.AdaptersData.SearchResultData;
 import com.example.hcp.models.Parcables.PatientDataParceable;
 import com.example.hcp.models.Users.UserResponse;
@@ -188,6 +189,7 @@ public class DashboardFragment extends Fragment {
         allnewpatientList();
 
 
+
         SetSearchOptions();
 
         totalSYncREcord();
@@ -302,7 +304,7 @@ public class DashboardFragment extends Fragment {
             myListData[i].setLeaderCNIC(FDP[i].LeaderCNIC);
         }
 
-        SearchResultAdapter adapter = new SearchResultAdapter(myListData);
+        SearchResultAdapternewpatieints adapter = new SearchResultAdapternewpatieints(myListData,getContext());
 //        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
@@ -1018,11 +1020,9 @@ public class DashboardFragment extends Fragment {
     public void submitePatients()
 
     {
-
         for (int i = 0; i < paitents.size(); i++)
 
         {
-
             addPatientRequest fmb = new addPatientRequest();
             if (paitents.get(i).getPatient_id() != null) {
                 fmb.setPatient_id(paitents.get(i).getPatient_id());
@@ -1065,9 +1065,13 @@ public class DashboardFragment extends Fragment {
             }
             if (paitents.get(i).getOccupation() != null) {
                 fmb.setOccupation(paitents.get(i).getOccupation());
+            }else {
+                fmb.setOccupation("empty");
             }
             if (paitents.get(i).getQualification() != null) {
                 fmb.setQualification(paitents.get(i).getQualification());
+            }else {
+                fmb.setQualification("empty");
             }
             if (paitents.get(i).getPatient_age_80() != null) {
                 fmb.setPatient_age_80(paitents.get(i).getPatient_age_80());

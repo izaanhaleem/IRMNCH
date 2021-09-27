@@ -533,6 +533,10 @@ public class userdataaa extends Model {
     @Expose
     public Integer IsActive;
 
+    @Column(name = "IsMedicine")
+    @SerializedName("IsMedicine")
+    @Expose
+    public Integer IsMedicine;
 
 
     @Column(name = "finger_print1")
@@ -1030,6 +1034,16 @@ public class userdataaa extends Model {
                 .from(userdataaa.class)
                 .execute();
     }
+
+    public static List<userdataaa> getallISMedicine() {
+        return new Select()
+                .from(userdataaa.class)
+                .where("IsMedicine = ?",1)
+                .where("cbl = ?","Y")
+                .or("bbl = ?","Y")
+                .execute();
+    }
+
     public static List<userdataaa> searchByCNICLeader(String cnic) {
         return new Select()
                 .from(userdataaa.class)
