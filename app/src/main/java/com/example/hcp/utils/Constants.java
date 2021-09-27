@@ -37,6 +37,7 @@ public class Constants {
     public static final String dateofbirth = "Missing Date of Birth";
     public static final String ageislessthensixx = "Age is Less then 6 Year";
     public static final String ageisgreatertheneighty = "Age is Greater then 80 Year";
+    public static final String scanyour_finger = "Scan Finger Print!";
     public static final String DOBMissing = "تاریخ پیدائش کا انتخاب کریں.";
     public static final String DOBMissing1 = "سربراہ کی عمر 16 سال سے کم ہے.";
     public static final String NameMissing= "Plz Enter Patient Name";
@@ -52,16 +53,16 @@ public class Constants {
     public static final String CompleteCNIC="براہ کرم مکمل شناختی کارڈ کا انتخاب کریں";
     public static final String BFormMissing="براہ کرم بے فارم نمبر شامل کریں";
     public static final String PhoneMissing = "فون نمبر درج کریں.";
-    public static final String PhoneMissing1 = "پورا فون نمبر درج کریں\n.";
+    public static final String PhoneMissing1 = "Phone No!";
     public static final String FormDataMissing = "براہ مہربانی مکمل طور پر فارم بھریں !";
     public static final String FamilyDataSaved = "فیملی کا ڈیٹا کامیابی کے ساتھ محفوظ ہوگیا !";
-    public static final String AddressMissing = "پتہ درج کریں !";
+    public static final String AddressMissing = "Address is Missing!";
     public static final String UCCodeMissing= "اپنا یو سی منتخب کریں !";
     public static final String occupation= "Missing Occupation";
-    public static final String EducationOccupationMissing = " تعلیم  کو منتخب کریں !";
+    public static final String EducationOccupationMissing = " Education Missing";
     public static final String RelationShipWithLeaderMissing = "خاندان کے سربراہ کے ساتھ تعلقات کو منتخب کریں !";
     public static final String DoorPicMissing = "دروازے کی تصویر حاصل کریں !";
-    public static final String MaritalStatusMissing = "ازدواجی حیثیت منتخب کریں !";
+    public static final String MaritalStatusMissing = "Marital Status!";
     public static final String hospitalstatus = " ہسپتال منتخب کریں\n   ";
     public static final String privathospitalName = " !";
 

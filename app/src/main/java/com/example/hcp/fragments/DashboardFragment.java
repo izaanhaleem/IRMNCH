@@ -60,6 +60,7 @@ import com.example.hcp.activities.MainActivity;
 import com.example.hcp.activities.ScanActivity;
 import com.example.hcp.activities.VerificationActivity;
 import com.example.hcp.adapters.SearchResultAdapter;
+import com.example.hcp.adapters.SearchResultAdapterforFingerprint;
 import com.example.hcp.models.AdaptersData.SearchResultData;
 import com.example.hcp.models.Parcables.PatientDataParceable;
 import com.example.hcp.models.Users.UserResponse;
@@ -283,8 +284,11 @@ public class DashboardFragment extends Fragment {
             FDP[i].LeaderCNIC = newpatient.get(i).self_cnic;
             FDP[i].MrNo = newpatient.get(i).mrn_no;
 
-
-
+//            if(newpatient.get(i).finger_print2==null){
+//                FDP[i].fingerprint = "notfound";
+//            }else {
+//                FDP[i].fingerprint = newpatient.get(i).finger_print2;
+//            }
 
         }
         SearchResultData[] myListData = new SearchResultData[FDP.length] ;

@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hcp.R;
 import com.example.hcp.adapters.SearchResultAdapter;
+import com.example.hcp.adapters.SearchResultAdapterforFingerprint;
 import com.example.hcp.models.AdaptersData.SearchResultData;
 
 import com.example.hcp.models.Parcables.FamilyDataParceable;
@@ -64,7 +65,7 @@ public class SearchResultFragment extends Fragment {
         }
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.search_result_list);
-        SearchResultAdapter adapter = new SearchResultAdapter(myListData);
+        SearchResultAdapterforFingerprint adapter = new SearchResultAdapterforFingerprint(myListData);
 //        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setAdapter(adapter);

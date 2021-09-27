@@ -49,6 +49,12 @@ public class SearchResultAdapterpendingTeatment extends RecyclerView.Adapter<Sea
         holder.LeaderCNIC.setText(sData[position].getLeaderCNIC());
         holder.text1.setText(sData[position].getText1());
         holder.text2.setText(sData[position].getText2());
+
+        if(sData[position].getText1().equalsIgnoreCase("Null")){
+            holder.FamilyCard.setVisibility(View.GONE);
+        }
+
+
         holder.FamilyMembers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

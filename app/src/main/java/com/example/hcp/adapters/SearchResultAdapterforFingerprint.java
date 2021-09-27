@@ -18,20 +18,20 @@ import com.example.hcp.R;
 import com.example.hcp.fragments.patientRegistration;
 import com.example.hcp.models.AdaptersData.SearchResultData;
 
-public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapter.ViewHolder> {
+public class SearchResultAdapterforFingerprint extends RecyclerView.Adapter<SearchResultAdapterforFingerprint.ViewHolder> {
 
     private  SearchResultData[] sData;
 
 
     // RecyclerView recyclerView;
-    public SearchResultAdapter(SearchResultData[] listdata) {
+    public SearchResultAdapterforFingerprint(SearchResultData[] listdata) {
         this.sData = listdata;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View listItem= layoutInflater.inflate(R.layout.search_result_item, parent, false);
+        View listItem= layoutInflater.inflate(R.layout.search_result_item_missingfingerprint, parent, false);
         ViewHolder viewHolder = new ViewHolder(listItem);
         return viewHolder;
     }
@@ -44,23 +44,17 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         holder.LeaderName.setText(sData[position].getPatientName());
         holder.LeaderCNIC.setText(sData[position].getLeaderCNIC());
 
-//        String fingerprint = sData[position].fingerprint;
-//
-//        try {
-//            if (fingerprint.equalsIgnoreCase("notfound")){
-//                holder.addfingerprint.setVisibility(View.VISIBLE);
-//            }else {
-//                holder.addfingerprint.setVisibility(View.GONE);
-//            }
-//
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
+        String fingerprint = sData[position].fingerprint;
+
+            if (fingerprint.equalsIgnoreCase("notfound")){
+                holder.addfingerprint.setVisibility(View.VISIBLE);
+            }else {
+                holder.addfingerprint.setVisibility(View.GONE);
+            }
 
 
-
-
-
+        
+        
         holder.addfingerprint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,9 +81,9 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
                 }
             }
         });
-
-
-
+        
+        
+        
 //        holder.itemView.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
