@@ -1129,12 +1129,21 @@ public class userdataaa extends Model {
                 .where("IsSync = ?",0)
                 .execute();
     }
+
     public static userdataaa searchBycnic(String cnic) {
         return new Select()
                 .from(userdataaa.class)
                 .where("self_cnic = ?",cnic)
                 .executeSingle();
     }
+
+    public static userdataaa searchBypid(int pid) {
+        return new Select()
+                .from(userdataaa.class)
+                .where("mobile_id = ?",pid)
+                .executeSingle();
+    }
+
     public static List<userdataaa> searchallISvital() {
         return new Select()
                 .from(userdataaa.class)

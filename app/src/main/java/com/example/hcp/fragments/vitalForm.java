@@ -34,9 +34,12 @@ public class vitalForm extends Fragment {
     EditText name,mrno,patient,cnic,temperature,pulseBPM,BPSystolic,BPDiastolic,HeightCM,WeightKG;
     Button addvital;
     String SelectedMrNo,patientCNINC,PatientName,PatientType;
-    int pid;
+    int pid,pideidt;
     List<addPatientModel> isvitals;
-
+    boolean isEidt = false;
+    String patientname,patientcnic,patientcontactNo;
+    userdataaa patientobject;
+    addvitalll vitalobject;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -63,6 +66,24 @@ public class vitalForm extends Fragment {
         BPDiastolic.setFilters(new InputFilter[]{ new InputFilterMinMax("1", "202")});
         fragmentManager = getFragmentManager();
 
+//        if (getArguments() != null) {
+//            isEidt = getArguments().getBoolean("isEdit");
+//            try {
+//
+//                patientname = getArguments().getString("PatientName");
+//                patientcnic = getArguments().getString("PatientCNIC");
+//                patientcontactNo = getArguments().getString("PatientCNIC");
+//                pideidt = getArguments().getInt("pidEdit");
+//
+//            } catch (Exception e) {
+//
+//
+//            }
+//        }
+
+
+
+
         name.setEnabled(false);
         mrno.setEnabled(false);
         cnic.setEnabled(false);
@@ -76,7 +97,43 @@ public class vitalForm extends Fragment {
         addvital.setOnClickListener(
                 v -> FormValidation()
         );
-
+//        if(isEidt){
+//            if (patientcnic != null || pideidt != -1) {
+//                List<userdataaa> patinetforeditvital = null;
+//                addvitalll vitalla = null;
+//                if (patientcnic != "") {
+//                    patinetforeditvital = userdataaa.searchByCNICLeader(patientcnic);
+//                    vitalla = addvitalll.searchBycninc(patientcnic);
+//                } else {
+//                    patinetforeditvital = userdataaa.searchByPhoneLeader(patientname);
+//                    vitalla = addvitalll.searchBypid(pideidt);
+//                }
+//
+//                vitalobject = vitalla;
+//                Double tempdouble = vitalobject.getTemperature();
+//                String temp = String.valueOf(tempdouble);
+//                String puls = String.valueOf(vitalobject.getPulse());
+//                String bps = String.valueOf(vitalobject.getBp_systolic());
+//                String bpd = String.valueOf(vitalobject.getBp_diastolic());
+//                temperature.setText(temp+"");
+//                pulseBPM.setText(puls);
+//                BPSystolic.setText(bps+"");
+//                BPDiastolic.setText(bpd+"");
+//
+//                for (int i = 0; i < patinetforeditvital.size(); i++) {
+//                    patientobject = patinetforeditvital.get(i);
+//                    name.setText(patientobject.getPatient_name());
+//                    cnic.setText(patientobject.getSelf_cnic());
+//                    String patientT = patientobject.getPatient_type();
+//                    patient.setText(patientT);
+//                    mrno.setText(patientobject.getMrn_no());
+//                }
+//            }
+//
+//
+//
+//
+//        }
         return view;
 
     }
@@ -138,7 +195,11 @@ public class vitalForm extends Fragment {
 
             addvitalll FL = new addvitalll();
             ActiveAndroid.beginTransaction();
-            FL.pid = pid;
+//            if(isEidt){
+//                FL.pid = pideidt;
+//            }else {
+                FL.pid = pid;
+//            }
             FL.IsSync = 0;
             FL.temperature= temperatur;
             FL.pulse=Integer.parseInt(pulseBPM.getText().toString());
@@ -149,13 +210,14 @@ public class vitalForm extends Fragment {
             FL.user_id=i;
             FL.self_cnic = patientCNINC;
 
-            userdataaa mod = userdataaa.searchBycnic(patientCNINC);
+            userdataaa mod = userdataaa.searchBypid(pid);
 
             mod.ISVital = 1;
 
             try {
                 FL.save();
                 mod.save();
+
 
 
                 ActiveAndroid.setTransactionSuccessful();

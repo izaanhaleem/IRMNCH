@@ -134,7 +134,7 @@ try {
         FL.user_id=i;
 
 
-        userdataaa mod = userdataaa.searchBycnic(patientCNINC);
+        userdataaa mod = userdataaa.searchBypid(pid);
 
         mod.ISSample = 1;
 

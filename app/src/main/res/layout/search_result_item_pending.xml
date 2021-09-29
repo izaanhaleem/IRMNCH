@@ -49,42 +49,7 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="3"
-            >
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="start"
-                android:paddingTop="10dp"
-                android:paddingBottom="5dp"
-                android:text="Last Name"
-                android:layout_weight="1.3"
-                android:textColor="@color/colorPrimaryDark"
-                android:textDirection="rtl"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-            <TextView
-
-                android:id="@+id/cardFamilyAddress"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="start"
-                android:layout_weight="1.7"
-                android:paddingTop="10dp"
-                android:paddingBottom="5dp"
-                android:text="---"
-                android:textColor="@color/color_black"
-                android:textDirection="rtl"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -193,7 +158,42 @@
                 android:textSize="14sp"
                 android:textStyle="bold" />
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            >
 
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="start"
+                android:paddingTop="10dp"
+                android:paddingBottom="5dp"
+                android:text="Viral Count"
+                android:layout_weight="1.3"
+                android:textColor="@color/colorPrimaryDark"
+                android:textDirection="rtl"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <TextView
+
+                android:id="@+id/cardFamilyAddress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="start"
+                android:layout_weight="1.7"
+                android:paddingTop="10dp"
+                android:paddingBottom="5dp"
+                android:text="---"
+                android:textColor="@color/color_black"
+                android:textDirection="rtl"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
 
         <Button
@@ -206,7 +206,7 @@
             android:layout_marginVertical="@dimen/margin_small_1"
             android:background="@drawable/buttonstyle"
             android:paddingHorizontal="15dp"
-            android:text="HCV Baseline Investigation Form"
+            android:text=""
             android:textColor="@color/color_white"
             android:textSize="14sp"
             android:textStyle="bold" />

@@ -136,7 +136,7 @@ public class patientRegistration extends Fragment {
     public String cnicNo;
     boolean isEidt = false;
     String patientname, patientcnic;
-    userdataaa patient;
+   public userdataaa patient_edit;
     ImageView image_flag;
     String encodedfingerprint;
     String encodedfingerprint2;
@@ -152,8 +152,8 @@ public class patientRegistration extends Fragment {
 
     LinearLayout edit_layout,allformlayout;
     TextView eidt_patient_name,toolbartext,patient_cnic_edit;
-
-
+     public int patientid_edit;
+   public int editpatient_age;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -210,8 +210,8 @@ public class patientRegistration extends Fragment {
 
 
 
-        edit_layout.setVisibility(View.GONE);
-        allformlayout.setVisibility(View.VISIBLE);
+//        edit_layout.setVisibility(View.GONE);
+//        allformlayout.setVisibility(View.VISIBLE);
 
 
         encodedfingerprint = "";
@@ -222,10 +222,9 @@ public class patientRegistration extends Fragment {
         if (getArguments() != null) {
             isEidt = getArguments().getBoolean("isEdit");
             try {
-                edit_layout.setVisibility(View.VISIBLE);
-                allformlayout.setVisibility(View.GONE);
                 patientname = getArguments().getString("PatientName");
                 patientcnic = getArguments().getString("PatientCNIC");
+                patientid_edit = getArguments().getInt("pidEdit");
 
             } catch (Exception e) {
 
@@ -237,224 +236,126 @@ public class patientRegistration extends Fragment {
 
             toolbartext.setText("Add Finger Print");
 
-            if (patientcnic != null) {
+
+
+            if (patientcnic != null || patientid_edit !=-1) {
                 List<userdataaa> patinetforfingerprint = null;
-                if (patientcnic != "") {
+                if (!patientcnic.equals("-       -")) {
                     patinetforfingerprint = userdataaa.searchByCNICLeader(patientcnic);
                 } else {
                     patinetforfingerprint = userdataaa.searchBynameLeader(patientname);
                 }
 
-
                 for (int i = 0; i < patinetforfingerprint.size(); i++) {
-                    patient = patinetforfingerprint.get(i);
+                    patient_edit = patinetforfingerprint.get(i);
 
                 }
             }
 
-           String editpatientname = patient.getPatient_name();
-            String editpatientcnic = patient.getSelf_cnic();
-          eidt_patient_name.setText(editpatientname);
-            patient_cnic_edit.setText(editpatientcnic);
-
-
-            ma_bt_scan_edit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ActiveAndroid.beginTransaction();
-                    try {
-                        final String xml64 = Base64.encodeToString(Constants.cap_result.getData(), Base64.DEFAULT);
-                        patient.setFinger_print2(xml64);
-                        patient.IsSync = 0;
-                        patient.save();
-                        ActiveAndroid.setTransactionSuccessful();
-                    } finally {
-                        ActiveAndroid.endTransaction();
-                    }
-
-                    final SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.BUTTON_NEUTRAL);
-                    pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.colorPrimaryDark));
-                    pDialog.setTitleText("Finger Print Saved");
-                    pDialog.setCancelable(false);
-                    pDialog.show();
-                    Fragment FMFragment = new DashboardFragment();
-                    Bundle args = new Bundle();
-//            args.putString("SelectedMrNo", assessment.getMrn_no());
-//            args.putInt("FamilyId", family_id);
-                    args.putString("PatientCNIC", cnicNo);
-                    args.putString("PatientName", Name);
-
-                    if (FMFragment != null) {
-
-                        getActivity().onBackPressed();
-
-                        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-
-                        FMFragment.setArguments(args);
-                        try {
-                            transaction.replace(R.id.content_frame, FMFragment, "patientRegistrationFragment").addToBackStack("a").commit();
-
-                        } catch (IllegalStateException ignored) {
-                        }
-                    } else {
-                        Toast.makeText(getContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
-                    }
-
-
-                }
-            });
 
 
 
-//            memberAge = member.getAge();
-//            membercnic = member.getCNIC();
-//            gender = member.getGender();
-//            maternal = member.getMaritalStatus();
-//            memberRelation = member.getRelationType();
+            String editpatientname = patient_edit.getPatient_name();
+            String editpatientcnic = patient_edit.getSelf_cnic();
+            String editpatient_lastname = patient_edit.getLname();
+            String editpatient_fathername = patient_edit.getFather_name();
+            String editpatient_dob = patient_edit.getPatient_dob();
+            if(patient_edit.getPatient_age()==null){
+                 editpatient_age = 0;
+            }else {
+                editpatient_age = patient_edit.getPatient_age();
+            }
+
+            String editpatient_contact = patient_edit.getContact_no_self();
+            String eidtpatient_postal_address = patient_edit.getPostal_address();
+            String eidtpatient_address = patient_edit.getAddress();
+
+            etPatientName.setText(editpatientname);
+            lastname.setText(editpatient_lastname);
+            etFatherSpouse.setText(editpatient_fathername);
+            etContactNo.setText(editpatient_contact);
+            etCNIC.setMask("");
+            etCNIC.setText(editpatientcnic);
+            if(eidtpatient_address != null){
+                etCompleteAddress.setText(eidtpatient_address);
+            }else {
+                etCompleteAddress.setText(eidtpatient_postal_address);
+            }
+
+            etAge.setText(String.valueOf(editpatient_age));
+            dob.setText(editpatient_dob);
+
+            if (patient_edit.getFinger_print1() != null&& !patient_edit.getFinger_print1().equals("")) {
+                byte[] previousbyte = Base64.decode(patient_edit.getFinger_print1(), Base64.DEFAULT);
+                Bitmap previousBitmap = BitmapFactory.decodeByteArray(previousbyte, 0, previousbyte.length);
+                ivFingerprint.setImageBitmap(previousBitmap);
+            }
+
+
+//            ma_bt_scan_edit.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    ActiveAndroid.beginTransaction();
+//                    try {
+//                        final String xml64 = Base64.encodeToString(Constants.cap_result.getData(), Base64.DEFAULT);
+//                        patient_edit.setFinger_print2(xml64);
+//                        patient_edit.IsSync = 0;
+//                        patient_edit.save();
+//                        ActiveAndroid.setTransactionSuccessful();
+//                    } finally {
+//                        ActiveAndroid.endTransaction();
+//                    }
 //
-//            // do operations specific to this selection
-//            if (SelectedMrNo != null) {
-//                singalFamily = FamilyBody.searchByMRNO(SelectedMrNo);
-//            }
-
-//            FHName.setText(member.getFatherName());
-//            CNIC.setText(membercnic);
-//            registration_tvAge.setText(memberAge);
-//            Phone.setText(member.getContactNo());
+//                    final SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.BUTTON_NEUTRAL);
+//                    pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.colorPrimaryDark));
+//                    pDialog.setTitleText("Finger Print Saved");
+//                    pDialog.setCancelable(false);
+//                    pDialog.show();
+//                    Fragment FMFragment = new DashboardFragment();
+//                    Bundle args = new Bundle();
+////                  args.putString("SelectedMrNo", assessment.getMrn_no());
+////                  args.putInt("FamilyId", family_id);
+//                    args.putString("PatientCNIC", cnicNo);
+//                    args.putString("PatientName", Name);
 //
-//            if (singalFamily != null) {
-//                if (singalFamily.getAddress() != null) {
-//                    Address.setText(singalFamily.getAddress());
+//                    if (FMFragment != null) {
+//
+//                        getActivity().onBackPressed();
+//
+//                        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//
+//                        FMFragment.setArguments(args);
+//                        try {
+//                            transaction.replace(R.id.content_frame, FMFragment, "patientRegistrationFragment").addToBackStack("a").commit();
+//
+//                        } catch (IllegalStateException ignored) {
+//                        }
+//                    } else {
+//                        Toast.makeText(getContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
+//                    }
+//
 //
 //                }
-//                if (singalFamily.getRemarks() != null) {
-//                    remarkss.setText(singalFamily.getRemarks());
-//
-//                }
-//
-//                if (singalFamily.getImage() != null) {
-//                    Bitmap bm = StringToBitMap(singalFamily.getImage());
-//                    image_64 = singalFamily.getImage();
-//                    ImagePreview.setImageBitmap(bm);
-//                }
-//
-//
-//                if (singalFamily.getUCId() != null) {
-//                    ucid = singalFamily.getUCId();
-//                }
-//
-//                if (singalFamily.getDistrictID() != null) {
-//                    district = singalFamily.getDistrictID();
-//                }
-//                if (singalFamily.getTehsilID() != null) {
-//                    tehsil = singalFamily.getTehsilID();
-//                }
-//
-//
-//            }
-//
-//
-//            GenderVal = member.getGender();
-//            DobValue = member.getDOB();
-//            //MyPhoto is image control.
-//
-//
-//            family_id = member.getFamilyId();
-//            RadioButton m = view.findViewById(R.id.rbMale);
-//            RadioButton f = view.findViewById(R.id.rbFemale);
-//            RadioButton tr = view.findViewById(R.id.rbTransgender);
-//            if (gender.equalsIgnoreCase("male")) {
-//                m.setChecked(true);
-//            } else if (gender.equalsIgnoreCase("female")) {
-//
-//                f.setChecked(true);
-//            } else if (gender.equalsIgnoreCase("transgender")) {
-//                tr.setChecked(true);
-//            } else {
-//                Toast.makeText(getContext(), "nothing ", Toast.LENGTH_SHORT).show();
-//            }
-//
-//
-//            RadioButton ssingle = view.findViewById(R.id.rbSingle);
-//            RadioButton ssdivorced = view.findViewById(R.id.rbDivorced);
-//            RadioButton ssmarried = view.findViewById(R.id.rbMarried);
-//            RadioButton sswidow = view.findViewById(R.id.rbWidowed);
-//
-//            maritalStatusVal = maternal;
-//
-//            if (maternal.equalsIgnoreCase("single")) {
-//
-//                ssingle.setChecked(true);
-//            } else if (maternal.equalsIgnoreCase("divorced")) {
-//
-//                ssdivorced.setChecked(true);
-//            } else if (maternal.equalsIgnoreCase("married")) {
-//                ssmarried.setChecked(true);
-//            } else if (maternal.equalsIgnoreCase("widowed")) {
-//                sswidow.setChecked(true);
-//            } else
-//                Toast.makeText(getContext(), "Nothing", Toast.LENGTH_SHORT).show();
-//            String[] items1 = member.getDOB().split("/");
-//
-//            reg_day.setText(items1[1]);
-//            reg_month.setText(items1[0]);
-//            reg_year.setText(items1[2]);
-//
-//            DayValue = items1[1];
-//            YearValue = items1[2];
-//            MonthValue = items1[0];
-//
-//            DobCalculator();
-//
-//            if (member.getOtherProfessionText() != null && !member.getOtherProfessionText().isEmpty()) {
-//                other_ocupation_register.setText(member.getOtherProfessionText());
-//                other_ocupation_layout.setVisibility(View.VISIBLE);
-//            }
-//
-//            SetDistricts();
-//            setProfessionType();
-//            SetEducationSpinner();
-//            for (int i = 0; i < educationList.size(); i++) {
-//                if (educationList.get(i).equals(member.getEducationUrdu())) ;
-//                {
-//                    Education.setSelection(i);
-//                }
-//            }
-//
-//            for (int i = 0; i < occupation.size(); i++) {
-//                if (occupation.get(i).equals(member.getProfessionUrdu())) ;
-//                {
-//                    Occupation.setSelection(i);
-//                }
-//            }
+//            });
+
         }
-
-//        etCNIC.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//                layoutfirst.setVisibility(View.GONE);
-//                layoutsecond.setVisibility(View.GONE);
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//
-//            }
-//        });
 
         etAge.setEnabled(false);
         SelectedOption = "";
         SelectedOptionIndex = 0;
 
-        layoutfirst.setVisibility(View.GONE);
-        layoutsecond.setVisibility(View.GONE);
-        Submit.setVisibility(View.GONE);
 
+
+        if(isEidt){
+            layoutfirst.setVisibility(View.VISIBLE);
+            layoutsecond.setVisibility(View.VISIBLE);
+            Submit.setVisibility(View.VISIBLE);
+        }
+        else {
+            layoutfirst.setVisibility(View.GONE);
+            layoutsecond.setVisibility(View.GONE);
+            Submit.setVisibility(View.GONE);
+        }
 
         SetSearchOptions();
 
@@ -501,136 +402,10 @@ public class patientRegistration extends Fragment {
         });
 
 
-//        ivFingerprint2.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getContext(), ScanActivity2.class);
-//                startActivityForResult(intent, SCAN_FINGERPRINT2);
-//            }
-//        });
 
         return view;
     }
 
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        switch (requestCode) {
-//            case SCAN_FINGERPRINT:
-//                if (resultCode == RESULT_OK) {
-//
-//
-//                    int status = data.getIntExtra("status", Status.ERROR);
-//
-//                    if (status == Status.SUCCESS) {
-//                        toast("Fingerprint OK!");
-//
-//                        byte[] img = data.getByteArrayExtra("img");
-////                         probe = new FingerprintTemplate().dpi(500).create(img);
-//
-//                        Bitmap bm = BitmapFactory.decodeByteArray(img, 0, img.length);
-//
-//                        c_fmd = m_engine.CreateFmd(img, ANSI_378_2004);
-//
-//                        for(int i=0;i<allData.size();i++)
-//
-//                        {
-//
-//                            byte[] decodedString1 = Base64.decode(allData.get(i).finger_print1, Base64.DEFAULT);
-//                            Bitmap decodedByte1 = BitmapFactory.decodeByteArray(decodedString1, 0, decodedString1.length);
-//
-//                            byte[] decodedString2 = Base64.decode(allData.get(i).finger_print2, Base64.DEFAULT);
-//                            Bitmap decodedByte2 = BitmapFactory.decodeByteArray(decodedString2, 0, decodedString2.length);
-//
-//                            try {
-//                                int target_falsematch_rate = Engine.PROBABILITY_ONE / 100000;
-//
-//
-//
-//
-//                                Reader.CaptureResult capture_result= new Reader.CaptureResult();
-//
-//                                Fmd dbfingerprint = UareUGlobal.GetImporter().ImportFmd(decodedString1, com.digitalpersona.uareu.Fmd.Format.DP_REG_FEATURES, com.digitalpersona.uareu.Fmd.Format.DP_REG_FEATURES);
-//                                Fmd currentfinger = UareUGlobal.GetImporter().ImportFmd(img, com.digitalpersona.uareu.Fmd.Format.DP_REG_FEATURES, com.digitalpersona.uareu.Fmd.Format.DP_REG_FEATURES);
-//
-////                                Fmd dbfingerprint = UareUGlobal.GetEngine().CreateFmd(decodedString1, 320, 350, 500, 1, 3407615, Fmd.Format.ANSI_378_2004);
-////                                Fmd currentfinger = UareUGlobal.GetEngine().CreateFmd(img, 320, 350, 500, 1, 3407615, Fmd.Format.ANSI_378_2004);
-//
-//                                Engine.Candidate[] matches = m_engine.Identify(currentfinger, 0, new Fmd[]{dbfingerprint}, target_falsematch_rate, 1);
-//
-//                                int falsematch_rate = m_engine.Compare(dbfingerprint, 0, currentfinger, 0);
-//
-//                                if (falsematch_rate < target_falsematch_rate) {
-//                                    Toast.makeText(getContext(),"Finger Detect"+dbfingerprint,Toast.LENGTH_LONG).show();
-//                                } else {
-//                                    Toast.makeText(getContext(),"Finger not Detect"+currentfinger,Toast.LENGTH_LONG).show();
-//                                }
-//
-//
-//
-////                                Fmd dbfingerprint = UareUGlobal.GetImporter().ImportFmd(decodedString1, Fmd.Format.ANSI_378_2004, Fmd.Format.ANSI_378_2004);
-//
-//                            } catch (UareUException e) {
-//                                e.printStackTrace();
-//                            }
-//
-//
-//
-//
-////                            if(compareByteArrays(img,decodedString1)>99.0){
-////                                Toast.makeText(getContext(),"Finger Detect"+print,Toast.LENGTH_LONG).show();
-////                            }else {
-////                                Toast.makeText(getContext(),"Finger not Detect",Toast.LENGTH_LONG).show();
-////                            }
-////                            if(decodedByte1.sameAs(bm) || decodedByte2.sameAs(bm)){
-////                                Toast.makeText(getContext(),"RecordFind",Toast.LENGTH_LONG).show();
-////                            }else{
-////                                Toast.makeText(getContext(),"Record Not Find",Toast.LENGTH_LONG).show();
-////                            }
-//                        }
-//
-//
-//
-//
-////                        compareTemplates(img);
-//                        encodedfingerprint = Base64.encodeToString(img, Base64.DEFAULT);
-//                        ivFingerprint.setImageBitmap(bm);
-//
-//
-//                        return;
-//                    }
-//                    toast(data.getStringExtra("errorMessage"));
-//                }
-//                break;
-//
-//            case SCAN_FINGERPRINT2:
-//                if (resultCode == RESULT_OK) {
-//
-//                    int status = data.getIntExtra("status", Status.ERROR);
-//
-//                    if (status == Status.SUCCESS) {
-//                        toast("Fingerprint OK!");
-//
-//                        byte[] img = data.getByteArrayExtra("img");
-//
-////                        candidate = new FingerprintTemplate()
-////                                .dpi(500)
-////                                .create(img);
-//
-//                        Bitmap bm = BitmapFactory.decodeByteArray(img, 0, img.length);
-//                        encodedfingerprint2 = Base64.encodeToString(img, Base64.DEFAULT);
-//                        ivFingerprint2.setImageBitmap(bm);
-//                        return;
-//                    }
-//                    toast(data.getStringExtra("errorMessage"));
-//                }
-//                break;
-//
-//
-//        }
-//
-//    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
@@ -702,11 +477,7 @@ public class patientRegistration extends Fragment {
                 {
                     byte[] decodedString = Base64.decode(Constants.FmdBase64, Base64.DEFAULT);
                     Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                    if(isEidt){
-                        ma_iv_fingerprint_edit.setImageBitmap(decodedByte);
-                    }else {
-                        ivFingerprint.setImageBitmap(decodedByte);
-
+                    ivFingerprint.setImageBitmap(decodedByte);
 
                         if (allData.size() > 0) {
                             for (int i = 0; i < allData.size(); i++) {
@@ -762,7 +533,7 @@ public class patientRegistration extends Fragment {
 //                    verfityPatient();
 
 
-                    }
+
 
                     Log.d("---d---",Constants.Fmd + "");
                 }
@@ -781,6 +552,8 @@ public class patientRegistration extends Fragment {
         }
 
     }
+
+
 
 
     public void verfityPatient(){
@@ -855,12 +628,34 @@ public class patientRegistration extends Fragment {
         cnicNo = etCNIC.getText().toString().trim();
         String Address = etCompleteAddress.getText().toString();
         Fid finger =Constants.cap_result;
+
         boolean Validationstatus = true;
 
-        if (Name.isEmpty()) {
-            Toast.makeText(getContext(), Constants.NameMissing, Toast.LENGTH_LONG).show();
-            Validationstatus = false;
-        }
+        if(isEidt){
+//            String fin = patient_edit.getFinger_print2();
+//            if (fin == null || fin.equalsIgnoreCase("")) {
+//                Toast.makeText(getContext(), Constants.scanyour_finger, Toast.LENGTH_LONG).show();
+//                Validationstatus = false;
+//            }
+
+            if(patient_edit.getFinger_print1()==null){
+                if (finger == null) {
+                    Toast.makeText(getContext(), Constants.scanyour_finger, Toast.LENGTH_LONG).show();
+                    Validationstatus = false;
+                }
+            }else
+            {
+                Validationstatus = true;
+            }
+
+
+
+        }else {
+
+            if (Name.isEmpty()) {
+                Toast.makeText(getContext(), Constants.NameMissing, Toast.LENGTH_LONG).show();
+                Validationstatus = false;
+            }
 //        if (seacchcnic.getSelectedItemPosition() == 1) {
 //            if (cnicNo.length() != 15) {
 //                Toast.makeText(getContext(), "Enter 13 Digit CNIC", Toast.LENGTH_LONG).show();
@@ -872,46 +667,48 @@ public class patientRegistration extends Fragment {
 //            Toast.makeText(getContext(), "Enter 13 Digit CNIC", Toast.LENGTH_LONG).show();
 //            Validationstatus = false;
 //        }
-        if (lastName.isEmpty()) {
-            Toast.makeText(getContext(), Constants.lName, Toast.LENGTH_LONG).show();
-            Validationstatus = false;
-        }  if (FatherName.isEmpty()) {
-            Toast.makeText(getContext(), Constants.FHNameMissing, Toast.LENGTH_LONG).show();
-            Validationstatus = false;
-        }  if (Address.isEmpty()) {
-            Toast.makeText(getContext(), Constants.AddressMissing, Toast.LENGTH_LONG).show();
-            Validationstatus = false;
-        }
+            if (lastName.isEmpty()) {
+                Toast.makeText(getContext(), Constants.lName, Toast.LENGTH_LONG).show();
+                Validationstatus = false;
+            }
+            if (FatherName.isEmpty()) {
+                Toast.makeText(getContext(), Constants.FHNameMissing, Toast.LENGTH_LONG).show();
+                Validationstatus = false;
+            }
+            if (Address.isEmpty()) {
+                Toast.makeText(getContext(), Constants.AddressMissing, Toast.LENGTH_LONG).show();
+                Validationstatus = false;
+            }
 //        else if (cnicNo.length() != 15) {
 //            Toast.makeText(getContext(), Constants.CompleteCNIC, Toast.LENGTH_LONG).show();
 //
 //            Validationstatus = false;
 //        }
-         if (ContactNo.length() != 12) {
-            Toast.makeText(getContext(), Constants.PhoneMissing1, Toast.LENGTH_LONG).show();
+            if (ContactNo.length() != 12) {
+                Toast.makeText(getContext(), Constants.PhoneMissing1, Toast.LENGTH_LONG).show();
 
-            Validationstatus = false;
-        }
+                Validationstatus = false;
+            }
 //         if (OccupationVal.isEmpty()) {
 //            Toast.makeText(getContext(), Constants.occupation, Toast.LENGTH_LONG).show();
 //
 //            Validationstatus = false;
 //        }
-         if (materialstatusVal.isEmpty()) {
-            Toast.makeText(getContext(), Constants.MaritalStatusMissing, Toast.LENGTH_LONG).show();
+            if (materialstatusVal.isEmpty()) {
+                Toast.makeText(getContext(), Constants.MaritalStatusMissing, Toast.LENGTH_LONG).show();
 
-            Validationstatus = false;
-        }
+                Validationstatus = false;
+            }
 //         if (qualificationVal.isEmpty()) {
 //            Toast.makeText(getContext(), Constants.EducationOccupationMissing, Toast.LENGTH_LONG).show();
 //
 //            Validationstatus = false;
 //        }
-         if (SelectedGenderIndex == 0) {
-            Toast.makeText(getContext(), Constants.GenderMissing, Toast.LENGTH_LONG).show();
+            if (SelectedGenderIndex == 0) {
+                Toast.makeText(getContext(), Constants.GenderMissing, Toast.LENGTH_LONG).show();
 
-            Validationstatus = false;
-        }
+                Validationstatus = false;
+            }
 //         if (SelectedDivisionCode == 0) {
 //            Toast.makeText(getContext(), Constants.division, Toast.LENGTH_LONG).show();
 //
@@ -929,85 +726,98 @@ public class patientRegistration extends Fragment {
 //
 //            Validationstatus = false;
 //        }
-         if (firstVal.equals("")) {
-            Toast.makeText(getContext(), Constants.previoushbv, Toast.LENGTH_LONG).show();
+            if (firstVal.equals("")) {
+                Toast.makeText(getContext(), Constants.previoushbv, Toast.LENGTH_LONG).show();
 
-            Validationstatus = false;
-        }  if (thirdVal.equals("")) {
-            Toast.makeText(getContext(), Constants.previoushcv, Toast.LENGTH_LONG).show();
+                Validationstatus = false;
+            }
+            if (thirdVal.equals("")) {
+                Toast.makeText(getContext(), Constants.previoushcv, Toast.LENGTH_LONG).show();
 
-            Validationstatus = false;
-        }  if (dateOfBirth == null) {
-            Toast.makeText(getContext(), Constants.dateofbirth, Toast.LENGTH_LONG).show();
-            Validationstatus = false;
-        }  if (patientage <= 6) {
-            Toast.makeText(getContext(), Constants.ageislessthensixx, Toast.LENGTH_LONG).show();
-            Validationstatus = false;
-        }  if (patientage > 80) {
-            Toast.makeText(getContext(), Constants.ageisgreatertheneighty, Toast.LENGTH_LONG).show();
-            Validationstatus = false;
-        } if(finger==null){
-            Toast.makeText(getContext(), Constants.scanyour_finger, Toast.LENGTH_LONG).show();
-            Validationstatus = false;
+                Validationstatus = false;
+            }
+            if (dateOfBirth == null) {
+                Toast.makeText(getContext(), Constants.dateofbirth, Toast.LENGTH_LONG).show();
+                Validationstatus = false;
+            }
+            if (patientage <= 6) {
+                Toast.makeText(getContext(), Constants.ageislessthensixx, Toast.LENGTH_LONG).show();
+                Validationstatus = false;
+            }
+            if (patientage > 80) {
+                Toast.makeText(getContext(), Constants.ageisgreatertheneighty, Toast.LENGTH_LONG).show();
+                Validationstatus = false;
+            }
+            if (finger == null) {
+                Toast.makeText(getContext(), Constants.scanyour_finger, Toast.LENGTH_LONG).show();
+                Validationstatus = false;
+            }
         }
         if (Validationstatus) {
 
-            userdataaa FL = new userdataaa();
-            ActiveAndroid.beginTransaction();
-            FL.new_patient = 1;
-            FL.IsActive = 1;
-            FL.mrn_no = "";
-            FL.IsSync = 0;
-            FL.setPatient_id(0);
-            FL.setPatient_name(Name);
-            FL.setLname(lastName);
-            FL.setFather_name(FatherName);
-            FL.setPatient_age(patientage);
-            FL.setPatient_dob(dateOfBirth);
-            FL.setGender(SelectedGenderIndex);
-            FL.setSelf_cnic(cnicNo);
-            FL.setContact_no_self(ContactNo);
-            FL.setAddress(Address);
-            FL.setMarital_status(materialstatusVal);
-            FL.setOccupation(OccupationVal);
-            FL.setQualification(qualificationVal);
-            if (patientage == 80) {
-                FL.setPatient_age_80("y");
-            } else {
-                FL.setPatient_age_80("n");
-            }
-            FL.setPrevious_hbv(firstVal);
+            if(isEidt){
+                ActiveAndroid.beginTransaction();
+
+                patient_edit.IsSync = 0;
+
+                patient_edit.setPatient_name(Name);
+                patient_edit.setLname(lastName);
+                patient_edit.setFather_name(FatherName);
+
+//                patient_edit.setPatient_age(patientage);
+
+                patient_edit.setPatient_dob(dob.getText().toString());
+                patient_edit.setGender(SelectedGenderIndex);
+                patient_edit.setSelf_cnic(cnicNo);
+                patient_edit.setContact_no_self(ContactNo);
+                patient_edit.setAddress(Address);
+                patient_edit.setMarital_status(materialstatusVal);
+
+//                if (patientage == 80) {
+//                    patient_edit.setPatient_age_80("y");
+//                } else {
+//                    patient_edit.setPatient_age_80("n");
+//                }
+                patient_edit.setPrevious_hbv(firstVal);
 
 //            FL.setPatient_type("New Patient");
-            if(firstVal.equals("y") && secondVal.equals("y")){
-                FL.setPatient_type("Pre-diagnosed Patient");
-            }else if(thirdVal.equals("y") && foursVal.equals("y")){
-                FL.setPatient_type("Pre-diagnosed Patient");
-            }else {
-                FL.setPatient_type("New Patient");
-            }
+                if(firstVal.equals("y") && secondVal.equals("y")){
+                    patient_edit.setPatient_type("Pre-diagnosed Patient");
+                }else if(thirdVal.equals("y") && foursVal.equals("y")){
+                    patient_edit.setPatient_type("Pre-diagnosed Patient");
+                }else {
+                    patient_edit.setPatient_type("New Patient");
+                }
 
-            FL.ISVital = 0;
-            FL.IS_assessment = 0;
-            FL.IS_Vaccination = 0;
-            FL.ISSample = 0;
+//                patient_edit.ISVital = 0;
+//                patient_edit.IS_assessment = 0;
+//                patient_edit.IS_Vaccination = 0;
+//                patient_edit.ISSample = 0;
 
-            FL.setPcr_confirmation_hbv(secondVal);
-            FL.setPrevious_hcv(thirdVal);
-            FL.setPcr_confirmation_hcv(foursVal);
-            FL.setDivision(SelectedDivisionCode);
-            FL.setDistrict(SelectedDistrictedCode);
-            FL.setTehsil(SelectTcode);
-            FL.setHospital(SelectedHfcode);
-            FL.setIdentifier(new SharedPref(getContext()).GetserverID());
-            FL.setUser_id(new SharedPref(getContext()).GetLoggedInRole());
-            FL.setHospital_id(new SharedPref(getContext()).GetLoggedInUser());
-            FL.setFinger_print1(Constants.FmdBase64);
+                patient_edit.setPcr_confirmation_hbv(secondVal);
+                patient_edit.setPrevious_hcv(thirdVal);
+                patient_edit.setPcr_confirmation_hcv(foursVal);
+                patient_edit.setDivision(SelectedDivisionCode);
+                patient_edit.setDistrict(SelectedDistrictedCode);
+                patient_edit.setTehsil(SelectTcode);
+                patient_edit.setHospital(SelectedHfcode);
+                patient_edit.setIdentifier(new SharedPref(getContext()).GetserverID());
+//                patient_edit.setUser_id(new SharedPref(getContext()).GetLoggedInRole());
+                patient_edit.setHospital_id(new SharedPref(getContext()).GetLoggedInUser());
 
+                if(patient_edit.getFinger_print1()!=null){
+                    patient_edit.setFinger_print1(patient_edit.getFinger_print1());
+                }else{
+                    patient_edit.setFinger_print1(Constants.FmdBase64);
+                }
 
+                if(patient_edit.getFinger_print2()!=null){
+                    patient_edit.setFinger_print2(patient_edit.getFinger_print2());
+                }else {
+                    final String xml64 = Base64.encodeToString(Constants.cap_result.getData(), Base64.DEFAULT);
+                    patient_edit.setFinger_print2(xml64);
+                }
 
-            final String xml64 = Base64.encodeToString(Constants.cap_result.getData(), Base64.DEFAULT);
-            FL.setFinger_print2(xml64);
 //            byte[] adf = Constants.cap_result.getData();
 //            FL.setFinger_fmd(adf);
 //            FL.setWidth(Constants.width);
@@ -1015,39 +825,111 @@ public class patientRegistration extends Fragment {
 //            FL.setCbeff_id(Constants.cbeff_id);
 //            FL.setQuality(Constants.quality);
 
-            FL.save();
+                patient_edit.save();
+
+                ActiveAndroid.setTransactionSuccessful();
+
+                ActiveAndroid.endTransaction();
+            }
+
+            else {
+                userdataaa FL = new userdataaa();
+                ActiveAndroid.beginTransaction();
+                FL.new_patient = 1;
+                FL.IsActive = 1;
+                FL.mrn_no = "";
+                FL.IsSync = 0;
+                FL.setPatient_id(0);
+                FL.setPatient_name(Name);
+                FL.setLname(lastName);
+                FL.setFather_name(FatherName);
+                FL.setPatient_age(patientage);
+                FL.setPatient_dob(dateOfBirth);
+                FL.setGender(SelectedGenderIndex);
+                FL.setSelf_cnic(cnicNo);
+                FL.setContact_no_self(ContactNo);
+                FL.setAddress(Address);
+                FL.setMarital_status(materialstatusVal);
+                FL.setOccupation(OccupationVal);
+                FL.setQualification(qualificationVal);
+                if (patientage == 80) {
+                    FL.setPatient_age_80("y");
+                } else {
+                    FL.setPatient_age_80("n");
+                }
+                FL.setPrevious_hbv(firstVal);
+
+//            FL.setPatient_type("New Patient");
+                if (firstVal.equals("y") && secondVal.equals("y")) {
+                    FL.setPatient_type("Pre-diagnosed Patient");
+                } else if (thirdVal.equals("y") && foursVal.equals("y")) {
+                    FL.setPatient_type("Pre-diagnosed Patient");
+                } else {
+                    FL.setPatient_type("New Patient");
+                }
+
+                FL.ISVital = 0;
+                FL.IS_assessment = 0;
+                FL.IS_Vaccination = 0;
+                FL.ISSample = 0;
+
+                FL.setPcr_confirmation_hbv(secondVal);
+                FL.setPrevious_hcv(thirdVal);
+                FL.setPcr_confirmation_hcv(foursVal);
+                FL.setDivision(SelectedDivisionCode);
+                FL.setDistrict(SelectedDistrictedCode);
+                FL.setTehsil(SelectTcode);
+                FL.setHospital(SelectedHfcode);
+                FL.setIdentifier(new SharedPref(getContext()).GetserverID());
+                FL.setUser_id(new SharedPref(getContext()).GetLoggedInRole());
+                FL.setHospital_id(new SharedPref(getContext()).GetLoggedInUser());
+                FL.setFinger_print1(Constants.FmdBase64);
 
 
-            ActiveAndroid.setTransactionSuccessful();
+                final String xml64 = Base64.encodeToString(Constants.cap_result.getData(), Base64.DEFAULT);
+                FL.setFinger_print2(xml64);
+//            byte[] adf = Constants.cap_result.getData();
+//            FL.setFinger_fmd(adf);
+//            FL.setWidth(Constants.width);
+//            FL.setHeight(Constants.height);
+//            FL.setCbeff_id(Constants.cbeff_id);
+//            FL.setQuality(Constants.quality);
 
-            ActiveAndroid.endTransaction();
+                FL.save();
 
+
+                ActiveAndroid.setTransactionSuccessful();
+
+                ActiveAndroid.endTransaction();
+            }
 
             userdataaa patientid = new userdataaa();
             patientid = userdataaa.searchBycnic(cnicNo);
 
 
-            final SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.BUTTON_NEUTRAL);
-            pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.colorPrimaryDark));
-            pDialog.setTitleText("Patient Save Successfully");
-            pDialog.setCancelable(false);
-            pDialog.show();
-            Fragment FMFragment = new vitalForm();
-            Bundle args = new Bundle();
+
+            if(isEidt){
+                final SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.BUTTON_NEUTRAL);
+                pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.colorPrimaryDark));
+                pDialog.setTitleText("Patient Updated Successfully");
+                pDialog.setCancelable(false);
+                pDialog.show();
+                Fragment FMFragment = new DashboardFragment();
+                Bundle args = new Bundle();
 //            args.putString("SelectedMrNo", assessment.getMrn_no());
 //            args.putInt("FamilyId", family_id);
-            args.putString("PatientCNIC", cnicNo);
-            args.putString("PatientName", Name);
+                args.putString("PatientCNIC", cnicNo);
+                args.putString("PatientName", Name);
 
 
 
-           if(firstVal== "y" && secondVal == "y"){
-               args.putString("Patienttype", "Pre-diagnosed Patient");
-           }else if(thirdVal == "y" && foursVal == "y"){
-               args.putString("Patienttype", "Pre-diagnosed Patient");
-           }else {
-               args.putString("Patienttype", "New Patient");
-           }
+                if(firstVal== "y" && secondVal == "y"){
+                    args.putString("Patienttype", "Pre-diagnosed Patient");
+                }else if(thirdVal == "y" && foursVal == "y"){
+                    args.putString("Patienttype", "Pre-diagnosed Patient");
+                }else {
+                    args.putString("Patienttype", "New Patient");
+                }
 
 
 
@@ -1069,7 +951,7 @@ public class patientRegistration extends Fragment {
 //            }
 
 //            args.putString("Patienttype", "New Patient");
-            args.putInt("pid", patientid.getId().intValue());
+                args.putInt("pid", patientid.getId().intValue());
 
 
 //            if(patient_id==0){
@@ -1079,21 +961,91 @@ public class patientRegistration extends Fragment {
 //            }
 
 
-            if (FMFragment != null) {
+                if (FMFragment != null) {
 
-                getActivity().onBackPressed();
+                    getActivity().onBackPressed();
 
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
 
-                FMFragment.setArguments(args);
-                try {
-                    transaction.replace(R.id.content_frame, FMFragment, "patientRegistrationFragment").addToBackStack("a").commit();
+                    FMFragment.setArguments(args);
+                    try {
+                        transaction.replace(R.id.content_frame, FMFragment, "patientRegistrationFragment").addToBackStack("a").commit();
 
-                } catch (IllegalStateException ignored) {
+                    } catch (IllegalStateException ignored) {
+                    }
+                } else {
+                    Toast.makeText(getContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
                 }
-            } else {
-                Toast.makeText(getContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
+            }else {
+                final SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.BUTTON_NEUTRAL);
+                pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.colorPrimaryDark));
+                pDialog.setTitleText("Patient Save Successfully");
+                pDialog.setCancelable(false);
+                pDialog.show();
+                Fragment FMFragment = new vitalForm();
+                Bundle args = new Bundle();
+//            args.putString("SelectedMrNo", assessment.getMrn_no());
+//            args.putInt("FamilyId", family_id);
+                args.putString("PatientCNIC", cnicNo);
+                args.putString("PatientName", Name);
+
+
+
+                if(firstVal== "y" && secondVal == "y"){
+                    args.putString("Patienttype", "Pre-diagnosed Patient");
+                }else if(thirdVal == "y" && foursVal == "y"){
+                    args.putString("Patienttype", "Pre-diagnosed Patient");
+                }else {
+                    args.putString("Patienttype", "New Patient");
+                }
+
+
+
+
+//            if(secondVal == "y"){
+//                args.putString("Patienttype", "Pre-diagnosed Patient");
+//            }else if (secondVal == "n"){
+//                args.putString("Patienttype", "New Patient");
+//            }else {
+//                args.putString("Patienttype", "New Patient");
+//            }
+//
+//            if(foursVal == "y"){
+//                args.putString("Patienttype", "Pre-diagnosed Patient");
+//            }else if(foursVal == "n"){
+//                args.putString("Patienttype", "New Patient");
+//            }else {
+//                args.putString("Patienttype", "New Patient");
+//            }
+
+//            args.putString("Patienttype", "New Patient");
+                args.putInt("pid", patientid.getId().intValue());
+
+
+//            if(patient_id==0){
+//                FDP[i].pid = vitalpatient.get(i).getId().intValue();
+//            }else {
+//                FDP[i].pid = vitalpatient.get(i).patient_id;
+//            }
+
+
+                if (FMFragment != null) {
+
+                    getActivity().onBackPressed();
+
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+                    FMFragment.setArguments(args);
+                    try {
+                        transaction.replace(R.id.content_frame, FMFragment, "patientRegistrationFragment").addToBackStack("a").commit();
+
+                    } catch (IllegalStateException ignored) {
+                    }
+                } else {
+                    Toast.makeText(getContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
+                }
             }
+
         }
 
 
@@ -1163,6 +1115,8 @@ public class patientRegistration extends Fragment {
 
         });
 
+
+
     }
 
     private void updateLabel() {
@@ -1178,6 +1132,7 @@ public class patientRegistration extends Fragment {
         patientage = Integer.parseInt(etAge.getText().toString());
 
     }
+
 
     void Search() {
 
@@ -1283,14 +1238,14 @@ public class patientRegistration extends Fragment {
 
                     if (seacchcnic.getSelectedItemPosition() == 1) {
                         etCNIC.setInputType(InputType.TYPE_CLASS_NUMBER);
-                        etCNIC.setText("");
+//                        etCNIC.setText("");
                         etCNIC.setMask("99999-9999999-9");
 
 //                        OptionValue.addTextChangedListener(Mask.insert(Mask.Mrn_MASK, OptionValue));
                     } else if (seacchcnic.getSelectedItemPosition() == 2) {
 
                         etCNIC.setInputType(InputType.TYPE_CLASS_TEXT);
-                        etCNIC.setText("");
+//                        etCNIC.setText("");
                         etCNIC.setMask("AA-99999999999");
 
 //                        OptionValue.setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -1407,20 +1362,20 @@ public class patientRegistration extends Fragment {
 
         });
 
-//        if (isEdit) {
-//            for (int i = 0; i < educationList.size(); i++) {
-//                int main_status = educationList.get(i).objectListDetailId;
-//                if (member.getEducationId() != null) {
-//                    int selected_status = member.getEducationId();
-//
-//                    if (main_status == selected_status) {
-//                        Education.setSelection(i + 1);
-//                        EducationVal = selected_status;
-//                    }
-//                }
-//
-//            }
-//        }
+        if (isEidt) {
+            for (int i = 0; i < materialList.size(); i++) {
+                String  main_status = materialList.get(i).name;
+                if (patient_edit.getMarital_status() != null) {
+                    String  selected_status = patient_edit.getMarital_status();
+
+                    if (main_status.equals(selected_status)) {
+                        materialstatus.setSelection(i + 1);
+                        materialstatusVal = selected_status;
+                    }
+                }
+
+            }
+        }
 
     }
 
@@ -1515,6 +1470,40 @@ public class patientRegistration extends Fragment {
             }
 
         });
+
+        if (isEidt) {
+
+            if(patient_edit.getGender()!=null){
+                if(patient_edit.getGender()==1){
+                    gendr.setSelection(1);
+                }else if(patient_edit.getGender()==2){
+                    gendr.setSelection(2);
+                }else if(patient_edit.getGender()==3){
+                    gendr.setSelection(2);
+                }
+            }else {
+                gendr.setSelection(0);
+            }
+
+
+//            List<Integer> categoriesint = new ArrayList<Integer>();
+//            categoriesint.add(0);
+//            categoriesint.add(1);
+//            categoriesint.add(2);
+//            categoriesint.add(3);
+//            for (int i = 0; i < categoriesint.size(); i++) {
+//                int main_status = categoriesint.get(i);
+//                if(patient_edit.getGender()!=null){
+//                    int selected_status = patient_edit.getGender();
+//
+//                    if (main_status == selected_status) {
+//                        gendr.setSelection(i + 1);
+//                        SelectedGenderIndex = selected_status;
+//                    }
+//                }
+//
+//            }
+        }
     }
 
     private void SetDivisions() {
@@ -1816,6 +1805,20 @@ public class patientRegistration extends Fragment {
 
         });
 
+        if (isEidt) {
+
+            if (patient_edit.getPrevious_hbv() != null) {
+                if (patient_edit.getPrevious_hbv().equals("y")) {
+                    firsts.setSelection(1);
+                } else if (patient_edit.getPrevious_hbv().equals("n")) {
+                    firsts.setSelection(2);
+                }
+            } else {
+                firsts.setSelection(0);
+            }
+        }
+
+
     }
 
     private void SetSpinnersecond() {
@@ -1861,7 +1864,18 @@ public class patientRegistration extends Fragment {
             }
 
         });
+        if (isEidt) {
 
+            if (patient_edit.getPcr_confirmation_hbv() != null) {
+                if (patient_edit.getPcr_confirmation_hbv().equals("y")) {
+                    seconds.setSelection(1);
+                } else if (patient_edit.getPcr_confirmation_hbv().equals("n")) {
+                    seconds.setSelection(2);
+                }
+            } else {
+                seconds.setSelection(0);
+            }
+        }
     }
 
     private void SetSpinnerthree() {
@@ -1909,7 +1923,18 @@ public class patientRegistration extends Fragment {
             }
 
         });
+        if (isEidt) {
 
+            if (patient_edit.getPrevious_hcv() != null) {
+                if (patient_edit.getPrevious_hcv().equals("y")) {
+                    thirds.setSelection(1);
+                } else if (patient_edit.getPrevious_hcv().equals("n")) {
+                    thirds.setSelection(2);
+                }
+            } else {
+                thirds.setSelection(0);
+            }
+        }
     }
 
     private void SetSpinnerfour() {
@@ -1953,7 +1978,18 @@ public class patientRegistration extends Fragment {
             }
 
         });
+        if (isEidt) {
 
+            if (patient_edit.getPcr_confirmation_hcv() != null) {
+                if (patient_edit.getPcr_confirmation_hcv().equals("y")) {
+                    fours.setSelection(1);
+                } else if (patient_edit.getPcr_confirmation_hcv().equals("n")) {
+                    fours.setSelection(2);
+                }
+            } else {
+                fours.setSelection(0);
+            }
+        }
     }
 
     private void SetSpinnerfive() {

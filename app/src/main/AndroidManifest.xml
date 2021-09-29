@@ -36,7 +36,7 @@
             android:value="8" />
         <meta-data
             android:name="AA_MODELS"
-            android:value="com.example.hcp.models.hcp.divisionn,com.example.hcp.models.hcp.districtt,com.example.hcp.models.hcp.tehsill,com.example.hcp.models.hcp.occuptaionn,com.example.hcp.models.hcp.materialStatuss,com.example.hcp.models.hcp.qualificationn,com.example.hcp.models.hcp.healthFacilityy,com.example.hcp.models.hcp.userdataaa,com.example.hcp.models.hcp.addPatientModel,com.example.hcp.models.hcp.vitalListt,com.example.hcp.models.hcp.addvitalll,com.example.hcp.models.hcp.Assessmentt,com.example.hcp.models.hcp.Samplee,com.example.hcp.models.hcp.medicinee,com.example.hcp.models.hcp.Vaccinationn" />
+            android:value="com.example.hcp.models.hcp.divisionn,com.example.hcp.models.hcp.districtt,com.example.hcp.models.hcp.tehsill,com.example.hcp.models.hcp.occuptaionn,com.example.hcp.models.hcp.materialStatuss,com.example.hcp.models.hcp.qualificationn,com.example.hcp.models.hcp.healthFacilityy,com.example.hcp.models.hcp.userdataaa,com.example.hcp.models.hcp.addPatientModel,com.example.hcp.models.hcp.vitalListt,com.example.hcp.models.hcp.addvitalll,com.example.hcp.models.hcp.Assessmentt,com.example.hcp.models.hcp.Samplee,com.example.hcp.models.hcp.medicinee,com.example.hcp.models.hcp.Vaccinationn,com.example.hcp.models.hcp.MedicineDisbursment_Table" />
 
         <provider
             android:name="com.activeandroid.content.ContentProvider"

@@ -4,6 +4,7 @@ import com.activeandroid.Configuration;
 import com.activeandroid.content.ContentProvider;
 
 import com.example.hcp.models.hcp.Assessmentt;
+import com.example.hcp.models.hcp.MedicineDisbursment_Table;
 import com.example.hcp.models.hcp.Samplee;
 import com.example.hcp.models.hcp.Vaccinationn;
 import com.example.hcp.models.hcp.addPatientModel;
@@ -42,6 +43,7 @@ public class DBProvider extends ContentProvider {
         builder.addModelClass(Samplee.class);
         builder.addModelClass(medicinee.class);
         builder.addModelClass(Vaccinationn.class);
+        builder.addModelClass(MedicineDisbursment_Table.class);
 
 
         return builder.create();

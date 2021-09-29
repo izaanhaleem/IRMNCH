@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 public class pendingDataParceable implements Parcelable {
 
-    public String hcvviralount,hbvviralcount,sample_id,Gender, MrNo,PatientName,LastName,LeaderCNIC,patientType,pathentContactNo,text1,text2,is_cirrhotic_patient,rstultType;
+    public String hcvviralount,hbvviralcount,sample_id,Gender, MrNo,PatientName,LastName,LeaderCNIC,patientType,pathentContactNo,text1,text2,is_cirrhotic_patient,rstultType,hbvDetected,hcvDectected;
     public int pid,hcv_medicine_duration;
 
     public pendingDataParceable(Parcel in) {
@@ -25,6 +25,8 @@ public class pendingDataParceable implements Parcelable {
         sample_id = in.readString();
         is_cirrhotic_patient = in.readString();
         rstultType = in.readString();
+        hbvDetected = in.readString();
+        hcvDectected = in.readString();
     }
 
     public static final Creator<pendingDataParceable> CREATOR = new Creator<pendingDataParceable>() {
@@ -67,6 +69,8 @@ public class pendingDataParceable implements Parcelable {
         parcel.writeInt(hcv_medicine_duration);
         parcel.writeString(is_cirrhotic_patient);
         parcel.writeString(rstultType);
+        parcel.writeString(hbvDetected);
+        parcel.writeString(hcvDectected);
 
     }
 

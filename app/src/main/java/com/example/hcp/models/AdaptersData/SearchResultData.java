@@ -3,19 +3,29 @@ package com.example.hcp.models.AdaptersData;
 public class SearchResultData {
 
     public String contactNo, MrNo,PatientName,LeaderCNIC,fingerprint;
+    public int pid;
 
 
-    public SearchResultData(String contactNo, String mrNo, String patientName, String leaderCNIC, String Fingerprint) {
+    public SearchResultData(String contactNo, String mrNo, String patientName, String leaderCNIC, String fingerprint, int PID) {
         this.contactNo = contactNo;
         MrNo = mrNo;
         PatientName = patientName;
         LeaderCNIC = leaderCNIC;
-        fingerprint = Fingerprint;
+        this.fingerprint = fingerprint;
+        pid = PID;
     }
 
     public SearchResultData() {
 
     }
+    public int getPid() {
+        return pid;
+    }
+
+    public void setPid(int pid) {
+        this.pid = pid;
+    }
+
 
     public String getContactNo() {
         return contactNo;

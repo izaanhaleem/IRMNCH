@@ -200,6 +200,7 @@ public class DashboardFragment extends Fragment {
 //        pendingsampels();
 
 
+
         export_db.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -854,13 +855,12 @@ public class DashboardFragment extends Fragment {
                 FDP[i].PatientName = SFR.get(i).patient_name;
             } else {
                 FDP[i].PatientName = "N/A";
-
             }
             FDP[i].contactNo = SFR.get(i).contact_no_self;
             FDP[i].LeaderCNIC = SFR.get(i).self_cnic;
             FDP[i].MrNo = SFR.get(i).mrn_no;
-
-            if(SFR.get(i).finger_print2==null){
+            FDP[i].pid = (Integer) SFR.get(i).getId().intValue();
+            if(SFR.get(i).finger_print2==null || SFR.get(i).getFinger_print2().equalsIgnoreCase("")){
                 FDP[i].fingerprint = "notfound";
             }else {
                 FDP[i].fingerprint = SFR.get(i).finger_print2;
@@ -945,7 +945,7 @@ public class DashboardFragment extends Fragment {
         List<Assessmentt> assessments = Assessmentt.searchBySync();
         List<Vaccinationn> vacc = Vaccinationn.searchBySync();
         List<Samplee> sample = Samplee.searchBySync();
-//        List<medicinee> medicine = medicinee.searchBySync();
+//      List<medicinee> medicine = medicinee.searchBySync();
         totalSize = patient.size() + vitals.size() + assessments.size() + sample.size()+vacc.size();
         total_record.setText(totalSize + "");
     }
@@ -1049,32 +1049,39 @@ public class DashboardFragment extends Fragment {
                 fmb.setGender(paitents.get(i).getGender());
             } else {
                 fmb.setGender(0);
-
             }
             if (paitents.get(i).getSelf_cnic() != null) {
                 fmb.setSelf_cnic(paitents.get(i).getSelf_cnic());
+            }else {
+                fmb.setSelf_cnic("");
             }
             if (paitents.get(i).getContact_no_self() != null) {
                 fmb.setContact_no_self(paitents.get(i).getContact_no_self());
             }
             if (paitents.get(i).getAddress() != null) {
                 fmb.setAddress(paitents.get(i).getAddress());
+            }else {
+                fmb.setAddress("");
             }
             if (paitents.get(i).getMarital_status() != null) {
                 fmb.setMarital_status(paitents.get(i).getMarital_status());
+            }else {
+                fmb.setMarital_status("");
             }
             if (paitents.get(i).getOccupation() != null) {
                 fmb.setOccupation(paitents.get(i).getOccupation());
             }else {
-                fmb.setOccupation("empty");
+                fmb.setOccupation("");
             }
             if (paitents.get(i).getQualification() != null) {
                 fmb.setQualification(paitents.get(i).getQualification());
             }else {
-                fmb.setQualification("empty");
+                fmb.setQualification("");
             }
             if (paitents.get(i).getPatient_age_80() != null) {
                 fmb.setPatient_age_80(paitents.get(i).getPatient_age_80());
+            }else {
+                fmb.setPatient_age_80("");
             }
             if (paitents.get(i).getPrevious_hbv() != null) {
                 fmb.setPrevious_hbv(paitents.get(i).getPrevious_hbv());
@@ -1132,7 +1139,9 @@ public class DashboardFragment extends Fragment {
             }
             if (paitents.get(i).getPatient_type() != null) {
                 fmb.setPatient_type(paitents.get(i).getPatient_type());
-            }
+            }else {
+                fmb.setPatient_type(null);
+                  }
             if (paitents.get(i).getId() != null) {
                 fmb.setMobile_id(paitents.get(i).getId());
             } else {
@@ -1140,9 +1149,13 @@ public class DashboardFragment extends Fragment {
             }
             if(paitents.get(i).getFinger_print1() !=null){
                 fmb.setFinger_print1(paitents.get(i).getFinger_print1());
+            }else {
+                fmb.setFinger_print1("");
             }
             if(paitents.get(i).getFinger_print2() !=null){
                 fmb.setFinger_print2(paitents.get(i).getFinger_print2());
+            }else {
+                fmb.setFinger_print2("");
             }
 
 //                List<addPatientModel> pati = new ArrayList<addPatientModel>();
@@ -1206,11 +1219,11 @@ public class DashboardFragment extends Fragment {
 //                                mod.patient_id = response.body().getData().getPatient_id();
 //                                mod.save();
 //                            }
+
                         patientTable.IsSync = 1;
                         patientTable.mrn_no = response.body().getData().getMrn_no();
                         patientTable.patient_id = response.body().getData().getPatient_id();
                         patientTable.save();
-
 
                         addvitalll vtl = addvitalll.searchBypid(response.body().getData().getMobile_id());
                         if (vtl != null) {

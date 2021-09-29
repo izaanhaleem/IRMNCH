@@ -2,24 +2,64 @@ package com.example.hcp.models.AdaptersData;
 
 public class SearchResultDatapending {
 
-    public String Hcvviralcount,Hbvviralcount,Sample_id,Gneder, MrNo,PatientName,LeaderCNIC,patienttype,Text1,Text2,Is_cirrhotic_patient,Rsult_type;
+    public String Hcvviralcount,Hbvviralcount,Sample_id,Gneder, MrNo,PatientName,LeaderCNIC,patienttype,Text1,Text2,Is_cirrhotic_patient,Rsult_type,hbvDetected,hcvDectected;
     public int Pid,Hcv_medicine_duration;
 
-    public SearchResultDatapending(String gneder, String mrNo, String patientName, String leaderCNIC, String patientType, int pid,String  text1,String  text2,String hcvviralcount,String hbvviralcount,String sample_id,String is_cirrhotic_patient,int hcv_medicine_duration,String rsult_type) {
+//    public SearchResultDatapending(String gneder, String mrNo, String patientName, String leaderCNIC, String patientType, int pid,String  text1,String  text2,String hcvviralcount,String hbvviralcount,String sample_id,String is_cirrhotic_patient,int hcv_medicine_duration,String rsult_type) {
+//        Gneder = gneder;
+//        MrNo = mrNo;
+//        PatientName = patientName;
+//        LeaderCNIC = leaderCNIC;
+//        patienttype = patientType;
+//        Pid = pid;
+//        Text1 = text1;
+//        Text2 = text2;
+//        Hcvviralcount = hcvviralcount;
+//        Hbvviralcount = hbvviralcount;
+//        Sample_id = sample_id;
+//        Is_cirrhotic_patient = is_cirrhotic_patient;
+//        Hcv_medicine_duration = hcv_medicine_duration;
+//        Rsult_type=rsult_type;
+//    }
+
+
+    public SearchResultDatapending(String hcvviralcount, String hbvviralcount, String sample_id, String gneder, String mrNo, String patientName, String leaderCNIC, String patienttype, String text1, String text2, String is_cirrhotic_patient, String rsult_type, String hbvDetected, String hcvDectected, int pid, int hcv_medicine_duration) {
+        Hcvviralcount = hcvviralcount;
+        Hbvviralcount = hbvviralcount;
+        Sample_id = sample_id;
         Gneder = gneder;
         MrNo = mrNo;
         PatientName = patientName;
         LeaderCNIC = leaderCNIC;
-        patienttype = patientType;
-        Pid = pid;
+        this.patienttype = patienttype;
         Text1 = text1;
         Text2 = text2;
-        Hcvviralcount = hcvviralcount;
-        Hbvviralcount = hbvviralcount;
-        Sample_id = sample_id;
         Is_cirrhotic_patient = is_cirrhotic_patient;
+        Rsult_type = rsult_type;
+        this.hbvDetected = hbvDetected;
+        this.hcvDectected = hcvDectected;
+        Pid = pid;
         Hcv_medicine_duration = hcv_medicine_duration;
-        Rsult_type=rsult_type;
+    }
+
+    public SearchResultDatapending() {
+
+    }
+
+    public String getHbvDetected() {
+        return hbvDetected;
+    }
+
+    public void setHbvDetected(String hbvDetected) {
+        this.hbvDetected = hbvDetected;
+    }
+
+    public String getHcvDectected() {
+        return hcvDectected;
+    }
+
+    public void setHcvDectected(String hcvDectected) {
+        this.hcvDectected = hcvDectected;
     }
 
     public String getRsult_type() {
@@ -38,9 +78,7 @@ public class SearchResultDatapending {
         Hcv_medicine_duration = hcv_medicine_duration;
     }
 
-    public SearchResultDatapending() {
 
-    }
     public String getText1() {
         return Text1;
     }

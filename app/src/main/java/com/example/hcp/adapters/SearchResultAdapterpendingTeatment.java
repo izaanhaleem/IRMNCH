@@ -47,8 +47,21 @@ public class SearchResultAdapterpendingTeatment extends RecyclerView.Adapter<Sea
         holder.Address.setText(sData[position].getGneder());
         holder.LeaderName.setText(sData[position].getPatientName());
         holder.LeaderCNIC.setText(sData[position].getLeaderCNIC());
-        holder.text1.setText(sData[position].getText1());
-        holder.text2.setText(sData[position].getText2());
+        holder.text1.setText(sData[position].getRsult_type());
+        holder.FamilyMembers.setText(sData[position].getRsult_type()+" BaseLine Investigation");
+
+        if(sData[position].getRsult_type().equalsIgnoreCase("HCV")){
+            holder.Address.setText(sData[position].getHcvviralcount());
+        }else if(sData[position].getRsult_type().equalsIgnoreCase("HBV")){
+            holder.Address.setText(sData[position].getHbvviralcount());
+        }else if(sData[position].getRsult_type().equalsIgnoreCase("BOTH")){
+            holder.Address.setText("HBV: "+sData[position].getHbvviralcount()+", HCV: "+sData[position].getHcvviralcount());
+        }else {
+
+        }
+
+
+//        holder.text2.setText(sData[position].getText2());
 
 //        if(sData[position].getText1().equalsIgnoreCase("Null")){
 //            holder.FamilyCard.setVisibility(View.GONE);
@@ -70,12 +83,12 @@ public class SearchResultAdapterpendingTeatment extends RecyclerView.Adapter<Sea
                 args.putString("Patienttype",sData[position].getPatienttype());
                 args.putString("resultType",sData[position].getRsult_type());
                 args.putInt("pid",sData[position].getPid());
-                args.putString("testType",sData[position].getText1());
+//                args.putString("testType",sData[position].getText1());
                 args.putString("hcvviralcount",sData[position].getHcvviralcount());
                 args.putString("hbvviralcount",sData[position].getHbvviralcount());
                 args.putString("sample_id",sData[position].getSample_id());
-                args.putString("iscorronic_patient",sData[position].getIs_cirrhotic_patient());
-                args.putInt("hcv_medicine_duration",sData[position].getHcv_medicine_duration());
+//                args.putString("iscorronic_patient",sData[position].getIs_cirrhotic_patient());
+//                args.putInt("hcv_medicine_duration",sData[position].getHcv_medicine_duration());
 
 //                addvitalll fg = addvitalll.searchBycninc(sData[position].getLeaderCNIC());
 //                args.putDouble("temperature",fg.temperature);
@@ -127,7 +140,7 @@ public class SearchResultAdapterpendingTeatment extends RecyclerView.Adapter<Sea
             this.LeaderCNIC = itemView.findViewById(R.id.cardLeaderCNIC);
             this.FamilyCard = itemView.findViewById(R.id.familyCard);
             this.text1 = itemView.findViewById(R.id.text1);
-            this.text2 = itemView.findViewById(R.id.cardFamilyMembersbtn);
+//            this.text2 = itemView.findViewById(R.id.cardFamilyMembersbtn);
         }
     }
 

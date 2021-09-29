@@ -139,7 +139,7 @@ public class VaccinationForm extends Fragment {
             va.updated = matdate ;
             va.IsSync = 0;
 
-            userdataaa mod = userdataaa.searchBycnic(patientCNINC);
+            userdataaa mod = userdataaa.searchBypid(pid);
 
             mod.IS_Vaccination = 1;
 

@@ -34,6 +34,7 @@ import com.example.hcp.models.AdaptersData.SearchResultDatavital;
 import com.example.hcp.models.Parcables.pendingDataParceable;
 import com.example.hcp.models.Parcables.vitalDataParceable;
 import com.example.hcp.models.hcp.Assessmentt;
+import com.example.hcp.models.hcp.MedicineDisbursment_Table;
 import com.example.hcp.models.hcp.Samplee;
 import com.example.hcp.models.hcp.addPatientModel;
 import com.example.hcp.models.hcp.addvitalll;
@@ -80,7 +81,7 @@ public class Dashboard_patient_pending_treatment extends Fragment {
         sync_data = view.findViewById(R.id.sync_datapending);
         total_record = view.findViewById(R.id.total__sync_recordv);
         SetSearchOptions();
-        allBaselineList();
+//        allBaselineList();
 
 //        OptionValue.addTextChangedListener(EditTextTelefoneMask.insert(OptionValue));
 
@@ -88,11 +89,11 @@ public class Dashboard_patient_pending_treatment extends Fragment {
         btnSearch.setOnClickListener(
                 v -> Search()
         );
-
-
-        AllpendingList.setOnClickListener(
-                v -> allpendingpatientList()
-        );
+//
+//
+//        AllpendingList.setOnClickListener(
+//                v -> allpendingpatientList()
+//        );
 
         totalSYncREcord();
 
@@ -108,11 +109,13 @@ public class Dashboard_patient_pending_treatment extends Fragment {
         return view;
     }
 
-    private void allBaselineList() {
-        List<userdataaa> baseline;
-        baseline=userdataaa.getallISMedicine();
-        SetDataArrayy(baseline);
-    }
+//    private void allBaselineList() {
+//
+//        List<MedicineDisbursment_Table> baseline;
+//        baseline=MedicineDisbursment_Table.getallISMedicine();
+//        SetDataArrayy(baseline);
+//
+//    }
 
     public void totalSYncREcord() {
 
@@ -133,11 +136,11 @@ public class Dashboard_patient_pending_treatment extends Fragment {
             Toast.makeText(getContext(), "Please Select Option from Search Dropdown", Toast.LENGTH_SHORT).show();
         } else {
 
-            List<userdataaa> list ;
+            List<MedicineDisbursment_Table> list ;
 
             switch (SelectedOptionIndex) {
                 case 2:
-                    list = userdataaa.searchByMRNOLeader(SelectedOptionVal);
+                    list = MedicineDisbursment_Table.searchByMRNOLeader(SelectedOptionVal);
                     if (list.size() > 0) {
                         SetDataArrayy(list);
                     }
@@ -150,7 +153,7 @@ public class Dashboard_patient_pending_treatment extends Fragment {
 
                 case 1:
                 case 3:
-                    list = userdataaa.searchByCNICLeader(SelectedOptionVal);
+                    list = MedicineDisbursment_Table.searchByCNICLeader(SelectedOptionVal);
                     if (list.size() > 0) {
 
                         SetDataArrayy(list);
@@ -238,69 +241,69 @@ public class Dashboard_patient_pending_treatment extends Fragment {
         });
 
     }
-    private void allpendingpatientList() {
+//    private void allpendingpatientList() {
+////
+////        List<addPatientModel> sample;
+////        sample=addPatientModel.searchallpendingtreament();
+////        SetDataArrayy(sample);
 //
-//        List<addPatientModel> sample;
-//        sample=addPatientModel.searchallpendingtreament();
-//        SetDataArrayy(sample);
+//        List<MedicineDisbursment_Table> pending;
+//        pending=userdataaa.searchallbothbaselineForm();
+//        SetDataArrayy(pending);
+//
+//    }
+    private void SetDataArrayy(List<MedicineDisbursment_Table> med) {
 
-        List<userdataaa> pending;
-        pending=userdataaa.searchallbothbaselineForm();
-        SetDataArrayy(pending);
-
-    }
-    private void SetDataArrayy(List<userdataaa> sample) {
-
-        pendingDataParceable[] FDP = new pendingDataParceable[sample.size()];
+        pendingDataParceable[] FDP = new pendingDataParceable[med.size()];
         for (int i = 0; i < FDP.length; i++) {
             FDP[i] = new pendingDataParceable();
-//            FDP[i].Address        =    SFR.get(i).getAddress();
-
-//            FDP[i].Address = "Address";
-//            FDP[i].FamilyId = SFR.get(i).getFamilyId().toString();
-//            FDP[i].MrNo = SFR.get(i).mrn_no;
-//            if (SFR.get(i).getFamilyMemberId() != null) {
-//                FDP[i].LeaderId = SFR.get(i).getFamilyMemberId().toString();
-//            } else {
-//                FDP[i].LeaderId = "N/A";
+////            FDP[i].Address        =    SFR.get(i).getAddress();
 //
-//            }
-
-            if (sample.get(i).patient_name != null) {
-                FDP[i].PatientName = sample.get(i).patient_name;
+////            FDP[i].Address = "Address";
+////            FDP[i].FamilyId = SFR.get(i).getFamilyId().toString();
+////            FDP[i].MrNo = SFR.get(i).mrn_no;
+////            if (SFR.get(i).getFamilyMemberId() != null) {
+////                FDP[i].LeaderId = SFR.get(i).getFamilyMemberId().toString();
+////            } else {
+////                FDP[i].LeaderId = "N/A";
+////
+////            }
+//
+            if (med.get(i).getPatient_name() != null) {
+                FDP[i].PatientName = med.get(i).getPatient_name();
             } else {
                 FDP[i].PatientName = "N/A";
             }
 
-            if(sample.get(i).cbl!=null && sample.get(i).bbl!=null) {
-                if (sample.get(i).cbl.equalsIgnoreCase("Y") && sample.get(i).bbl.equalsIgnoreCase("Y")) {
-                    FDP[i].text1 = "Both";
-                    FDP[i].text2 = "Both Baseline Investigation Form";
-                } else if (sample.get(i).bbl.equalsIgnoreCase("Y")) {
-                    FDP[i].text1 = "HBV";
-                    FDP[i].text2 = "HBV Baseline Investigation Form";
-                } else if(sample.get(i).cbl.equalsIgnoreCase("Y") ) {
-                    FDP[i].text1 = "HCV";
-                    FDP[i].text2 = "HCV Baseline Investigation Form";
-                }else {
-                    FDP[i].text1 = "Null";
-                    FDP[i].text2 = "Null Baseline Investigation Form";               }
-            }else {
-                Toast.makeText(getContext(), "Record Not Found", Toast.LENGTH_SHORT).show();
-//                FDP[i].text1 = "Both";
-//                FDP[i].text2 = "Both Baseline Investigation Form";
-            }
+//            if(med.get(i).getIs_hbv_detected()!=null || med.get(i).getIs_hcv_detected()!=null) {
+//                if (med.get(i).getIs_hbv_detected().equalsIgnoreCase("Y") && med.get(i).getIs_hcv_detected().equalsIgnoreCase("Y")) {
+//                    FDP[i].text1 = "Both";
+//                    FDP[i].text2 = "Both Baseline Investigation Form";
+//                } else if (med.get(i).getIs_hbv_detected().equalsIgnoreCase("Y")) {
+//                    FDP[i].text1 = "HBV";
+//                    FDP[i].text2 = "HBV Baseline Investigation Form";
+//                } else if(med.get(i).getIs_hcv_detected().equalsIgnoreCase("Y") ) {
+//                    FDP[i].text1 = "HCV";
+//                    FDP[i].text2 = "HCV Baseline Investigation Form";
+//                }else {
+//                    FDP[i].text1 = "Null";
+//                    FDP[i].text2 = "Null Baseline Investigation Form";               }
+//            }else {
+//                Toast.makeText(getContext(), "Record Not Found", Toast.LENGTH_SHORT).show();
+////                FDP[i].text1 = "Both";
+////                FDP[i].text2 = "Both Baseline Investigation Form";
+//            }
 
-            if(sample.get(i).hcv_viral_count != null){
-                FDP[i].hcvviralount = sample.get(i).hcv_viral_count;
+            if(med.get(i).getHcv_viral_load() != null){
+                FDP[i].hcvviralount = med.get(i).getHcv_viral_load();
             }else {
                 FDP[i].hcvviralount = "0";
             }
 
 //             FDP[i].hcvviralount = sample.get(i).hcv_viral_count;
 
-            if(sample.get(i).hbv_viral_count !=null){
-                FDP[i].hbvviralcount = sample.get(i).hbv_viral_count;
+            if(med.get(i).getHbv_viral_load() !=null){
+                FDP[i].hbvviralcount = med.get(i).getHbv_viral_load();
             }else {
                 FDP[i].hbvviralcount = "0";
             }
@@ -309,25 +312,25 @@ public class Dashboard_patient_pending_treatment extends Fragment {
 //             FDP[i].hbvviralcount = sample.get(i).hbv_viral_count;
 
 
-            if (sample.get(i).sample_id != null) {
-                FDP[i].sample_id = sample.get(i).sample_id;
+            if (med.get(i).getSample_number() != null) {
+                FDP[i].sample_id = med.get(i).getSample_number();
             } else {
                 FDP[i].sample_id = "0";
             }
-            if (sample.get(i).hcv_medicine_duration != null) {
-                FDP[i].hcv_medicine_duration = sample.get(i).hcv_medicine_duration;
-            } else {
-                FDP[i].hcv_medicine_duration = 0;
-            }
-             FDP[i].is_cirrhotic_patient = sample.get(i).is_cirrhotic_patient;
+//            if (med.get(i).hcv_medicine_duration != null) {
+//                FDP[i].hcv_medicine_duration = sample.get(i).hcv_medicine_duration;
+//            } else {
+//                FDP[i].hcv_medicine_duration = 0;
+//            }
+//             FDP[i].is_cirrhotic_patient = sample.get(i).is_cirrhotic_patient;
 //            FDP[i].Gender = vitalpatient.get(i).gender;
-            FDP[i].LastName = sample.get(i).lname;
-            FDP[i].pathentContactNo = sample.get(i).contact_no_self;
-            FDP[i].LeaderCNIC = sample.get(i).self_cnic;
-            FDP[i].MrNo = sample.get(i).mrn_no;
-            FDP[i].patientType = sample.get(i).patient_type;
-            FDP[i].rstultType = sample.get(i).baseline_result_type;
-            FDP[i].pid = sample.get(i).patient_id;
+//            FDP[i].LastName = sample.get(i).lname;
+//            FDP[i].pathentContactNo = med.get(i).contact_no_self;
+            FDP[i].LeaderCNIC = med.get(i).getSelf_cnic();
+            FDP[i].MrNo = med.get(i).getMrn_no();
+            FDP[i].patientType = med.get(i).getPatient_stage();
+            FDP[i].rstultType = med.get(i).getTest_type();
+            FDP[i].pid = Integer.parseInt(med.get(i).getPatient_id());
         }
 
         SearchResultDatapending[] myListData = new SearchResultDatapending[FDP.length] ;
@@ -342,13 +345,15 @@ public class Dashboard_patient_pending_treatment extends Fragment {
             myListData[i].setPatienttype(FDP[i].patientType);
             myListData[i].setRsult_type(FDP[i].rstultType);
             myListData[i].setPid(FDP[i].pid);
-            myListData[i].setText1(FDP[i].text1);
-            myListData[i].setText2(FDP[i].text2);
+//            myListData[i].setText1(FDP[i].text1);
+//            myListData[i].setText2(FDP[i].text2);
             myListData[i].setHcvviralcount(FDP[i].hcvviralount);
             myListData[i].setHbvviralcount(FDP[i].hbvviralcount);
             myListData[i].setSample_id(FDP[i].sample_id);
             myListData[i].setIs_cirrhotic_patient(FDP[i].is_cirrhotic_patient);
             myListData[i].setHcv_medicine_duration(FDP[i].hcv_medicine_duration);
+            myListData[i].setHbvviralcount(FDP[i].hbvviralcount);
+            myListData[i].setHcvviralcount(FDP[i].hcvviralount);
 
         }
         SearchResultAdapterpendingTeatment adapter = new SearchResultAdapterpendingTeatment(myListData);

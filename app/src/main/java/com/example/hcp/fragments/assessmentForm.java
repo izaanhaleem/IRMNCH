@@ -167,12 +167,11 @@ public class assessmentForm extends Fragment {
 
 
 
-        userdataaa mod = userdataaa.searchBycnic(patientCNINC);
+             userdataaa mod = userdataaa.searchBypid(pid);
 
              String pcrconfirmHbv  =  mod.getPcr_confirmation_hbv();
 
              String pcrconfirmHcv  =  mod.getPcr_confirmation_hcv();
-
 
 
           if(pcrconfirmHbv.equals("y") && pcrconfirmHcv.equals("y")){
@@ -787,7 +786,7 @@ public class assessmentForm extends Fragment {
         AS.counselling = Sswitch31;
         AS.is_new_patient = "true";
 
-        userdataaa mod = userdataaa.searchBycnic(patientCNINC);
+        userdataaa mod = userdataaa.searchBypid(pid);
 
         if(Sswitch28.equalsIgnoreCase("N") && Sswitch29.equalsIgnoreCase("N")){
             mod.IS_assessment = 1;

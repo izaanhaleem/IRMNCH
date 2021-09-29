@@ -12,6 +12,7 @@ import com.example.hcp.models.Locations.TehsilResponse;
 import com.example.hcp.models.Locations.UCResponse;
 import com.example.hcp.models.Users.UserResponse;
 import com.example.hcp.models.hcp.HFresponse;
+import com.example.hcp.models.hcp.MedDisbursmentResponse;
 import com.example.hcp.models.hcp.OccupationResponse;
 import com.example.hcp.models.hcp.SampleRequest;
 import com.example.hcp.models.hcp.VaccinationRequest;
@@ -90,6 +91,9 @@ public interface GetDataService {
 
     @GET("Apis/Patient_api/qualification")
     Call<OccupationResponse> qualification();
+
+    @POST("Apis/pending_enrollment_api/pending_enrollment_content")
+    Call<MedDisbursmentResponse> meddisbursment(@Body userdataRequest abc);
 
 
     @POST("Apis/Patient_api/Add")

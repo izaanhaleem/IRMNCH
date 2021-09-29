@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hcp.R;
 import com.example.hcp.fragments.patientRegistration;
+import com.example.hcp.fragments.vitalForm;
 import com.example.hcp.models.AdaptersData.SearchResultData;
 
 public class SearchResultAdapterforFingerprint extends RecyclerView.Adapter<SearchResultAdapterforFingerprint.ViewHolder> {
@@ -44,17 +45,15 @@ public class SearchResultAdapterforFingerprint extends RecyclerView.Adapter<Sear
         holder.LeaderName.setText(sData[position].getPatientName());
         holder.LeaderCNIC.setText(sData[position].getLeaderCNIC());
 
-        String fingerprint = sData[position].fingerprint;
+//        String fingerprint = sData[position].fingerprint;
 
-            if (fingerprint.equalsIgnoreCase("notfound")){
-                holder.addfingerprint.setVisibility(View.VISIBLE);
-            }else {
-                holder.addfingerprint.setVisibility(View.GONE);
-            }
+//            if (fingerprint.equalsIgnoreCase("notfound")){
+//                holder.addfingerprint.setVisibility(View.VISIBLE);
+//            }else {
+//                holder.addfingerprint.setVisibility(View.GONE);
+//            }
 
 
-        
-        
         holder.addfingerprint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,6 +63,8 @@ public class SearchResultAdapterforFingerprint extends RecyclerView.Adapter<Sear
                 Bundle args = new Bundle();
                 args.putString("PatientCNIC",sData[position].getLeaderCNIC());
                 args.putString("PatientName",sData[position].getPatientName());
+                args.putInt("pidEdit",sData[position].pid);
+
                 args.putBoolean("isEdit",true);
                 if(FMFragment != null)
                 {
@@ -81,8 +82,40 @@ public class SearchResultAdapterforFingerprint extends RecyclerView.Adapter<Sear
                 }
             }
         });
-        
-        
+
+//        holder.vital.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+////                Toast.makeText(view.getContext(), "Hello world", Toast.LENGTH_SHORT).show();
+//                Fragment FMFragment = new vitalForm();
+//                Bundle args = new Bundle();
+//                args.putString("PatientCNIC",sData[position].getLeaderCNIC());
+//                args.putString("PatientName",sData[position].getPatientName());
+//                args.putString("ContactNo",sData[position].getContactNo());
+//                args.putInt("pidEdit",sData[position].pid);
+//                args.putBoolean("isEdit",true);
+//                if(FMFragment != null)
+//                {
+//                    FragmentTransaction transaction = ((FragmentActivity) view.getContext()).getSupportFragmentManager().beginTransaction();
+//
+//                    FMFragment.setArguments(args);
+//                    try {
+//                        transaction.replace(R.id.content_frame, FMFragment,"FamilyMemberFragment").addToBackStack("a").commit();
+//
+//                    } catch (IllegalStateException ignored) {
+//                    }
+//                }
+//                else {
+//                    Toast.makeText(view.getContext(), holder.MrNo.getText(), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+
+
+
+
+
         
 //        holder.itemView.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -122,7 +155,7 @@ public class SearchResultAdapterforFingerprint extends RecyclerView.Adapter<Sear
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView LeaderName,Address,MrNo,LeaderCNIC;
+        public TextView LeaderName,Address,MrNo,LeaderCNIC,vital,assesstment,vaccination,sample;
         public CardView FamilyCard;
         public Button addfingerprint;
         public ViewHolder(View itemView) {
@@ -133,6 +166,10 @@ public class SearchResultAdapterforFingerprint extends RecyclerView.Adapter<Sear
             this.addfingerprint = itemView.findViewById(R.id.addfingerprint);
             this.LeaderCNIC = itemView.findViewById(R.id.cardLeaderCNIC);
             this.FamilyCard = itemView.findViewById(R.id.familyCard);
+            this.vital = itemView.findViewById(R.id.vataledit);
+            this.assesstment = itemView.findViewById(R.id.assessmentedit);
+            this.vaccination = itemView.findViewById(R.id.vacedit);
+            this.sample = itemView.findViewById(R.id.sampleedit);
         }
     }
 

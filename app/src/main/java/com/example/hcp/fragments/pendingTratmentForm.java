@@ -155,17 +155,17 @@ public class pendingTratmentForm extends Fragment {
 //            hcvpcrResult.setSelection(0);
 //        }
 
-        if(testtype.equalsIgnoreCase("HCV")){
+        if(baselineResultType.equalsIgnoreCase("HCV")){
             hcvlayout.setVisibility(View.VISIBLE);
             hbvlayout.setVisibility(View.GONE);
             medicine_prescription.setVisibility(View.VISIBLE);
             medicine_prescriptionhbv.setVisibility(View.GONE);
-        }else if(testtype.equalsIgnoreCase("HBV")){
+        }else if(baselineResultType.equalsIgnoreCase("HBV")){
             hcvlayout.setVisibility(View.GONE);
             hbvlayout.setVisibility(View.VISIBLE);
             medicine_prescription.setVisibility(View.GONE);
             medicine_prescriptionhbv.setVisibility(View.VISIBLE);
-        }else if(testtype.equalsIgnoreCase("Both")) {
+        }else if(baselineResultType.equalsIgnoreCase("BOTH")) {
             hbvlayout.setVisibility(View.VISIBLE);
             hcvlayout.setVisibility(View.VISIBLE);
         }else {
