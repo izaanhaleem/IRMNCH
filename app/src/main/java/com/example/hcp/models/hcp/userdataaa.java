@@ -575,6 +575,11 @@ public class userdataaa extends Model {
     @Expose
     public Integer ISTransfer;
 
+    @Column(name = "ISRelease")
+    @SerializedName("ISRelease")
+    @Expose
+    public Integer ISRelease;
+
 
     @Column(name = "IsMedicine")
     @SerializedName("IsMedicine")
@@ -1118,6 +1123,14 @@ public class userdataaa extends Model {
         this.finger_print2 = finger_print2;
     }
 
+    public Integer getISRelease() {
+        return ISRelease;
+    }
+
+    public void setISRelease(Integer ISRelease) {
+        this.ISRelease = ISRelease;
+    }
+
     public static List<userdataaa> getall() {
         return new Select()
                 .from(userdataaa.class)
@@ -1189,6 +1202,14 @@ public class userdataaa extends Model {
                 .execute();
     }
 
+    public static List<userdataaa> searchByMRNOjailrelease(String mrno) {
+        return new Select()
+                .from(userdataaa.class)
+                .where("ISRelease = ?",1 )
+                .where("mrn_no = ?",mrno )
+                .execute();
+    }
+
 
 
     public static List<userdataaa> searchBynameLeader(String name) {
@@ -1203,6 +1224,14 @@ public class userdataaa extends Model {
         return new Select()
                 .from(userdataaa.class)
                 .where("ISTransfer = ?",1 )
+                .where("patient_name LIKE ?", new String[]{'%' + name + '%'})
+                .execute();
+    }
+
+    public static List<userdataaa> searchBynamejailrelease(String name) {
+        return new Select()
+                .from(userdataaa.class)
+                .where("ISRelease = ?",1 )
                 .where("patient_name LIKE ?", new String[]{'%' + name + '%'})
                 .execute();
     }
@@ -1260,11 +1289,28 @@ public class userdataaa extends Model {
                 .executeSingle();
     }
 
+    public static List<userdataaa> searchByPatientIdtransferout(Integer patientid) {
+        return new Select()
+                .from(userdataaa.class)
+                .where("patient_id = ?",patientid )
+                .where("ISRelease = ?",0 )
+                .execute();
+    }
+
+
     public static List<userdataaa> searchByPatientcnic(String cnic) {
         return new Select()
                 .from(userdataaa.class)
                 .where("self_cnic = ?",cnic )
                 .where("ISTransfer = ?",1 )
+                .execute();
+    }
+
+    public static List<userdataaa> searchByPatientcnicrelease(String cnic) {
+        return new Select()
+                .from(userdataaa.class)
+                .where("self_cnic = ?",cnic )
+                .where("ISRelease = ?",1 )
                 .execute();
     }
 

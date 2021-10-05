@@ -101,7 +101,7 @@ public class SearchResultAdapterReleasePatient extends RecyclerView.Adapter<Sear
 
                                     userdataaa mod = userdataaa.searchByPatientId(sData[position].getPid());
 
-                                    mod.ISTransfer = 0;
+                                    mod.ISRelease = 0;
 
                                     try {
                                         vtl.save();

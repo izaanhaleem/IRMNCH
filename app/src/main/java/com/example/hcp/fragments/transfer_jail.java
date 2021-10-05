@@ -119,37 +119,53 @@ public class transfer_jail extends Fragment {
 
         boolean Validationstatus = true;
 
+
+
+
+
+
+
         if(selectedhftypeindex==0){
-            Toast.makeText(getContext(), "Plz Select Health Facility Type", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "Plz Select Health Facility Type", Toast.LENGTH_SHORT).show();
 
             Validationstatus = false;
         }
 
         if(selectedhftypeindex==1) {
 
+
+            List<userdataaa> mod = userdataaa.searchByPatientIdtransferout(patient_id);
+
+            if(mod.size()>0){
+                Toast.makeText(getContext(), "This Patient Not Transfer to Health Facility", Toast.LENGTH_SHORT).show();
+                Validationstatus = false;
+            }
+
+
+
             if (SelectedDivisionCode == 0) {
-                Toast.makeText(getContext(), Constants.division, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), Constants.division, Toast.LENGTH_SHORT).show();
 
                 Validationstatus = false;
             }
             if (SelectedDistrictedCode == 0) {
-                Toast.makeText(getContext(), Constants.district, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), Constants.district, Toast.LENGTH_SHORT).show();
 
                 Validationstatus = false;
             }
             if (SelectTcode == 0) {
-                Toast.makeText(getContext(), Constants.tehsil, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), Constants.tehsil, Toast.LENGTH_SHORT).show();
 
                 Validationstatus = false;
             }
             if (SelectedHfcode == "") {
-                Toast.makeText(getContext(), Constants.healthfacility, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), Constants.healthfacility, Toast.LENGTH_SHORT).show();
 
                 Validationstatus = false;
             }
         }else if(selectedhftypeindex==2){
             if (jailtojail.getSelectedItemPosition()==0) {
-                Toast.makeText(getContext(), "Plz Select Jail", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Plz Select Jail", Toast.LENGTH_SHORT).show();
 
                 Validationstatus = false;
             }
@@ -157,6 +173,7 @@ public class transfer_jail extends Fragment {
 
 
         if(Validationstatus){
+
             savejail jai = new savejail();
             ActiveAndroid.beginTransaction();
             String hospitalname=new SharedPref(getContext()).GetHospitalName();

@@ -83,7 +83,7 @@ public class DashboardRleasePatients extends Fragment {
             List<userdataaa> vitals;
             switch (SelectedOptionIndex) {
                 case 4:
-                    vitals = userdataaa.searchBynamejail(SelectedOptionVal);
+                    vitals = userdataaa.searchBynamejailrelease(SelectedOptionVal);
                     if (vitals.size() > 0) {
 
                         SetDataArrayy(vitals);
@@ -95,7 +95,7 @@ public class DashboardRleasePatients extends Fragment {
                     break;
                 case 2:
                 case 3:
-                    vitals = userdataaa.searchByPatientcnic(SelectedOptionVal);
+                    vitals = userdataaa.searchByPatientcnicrelease(SelectedOptionVal);
                     if (vitals.size() > 0) {
 
                         SetDataArrayy(vitals);
@@ -105,7 +105,7 @@ public class DashboardRleasePatients extends Fragment {
                     }
                     break;
                 case 1:
-                    vitals = userdataaa.searchByMRNOjail(SelectedOptionVal);
+                    vitals = userdataaa.searchByMRNOjailrelease(SelectedOptionVal);
                     if (vitals.size() > 0) {
                         SetDataArrayy(vitals);
                     } else {

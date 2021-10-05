@@ -985,6 +985,7 @@ public class LoginActivity extends AppCompatActivity {
                     dat.IsActive = 1;
 
                     dat.ISTransfer = 1;
+                    dat.ISRelease = 1;
 
                     dat.IsMedicine = 1;
 
