@@ -810,6 +810,12 @@ public class Datum5 {
     private String is_cirrhotic_patient;
 
 
+    @SerializedName("gender")
+    @Expose
+    public String gender;
+    @SerializedName("marital_status")
+    @Expose
+    public String marital_status;
 
 
     @SerializedName("finger_print1")
@@ -820,6 +826,24 @@ public class Datum5 {
     @SerializedName("finger_print2")
     @Expose
     public String finger_print2;
+
+
+
+    @SerializedName("prison_transfer_status")
+    @Expose
+    public String prison_transfer_status;
+
+
+    @SerializedName("current_hospital_name")
+    @Expose
+    public String current_hospital_name;
+
+
+    @SerializedName("ex_hospital_name")
+    @Expose
+    public String ex_hospital_name;
+
+
 
     public String getFinger_print1() {
         return finger_print1;
@@ -835,6 +859,24 @@ public class Datum5 {
 
     public void setFinger_print2(String finger_print2) {
         this.finger_print2 = finger_print2;
+    }
+
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+
+    public String getMarital_status() {
+        return marital_status;
+    }
+
+    public void setMarital_status(String marital_status) {
+        this.marital_status = marital_status;
     }
 
     public Integer getId() {
@@ -1293,4 +1335,28 @@ public class Datum5 {
     public void setIs_cirrhotic_patient(String is_cirrhotic_patient) {
         this.is_cirrhotic_patient = is_cirrhotic_patient;
     }
+
+    public String getPrison_transfer_status() {
+        return prison_transfer_status;
     }
+
+    public void setPrison_transfer_status(String prison_transfer_status) {
+        this.prison_transfer_status = prison_transfer_status;
+    }
+
+    public String getCurrent_hospital_name() {
+        return current_hospital_name;
+    }
+
+    public void setCurrent_hospital_name(String current_hospital_name) {
+        this.current_hospital_name = current_hospital_name;
+    }
+
+    public String getEx_hospital_name() {
+        return ex_hospital_name;
+    }
+
+    public void setEx_hospital_name(String ex_hospital_name) {
+        this.ex_hospital_name = ex_hospital_name;
+    }
+}

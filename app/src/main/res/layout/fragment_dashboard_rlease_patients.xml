@@ -181,7 +181,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="Sample Status"
+                android:text="Rlease Patients"
                 android:textColor="@color/color_black"
                 android:paddingTop="10dp"
                 android:textStyle="normal"
@@ -248,7 +248,7 @@
                     android:textColor="@color/color_white" />
 
                 <Button
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:id="@+id/AllAssesementList"
 
                     android:layout_width="match_parent"
@@ -279,8 +279,6 @@
             android:id="@+id/AssessmentRecy">
 
         </androidx.recyclerview.widget.RecyclerView>
-
-
 
     </LinearLayout>
 

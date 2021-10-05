@@ -31,10 +31,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.hcp.fragments.AssessmentDashboard;
+import com.example.hcp.fragments.DashboardRleasePatients;
 import com.example.hcp.fragments.Dashboard_patient_pending_treatment;
 import com.example.hcp.fragments.SampleDashboard;
+import com.example.hcp.fragments.TransferIn;
 import com.example.hcp.fragments.VaccinationDashboard;
 import com.example.hcp.fragments.sample_status_Dashboard;
+import com.example.hcp.fragments.Dashboard_transfer_jail_to_jail;
 import com.example.hcp.fragments.vitalDashboard;
 import com.google.android.material.navigation.NavigationView;
 import com.example.hcp.R;
@@ -178,6 +181,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.sample_status:
                 mPrevSelectedId = itemId;
                 navFragment = new sample_status_Dashboard();
+                break;
+
+            case R.id.Transfer:
+                mPrevSelectedId = itemId;
+                navFragment = new Dashboard_transfer_jail_to_jail();
+                break;
+            case R.id.Transferin:
+                mPrevSelectedId = itemId;
+                navFragment = new TransferIn();
+                break;
+
+            case R.id.release:
+                mPrevSelectedId = itemId;
+                navFragment = new DashboardRleasePatients();
                 break;
 
             case R.id.nav_3:

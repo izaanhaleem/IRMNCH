@@ -203,8 +203,6 @@ public class MedicineDisbursment_Table extends Model {
                 .execute();
     }
 
-
-
     public static void deleteAll() {
         new Delete().from(MedicineDisbursment_Table.class)
                 .execute();

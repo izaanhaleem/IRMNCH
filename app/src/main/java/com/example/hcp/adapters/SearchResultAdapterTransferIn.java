@@ -1,6 +1,6 @@
 package com.example.hcp.adapters;
 
-import android.os.Bundle;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,31 +9,29 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hcp.R;
-import com.example.hcp.fragments.sampleForm;
 import com.example.hcp.models.AdaptersData.SearchResultDatavital;
-import com.example.hcp.utils.Constants;
 
-public class SearchResultAdapterSample_status extends RecyclerView.Adapter<SearchResultAdapterSample_status.ViewHolder> {
+public class SearchResultAdapterTransferIn extends RecyclerView.Adapter<SearchResultAdapterTransferIn.ViewHolder> {
 
     private  SearchResultDatavital[] sData;
+    private Context context;
 
 
     // RecyclerView recyclerView;
-    public SearchResultAdapterSample_status(SearchResultDatavital[] listdata) {
-        this.sData = listdata;
 
+
+    public SearchResultAdapterTransferIn(SearchResultDatavital[] sData, Context context) {
+        this.sData = sData;
+        this.context = context;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View listItem= layoutInflater.inflate(R.layout.search_sample_status, parent, false);
+        View listItem= layoutInflater.inflate(R.layout.search_transfer_in, parent, false);
         ViewHolder viewHolder = new ViewHolder(listItem);
         return viewHolder;
     }
@@ -42,17 +40,30 @@ public class SearchResultAdapterSample_status extends RecyclerView.Adapter<Searc
     public void onBindViewHolder(ViewHolder holder, int position) {
         final SearchResultDatavital myListData = sData[position];
         holder.MrNo.setText(sData[position].MrNo);
-        holder.samplestatus.setText(sData[position].getSample_staus());
+        holder.samplestatus.setText(sData[position].getTransferin());
         holder.LeaderName.setText(sData[position].getPatientName());
         holder.LeaderCNIC.setText(sData[position].getLeaderCNIC());
-        holder.Address.setText(sData[position].getSample_number());
-        if(sData[position].getHcvviralload()!=null && !sData[position].getHcvviralload().isEmpty()){
-            holder.viralload.setText("HCV: "+sData[position].getHcvviralload());
-        }else if(sData[position].getHbvviralload()!=null && !sData[position].getHbvviralload().isEmpty()){
-            holder.viralload.setText("HBV: "+sData[position].getHbvviralload());
-        }else{
-            holder.viralload.setText("not found");
-            }
+
+        holder.Address.setText(sData[position].getEx_hospital());
+        holder.viralload.setText(sData[position].getCurrnet_hospital());
+
+        if(sData[position].getTransferin()==null){
+            holder.FamilyCard.setVisibility(View.GONE);
+//            Toast.makeText(context, "Record Not Found!", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            holder.FamilyCard.setVisibility(View.VISIBLE);
+        }
+
+
+
+//        if(sData[position].getHcvviralload()!=null && !sData[position].getHcvviralload().isEmpty()){
+//            holder.viralload.setText("HCV: "+sData[position].getHcvviralload());
+//        }else if(sData[position].getHbvviralload()!=null && !sData[position].getHbvviralload().isEmpty()){
+//            holder.viralload.setText("HBV: "+sData[position].getHbvviralload());
+//        }else{
+//            holder.viralload.setText("not found");
+//            }
 
 //        holder.viralload.setText("HCV: "+sData[position].getHcvviralload()+", HBV: "+sData[position].getHbvviralload());
 

@@ -161,11 +161,12 @@
 
 
     <androidx.cardview.widget.CardView
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
+
         android:layout_marginVertical="20dp"
-        app:cardCornerRadius="@dimen/margin_normal"
+
         android:id="@+id/card"
         android:layout_below="@+id/sy">
 
@@ -181,14 +182,15 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="Sample Status"
+                android:text="Transfer In Patient List"
                 android:textColor="@color/color_black"
                 android:paddingTop="10dp"
-                android:textStyle="normal"
+                android:textStyle="bold"
                 android:paddingBottom="5dp"
                 android:textSize="19sp" />
 
             <Spinner
+                android:visibility="gone"
                 android:id="@+id/etSearchOptionAssessment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -215,6 +217,7 @@
             <!--                />-->
 
             <com.example.hcp.utils.MaskedEditText
+                android:visibility="gone"
                 android:id="@+id/Searchassessment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -228,6 +231,7 @@
                 app:mask="AAA/99/99/99999999999"
                 />
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -236,7 +240,6 @@
                 android:weightSum="1">
                 <Button
                     android:id="@+id/btnSearch"
-
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -248,8 +251,8 @@
                     android:textColor="@color/color_white" />
 
                 <Button
-                    android:visibility="gone"
-                    android:id="@+id/AllAssesementList"
+                    android:visibility="visible"
+                    android:id="@+id/AlltransferinList"
 
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

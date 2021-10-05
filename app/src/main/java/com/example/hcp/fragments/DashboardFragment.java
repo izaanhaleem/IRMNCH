@@ -12,8 +12,10 @@ import android.graphics.Path;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.SystemClock;
 import android.text.InputType;
 import android.util.Base64;
 import android.util.Log;
@@ -55,6 +57,7 @@ import com.example.hcp.CustomBroadCastReceiver;
 import com.example.hcp.EditTextTelefoneMask;
 import com.example.hcp.Mask;
 import com.example.hcp.R;
+import com.example.hcp.activities.LoginActivity;
 import com.example.hcp.activities.MainActivity;
 
 import com.example.hcp.activities.ScanActivity;
@@ -68,6 +71,8 @@ import com.example.hcp.models.Users.UserResponse;
 import com.example.hcp.models.hcp.AddVitalResponse;
 import com.example.hcp.models.hcp.AssessmentResponse;
 import com.example.hcp.models.hcp.Assessmentt;
+import com.example.hcp.models.hcp.ReleaseLocalTable;
+import com.example.hcp.models.hcp.ReleseResponse;
 import com.example.hcp.models.hcp.SampleRequest;
 import com.example.hcp.models.hcp.Samplee;
 import com.example.hcp.models.hcp.VaccinationRequest;
@@ -79,8 +84,13 @@ import com.example.hcp.models.hcp.addPatientRequest;
 import com.example.hcp.models.hcp.addPatientResponse;
 import com.example.hcp.models.hcp.addVitalRequest;
 import com.example.hcp.models.hcp.addvitalll;
+import com.example.hcp.models.hcp.jailListTable;
+import com.example.hcp.models.hcp.jailObjectModel;
 import com.example.hcp.models.hcp.medicinee;
+import com.example.hcp.models.hcp.releaseObject;
 import com.example.hcp.models.hcp.sampleResponse;
+import com.example.hcp.models.hcp.savejail;
+import com.example.hcp.models.hcp.submitJailResponse;
 import com.example.hcp.models.hcp.userdataaa;
 import com.example.hcp.services.APIClient;
 import com.example.hcp.services.GetDataService;
@@ -145,6 +155,9 @@ public class DashboardFragment extends Fragment {
     List<Assessmentt> assessmentts;
     List<Vaccinationn> vaccinationns;
     List<Samplee> sampless;
+    List<savejail> jailes;
+    List<ReleaseLocalTable> releases;
+
     List<medicinee> pending;
     public String current_fmd;
 
@@ -160,6 +173,8 @@ public class DashboardFragment extends Fragment {
     List<userdataaa> allData = new ArrayList<>();
     public int totalSize;
     RecyclerView recyclerView;
+
+    private ProgressDialog dialog;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -182,7 +197,23 @@ public class DashboardFragment extends Fragment {
         ma_iv_fingerprint = view.findViewById(R.id.ma_iv_fingerprint_dashboard);
         SelectedOption = "";
         SelectedOptionVal = "";
-        allData = userdataaa.getall();
+
+        dialog = new ProgressDialog(getContext());
+        dialog.setMessage("Please Wait....");
+        dialog.setCancelable(false);
+//        allData = userdataaa.getall();
+//        getActivity().runOnUiThread(new Runnable(){
+//            @Override
+//            public void run(){
+//                allData = userdataaa.getall();
+//                // Do whatever you want
+//            }
+//        });
+
+        StartProgress();
+
+
+
         export_db = view.findViewById(R.id.export_db);
         recyclerView = (RecyclerView) view.findViewById(R.id.newpatient);
 
@@ -253,6 +284,49 @@ public class DashboardFragment extends Fragment {
 
 //        OptionValue.addTextChangedListener(EditTextTelefoneMask.insert(OptionValue));
         return view;
+    }
+
+    public void StartProgress(){
+        new ProgressAsyncTask().execute();
+    }
+
+    public class ProgressAsyncTask extends
+            AsyncTask<Void, Integer, Void> {
+
+        int myProgress;
+
+        @Override
+        protected void onPreExecute() {
+            // TODO Auto-generated method stub
+            super.onPreExecute();
+             dialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            // TODO Auto-generated method stub
+            dialog.dismiss();
+            super.onPostExecute(result);
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            // TODO Auto-generated method stub
+            allData = userdataaa.getall();
+//            while(myProgress<100){
+//                myProgress++;
+//                publishProgress(myProgress);
+//                SystemClock.sleep(100);
+//            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            // TODO Auto-generated method stub
+
+        }
+
     }
 
     private void allnewpatientList() {
@@ -415,11 +489,10 @@ public class DashboardFragment extends Fragment {
                     ma_iv_fingerprint.setImageBitmap(decodedByte);
 
                     if(allData.size() > 0)
-
                     {
-                        for(int i=0;i<allData.size();i++)
-
-                            if(allData.get(i).getFinger_print2()!=null) {
+                        Boolean isfingermatch = false;
+                        for(int i=0;i<allData.size();i++) {
+                            if (allData.get(i).getFinger_print2() != null && !allData.get(i).getFinger_print2().isEmpty()) {
                                 {
                                     byte[] xml64Bytes = Base64.decode(allData.get(i).getFinger_print2(), Base64.DEFAULT);//allData.get(i).getFinger_fmd().getBytes(StandardCharsets.UTF_8);//Base64.decode(allData.get(i).getFinger_fmd(), Base64.DEFAULT);
                                     Fmd d_fmd = null;
@@ -434,16 +507,17 @@ public class DashboardFragment extends Fragment {
                                                 int m_score = m_engine.Compare(d_fmd, 0, m_engine.CreateFmd(Constants.cap_result, ANSI_378_2004), 0);
                                                 if (m_score < (0x7FFFFFFF / 100000)) {
                                                     Toast.makeText(getContext(), "Finger Print Found!", Toast.LENGTH_LONG).show();
-                                                   List<userdataaa> patient ;
-                                                   patient = userdataaa.searchByCNICLeader(allData.get(i).getSelf_cnic());
-                                                    SetDataArrayy(patient);
-//                                                    SetDataArrayyl(allData.get(i));
+                                                    isfingermatch=true;
+//                                                   List<userdataaa> patient ;
+//                                                   patient = userdataaa.searchByCNICLeader(allData.get(i).getSelf_cnic());
+//                                                   SetDataArrayy(patient);
+                                                    SetDataArrayyl(allData.get(i));
 //                                                    allData.get(i).getFinger_print2();
                                                     break;
+                                                } else {
+
                                                 }
-                                                else {
-                                                Toast.makeText(getContext(), "!", Toast.LENGTH_SHORT).show();
-                                                }
+
                                             }
 
                                         } catch (UareUException e) {
@@ -456,6 +530,10 @@ public class DashboardFragment extends Fragment {
 
                                 }
                             }
+                        }
+                        if(isfingermatch==false){
+                            Toast.makeText(getContext(), "not found!", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     Log.d("---d---",Constants.Fmd + "");
@@ -476,75 +554,43 @@ public class DashboardFragment extends Fragment {
 
     }
 
-//    private void SetDataArrayyl(userdataaa userdataaa) {
-//        PatientDataParceable FDP = new PatientDataParceable();
-//
-//
-//            if (userdataaa.patient_name != null) {
-//                FDP.PatientName = userdataaa.patient_name;
-//            } else {
-//                FDP.PatientName = "N/A";
-//
-//            }
-//            FDP.contactNo = userdataaa.contact_no_self;
-//            FDP.LeaderCNIC = userdataaa.self_cnic;
-//            FDP.MrNo = userdataaa.mrn_no;
-//
-////        PatientDataParceable[] FDP = new PatientDataParceable[SFR.size()];
-////        for (int i = 0; i < FDP.length; i++) {
-////            FDP[i] = new PatientDataParceable();
-//////            FDP[i].Address        =    SFR.get(i).getAddress();
-////
-//////            FDP[i].Address = "Address";
-//////            FDP[i].FamilyId = SFR.get(i).getFamilyId().toString();
-//////            FDP[i].MrNo = SFR.get(i).mrn_no;
-//////            if (SFR.get(i).getFamilyMemberId() != null) {
-//////                FDP[i].LeaderId = SFR.get(i).getFamilyMemberId().toString();
-//////            } else {
-//////                FDP[i].LeaderId = "N/A";
-//////
-//////            }
-////
-////            if (SFR.get(i).patient_name != null) {
-////                FDP[i].PatientName = SFR.get(i).patient_name;
-////            } else {
-////                FDP[i].PatientName = "N/A";
-////
-////            }
-////            FDP[i].contactNo = SFR.get(i).contact_no_self;
-////            FDP[i].LeaderCNIC = SFR.get(i).self_cnic;
-////            FDP[i].MrNo = SFR.get(i).mrn_no;
-////        }
-//
-//
-//
-//
-//
-//        Fragment SRFragment = new SearchResultFingerprint();
-//
-//        Bundle args = new Bundle();
-////        args.putParcelable("FDP", FDP);
-//        args.putString("name",userdataaa.getPatient_name());
-//        args.putString("mrno",userdataaa.mrn_no);
-//        args.putString("contact",userdataaa.contact_no_self);
-//        args.putString("cnic",userdataaa.getSelf_cnic());
-//
-//        if (SRFragment != null) {
-//            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-//
-//            SRFragment.setArguments(args);
-//            try {
-//                transaction.add(R.id.content_frame, SRFragment, "searchFragment").addToBackStack(null).commit();
-//            } catch (IllegalStateException ignored) {
-//            }
-//        }
-//
-//
-//    }
-//
+    private void SetDataArrayyl(userdataaa userdataaa) {
+        PatientDataParceable FDP = new PatientDataParceable();
+            if (userdataaa.patient_name != null) {
+                FDP.PatientName = userdataaa.patient_name;
+            } else {
+                FDP.PatientName = "N/A";
+
+            }
+            FDP.contactNo = userdataaa.contact_no_self;
+            FDP.LeaderCNIC = userdataaa.self_cnic;
+            FDP.MrNo = userdataaa.mrn_no;
+
+        Fragment SRFragment = new SearchResultFingerprint();
+
+        Bundle args = new Bundle();
+//        args.putParcelable("FDP", FDP);
+        args.putString("name",userdataaa.getPatient_name());
+        args.putString("mrno",userdataaa.mrn_no);
+        args.putString("contact",userdataaa.contact_no_self);
+        args.putString("cnic",userdataaa.getSelf_cnic());
+
+        if (SRFragment != null) {
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+            SRFragment.setArguments(args);
+            try {
+                transaction.add(R.id.content_frame, SRFragment, "searchFragment").addToBackStack(null).commit();
+            } catch (IllegalStateException ignored) {
+            }
+        }
 
 
-//
+    }
+
+
+
+
 
     private void displayReaderNotFound()
 
@@ -631,35 +677,7 @@ public class DashboardFragment extends Fragment {
 
     }
 
-//    void Login(String username, String password) {
-//        ProgressDialog dialog = new ProgressDialog(getContext());
-//        dialog.setMessage("برائے مہربانی انتظار کریں !");
-//        dialog.setCancelable(false);
-//        dialog.show();
-//        GetDataService service = APIClient.getRetrofitInstance().create(GetDataService.class);
-//        Call<UserResponse> call = service.Login(username, password, "password");
-//        call.enqueue(new Callback<UserResponse>() {
-//            @Override
-//            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
-//
-//                if (response.code() == 200) {
-//                    dialog.dismiss();
-//                    SyncRecord();
-//                } else {
-//                    dialog.dismiss();
-//                    Toast.makeText(getContext(), "Invalid Credentials .. ", Toast.LENGTH_SHORT).show();
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<UserResponse> call, Throwable t) {
-//                dialog.dismiss();
-//                Toast.makeText(getContext(), "Something went wrong !" + t.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//    }
+
 
     void LoadRegistration() {
         Fragment SRFragment = new patientRegistration();
@@ -945,8 +963,10 @@ public class DashboardFragment extends Fragment {
         List<Assessmentt> assessments = Assessmentt.searchBySync();
         List<Vaccinationn> vacc = Vaccinationn.searchBySync();
         List<Samplee> sample = Samplee.searchBySync();
+        List<savejail> jail = savejail.searchBySync();
+        List<ReleaseLocalTable> relese = ReleaseLocalTable.searchBySync();
 //      List<medicinee> medicine = medicinee.searchBySync();
-        totalSize = patient.size() + vitals.size() + assessments.size() + sample.size()+vacc.size();
+        totalSize = patient.size() + vitals.size() + assessments.size() + sample.size()+vacc.size()+jail.size()+relese.size();
         total_record.setText(totalSize + "");
     }
 
@@ -996,6 +1016,8 @@ public class DashboardFragment extends Fragment {
             submitAssessment();
             submitVaccination();
             submitSamples();
+            submitjailTransfers();
+            submitjailRelease();
         }
 //       if(vitals.size()>0){
 //            submitvitalData();
@@ -1055,6 +1077,20 @@ public class DashboardFragment extends Fragment {
             }else {
                 fmb.setSelf_cnic("");
             }
+
+            if(paitents.get(i).getCnic_type() !=null){
+                fmb.setCnic_type(paitents.get(i).getCnic_type());
+            }else {
+                fmb.setCnic_type(null);
+            }
+
+            if(paitents.get(i).getPrison_type() !=null){
+                fmb.setPrison_type(paitents.get(i).getPrison_type());
+            }else {
+                fmb.setPrison_type(null);
+            }
+
+
             if (paitents.get(i).getContact_no_self() != null) {
                 fmb.setContact_no_self(paitents.get(i).getContact_no_self());
             }
@@ -1156,6 +1192,18 @@ public class DashboardFragment extends Fragment {
                 fmb.setFinger_print2(paitents.get(i).getFinger_print2());
             }else {
                 fmb.setFinger_print2("");
+            }
+
+            if(paitents.get(i).getPrison_type() !=null){
+                fmb.setPrison_type(paitents.get(i).getPrison_type());
+            }else {
+                fmb.setPrison_type(0);
+            }
+
+            if(paitents.get(i).getCnic_type() !=null){
+                fmb.setCnic_type(paitents.get(i).getCnic_type());
+            }else {
+                fmb.setCnic_type(null);
             }
 
 //                List<addPatientModel> pati = new ArrayList<addPatientModel>();
@@ -1275,6 +1323,7 @@ public class DashboardFragment extends Fragment {
                         submitAssessment();
                         submitVaccination();
                         submitSamples();
+                        submitjailTransfers();
 
                     }
                 } else {
@@ -1334,6 +1383,7 @@ public class DashboardFragment extends Fragment {
         });
 
     }
+
 
     private void submitvitalData() {
         vitals = addvitalll.searchBySync();
@@ -1875,8 +1925,6 @@ public class DashboardFragment extends Fragment {
             public void onResponse(Call<VaccinationResponse> call, Response<VaccinationResponse> response) {
                 dialog.dismiss();
                 if (response.body() != null) {
-
-
                     ActiveAndroid.beginTransaction();
                     try {
                         Vaccinationn vc = Vaccinationn.searchBypid(vac.getId());
@@ -2043,259 +2091,189 @@ public class DashboardFragment extends Fragment {
         });
     }
 
-//    private void submitmedicine() {
-//        pending = medicinee.searchBySync();
-//        pendingsubmitcount = pending.size();
-//        if (pending.size() > 0) {
+    private void submitjailTransfers() {
+        int h=Integer.parseInt(new SharedPref(getContext()).GetLoggedInUser());
+        jailes = savejail.searchBySync();
+        if (jailes.size() > 0) {
+
+            for (int i = 0; i < jailes.size(); i++) {
+                jailObjectModel jai = new jailObjectModel();
+                if (jailes.get(i).patient_id != null) {
+                    jai.setPatient_id(jailes.get(i).patient_id);
+                }
+                if (jailes.get(i).getPrison_transfer_status() != null) {
+                    jai.setPrison_transfer_status(jailes.get(i).getPrison_transfer_status());
+                } else {
+                    jai.setPrison_transfer_status("");
+                }
+                if (jailes.get(i).getCurrent_hospital_name() != null) {
+                    jai.setCurrent_hospital_name(jailes.get(i).getCurrent_hospital_name());
+                } else {
+                    jai.setCurrent_hospital_name("");
+                }
+
+                if (jailes.get(i).getNew_hospital_id() != null) {
+                    jai.setNew_hospital_id(jailes.get(i).getNew_hospital_id());
+                } else {
+                    jai.setNew_hospital_id(0);
+                }
+
+                if (jailes.get(i).getNew_hospital_name() != null) {
+                    jai.setNew_hospital_name(jailes.get(i).getNew_hospital_name());
+                } else {
+                    jai.setNew_hospital_name("");
+                }
+
+                SubmitjailTransfers(jai);
+
+            }
+
+        }
+
+    }
+
+    private void SubmitjailTransfers(jailObjectModel jai) {
+        ProgressDialog dialog = new ProgressDialog(getContext());
+        dialog.setMessage("Saving Patient Vital please wait . . ");
+        dialog.show();
+        Call<submitJailResponse> call = RetrofitClient
+                .getInstance().getApi().saveTranferJails(jai);
+        call.enqueue(new Callback<submitJailResponse>() {
+            @Override
+            public void onResponse(Call<submitJailResponse> call, Response<submitJailResponse> response) {
+                dialog.dismiss();
+                if (response.body() != null) {
+                    ActiveAndroid.beginTransaction();
+                    try {
+                        savejail jal = savejail.searchBypid(jai.getPatient_id());
+                        jal.IsSync = 1;
+                        jal.save();
+//                        List<Samplee> s = Samplee.getall();
+//                        for (int i = 0; i < s.size(); i++) {
 //
-//            for (int i = 0; i < pending.size(); i++) {
-//                medicineRequest med = new medicineRequest();
-//                if (pending.get(i).invs_status != null) {
-//                    med.setInvs_status(pending.get(i).invs_status);
-//                }else {
-//                    med.setInvs_status("");
-//                }
-//                if (pending.get(i).result_type != null) {
-//                    med.setResult_type(pending.get(i).result_type);
-//                } else {
-//                    med.setResult_type("");
-//                }
-//                if (pending.get(i).hemoglobin != null) {
-//                    med.setHemoglobin(pending.get(i).hemoglobin);
-//                } else {
-//                    med.setUser_id(0);
-//                }
-//                if (pending.get(i).ast != null) {
-//                    med.setAst(pending.get(i).ast);
-//                } else {
-//                    med.setAst("0");
-//                }
+//                            Samplee mo = Samplee.load(Samplee.class, response.body().getData().getMobile_id());
+//                            mo.IsSync = 1;
+//                            mo.save();
 //
-//                if (pending.get(i).alt != null) {
-//                    med.setAlt(pending.get(i).alt);
-//                } else {
-//                    med.setMobile_id(0);
-//                }
+//                        }
+                        ActiveAndroid.setTransactionSuccessful();
+                    } finally {
+                        ActiveAndroid.endTransaction();
+                    }
+
+//                    syncedpending = syncedpending + 1;
+//                    if (syncedpending == pendingsubmitcount) {
+//                        submitmedicine();
+//                    }
+
+//                    deleteformvitalList(response.body().getData().getMobile_id());
+                }
+                totalSYncREcord();
+            }
+
+            @Override
+            public void onFailure(Call<submitJailResponse> call, Throwable t) {
+
+                try {
+//                    syncedleaders = syncedleaders+1;
+//                    if(syncedleaders==leadersubmitcount){
+////                        submitLmpData();
+//                    }
+//                    Toast.makeText(getContext(), Constants.ServerError + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                    Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
+
+                } catch (Exception exception) {
+                    dialog.dismiss();
+                }
+
+            }
+        });
+
+    }
+
+    private void submitjailRelease() {
+
+        releases = ReleaseLocalTable.searchBySync();
+        if (releases.size() > 0) {
+
+            for (int i = 0; i < releases.size(); i++) {
+                releaseObject rel = new releaseObject();
+                if (releases.get(i).getPatient_id() != null) {
+                    rel.setPatient_id(releases.get(i).getPatient_id());
+                }
+
+
+                SubmitReleasePatients(rel);
+
+            }
+
+        }
+
+    }
+
+    private void SubmitReleasePatients(releaseObject rel) {
+
+        ProgressDialog dialog = new ProgressDialog(getContext());
+        dialog.setMessage("Saving Patient Release please wait . . ");
+        dialog.show();
+        Call<ReleseResponse> call = RetrofitClient
+                .getInstance().getApi().submitreleasepatients(rel);
+        call.enqueue(new Callback<ReleseResponse>() {
+            @Override
+            public void onResponse(Call<ReleseResponse> call, Response<ReleseResponse> response) {
+                dialog.dismiss();
+                if (response.body() != null) {
+                    ActiveAndroid.beginTransaction();
+                    try {
+                        ReleaseLocalTable jali = ReleaseLocalTable.searchBypid(rel.getPatient_id());
+                        jali.setIs_sycn(1);
+                        jali.save();
+//                        List<Samplee> s = Samplee.getall();
+//                        for (int i = 0; i < s.size(); i++) {
 //
-//                if (pending.get(i).platelet != null) {
-//                    med.setPlatelet(pending.get(i).platelet);
-//                } else {
-//                    med.setPlatelet("");
-//                }
+//                            Samplee mo = Samplee.load(Samplee.class, response.body().getData().getMobile_id());
+//                            mo.IsSync = 1;
+//                            mo.save();
 //
-//                if (pending.get(i).tlc != null) {
-//                    med.setTlc(pending.get(i).tlc);
-//                } else {
-//                    med.setTlc("");
-//                }
-//
-//                if (pending.get(i).apri != null) {
-//                    med.setApri(pending.get(i).apri);
-//                } else {
-//                    med.setApri("");
-//                }
-//
-//                if (pending.get(i).viral_count != null) {
-//                    med.setViral_count(pending.get(i).viral_count);
-//                } else {
-//                    med.setViral_count("0");
-//                }
-//
-//                if (pending.get(i).pcr_result != null) {
-//                    med.setPcr_result(pending.get(i).pcr_result);
-//                } else {
-//                    med.setPcr_result("0");
-//                }
-//
-//                if (pending.get(i).sample_id != null) {
-//                    med.setSample_id(pending.get(i).sample_id);
-//                } else {
-//                    med.setSample_id("");
-//                }
-//
-//                if (pending.get(i).lab_name != null) {
-//                    med.setLab_name(pending.get(i).lab_name);
-//                } else {
-//                    med.setLab_name("0");
-//                }
-//
-//                if (pending.get(i).other_lab_name != null) {
-//                    med.setOther_lab_name(pending.get(i).other_lab_name);
-//                } else {
-//                    med.setOther_lab_name("0");
-//                }
-//
-//                if (pending.get(i).id != null) {
-//                    med.setId(pending.get(i).id);
-//                } else {
-//                    med.setId("0");
-//                }
-//
-//                if (pending.get(i).baseline_type != null) {
-//                    med.setBaseline_type(pending.get(i).baseline_type);
-//                } else {
-//                    med.setBaseline_type("0");
-//                }
-//                if (pending.get(i).urea != null) {
-//                    med.setUrea(pending.get(i).urea);
-//                } else {
-//                    med.setUrea("0");
-//                }
-//                if (pending.get(i).creatinie != null) {
-//                    med.setCreatinie(pending.get(i).creatinie);
-//                } else {
-//                    med.setCreatinie("0");
-//                }
-//                if (pending.get(i).blood_sugar_random != null) {
-//                    med.setBlood_sugar_random(pending.get(i).blood_sugar_random);
-//                } else {
-//                    med.setBlood_sugar_random("0");
-//                }
-//                if (pending.get(i).urea != null) {
-//                    med.setUrea(pending.get(i).urea);
-//                } else {
-//                    med.setUrea("0");
-//                }
-//                if (pending.get(i).drug_interaction != null) {
-//                    med.setDrug_interaction(pending.get(i).drug_interaction);
-//                } else {
-//                    med.setDrug_interaction("0");
-//                }
-//                if (pending.get(i).hcv_medicine_recommended != null) {
-//                    med.setHcv_medicine_recommended(pending.get(i).hcv_medicine_recommended);
-//                } else {
-//                    med.setHcv_medicine_recommended("0");
-//                }
-//                if (pending.get(i).disburse_6_mnth_dose != null) {
-//                    med.setDisburse_6_mnth_dose(pending.get(i).disburse_6_mnth_dose);
-//                } else {
-//                    med.setDisburse_6_mnth_dose("0");
-//                }
-//                if (pending.get(i).cirrhotic_medicine_flow != null) {
-//                    med.setCirrhotic_medicine_flow(pending.get(i).cirrhotic_medicine_flow);
-//                } else {
-//                    med.setCirrhotic_medicine_flow("0");
-//                }
-//                if (pending.get(i).created != null) {
-//                    med.setCreated(pending.get(i).created);
-//                } else {
-//                    med.setCreated("0");
-//                }
-//                if (pending.get(i).user_id != null) {
-//                    med.setUser_id(pending.get(i).user_id);
-//                } else {
-//                    med.setUser_id(0);
-//                }
-//                if (pending.get(i).hospital_id != null) {
-//                    med.setHospital_id(pending.get(i).hospital_id);
-//                } else {
-//                    med.setHospital_id(0);
-//                }
-//                if (pending.get(i).updated != null) {
-//                    med.setUpdated(pending.get(i).updated);
-//                } else {
-//                    med.setUpdated("0");
-//                }
-//                if (pending.get(i).mobile_id != null) {
-//                    med.setMobile_id(pending.get(i).mobile_id);
-//                } else {
-//                    med.setMobile_id(0);
-//                }
-//                if (pending.get(i).hcv_medicine_duration != null) {
-//                    med.setHcv_medicine_duration(pending.get(i).hcv_medicine_duration);
-//                } else {
-//                    med.setHcv_medicine_duration(0);
-//                }
-//                if (pending.get(i).treatment_history != null) {
-//                    med.setTreatment_history(pending.get(i).treatment_history);
-//                } else {
-//                    med.setTreatment_history("0");
-//                }
-//                if (pending.get(i).disburse_3_mnth_dose != null) {
-//                    med.setDisburse_3_mnth_dose(pending.get(i).disburse_3_mnth_dose);
-//                } else {
-//                    med.setDisburse_3_mnth_dose("0");
-//                }
-//                if (pending.get(i).treatment_options != null) {
-//                    med.setTreatment_options(pending.get(i).treatment_options);
-//                } else {
-//                    med.setTreatment_options("0");
-//                }
-//
-////                List<addPatientModel> fli = addPatientModel.getall();
-////
-////                sampless.get(i).pid = fli.get(i).getPatient_id();
-//
-//                submitpending(med);
-//
-//            }
-//
-//        }
-//    }
-//
-//    private void submitpending(medicineRequest med) {
-//
-//        ProgressDialog dialog = new ProgressDialog(getContext());
-//        dialog.setMessage("Saving Patient Vital please wait . . ");
-//        dialog.show();
-//        Call<medicineResponse> call = RetrofitClient
-//                .getInstance().getApi().savepending(med);
-//        call.enqueue(new Callback<medicineResponse>() {
-//            @Override
-//            public void onResponse(Call<medicineResponse> call, Response<medicineResponse> response) {
-//                dialog.dismiss();
-//                if (response.body() != null) {
-//
-//
-////                    ActiveAndroid.beginTransaction();
-////                    try {
-////
-////                        List<Samplee> s = Samplee.getall();
-////                        for (int i = 0; i < s.size(); i++) {
-////
-////                            Samplee mo = Samplee.load(Samplee.class, response.body().getData().getMobile_id());
-////                            mo.IsSync = 1;
-////                            mo.save();
-////
-////                        }
-////                        ActiveAndroid.setTransactionSuccessful();
-////                    } finally {
-////                        ActiveAndroid.endTransaction();
-////                    }
-//
-//
-//
-//
-////                    deleteformvitalList(response.body().getData().getMobile_id());
-//                }
-//
-//                totalSYncREcord();
-//
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<medicineResponse> call, Throwable t) {
-//
-//                try {
-////                    syncedleaders = syncedleaders+1;
-////                    if(syncedleaders==leadersubmitcount){
-//////                        submitLmpData();
-////                    }
-////                    Toast.makeText(getContext(), Constants.ServerError + t.getMessage(), Toast.LENGTH_SHORT).show();
-//                    dialog.dismiss();
-//                    Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
-//
-//                } catch (Exception exception) {
-//                    dialog.dismiss();
-//                }
-//
-//            }
-//        });
-//
-//
-//
-//    }
+//                        }
+                        ActiveAndroid.setTransactionSuccessful();
+                    } finally {
+                        ActiveAndroid.endTransaction();
+                    }
+
+//                    syncedpending = syncedpending + 1;
+//                    if (syncedpending == pendingsubmitcount) {
+//                        submitmedicine();
+//                    }
+
+//                    deleteformvitalList(response.body().getData().getMobile_id());
+                }
+                totalSYncREcord();
+            }
+
+            @Override
+            public void onFailure(Call<ReleseResponse> call, Throwable t) {
+
+                try {
+//                    syncedleaders = syncedleaders+1;
+//                    if(syncedleaders==leadersubmitcount){
+////                        submitLmpData();
+//                    }
+//                    Toast.makeText(getContext(), Constants.ServerError + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                    Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
+
+                } catch (Exception exception) {
+                    dialog.dismiss();
+                }
+
+            }
+        });
+
+
+    }
+
 
     private void exportDB() {
         try {

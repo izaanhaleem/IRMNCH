@@ -248,7 +248,7 @@
                     android:textColor="@color/color_white" />
 
                 <Button
-                    android:visibility="visible"
+                    android:visibility="gone"
                     android:id="@+id/AllAssesementList"
 
                     android:layout_width="match_parent"

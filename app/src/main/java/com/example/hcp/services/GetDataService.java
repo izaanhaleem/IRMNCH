@@ -14,6 +14,7 @@ import com.example.hcp.models.Users.UserResponse;
 import com.example.hcp.models.hcp.HFresponse;
 import com.example.hcp.models.hcp.MedDisbursmentResponse;
 import com.example.hcp.models.hcp.OccupationResponse;
+import com.example.hcp.models.hcp.ReleseResponse;
 import com.example.hcp.models.hcp.SampleRequest;
 import com.example.hcp.models.hcp.VaccinationRequest;
 import com.example.hcp.models.hcp.VaccinationResponse;
@@ -23,9 +24,14 @@ import com.example.hcp.models.hcp.addPatientResponse;
 import com.example.hcp.models.hcp.addVitalRequest;
 import com.example.hcp.models.hcp.districtResponse;
 import com.example.hcp.models.hcp.hfUserDataResponse;
+import com.example.hcp.models.hcp.jailListResponse;
+import com.example.hcp.models.hcp.jailObjectModel;
 import com.example.hcp.models.hcp.medicineRequest;
 import com.example.hcp.models.hcp.medicineResponse;
+import com.example.hcp.models.hcp.releaseObject;
 import com.example.hcp.models.hcp.sampleResponse;
+import com.example.hcp.models.hcp.sample_statusResponse;
+import com.example.hcp.models.hcp.submitJailResponse;
 import com.example.hcp.models.hcp.tehsilResponse;
 import com.example.hcp.models.hcp.userdataRequest;
 import com.example.hcp.models.hcp.vitalPatientListRequest;
@@ -53,6 +59,14 @@ public interface GetDataService {
     @POST("Apis/Patient_api/all_data_hf")
     Call<hfUserDataResponse> alldata(@Body userdataRequest req);
 
+    @POST("Apis/Sample_api/GetSampleDetails")
+    Call<sample_statusResponse> allsamplestauts(@Body userdataRequest req);
+
+
+    @POST("Blood_Bank_Apis/GetJails")
+    Call<jailListResponse> alljailList();
+
+
 //    @POST("Apis/Vitals_api/index")
 //    Call<vitalPatientResponse> allvitaldata(@Body vitalPatientListRequest req);
 
@@ -69,6 +83,14 @@ public interface GetDataService {
 
     @POST("Apis/Sample_api/AddSample")
     Call<sampleResponse> saveSamples(@Body SampleRequest re);
+
+
+    @POST("Apis/Patient_api/prisons_transfer")
+    Call<submitJailResponse> saveTranferJails(@Body jailObjectModel re);
+
+    @POST("Apis/Patient_api/release_prison")
+    Call<ReleseResponse> submitreleasepatients(@Body releaseObject rele);
+
 
     @POST("Apis/pending_enrollment_api/hcv_baseline_investigation")
     Call<medicineResponse> savepending(@Body medicineRequest req);

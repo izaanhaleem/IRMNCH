@@ -100,12 +100,12 @@ public class sampleForm extends Fragment {
 //        int startRange = Integer.parseInt(new SharedPref(getContext()).GetHFMISCode());
         int endRange = Integer.parseInt(new SharedPref(getContext()).GetHealthFacility());
 
-try {
-     sno = Integer.parseInt(samplenoo.getText().toString());
-    year = Integer.parseInt(samp.getText().toString());
-} catch(NumberFormatException ex){ // handle your exception
+        try {
+            sno = Integer.parseInt(samplenoo.getText().toString());
+            year = Integer.parseInt(samp.getText().toString());
+        } catch (NumberFormatException ex) { // handle your exception
 
-}
+        }
 
 
         boolean Validationstatus = true;
@@ -132,7 +132,6 @@ try {
         FL.setHospital_id(h);
         FL.setSample_no(new SharedPref(getContext()).GetserverID()+"-"+year+"-"+"00"+sno);
         FL.user_id=i;
-
 
         userdataaa mod = userdataaa.searchBypid(pid);
 

@@ -9,6 +9,8 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 @Table(name = "UserData_Tableee",id = "mobile_id")
@@ -101,7 +103,38 @@ public class userdataaa extends Model {
     @Expose
     public Integer new_patient;
 
+    @Column(name = "cnic_type")
+    @SerializedName("cnic_type")
+    @Expose
+    public String cnic_type;
 
+    @Column(name = "prison_type")
+    @SerializedName("prison_type")
+    @Expose
+    public Integer prison_type;
+
+
+    @Column(name = "is_prison_release")
+    @SerializedName("is_prison_release")
+    @Expose
+    public String is_prison_release;
+
+
+    public String getIs_prison_release() {
+        return is_prison_release;
+    }
+
+    public void setIs_prison_release(String is_prison_release) {
+        this.is_prison_release = is_prison_release;
+    }
+
+    public Integer getPrison_type() {
+        return prison_type;
+    }
+
+    public void setPrison_type(Integer prison_type) {
+        this.prison_type = prison_type;
+    }
 
     public Integer getNew_patient() {
         return new_patient;
@@ -239,9 +272,13 @@ public class userdataaa extends Model {
         this.finger_fmd = finger_fmd;
     }
 
+    public String getCnic_type() {
+        return cnic_type;
+    }
 
-
-
+    public void setCnic_type(String cnic_type) {
+        this.cnic_type = cnic_type;
+    }
 
     @Column(name = "patient_id")
     @SerializedName("patient_id")
@@ -533,6 +570,12 @@ public class userdataaa extends Model {
     @Expose
     public Integer IsActive;
 
+    @Column(name = "ISTransfer")
+    @SerializedName("ISTransfer")
+    @Expose
+    public Integer ISTransfer;
+
+
     @Column(name = "IsMedicine")
     @SerializedName("IsMedicine")
     @Expose
@@ -548,6 +591,52 @@ public class userdataaa extends Model {
     @SerializedName("finger_print2")
     @Expose
     public String finger_print2;
+
+
+    @Column(name = "prison_transfer_status")
+    @SerializedName("prison_transfer_status")
+    @Expose
+    public String prison_transfer_status;
+
+    @Column(name = "transfer_flag")
+    @SerializedName("transfer_flag")
+    @Expose
+    public Integer transfer_flag;
+
+
+    @Column(name = "current_hospital_name")
+    @SerializedName("current_hospital_name")
+    @Expose
+    public String current_hospital_name;
+
+    @Column(name = "ex_hospital_name")
+    @SerializedName("ex_hospital_name")
+    @Expose
+    public String ex_hospital_name;
+
+    public String getCurrent_hospital_name() {
+        return current_hospital_name;
+    }
+
+    public void setCurrent_hospital_name(String current_hospital_name) {
+        this.current_hospital_name = current_hospital_name;
+    }
+
+    public String getEx_hospital_name() {
+        return ex_hospital_name;
+    }
+
+    public void setEx_hospital_name(String ex_hospital_name) {
+        this.ex_hospital_name = ex_hospital_name;
+    }
+
+    public String getPrison_transfer_status() {
+        return prison_transfer_status;
+    }
+
+    public void setPrison_transfer_status(String prison_transfer_status) {
+        this.prison_transfer_status = prison_transfer_status;
+    }
 
     public Integer getPatient_id() {
         return patient_id;
@@ -1035,6 +1124,31 @@ public class userdataaa extends Model {
                 .execute();
     }
 
+
+    public static List<userdataaa> searchByCNICgetall(String cnic) {
+        return new Select()
+                .from(userdataaa.class)
+                .where("self_cnic = ?",cnic)
+                .execute();
+    }
+
+
+    public static List<userdataaa> getallfortranfer(String name) {
+        return new Select()
+                .from(userdataaa.class)
+                .where("patient_name LIKE ?", new String[]{'%' + name + '%'})
+                .execute();
+    }
+
+
+    public static List<userdataaa> transferstatus_not_null() {
+        return new Select()
+                .from(userdataaa.class)
+                .where("transfer_flag = ?",1)
+                .execute();
+    }
+
+
     public static List<userdataaa> getallISMedicine() {
         return new Select()
                 .from(userdataaa.class)
@@ -1067,6 +1181,15 @@ public class userdataaa extends Model {
                 .execute();
     }
 
+    public static List<userdataaa> searchByMRNOjail(String mrno) {
+        return new Select()
+                .from(userdataaa.class)
+                .where("ISTransfer = ?",1 )
+                .where("mrn_no = ?",mrno )
+                .execute();
+    }
+
+
 
     public static List<userdataaa> searchBynameLeader(String name) {
         return new Select()
@@ -1075,6 +1198,16 @@ public class userdataaa extends Model {
                 .where("patient_name LIKE ?", new String[]{'%' + name + '%'})
                 .execute();
     }
+
+    public static List<userdataaa> searchBynamejail(String name) {
+        return new Select()
+                .from(userdataaa.class)
+                .where("ISTransfer = ?",1 )
+                .where("patient_name LIKE ?", new String[]{'%' + name + '%'})
+                .execute();
+    }
+
+
     public static List<userdataaa> searchByPhoneLeader(String phone) {
         return new Select()
                 .from(userdataaa.class)
@@ -1082,6 +1215,16 @@ public class userdataaa extends Model {
                 .where("contact_no_self = ?",phone)
                 .execute();
     }
+
+
+    public static userdataaa searchByPhone(String phone) {
+        return new Select()
+                .from(userdataaa.class)
+                .where("contact_no_self = ?",phone)
+                .executeSingle();
+    }
+
+
 
     public static void deleteAll() {
         new Delete().from(userdataaa.class)
@@ -1116,11 +1259,13 @@ public class userdataaa extends Model {
                 .where("patient_id = ?",patientid )
                 .executeSingle();
     }
-    public static userdataaa searchByPatientcnic(String cnic) {
+
+    public static List<userdataaa> searchByPatientcnic(String cnic) {
         return new Select()
                 .from(userdataaa.class)
                 .where("self_cnic = ?",cnic )
-                .executeSingle();
+                .where("ISTransfer = ?",1 )
+                .execute();
     }
 
     public static List<userdataaa> searchBySync() {
@@ -1231,14 +1376,18 @@ public class userdataaa extends Model {
     public static List<userdataaa> searchByNameSample(String name) {
         return new Select()
                 .from(userdataaa.class)
+                .where("ISSample = ?",0 )
                 .where("IS_assessment = ?",1 )
                 .where("ISVital = ?",1 )
                 .where("patient_name LIKE ?", new String[]{'%' + name + '%'})
                 .execute();
     }
+
+
     public static List<userdataaa> searchByCNICSample(String cnic) {
         return new Select()
                 .from(userdataaa.class)
+                .where("ISSample = ?",0 )
                 .where("IS_assessment = ?",1 )
                 .where("ISVital = ?",1 )
                 .where("self_cnic = ?",cnic)

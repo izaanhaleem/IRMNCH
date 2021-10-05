@@ -1,6 +1,11 @@
 package com.example.hcp.fragments;
 
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,22 +13,16 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.hcp.R;
-import com.example.hcp.adapters.SearchResultAdapterAssessment;
+import com.example.hcp.adapters.SearchResultAdapterReleasePatient;
 import com.example.hcp.adapters.SearchResultAdapterSample;
 import com.example.hcp.models.AdaptersData.SearchResultDatavital;
 import com.example.hcp.models.Parcables.vitalDataParceable;
-import com.example.hcp.models.hcp.addPatientModel;
 import com.example.hcp.models.hcp.userdataaa;
 import com.example.hcp.utils.MaskedEditText;
 
@@ -31,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class SampleDashboard extends Fragment {
+public class DashboardRleasePatients extends Fragment {
 
     Button Search,AllSampleList;
     String SelectedOption, SelectedOptionVal;
@@ -42,11 +41,12 @@ public class SampleDashboard extends Fragment {
     TextView total_record;
     LinearLayout sync_data;
     int vitallistcount = 0;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_sample_dashboard, container, false);
+        View view = inflater.inflate(R.layout.fragment_dashboard_rlease_patients, container, false);
 
         Search=view.findViewById(R.id.btnSearch);
         AllSampleList=view.findViewById(R.id.AllAssesementList);
@@ -55,27 +55,22 @@ public class SampleDashboard extends Fragment {
         total_record = view.findViewById(R.id.total__sync_recordv);
         sync_data = view.findViewById(R.id.sync_datav);
         recyclerView = (RecyclerView) view.findViewById(R.id.AssessmentRecy);
-        allSampletList();
+
         SetSearchOptions();
-        AllSampleList.setOnClickListener(
-                v -> allSampletList()
-        );
+//        AllSampleList.setOnClickListener(
+//                v -> allSampletList()
+//        );
 
         Search.setOnClickListener(
                 v -> Search()
         );
 
 
+
         return view;
-    }
-
-    private void allSampletList() {
-
-        List<userdataaa> assessment;
-        assessment=userdataaa.searchallISSample();
-        SetDataArrayy(assessment);
 
     }
+
 
     private void Search() {
         SelectedOptionVal = OptionValue.getText().toString().trim();
@@ -88,7 +83,7 @@ public class SampleDashboard extends Fragment {
             List<userdataaa> vitals;
             switch (SelectedOptionIndex) {
                 case 4:
-                    vitals = userdataaa.searchByNameSample(SelectedOptionVal);
+                    vitals = userdataaa.searchBynamejail(SelectedOptionVal);
                     if (vitals.size() > 0) {
 
                         SetDataArrayy(vitals);
@@ -100,7 +95,7 @@ public class SampleDashboard extends Fragment {
                     break;
                 case 2:
                 case 3:
-                    vitals = userdataaa.searchByCNICSample(SelectedOptionVal);
+                    vitals = userdataaa.searchByPatientcnic(SelectedOptionVal);
                     if (vitals.size() > 0) {
 
                         SetDataArrayy(vitals);
@@ -110,12 +105,12 @@ public class SampleDashboard extends Fragment {
                     }
                     break;
                 case 1:
-//                    vitalpatient = vitalListt.searchBymrno(SelectedOptionVal);
-//                    if (vitalpatient.size() > 0) {
-//                        SetDataArrayy(vitalpatient);
-//                    } else {
-//                        Toast.makeText(getContext(), "NO Record Found", Toast.LENGTH_LONG).show();
-//                    }
+                    vitals = userdataaa.searchByMRNOjail(SelectedOptionVal);
+                    if (vitals.size() > 0) {
+                        SetDataArrayy(vitals);
+                    } else {
+                        Toast.makeText(getContext(), "NO Record Found", Toast.LENGTH_LONG).show();
+                    }
                     break;
 
 
@@ -124,10 +119,9 @@ public class SampleDashboard extends Fragment {
 //            SearchCall(SelectedOption, SelectedOptionVal);
         }
     }
+    private void SetDataArrayy(List<userdataaa> transfer) {
 
-    private void SetDataArrayy(List<userdataaa> samples) {
-
-        vitalDataParceable[] FDP = new vitalDataParceable[samples.size()];
+        vitalDataParceable[] FDP = new vitalDataParceable[transfer.size()];
         for (int i = 0; i < FDP.length; i++) {
             FDP[i] = new vitalDataParceable();
 //            FDP[i].Address        =    SFR.get(i).getAddress();
@@ -142,23 +136,23 @@ public class SampleDashboard extends Fragment {
 //
 //            }
 
-            if (samples.get(i).patient_name != null) {
-                FDP[i].PatientName = samples.get(i).patient_name;
+            if (transfer.get(i).patient_name != null) {
+                FDP[i].PatientName = transfer.get(i).patient_name;
             } else {
                 FDP[i].PatientName = "N/A";
 
             }
 //            FDP[i].Gender = vitalpatient.get(i).gender;
-            FDP[i].LastName = samples.get(i).lname;
-            FDP[i].pathentContactNo = samples.get(i).contact_no_self;
-            FDP[i].LeaderCNIC = samples.get(i).self_cnic;
-            FDP[i].MrNo = samples.get(i).mrn_no;
-            FDP[i].patientType = samples.get(i).patient_type;
-            FDP[i].pid = samples.get(i).getId().intValue();
-            if(samples.get(i).patient_id==0){
-                FDP[i].pid = samples.get(i).getId().intValue();
+            FDP[i].LastName = transfer.get(i).lname;
+            FDP[i].pathentContactNo = transfer.get(i).contact_no_self;
+            FDP[i].LeaderCNIC = transfer.get(i).self_cnic;
+            FDP[i].MrNo = transfer.get(i).mrn_no;
+            FDP[i].patientType = transfer.get(i).patient_type;
+            FDP[i].pid = transfer.get(i).getId().intValue();
+            if(transfer.get(i).patient_id==0){
+                FDP[i].pid = transfer.get(i).getId().intValue();
             }else {
-                FDP[i].pid = samples.get(i).patient_id;
+                FDP[i].pid = transfer.get(i).getPatient_id();
             }
         }
 
@@ -175,7 +169,7 @@ public class SampleDashboard extends Fragment {
             myListData[i].setPid(FDP[i].pid);
 
         }
-        SearchResultAdapterSample adapter = new SearchResultAdapterSample(myListData);
+        SearchResultAdapterReleasePatient adapter = new SearchResultAdapterReleasePatient(myListData,getContext());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
@@ -255,9 +249,5 @@ public class SampleDashboard extends Fragment {
         });
 
     }
-
-
-
-
 
 }

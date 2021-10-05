@@ -183,8 +183,8 @@ public class assessmentForm extends Fragment {
               addvised.setVisibility(View.VISIBLE);
               pcr.setVisibility(View.VISIBLE);
               counsel_closed.setText("Proceed to nurse for sample collection");
-               switch30.setVisibility(View.GONE);
-               switch31.setVisibility(View.GONE);
+              switch30.setVisibility(View.GONE);
+              switch31.setVisibility(View.GONE);
               PCR = "Y";
               Sswitch31 = "N";
               Sswitch30 = "N";
@@ -237,8 +237,6 @@ public class assessmentForm extends Fragment {
               counsel_closed.setText("Counsel and Closed");
               Sswitch29 = "N";
               PCR = "N";
-
-
           }
 
 
@@ -774,7 +772,7 @@ public class assessmentForm extends Fragment {
             AS.setIs_hbv_test("N");
         }else {
             AS.setIs_hbv_test(Sswitch28);
-        }
+             }
         if(Sswitch29.equalsIgnoreCase("N")){
             AS.setIs_hcv_test("N");
         }else {

@@ -2,6 +2,7 @@ package com.example.hcp.fragments;
 
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,6 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -19,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.os.SystemClock;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -121,9 +124,9 @@ public class patientRegistration extends Fragment {
     Button btnSubmit, Submit,ma_bt_scan_edit;
     LinearLayout layoutfirst, layoutsecond, secondlayout, fourlayout;
     Spinner seacchcnic, occupation, materialstatus, qualification, gendr, division, district, tehsil, hf;
-    Spinner firsts, seconds, thirds, fours, fives;
+    Spinner firsts, seconds, thirds, fours, fives,prisontype;
     String SelectedOption;
-    int SelectedOptionIndex, SelectedGenderIndex, SelectedDivisionCode, SelectedDistrictedCode;
+    int SelectedOptionIndex, SelectedGenderIndex, SelectedDivisionCode, SelectedDistrictedCode,SelectedprisonTypeIndex;
     int Selectfirstyn, Selectsecondyn, Selectthirdyn, Selectfouryn, Selectfiveyn, SelectTcode, SelectedHfcode;
     String firstVal, secondVal, thirdVal, foursVal, fiveVal;
     String OccupationVal, materialstatusVal, qualificationVal, GenderVal;
@@ -154,6 +157,9 @@ public class patientRegistration extends Fragment {
     TextView eidt_patient_name,toolbartext,patient_cnic_edit;
      public int patientid_edit;
    public int editpatient_age;
+    public  String cnic_type;
+
+    private ProgressDialog dialog;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -162,6 +168,7 @@ public class patientRegistration extends Fragment {
         fragmentManager = getFragmentManager();
         etCNIC = view.findViewById(R.id.etCNIC);
         etContactNo = view.findViewById(R.id.etContactNo);
+        prisontype = view.findViewById(R.id.prisontype);
 
         btnSubmit = view.findViewById(R.id.btnSubmit);
         image_flag = view.findViewById(R.id.image_flag);
@@ -169,7 +176,7 @@ public class patientRegistration extends Fragment {
         layoutfirst = view.findViewById(R.id.layoutfirst);
         layoutsecond = view.findViewById(R.id.layoutsecond);
         seacchcnic = view.findViewById(R.id.seacchcnic);
-        occupation = view.findViewById(R.id.occupation);
+//        occupation = view.findViewById(R.id.occupation);
         materialstatus = view.findViewById(R.id.materialstatus);
         qualification = view.findViewById(R.id.qualification);
         gendr = view.findViewById(R.id.gendr);
@@ -208,7 +215,9 @@ public class patientRegistration extends Fragment {
 
         m_engine = UareUGlobal.GetEngine();
 
-
+        dialog = new ProgressDialog(getContext());
+        dialog.setMessage("Please Wait....");
+        dialog.setCancelable(false);
 
 //        edit_layout.setVisibility(View.GONE);
 //        allformlayout.setVisibility(View.VISIBLE);
@@ -216,8 +225,11 @@ public class patientRegistration extends Fragment {
 
         encodedfingerprint = "";
         encodedfingerprint2 = "";
+        backgroundThread();
 
-        allData = userdataaa.getall();
+
+
+//        allData = userdataaa.getall();
 
         if (getArguments() != null) {
             isEidt = getArguments().getBoolean("isEdit");
@@ -235,8 +247,6 @@ public class patientRegistration extends Fragment {
         if (isEidt) {
 
             toolbartext.setText("Add Finger Print");
-
-
 
             if (patientcnic != null || patientid_edit !=-1) {
                 List<userdataaa> patinetforfingerprint = null;
@@ -371,9 +381,10 @@ public class patientRegistration extends Fragment {
                 v -> FormValidation()
         );
         DobCalculator();
-        SetOccupationSpinner();
+//        SetOccupationSpinner();
         SetMaterialSpinner();
         SetQualificationSpinner();
+        Setprisontypespinner();
         SetGenderSpinner();
         SetDivisions();
         SetSpinnerfirst();
@@ -407,13 +418,57 @@ public class patientRegistration extends Fragment {
     }
 
 
+    public void backgroundThread(){
+        new ProgressAsync().execute();
+    }
+    public class ProgressAsync extends
+            AsyncTask<Void, Integer, Void> {
+
+        int myProgress;
+
+        @Override
+        protected void onPreExecute() {
+            // TODO Auto-generated method stub
+            super.onPreExecute();
+            dialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            // TODO Auto-generated method stub
+            dialog.dismiss();
+            super.onPostExecute(result);
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            // TODO Auto-generated method stub
+            allData = userdataaa.getall();
+//            while(myProgress<100){
+//                myProgress++;
+//                publishProgress(myProgress);
+//                SystemClock.sleep(100);
+//            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            // TODO Auto-generated method stub
+
+        }
+
+    }
+
+
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
 
     {
 
         super.onActivityResult(requestCode, resultCode, data);
-
 
         switch (requestCode)
         {
@@ -480,6 +535,7 @@ public class patientRegistration extends Fragment {
                     ivFingerprint.setImageBitmap(decodedByte);
 
                         if (allData.size() > 0) {
+
                             for (int i = 0; i < allData.size(); i++) {
                                 if (allData.get(i).getFinger_print2() != null && !allData.get(i).getFinger_print2().isEmpty()) {
                                     byte[] xml64Bytes = Base64.decode(allData.get(i).getFinger_print2(), Base64.DEFAULT);//allData.get(i).getFinger_fmd().getBytes(StandardCharsets.UTF_8);//Base64.decode(allData.get(i).getFinger_fmd(), Base64.DEFAULT);
@@ -488,9 +544,7 @@ public class patientRegistration extends Fragment {
                                     try {
                                         d_fid = UareUGlobal.GetImporter().ImportFid(xml64Bytes, Fid.Format.ANSI_381_2004);
                                         d_fmd = m_engine.CreateFmd(d_fid, ANSI_378_2004);
-
                                         try {
-
                                             if (d_fmd != null) {
                                                 int m_score = m_engine.Compare(d_fmd, 0, m_engine.CreateFmd(Constants.cap_result, ANSI_378_2004), 0);
                                                 if (m_score < (0x7FFFFFFF / 100000)) {
@@ -504,7 +558,6 @@ public class patientRegistration extends Fragment {
                                                     layoutfirst.setVisibility(View.VISIBLE);
                                                     layoutsecond.setVisibility(View.VISIBLE);
                                                     Submit.setVisibility(View.VISIBLE);
-
                                                 }
                                             }
 
@@ -532,9 +585,6 @@ public class patientRegistration extends Fragment {
                         }
 //                    verfityPatient();
 
-
-
-
                     Log.d("---d---",Constants.Fmd + "");
                 }
 
@@ -544,7 +594,6 @@ public class patientRegistration extends Fragment {
                     Toast.makeText(getContext(), "Operation Canceled", Toast.LENGTH_SHORT).show();
                 }
 
-
             }
 
             break;
@@ -552,7 +601,6 @@ public class patientRegistration extends Fragment {
         }
 
     }
-
 
 
 
@@ -689,11 +737,10 @@ public class patientRegistration extends Fragment {
 
                 Validationstatus = false;
             }
-//         if (OccupationVal.isEmpty()) {
-//            Toast.makeText(getContext(), Constants.occupation, Toast.LENGTH_LONG).show();
-//
-//            Validationstatus = false;
-//        }
+         if (SelectedprisonTypeIndex==0) {
+            Toast.makeText(getContext(), "Select Prison Type", Toast.LENGTH_LONG).show();
+            Validationstatus = false;
+        }
             if (materialstatusVal.isEmpty()) {
                 Toast.makeText(getContext(), Constants.MaritalStatusMissing, Toast.LENGTH_LONG).show();
 
@@ -847,9 +894,11 @@ public class patientRegistration extends Fragment {
                 FL.setPatient_dob(dateOfBirth);
                 FL.setGender(SelectedGenderIndex);
                 FL.setSelf_cnic(cnicNo);
+                FL.setCnic_type(cnic_type);
                 FL.setContact_no_self(ContactNo);
                 FL.setAddress(Address);
                 FL.setMarital_status(materialstatusVal);
+                FL.setPrison_type(SelectedprisonTypeIndex);
                 FL.setOccupation(OccupationVal);
                 FL.setQualification(qualificationVal);
                 if (patientage == 80) {
@@ -885,7 +934,6 @@ public class patientRegistration extends Fragment {
                 FL.setHospital_id(new SharedPref(getContext()).GetLoggedInUser());
                 FL.setFinger_print1(Constants.FmdBase64);
 
-
                 final String xml64 = Base64.encodeToString(Constants.cap_result.getData(), Base64.DEFAULT);
                 FL.setFinger_print2(xml64);
 //            byte[] adf = Constants.cap_result.getData();
@@ -897,14 +945,13 @@ public class patientRegistration extends Fragment {
 
                 FL.save();
 
-
                 ActiveAndroid.setTransactionSuccessful();
 
                 ActiveAndroid.endTransaction();
             }
 
             userdataaa patientid = new userdataaa();
-            patientid = userdataaa.searchBycnic(cnicNo);
+            patientid = userdataaa.searchByPhone(ContactNo);
 
 
 
@@ -1255,6 +1302,12 @@ public class patientRegistration extends Fragment {
 
                     SelectedOptionIndex = seacchcnic.getSelectedItemPosition();
 
+                    if(seacchcnic.getSelectedItemPosition()==1){
+                        cnic_type = "Scnic";
+                    }else if(seacchcnic.getSelectedItemPosition()==2){
+                        cnic_type = "Af_cnic";
+                    }
+
                     SelectedOption = categoriesEng.get(SelectedOptionIndex);
 
                     //                    OptionValue.setText("");
@@ -1431,6 +1484,82 @@ public class patientRegistration extends Fragment {
 //        }
 
     }
+
+    private void Setprisontypespinner() {
+        List<String> ptype = new ArrayList<String>();
+        ptype.add("Select*");
+        ptype.add("Undertrial(UT)");
+        ptype.add("Convicted(CT)");
+        ptype.add("Unconfirmed condemned prisoner(UCCP)");
+        ptype.add("Condemned prisoner(CP)");
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, ptype);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+
+        // attaching data adapter to spinner
+        prisontype.setAdapter(dataAdapter);
+
+        prisontype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+
+                if (prisontype.getSelectedItemPosition() > 0) {
+                    SelectedprisonTypeIndex = prisontype.getSelectedItemPosition();
+
+//                    GenderVal = categoriesEng.get(SelectedprisonTypeIndex);
+//                    OptionValue.setText("");
+                    //Toast.makeText(getContext(), SearchOptions.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+                } else {
+                    SelectedprisonTypeIndex = 0;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+
+//        if (isEidt) {
+//
+//            if(patient_edit.getGender()!=null){
+//                if(patient_edit.getGender()==1){
+//                    gendr.setSelection(1);
+//                }else if(patient_edit.getGender()==2){
+//                    gendr.setSelection(2);
+//                }else if(patient_edit.getGender()==3){
+//                    gendr.setSelection(2);
+//                }
+//            }else {
+//                gendr.setSelection(0);
+//            }
+
+
+//            List<Integer> categoriesint = new ArrayList<Integer>();
+//            categoriesint.add(0);
+//            categoriesint.add(1);
+//            categoriesint.add(2);
+//            categoriesint.add(3);
+//            for (int i = 0; i < categoriesint.size(); i++) {
+//                int main_status = categoriesint.get(i);
+//                if(patient_edit.getGender()!=null){
+//                    int selected_status = patient_edit.getGender();
+//
+//                    if (main_status == selected_status) {
+//                        gendr.setSelection(i + 1);
+//                        SelectedGenderIndex = selected_status;
+//                    }
+//                }
+//
+//            }
+//        }
+    }
+
+
 
     private void SetGenderSpinner() {
         List<String> categoriesEng = new ArrayList<String>();

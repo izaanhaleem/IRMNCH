@@ -5,6 +5,7 @@ import com.activeandroid.content.ContentProvider;
 
 import com.example.hcp.models.hcp.Assessmentt;
 import com.example.hcp.models.hcp.MedicineDisbursment_Table;
+import com.example.hcp.models.hcp.ReleaseLocalTable;
 import com.example.hcp.models.hcp.Samplee;
 import com.example.hcp.models.hcp.Vaccinationn;
 import com.example.hcp.models.hcp.addPatientModel;
@@ -12,10 +13,13 @@ import com.example.hcp.models.hcp.addvitalll;
 import com.example.hcp.models.hcp.districtt;
 import com.example.hcp.models.hcp.divisionn;
 import com.example.hcp.models.hcp.healthFacilityy;
+import com.example.hcp.models.hcp.jailListTable;
 import com.example.hcp.models.hcp.materialStatuss;
 import com.example.hcp.models.hcp.medicinee;
 import com.example.hcp.models.hcp.occuptaionn;
 import com.example.hcp.models.hcp.qualificationn;
+import com.example.hcp.models.hcp.sample_status_Table;
+import com.example.hcp.models.hcp.savejail;
 import com.example.hcp.models.hcp.tehsill;
 import com.example.hcp.models.hcp.userdataaa;
 import com.example.hcp.models.hcp.vitalListt;
@@ -44,6 +48,10 @@ public class DBProvider extends ContentProvider {
         builder.addModelClass(medicinee.class);
         builder.addModelClass(Vaccinationn.class);
         builder.addModelClass(MedicineDisbursment_Table.class);
+        builder.addModelClass(sample_status_Table.class);
+        builder.addModelClass(jailListTable.class);
+        builder.addModelClass(savejail.class);
+        builder.addModelClass(ReleaseLocalTable.class);
 
 
         return builder.create();

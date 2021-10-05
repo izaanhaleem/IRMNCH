@@ -44,28 +44,28 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="1">
-        <TextView
-            android:gravity="right"
-            android:layout_marginRight="50dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Patient Name:"
-            android:textColor="@color/black"
-            android:textSize="30sp"
-            android:layout_weight="0.5"
-            />
+            <TextView
+                android:gravity="right"
+                android:layout_marginRight="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Patient Name:"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:layout_weight="0.5"
+                />
 
-    <TextView
-        android:layout_weight="0.5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Patient Name"
-        android:textColor="@color/black"
-        android:textSize="30sp"
-        android:id="@+id/patient_name_foredit"
-        />
+            <TextView
+                android:layout_weight="0.5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Patient Name"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:id="@+id/patient_name_foredit"
+                />
 
-</LinearLayout>
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -552,7 +552,7 @@
                     android:id="@+id/dscdaf"
                     android:weightSum="1">
                     <LinearLayout
-                        android:visibility="gone"
+                        android:visibility="visible"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
@@ -562,13 +562,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:text="Occupation*"
+                            android:text="Prison Type"
                             android:textSize="19sp"
                             android:textStyle="normal"
                             android:textColor="@color/black"/>
 
                         <Spinner
-                            android:id="@+id/occupation"
+                            android:id="@+id/prisontype"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginVertical="3dp"

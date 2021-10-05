@@ -97,6 +97,12 @@ public class SharedPref {
         return GetKeyValue("userName");
     }
 
+    public String GetHospitalName()
+    {
+        return GetKeyValue("FullName");
+    }
+
+
     public String GetLoggedInPassword()
     {
         return GetKeyValue("password");

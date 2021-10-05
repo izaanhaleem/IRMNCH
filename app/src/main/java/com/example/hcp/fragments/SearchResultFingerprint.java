@@ -4,11 +4,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,15 +28,16 @@ public class SearchResultFingerprint extends Fragment {
 
     public TextView LeaderName,Address,MrNo,LeaderCNIC;
     public CardView FamilyCard;
+    Button update;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.search_result_fingerprint, container, false);
         fragmentManager = getFragmentManager();
         LeaderName = view.findViewById(R.id.cardLeaderName);
-       Address =  view.findViewById(R.id.contactno);
+        Address =  view.findViewById(R.id.contactno);
         MrNo = view.findViewById(R.id.cardFamilyMrNo);
-//        FamilyMembers = itemView.findViewById(R.id.cardFamilyMembersbtn);
+        update = view.findViewById(R.id.cardFamilyMembersbtn);
         LeaderCNIC = view.findViewById(R.id.cardLeaderCNIC);
 
 
@@ -47,6 +52,34 @@ public class SearchResultFingerprint extends Fragment {
         MrNo.setText(mrno);
         LeaderName.setText(name);
         Address.setText(contact);
+
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment FMFragment = new patientRegistration();
+                Bundle args = new Bundle();
+                args.putString("PatientCNIC",cnic);
+                args.putString("PatientName",name);
+                args.putBoolean("isEdit",true);
+                if(FMFragment != null)
+                {
+                    FragmentTransaction transaction = ((FragmentActivity) view.getContext()).getSupportFragmentManager().beginTransaction();
+
+                    FMFragment.setArguments(args);
+                    try {
+                        transaction.replace(R.id.content_frame, FMFragment,"FamilyMemberFragment").addToBackStack("a").commit();
+
+                    } catch (IllegalStateException ignored) {
+                    }
+                }
+                else {
+                    Toast.makeText(view.getContext(), "Error", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+
 
 //        SearchResultData[] myListData = new SearchResultData[FDP.length] ;
 

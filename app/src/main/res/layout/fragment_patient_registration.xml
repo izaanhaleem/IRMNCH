@@ -32,6 +32,7 @@
 
 
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/edit_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -127,6 +128,7 @@
                 />
         </LinearLayout>
     </LinearLayout>
+
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -550,6 +552,7 @@
                     android:id="@+id/dscdaf"
                     android:weightSum="1">
                     <LinearLayout
+                        android:visibility="visible"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
@@ -559,13 +562,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:text="Occupation*"
+                            android:text="Prison Type"
                             android:textSize="19sp"
                             android:textStyle="normal"
                             android:textColor="@color/black"/>
 
                         <Spinner
-                            android:id="@+id/occupation"
+                            android:id="@+id/prisontype"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginVertical="3dp"
@@ -577,6 +580,7 @@
                             android:textSize="@dimen/font_xlarge" />
                     </LinearLayout>
                     <LinearLayout
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -727,12 +731,12 @@
                             </LinearLayout>-->
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_marginTop="5dp"
-
                     android:orientation="vertical">
 
                     <TextView

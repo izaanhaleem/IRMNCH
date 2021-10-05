@@ -655,10 +655,10 @@ alt.addTextChangedListener(new TextWatcher() {
           Mad.sample_id = sampleID ;
           Mad.lab_name = selectedLabName ;
           Mad.other_lab_name = "" ;
-          Mad.id = pid+"" ;
-          if(testtype.equalsIgnoreCase("HCV"))
+          Mad.id = pid+"";
+          if(baselineResultType.equalsIgnoreCase("HCV"))
           Mad.baseline_type = "HCV" ;
-           else if(testtype.equalsIgnoreCase("HBV")){
+           else if(baselineResultType.equalsIgnoreCase("HBV")){
               Mad.baseline_type = "HBV" ;
           }else {
               Mad.baseline_type = "HCV,HBV" ;
@@ -733,13 +733,13 @@ alt.addTextChangedListener(new TextWatcher() {
               Mad.IsSync = 0;
 
 
-          userdataaa s = userdataaa.searchByPatientId(pid);
-          s.IsMedicine = 0;
+//          userdataaa s = userdataaa.searchByPatientId(pid);
+//          s.IsMedicine = 0;
 
 
           try {
               Mad.save();
-              s.save();
+//              s.save();
               ActiveAndroid.setTransactionSuccessful();
           } finally {
               ActiveAndroid.endTransaction();

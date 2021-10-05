@@ -47,6 +47,8 @@ public class SearchResultAdapternewpatieints extends RecyclerView.Adapter<Search
         holder.LeaderName.setText(sData[position].getPatientName());
         holder.LeaderCNIC.setText(sData[position].getLeaderCNIC());
         holder.itemView.setAnimation(AnimationUtils.loadAnimation(context, R.anim.left_in_with_right));
+
+
 //        String fingerprint = sData[position].fingerprint;
 //
 //        try {

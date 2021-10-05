@@ -134,6 +134,30 @@ public class addPatientRequest  {
     @Expose
     public String finger_print2;
 
+    @SerializedName("prison_type")
+    @Expose
+    public Integer prison_type;
+
+    @SerializedName("cnic_type")
+    @Expose
+    public String cnic_type;
+
+    public Integer getPrison_type() {
+        return prison_type;
+    }
+
+    public void setPrison_type(Integer prison_type) {
+        this.prison_type = prison_type;
+    }
+
+    public String getCnic_type() {
+        return cnic_type;
+    }
+
+    public void setCnic_type(String cnic_type) {
+        this.cnic_type = cnic_type;
+    }
+
     public String getFinger_print1() {
         return finger_print1;
     }

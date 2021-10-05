@@ -19,8 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hcp.R;
-import com.example.hcp.adapters.SearchResultAdapterSample;
 import com.example.hcp.adapters.SearchResultAdapterSample_status;
+import com.example.hcp.adapters.SearchResultAdapterTranfer_jail_jail;
 import com.example.hcp.models.AdaptersData.SearchResultDatavital;
 import com.example.hcp.models.Parcables.vitalDataParceable;
 import com.example.hcp.models.hcp.sample_status_Table;
@@ -30,8 +30,7 @@ import com.example.hcp.utils.MaskedEditText;
 import java.util.ArrayList;
 import java.util.List;
 
-public class sample_status_Dashboard extends Fragment {
-
+public class Dashboard_transfer_jail_to_jail extends Fragment {
     Button Search,AllSampleList;
     String SelectedOption, SelectedOptionVal;
     int SelectedOptionIndex;
@@ -41,11 +40,12 @@ public class sample_status_Dashboard extends Fragment {
     TextView total_record;
     LinearLayout sync_data;
     int vitallistcount = 0;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_sample_status__dashboard, container, false);
+        View view = inflater.inflate(R.layout.fragment_transferjailtojail, container, false);
 
         Search=view.findViewById(R.id.btnSearch);
         AllSampleList=view.findViewById(R.id.AllAssesementList);
@@ -53,11 +53,9 @@ public class sample_status_Dashboard extends Fragment {
         SearchOptions=view.findViewById(R.id.etSearchOptionAssessment);
         total_record = view.findViewById(R.id.total__sync_recordv);
         sync_data = view.findViewById(R.id.sync_datav);
-
         recyclerView = (RecyclerView) view.findViewById(R.id.AssessmentRecy);
 //        allSampletList();
         SetSearchOptions();
-
 //        AllSampleList.setOnClickListener(
 //                v -> allSampletList()
 //        );
@@ -66,9 +64,10 @@ public class sample_status_Dashboard extends Fragment {
                 v -> Search()
         );
 
+
+
         return view;
     }
-
     private void SetSearchOptions() {
         List<String> categories = new ArrayList<String>();
         categories.add("آپشن منتخب کریں");
@@ -82,7 +81,8 @@ public class sample_status_Dashboard extends Fragment {
         categoriesEng.add("Mr No");
         categoriesEng.add("CNIC");
         categoriesEng.add("Afghan CNIC");
-        categoriesEng.add("Sample Number");
+        categoriesEng.add("Full Name");
+
 
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, categoriesEng);
@@ -127,10 +127,9 @@ public class sample_status_Dashboard extends Fragment {
 
                         OptionValue.setInputType(InputType.TYPE_CLASS_TEXT);
                         OptionValue.setText("");
-                        OptionValue.setMask("AAA-99-999999");
+                        OptionValue.setMask("");
 
                     }
-
 
                     SelectedOptionIndex = SearchOptions.getSelectedItemPosition();
 
@@ -150,6 +149,7 @@ public class sample_status_Dashboard extends Fragment {
         });
 
     }
+
     private void Search() {
         SelectedOptionVal = OptionValue.getText().toString().trim();
 
@@ -158,33 +158,34 @@ public class sample_status_Dashboard extends Fragment {
         } else if (SelectedOption.isEmpty()) {
             Toast.makeText(getContext(), "Please Select Option from Search Dropdown", Toast.LENGTH_SHORT).show();
         } else {
-            List<sample_status_Table> samplestatus;
+            List<userdataaa> transfer;
             switch (SelectedOptionIndex) {
                 case 4:
-                    samplestatus = sample_status_Table.searchBysampleNumber(SelectedOptionVal);
-                    if (samplestatus.size() > 0) {
+                    transfer = userdataaa.searchBynamejail(SelectedOptionVal);
+                    if (transfer.size() > 0) {
 
-                        SetDataArrayy(samplestatus);
+                        SetDataArrayy(transfer);
                     }
                     else {
                         Toast.makeText(getContext(), "NO Record Found", Toast.LENGTH_LONG).show();
                     }
-                    break;
 
+                    break;
                 case 2:
                 case 3:
-                    samplestatus = sample_status_Table.searchByCNICSample(SelectedOptionVal);
-                    if (samplestatus.size() > 0) {
-                        SetDataArrayy(samplestatus);
+                    transfer = userdataaa.searchByPatientcnic(SelectedOptionVal);
+                    if (transfer.size() > 0) {
+
+                        SetDataArrayy(transfer);
                     }
                     else {
                         Toast.makeText(getContext(), "NO Record Found", Toast.LENGTH_LONG).show();
-                         }
+                    }
                     break;
                 case 1:
-                    samplestatus = sample_status_Table.searchByMRNOLeader(SelectedOptionVal);
-                    if (samplestatus.size() > 0) {
-                        SetDataArrayy(samplestatus);
+                    transfer = userdataaa.searchByMRNOjail(SelectedOptionVal);
+                    if (transfer.size() > 0) {
+                        SetDataArrayy(transfer);
                     } else {
                         Toast.makeText(getContext(), "NO Record Found", Toast.LENGTH_LONG).show();
                     }
@@ -197,7 +198,7 @@ public class sample_status_Dashboard extends Fragment {
         }
     }
 
-    private void SetDataArrayy(List<sample_status_Table> samples) {
+    private void SetDataArrayy(List<userdataaa> samples) {
 
         vitalDataParceable[] FDP = new vitalDataParceable[samples.size()];
         for (int i = 0; i < FDP.length; i++) {
@@ -225,14 +226,14 @@ public class sample_status_Dashboard extends Fragment {
 //            FDP[i].pathentContactNo = samples.get(i).contact_no_self;
             FDP[i].LeaderCNIC = samples.get(i).getSelf_cnic();
             FDP[i].MrNo = samples.get(i).getMrn_no();
-            FDP[i].sample_stauts = samples.get(i).getSample_status();
-            FDP[i].sample_number = samples.get(i).getSample_number();
-            FDP[i].hcvviralLoad = samples.get(i).getHcv_viral_load();
-            FDP[i].hbvviralLoad = samples.get(i).getHbv_viral_load();
+//            FDP[i].sample_stauts = samples.get(i).getSample_status();
+//            FDP[i].sample_number = samples.get(i).getSample_number();
+//            FDP[i].hcvviralLoad = samples.get(i).getHcv_viral_load();
+//            FDP[i].hbvviralLoad = samples.get(i).getHbv_viral_load();
 //            FDP[i].patientType = samples.get(i).patient_type;
 //            FDP[i].pid = samples.get(i).getId().intValue();
 //            if(samples.get(i).patient_id==0){
-//                FDP[i].pid = samples.get(i).getId().intValue();
+                FDP[i].pid = samples.get(i).getPatient_id();
 //            }else {
 //                FDP[i].pid = samples.get(i).patient_id;
 //            }
@@ -247,15 +248,15 @@ public class sample_status_Dashboard extends Fragment {
             myListData[i].setMrNo(FDP[i].MrNo);
 //            myListData[i].setGneder(FDP[i].LastName);
             myListData[i].setLeaderCNIC(FDP[i].LeaderCNIC);
-            myListData[i].setSample_staus(FDP[i].sample_stauts);
-            myListData[i].setSample_number(FDP[i].sample_number);
-            myListData[i].setHbvviralload(FDP[i].hbvviralLoad);
-            myListData[i].setHcvviralload(FDP[i].hcvviralLoad);
+//            myListData[i].setSample_staus(FDP[i].sample_stauts);
+//            myListData[i].setSample_number(FDP[i].sample_number);
+//            myListData[i].setHbvviralload(FDP[i].hbvviralLoad);
+//            myListData[i].setHcvviralload(FDP[i].hcvviralLoad);
 //            myListData[i].setPatienttype(FDP[i].patientType);
-//            myListData[i].setPid(FDP[i].pid);
+            myListData[i].setPid(FDP[i].pid);
 
         }
-        SearchResultAdapterSample_status adapter = new SearchResultAdapterSample_status(myListData);
+        SearchResultAdapterTranfer_jail_jail adapter = new SearchResultAdapterTranfer_jail_jail(myListData);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);

@@ -1,8 +1,6 @@
 package com.example.hcp.adapters;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,67 +15,47 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hcp.R;
-import com.example.hcp.fragments.pendingTratmentForm;
-import com.example.hcp.fragments.sampleForm;
-import com.example.hcp.models.AdaptersData.SearchResultDatapending;
+import com.example.hcp.fragments.Dashboard_transfer_jail_to_jail;
+import com.example.hcp.fragments.transfer_jail;
 import com.example.hcp.models.AdaptersData.SearchResultDatavital;
 import com.example.hcp.utils.Constants;
 
-public class SearchResultAdapterpendingTeatment extends RecyclerView.Adapter<SearchResultAdapterpendingTeatment.ViewHolder> {
+public class SearchResultAdapterTranfer_jail_jail extends RecyclerView.Adapter<SearchResultAdapterTranfer_jail_jail.ViewHolder> {
 
-    private  SearchResultDatapending[] sData;
-    private Context context;
+    private  SearchResultDatavital[] sData;
+
 
     // RecyclerView recyclerView;
+    public SearchResultAdapterTranfer_jail_jail(SearchResultDatavital[] listdata) {
+        this.sData = listdata;
 
-
-    public SearchResultAdapterpendingTeatment(SearchResultDatapending[] sData, Context context) {
-        this.sData = sData;
-        this.context = context;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View listItem= layoutInflater.inflate(R.layout.search_result_item_pending, parent, false);
+        View listItem= layoutInflater.inflate(R.layout.search_tranfer_jail_jail, parent, false);
         ViewHolder viewHolder = new ViewHolder(listItem);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final SearchResultDatapending myListData = sData[position];
+        final SearchResultDatavital myListData = sData[position];
         holder.MrNo.setText(sData[position].MrNo);
-        holder.Address.setText(sData[position].getGneder());
+//        holder.samplestatus.setText(sData[position].getSample_staus());
         holder.LeaderName.setText(sData[position].getPatientName());
         holder.LeaderCNIC.setText(sData[position].getLeaderCNIC());
-        holder.text1.setText(sData[position].getRsult_type());
-        holder.FamilyMembers.setText(sData[position].getRsult_type()+" BaseLine Investigation");
-
-        if(sData[position].getRsult_type()!=null){
-            if(sData[position].getRsult_type().equalsIgnoreCase("HCV")){
-                holder.Address.setText(sData[position].getHcvviralcount());
-            }else if(sData[position].getRsult_type().equalsIgnoreCase("HBV")){
-                holder.Address.setText(sData[position].getHbvviralcount());
-            }else if(sData[position].getRsult_type().equalsIgnoreCase("BOTH")){
-                holder.Address.setText("HBV: "+sData[position].getHbvviralcount()+", HCV: "+sData[position].getHcvviralcount());
-            }else {
-                Toast.makeText(context, "Record not Found!", Toast.LENGTH_SHORT).show();
-                holder.FamilyCard.setVisibility(View.GONE);
-            }
-        }else {
-            Toast.makeText(context, "Record not Found!", Toast.LENGTH_SHORT).show();
-                holder.FamilyCard.setVisibility(View.GONE);
-              }
-
-
-
-
-//        holder.text2.setText(sData[position].getText2());
-
-//        if(sData[position].getText1().equalsIgnoreCase("Null")){
-//            holder.FamilyCard.setVisibility(View.GONE);
+//        holder.Address.setText(sData[position].getSample_number());
+//        if(sData[position].getHcvviralload()!=null && !sData[position].getHcvviralload().isEmpty()){
+//            holder.viralload.setText("HCV: "+sData[position].getHcvviralload());
+//        }else if(sData[position].getHbvviralload()!=null && !sData[position].getHbvviralload().isEmpty()){
+//            holder.viralload.setText("HBV: "+sData[position].getHbvviralload());
+//        }else{
+//            holder.viralload.setVisibility(View.GONE);
 //        }
+
+//        holder.viralload.setText("HCV: "+sData[position].getHcvviralload()+", HBV: "+sData[position].getHbvviralload());
 
 
         holder.FamilyMembers.setOnClickListener(new View.OnClickListener() {
@@ -87,20 +65,15 @@ public class SearchResultAdapterpendingTeatment extends RecyclerView.Adapter<Sea
                 String temp = holder.MrNo.getText().toString();
                 Constants.SelectedFamilyMrNo = temp;
 
-                Fragment FMFragment = new pendingTratmentForm();
+                Fragment FMFragment = new transfer_jail();
                 Bundle args = new Bundle();
                 args.putString("SelectedMrNo",temp);
                 args.putString("PatientCNIC",sData[position].getLeaderCNIC());
                 args.putString("PatientName",sData[position].getPatientName());
                 args.putString("Patienttype",sData[position].getPatienttype());
-                args.putString("resultType",sData[position].getRsult_type());
                 args.putInt("pid",sData[position].getPid());
-//                args.putString("testType",sData[position].getText1());
-                args.putString("hcvviralcount",sData[position].getHcvviralcount());
-                args.putString("hbvviralcount",sData[position].getHbvviralcount());
-                args.putString("sample_id",sData[position].getSample_id());
-//                args.putString("iscorronic_patient",sData[position].getIs_cirrhotic_patient());
-//                args.putInt("hcv_medicine_duration",sData[position].getHcv_medicine_duration());
+
+
 
 //                addvitalll fg = addvitalll.searchBycninc(sData[position].getLeaderCNIC());
 //                args.putDouble("temperature",fg.temperature);
@@ -139,10 +112,9 @@ public class SearchResultAdapterpendingTeatment extends RecyclerView.Adapter<Sea
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView LeaderName,Address,MrNo,LeaderCNIC,text1,text2;
+        public TextView LeaderName,Address,MrNo,LeaderCNIC,samplestatus,viralload;
         public CardView FamilyCard;
         public Button FamilyMembers;
-
         public ViewHolder(View itemView) {
             super(itemView);
             this.LeaderName = itemView.findViewById(R.id.cardLeaderName);
@@ -151,8 +123,8 @@ public class SearchResultAdapterpendingTeatment extends RecyclerView.Adapter<Sea
             this.FamilyMembers = itemView.findViewById(R.id.cardFamilyMembersbtn);
             this.LeaderCNIC = itemView.findViewById(R.id.cardLeaderCNIC);
             this.FamilyCard = itemView.findViewById(R.id.familyCard);
-            this.text1 = itemView.findViewById(R.id.text1);
-//            this.text2 = itemView.findViewById(R.id.cardFamilyMembersbtn);
+            this.samplestatus = itemView.findViewById(R.id.samplestatus);
+            this.viralload = itemView.findViewById(R.id.viralload);
         }
     }
 

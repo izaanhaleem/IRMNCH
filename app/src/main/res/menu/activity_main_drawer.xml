@@ -28,15 +28,31 @@
             android:id="@+id/nav_sample"
             android:icon="@drawable/ic_bloodsample"
             android:title="Add Sample" />
+
+        <item
+            android:id="@+id/sample_status"
+            android:icon="@drawable/ic_bloodsample"
+            android:title="Sample Status" />
+
         <item
             android:id="@+id/nav_pending"
             android:icon="@drawable/ic_pending"
             android:title="Patient Pending Treatment Enrollment" />
 
         <item
-            android:id="@+id/sample_status"
-            android:icon="@drawable/ic_bloodsample"
-            android:title="Sample Status" />
+            android:id="@+id/Transfer"
+            android:icon="@drawable/ic_transfer"
+            android:title="Transfer Out" />
+
+        <item
+            android:id="@+id/Transferin"
+            android:icon="@drawable/ic_transfer"
+            android:title="Transfer In" />
+
+        <item
+            android:id="@+id/release"
+            android:icon="@drawable/ic_dashboard"
+            android:title="Release Patient" />
 
         <item
             android:id="@+id/nav_3"

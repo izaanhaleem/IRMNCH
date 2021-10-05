@@ -153,6 +153,7 @@ public class Dashboard_patient_pending_treatment extends Fragment {
 
                 case 1:
                 case 3:
+
                     list = MedicineDisbursment_Table.searchByCNICLeader(SelectedOptionVal);
                     if (list.size() > 0) {
 
@@ -356,7 +357,7 @@ public class Dashboard_patient_pending_treatment extends Fragment {
             myListData[i].setHcvviralcount(FDP[i].hcvviralount);
 
         }
-        SearchResultAdapterpendingTeatment adapter = new SearchResultAdapterpendingTeatment(myListData);
+        SearchResultAdapterpendingTeatment adapter = new SearchResultAdapterpendingTeatment(myListData,getContext());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
@@ -538,7 +539,7 @@ public class Dashboard_patient_pending_treatment extends Fragment {
                     med.setTreatment_history(pending.get(i).treatment_history);
                 } else {
                     med.setTreatment_history("0");
-                }
+                       }
                 if (pending.get(i).disburse_3_mnth_dose != null) {
                     med.setDisburse_3_mnth_dose(pending.get(i).disburse_3_mnth_dose);
                 } else {
@@ -581,6 +582,7 @@ public class Dashboard_patient_pending_treatment extends Fragment {
                 if (response.body() != null) {
 
 
+
 //                    ActiveAndroid.beginTransaction();
 //                    try {
 //
@@ -596,9 +598,9 @@ public class Dashboard_patient_pending_treatment extends Fragment {
                     medicinee.IsSync=1;
                     medicinee.save();
 
-                    userdataaa s = userdataaa.searchByPatientId(response.body().getData().getPatient_id());
-                    s.IsActive = 0;
-                    s.save();
+//                    userdataaa s = userdataaa.searchByPatientId(response.body().getData().getPatient_id());
+//                    s.IsActive = 0;
+//                    s.save();
 //                    userdataaa FL = userdataaa.load(userdataaa.class, response.body().getDatum8().getPatient_id());
 //                        }
 //                        ActiveAndroid.setTransactionSuccessful();

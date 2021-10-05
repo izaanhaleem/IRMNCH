@@ -181,7 +181,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="Sample Status"
+                android:text="Transfer Jail to Jail"
                 android:textColor="@color/color_black"
                 android:paddingTop="10dp"
                 android:textStyle="normal"

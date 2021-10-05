@@ -27,11 +27,17 @@ import com.example.hcp.models.hcp.Datum5;
 import com.example.hcp.models.hcp.Datum6;
 import com.example.hcp.models.hcp.MedDisbursmentResponse;
 import com.example.hcp.models.hcp.MedicineDisbursment_Table;
+import com.example.hcp.models.hcp.ReleaseLocalTable;
 import com.example.hcp.models.hcp.Samplee;
 import com.example.hcp.models.hcp.Vaccinationn;
 import com.example.hcp.models.hcp.addPatientModel;
 import com.example.hcp.models.hcp.addvitalll;
+import com.example.hcp.models.hcp.jailListResponse;
+import com.example.hcp.models.hcp.jailListTable;
 import com.example.hcp.models.hcp.medicinee;
+import com.example.hcp.models.hcp.sample_statusResponse;
+import com.example.hcp.models.hcp.sample_status_Table;
+import com.example.hcp.models.hcp.savejail;
 import com.example.hcp.models.hcp.userdataaa;
 import com.example.hcp.models.hcp.HFresponse;
 import com.example.hcp.models.hcp.OccupationResponse;
@@ -125,11 +131,15 @@ public class LoginActivity extends AppCompatActivity {
             Assessmentt.deleteAll();
             Samplee.deleteAll();
             userdataaa.deleteAll();
-//            addPatientModel.deleteAll();
+//          addPatientModel.deleteAll();
             MedicineDisbursment_Table.deleteAll();
+            ReleaseLocalTable.deleteAll();
+            sample_status_Table.deleteAll();
             districtt.deleteAll();
             divisionn.deleteAll();
             tehsill.deleteAll();
+            savejail.deleteAll();
+            jailListTable.deleteAll();
             occuptaionn.deleteAll();
             qualificationn.deleteAll();
             materialStatuss.deleteAll();
@@ -166,7 +176,7 @@ public class LoginActivity extends AppCompatActivity {
                         Prefs.putInt("hospitalid", 0);
 
                         loginResponse UR = response.body();
-                        new SharedPref(getApplicationContext()).SaveCredentials(null, UR.getData().getHospital_id(), null, UR.getData().getIdentifier(), UR.getData().getUser_id(), UR.getData().getStart_range(), UR.getData().getEnd_range(), null, null, null, null);
+                        new SharedPref(getApplicationContext()).SaveCredentials(null, UR.getData().getHospital_id(), null, UR.getData().getIdentifier(), UR.getData().getUser_id(), UR.getData().getStart_range(), UR.getData().getEnd_range(), null, UR.getData().getHospital_name(), null, null);
                         String isdataloaded = new SharedPref(getApplicationContext()).GetDataLoaded();
                         if (isdataloaded != null) {
                             if (isdataloaded.equals("no")) {
@@ -179,11 +189,7 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             GetDivisions();
                         }
-
-
 //
-
-
                     }
                     else {
                         dialog.dismiss();
@@ -510,6 +516,7 @@ public class LoginActivity extends AppCompatActivity {
                             SaveMedDisbursmentLocally(response.body().getData());
                         } else {
                             Toast.makeText(getContext(), "==> " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                            GetEducation();
                         }
                     }
 
@@ -611,7 +618,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                GetUsersData();
+//                GetUsersData();
+
+                GetJailList();
             }
         }, 2000);
 
@@ -623,6 +632,173 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    public void GetJailList() {
+        Call<jailListResponse> call = RetrofitClient
+                .getInstance().getApi().alljailList();
+        call.enqueue(
+                new Callback<jailListResponse>() {
+                    @Override
+                    public void onResponse(Call<jailListResponse> call, Response<jailListResponse> response) {
+                        if (response.body() != null && response.body().getStatus()) {
+
+                            SaveJailLsitLocally(response.body().getData());
+                        } else {
+                            Toast.makeText(getContext(), "==> " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<jailListResponse> call, Throwable t) {
+                        Toast.makeText(getContext(), Constants.ServerError + t.getMessage(), Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                }
+        );
+
+    }
+
+    private void SaveJailLsitLocally(List<jailListResponse.Datum> data) {
+
+
+        ActiveAndroid.beginTransaction();
+        try {
+            //First Delete all Previous local record then add new Record
+
+            for (int i = 0; i < data.size(); i++) {
+                jailListTable jail = new jailListTable();
+
+                jail.setHospital_name(data.get(i).getHospital_name());
+                jail.setHospital_id(data.get(i).getHospital_id());
+                jail.save();
+            }
+            ActiveAndroid.setTransactionSuccessful();
+        } finally {
+            ActiveAndroid.endTransaction();
+        }
+
+        final Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+//                GetUsersData();
+
+
+                GetsampleStauts();
+
+            }
+        }, 2000);
+
+//        Intent intent = new Intent(getBaseContext(), MainActivity.class);
+//        startActivity(intent);
+//        finish();
+
+
+
+    }
+
+
+    private void GetsampleStauts() {
+        int i=Integer.parseInt(new SharedPref(getContext()).GetLoggedInUser());
+        userdataRequest  request = new userdataRequest();
+
+        request.setUser_hospital(i);
+
+
+        Call<sample_statusResponse> call = RetrofitClient.getInstance().getApi().allsamplestauts(request);
+        call.enqueue(new Callback<sample_statusResponse>() {
+                         @Override
+                         public void onResponse(Call<sample_statusResponse> call, Response<sample_statusResponse> response) {
+
+
+                             if (response.body() != null && response.body().getStatus()) {
+
+                                 SavesampelstautsLocally(response.body().getData());
+
+                             } else {
+                                 Toast.makeText(getContext(), "==> " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                 Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                                 startActivity(intent);
+                                 finish();
+                             }
+
+                         }
+                         @Override
+                         public void onFailure(Call<sample_statusResponse> call, Throwable t) {
+                             Toast.makeText(getContext(), Constants.ServerError + t.getMessage(), Toast.LENGTH_SHORT).show();
+                             dialog.dismiss();
+                         }
+                     }
+        );
+
+    }
+
+    private void SavesampelstautsLocally(List<sample_statusResponse.Datum> data) {
+        ActiveAndroid.beginTransaction();
+            //Background work here
+            try {
+                //First Delete all Previous local record then add new Record
+
+
+                for (int i = 0; i < data.size(); i++) {
+                    sample_status_Table stauts = new sample_status_Table();
+                    stauts.setPatient_id(data.get(i).getPatient_id());
+                    stauts.setSample_id(data.get(i).getSample_id());
+                    if(data.get(i).getLab_sample_id()!=null){
+                        stauts.setLab_sample_id(data.get(i).getLab_sample_id());
+                    }
+
+                    if(data.get(i).getResult_id()!=null){
+                        stauts.setResult_id(data.get(i).getResult_id());
+                    }
+
+                    if(data.get(i).getAction_id()!=null){
+                        stauts.setAction_id(data.get(i).getAction_id());
+                    }
+
+                    stauts.setIs_reception(data.get(i).getIs_reception());
+                    if(data.get(i).getHcv_viral_load()!=null){
+                        stauts.setHcv_viral_load(data.get(i).getHcv_viral_load());
+                    }
+                    if(data.get(i).getHbv_viral_load()!=null){
+                        stauts.setHbv_viral_load(data.get(i).getHbv_viral_load());
+                    }
+
+                    stauts.setMrn_no(data.get(i).getMrn_no());
+                    stauts.setPatient_name(data.get(i).getPatient_name());
+                    stauts.setSelf_cnic(data.get(i).getSelf_cnic());
+                    stauts.setPatient_age(data.get(i).getPatient_age());
+                    stauts.setSample_status(data.get(i).getSample_status());
+                    stauts.setSample_number(data.get(i).getSample_number());
+                    stauts.save();
+//                Log.d("asdf","sadf");
+
+                }
+                ActiveAndroid.setTransactionSuccessful();
+            } finally {
+                ActiveAndroid.endTransaction();
+            }
+
+        final Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+//                GetUsersData();
+
+
+                GetUsersData();
+
+            }
+        }, 2000);
+
+//        Intent intent = new Intent(getBaseContext(), MainActivity.class);
+//        startActivity(intent);
+//        finish();
+
+
+
+    }
     private void GetUsersData() {
         int i=Integer.parseInt(new SharedPref(getContext()).GetLoggedInUser());
         userdataRequest  request = new userdataRequest();
@@ -686,6 +862,11 @@ public class LoginActivity extends AppCompatActivity {
                     dat.lname=data.get(i).getLname();
                     dat.father_name=data.get(i).getFather_name();
                     dat.self_cnic=data.get(i).getSelf_cnic();
+                    if(data.get(i).getGender()!=null){
+                        dat.gender = Integer.parseInt(data.get(i).getGender());
+                    }
+                    dat.marital_status = data.get(i).getMarital_status();
+
                     dat.patient_from=data.get(i).getPatient_from();
                     dat.user_id=data.get(i).getUser_id();
                     dat.user_hospital=data.get(i).getUser_hospital();
@@ -790,7 +971,20 @@ public class LoginActivity extends AppCompatActivity {
                     dat.finger_print1 = data.get(i).getFinger_print1();
                     dat.finger_print2 = data.get(i).getFinger_print2();
 
+                    if(data.get(i).getPrison_transfer_status()==null){
+                        dat.transfer_flag = 0;
+                    }else {
+                        dat.transfer_flag = 1;
+                    }
+
+
+                    dat.prison_transfer_status = data.get(i).getPrison_transfer_status();
+                    dat.current_hospital_name = data.get(i).getCurrent_hospital_name();
+                    dat.ex_hospital_name = data.get(i).getEx_hospital_name();
+
                     dat.IsActive = 1;
+
+                    dat.ISTransfer = 1;
 
                     dat.IsMedicine = 1;
 
@@ -823,83 +1017,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
-
-//    private void GetVitalListData() {
-//        int i=Integer.parseInt(new SharedPref(getContext()).GetLoggedInUser());
-//        vitalPatientListRequest requ = new vitalPatientListRequest();
-//
-//        requ.setHospital_id(i);
-//
-//
-//        Call<vitalPatientResponse> call = RetrofitClient.getInstance().getApi().allvitaldata(requ);
-//        call.enqueue(new Callback<vitalPatientResponse>() {
-//                         @Override
-//                         public void onResponse(Call<vitalPatientResponse> call, Response<vitalPatientResponse> response) {
-//                             if (response.body() != null && response.body().getStatus()) {
-//
-//                                 SavevitalDataLocally(response.body().getData());
-//                             } else {
-//                                 Toast.makeText(getContext(), "==> " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-//                             }
-//                         }
-//
-//                         @Override
-//                         public void onFailure(Call<vitalPatientResponse> call, Throwable t) {
-//                             Toast.makeText(getContext(), Constants.ServerError + t.getMessage(), Toast.LENGTH_SHORT).show();
-//                             dialog.dismiss();
-//                         }
-//                     }
-//        );
-//
-//
-//    }
-//
-//    private void SavevitalDataLocally(List<Datum6> data) {
-//
-//        ActiveAndroid.beginTransaction();
-//        try {
-//            //First Delete all Previous local record then add new Record
-//
-//            for (int i = 0; i < data.size(); i++) {
-//                vitalListt vital = new vitalListt();
-//
-//                vital.id=data.get(i).getId();
-//                vital.mrn_no=data.get(i).getMrn_no();
-//                vital.reg_no=data.get(i).getReg_no();
-//                vital.patient_type=data.get(i).getPatient_type();
-//                vital.patient_name=data.get(i).getPatient_name();
-//                vital.self_cnic=data.get(i).getSelf_cnic();
-//                vital.patient_age=data.get(i).getPatient_age();
-//                vital.gender=data.get(i).getGender();
-//                vital.created=data.get(i).getCreated();
-//                vital.next_status=data.get(i).getNext_status();
-//                vital.stage=data.get(i).getStage();
-//                vital.is_reg_completed=data.get(i).getIs_reg_completed();
-//                vital.is_blood_bank_patient=data.get(i).getIs_blood_bank_patient();
-//                vital.save();
-//
-//            }
-//            ActiveAndroid.setTransactionSuccessful();
-//        } finally {
-//            ActiveAndroid.endTransaction();
-//        }
-//
-//        final Handler handler = new Handler(Looper.getMainLooper());
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                Prefs.edit().putBoolean(Constants.isDataLoaded,true).apply();
-//                dialog.dismiss();
-//                Intent intent = new Intent(getBaseContext(), MainActivity.class);
-//                startActivity(intent);
-//                finish();
-//            }
-//        }, 2000);
-//
-//
-//
-//
-//    }
 
 
 }
