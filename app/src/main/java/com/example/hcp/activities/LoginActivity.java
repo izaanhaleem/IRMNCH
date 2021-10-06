@@ -954,7 +954,10 @@ public class LoginActivity extends AppCompatActivity {
                                      Next();
                                  }
                              }
-                             else {Next();}
+                             else
+                                 {
+                                     Next();
+                                 }
 
                          }
                          @Override

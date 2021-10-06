@@ -290,6 +290,7 @@ public class assessmentForm extends Fragment {
 
                     if(switch29.isChecked()){
                         addvised.setText("Advised for Both");
+                        counsel_closed.setText("Proceed to nurse for sample collection and vaccination");
                         PCR = "Y";
                         Sswitch31 = "N";
                     }else {
@@ -301,15 +302,22 @@ public class assessmentForm extends Fragment {
                     Sswitch28 = "N";
                     rapidtesting = "N";
                     PCR = "N";
-                    if(!switch29.isChecked()){
-                        Sswitch31 = "Y";
-                    }
+
                     counsel_closed.setText("");
                     switch30.setVisibility(View.VISIBLE);
                     switch31.setVisibility(View.VISIBLE);
                     pcr.setVisibility(View.GONE);
-                    addvised.setVisibility(View.GONE);
+                    addvised.setVisibility(View.VISIBLE);
                     counsel_closed.setText("Counsel and Closed");
+
+                    if(!switch29.isChecked()){
+                        Sswitch31 = "Y";
+                        counsel_closed.setText("Counsel and Closed");
+                        addvised.setText("");
+                    }else if(switch29.isChecked()){
+                        counsel_closed.setText("Proceed to nurse for sample collection and vaccination");
+                        addvised.setText("Advised for HCV");
+                    }
 
                 }
             }
@@ -341,27 +349,24 @@ public class assessmentForm extends Fragment {
                     Sswitch29 = "N";
                     rapidtesting = "N";
                     PCR = "N";
-                    if(!switch28.isChecked()){
-                        Sswitch31 = "Y";
-                    }
+
                     counsel_closed.setText("");
                     switch31.setVisibility(View.VISIBLE);
                     pcr.setVisibility(View.GONE);
-                    addvised.setVisibility(View.GONE);
+                    addvised.setVisibility(View.VISIBLE);
                     counsel_closed.setText("Counsel and Closed");
+                    if(!switch28.isChecked()){
+                        Sswitch31 = "Y";
+                        counsel_closed.setText("Counsel and Closed");
+                        addvised.setText("");
+                    }else if(switch28.isChecked()){
+                        addvised.setText("Advised for HBV");
+                        counsel_closed.setText("Proceed to nurse for sample collection");
+                    }
+
                 }
             }
         });
-
-
-
-
-
-
-
-
-
-
 
 
         switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

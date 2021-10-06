@@ -222,12 +222,9 @@ public class patientRegistration extends Fragment {
 //        edit_layout.setVisibility(View.GONE);
 //        allformlayout.setVisibility(View.VISIBLE);
 
-
         encodedfingerprint = "";
         encodedfingerprint2 = "";
         backgroundThread();
-
-
 
 //        allData = userdataaa.getall();
 
@@ -1911,6 +1908,7 @@ public class patientRegistration extends Fragment {
                     if (Selectfirstyn == 2) {
                         secondlayout.setVisibility(View.GONE);
                         firstVal = "n";
+                        secondVal = "n";
                     } else if (Selectfirstyn == 1) {
                         firstVal = "y";
 
@@ -2035,6 +2033,7 @@ public class patientRegistration extends Fragment {
                     if (Selectthirdyn == 2) {
                         fourlayout.setVisibility(View.GONE);
                         thirdVal = "n";
+                        foursVal = "n";
                     } else if (Selectthirdyn == 1) {
                         fourlayout.setVisibility(View.VISIBLE);
                         thirdVal = "y";
@@ -2230,11 +2229,15 @@ public class patientRegistration extends Fragment {
     }
 
     protected void launchCaptureFingerprint() {
+try {
+    Intent i = new Intent(getContext(), VerificationActivity.class);
+    i.putExtra("serial_number", m_sn);
+    i.putExtra("device_name", m_deviceName);
+    startActivityForResult(i, 2);
+}catch (Exception  e){
+    e.printStackTrace();
+}
 
-        Intent i = new Intent(getContext(), VerificationActivity.class);
-        i.putExtra("serial_number", m_sn);
-        i.putExtra("device_name", m_deviceName);
-        startActivityForResult(i, 2);
     }
 
     private void displayReaderNotFound()
