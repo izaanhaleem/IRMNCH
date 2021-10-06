@@ -1255,8 +1255,11 @@ public class DashboardFragment extends Fragment {
                 if (response.code() == 200) {
 
 
-                    ActiveAndroid.beginTransaction();
-                    try {
+                    if (response.body().getStatus_code() == 200) {
+
+                        ActiveAndroid.beginTransaction();
+
+                        try {
 
 //                            List<addPatientModel> fl = addPatientModel.searchBySync();
 //                            for (int i = 0; i < fl.size(); i++) {
@@ -1268,67 +1271,163 @@ public class DashboardFragment extends Fragment {
 //                                mod.save();
 //                            }
 
-                        patientTable.IsSync = 1;
-                        patientTable.mrn_no = response.body().getData().getMrn_no();
-                        patientTable.patient_id = response.body().getData().getPatient_id();
-                        patientTable.save();
+                            patientTable.IsSync = 1;
+                            patientTable.mrn_no = response.body().getData().getMrn_no();
+                            patientTable.patient_id = response.body().getData().getPatient_id();
+                            patientTable.save();
 
-                        addvitalll vtl = addvitalll.searchBypid(response.body().getData().getMobile_id());
-                        if (vtl != null) {
-                            vtl.pid = response.body().getData().getPatient_id();
-                            vtl.save();
-                        } else {
-                            Toast.makeText(getContext(), "vital not found", Toast.LENGTH_SHORT).show();
-                        }
+                            addvitalll vtl = addvitalll.searchBypid(response.body().getData().getMobile_id());
+                            if (vtl != null) {
+                                vtl.pid = response.body().getData().getPatient_id();
+                                vtl.save();
+                            } else {
+                                Toast.makeText(getContext(), "vital not found", Toast.LENGTH_SHORT).show();
+                            }
 
 
-                        Assessmentt assess = Assessmentt.searchBypid(response.body().getData().getMobile_id());
+                            Assessmentt assess = Assessmentt.searchBypid(response.body().getData().getMobile_id());
 //                                   if(assess.patient_id == response.body().getData().getPatient_id()) {
-                        if (assess != null) {
-                            assess.patient_id = response.body().getData().getPatient_id();
-                            assess.save();
-                        } else {
-                            Toast.makeText(getContext(), "Assessment not found", Toast.LENGTH_SHORT).show();
-                        }
+                            if (assess != null) {
+                                assess.patient_id = response.body().getData().getPatient_id();
+                                assess.save();
+                            } else {
+                                Toast.makeText(getContext(), "Assessment not found", Toast.LENGTH_SHORT).show();
+                            }
 
-                        Vaccinationn vac = Vaccinationn.searchBypid(response.body().getData().getMobile_id());
+                            Vaccinationn vac = Vaccinationn.searchBypid(response.body().getData().getMobile_id());
 //                                   if(assess.patient_id == response.body().getData().getPatient_id()) {
-                        if (vac != null) {
-                            vac.id = response.body().getData().getPatient_id();
-                            vac.save();
-                        } else {
-                            Toast.makeText(getContext(), "Vaccination not found", Toast.LENGTH_SHORT).show();
+                            if (vac != null) {
+                                vac.id = response.body().getData().getPatient_id();
+                                vac.save();
+                            } else {
+                                Toast.makeText(getContext(), "Vaccination not found", Toast.LENGTH_SHORT).show();
+                            }
+
+
+                            Samplee ss = Samplee.searchBypid(response.body().getData().getMobile_id());
+                            if (ss != null) {
+                                ss.pid = response.body().getData().getPatient_id();
+                                ss.save();
+                            } else {
+                                Toast.makeText(getContext(), "sample not found", Toast.LENGTH_SHORT).show();
+                            }
+
+
+                            ActiveAndroid.setTransactionSuccessful();
+                        } finally {
+                            ActiveAndroid.endTransaction();
                         }
 
+                        if (currentPatient + 1 == totalPatient) {
+                            submitvitalData();
+                            submitAssessment();
+                            submitVaccination();
+                            submitSamples();
+                            submitjailTransfers();
+
+                        }
+                    }
+//                    else {
+//                        Toast.makeText(getContext(), "" + response.message().toString(), Toast.LENGTH_SHORT).show();
+//                    }
 
 
+                   else if (response.body().getStatus_code() == 203) {
+
+                    Toast.makeText(getContext(), "" + response.body().getMessage().toString(), Toast.LENGTH_LONG).show();
+
+                        ActiveAndroid.beginTransaction();
+
+                        try {
+
+//                            List<addPatientModel> fl = addPatientModel.searchBySync();
+//                            for (int i = 0; i < fl.size(); i++) {
+//
+//                                addPatientModel mod = addPatientModel.load(addPatientModel.class, response.body().getData().getMobile_id());
+//                                mod.IsSync = 1;
+//                                mod.mrn_no = response.body().getData().getMrn_no();
+//                                mod.patient_id = response.body().getData().getPatient_id();
+//                                mod.save();
+//                            }
+
+                            patientTable.IsSync = 1;
+                            patientTable.IS_delete = 1;
+                            if (response.body().getData().getMrn_no() != null) {
+                                patientTable.mrn_no = response.body().getData().getMrn_no();
+                            } else {
+                                patientTable.mrn_no = "AAA-00-0000000";
+                            }
+                            patientTable.patient_id = response.body().getData().getPatient_id();
+                            patientTable.deleted_hf_name = response.body().getData().getHf_name();
+                            patientTable.deleted_stage = response.body().getData().getStage();
+                            patientTable.deleted_name = response.body().getData().getPatient_name();
+                            patientTable.deleted_cnic = response.body().getData().getCnic();
+                            patientTable.deleted_mrn_no = response.body().getData().getMrn_no();
+
+                            patientTable.save();
 
 
-                        Samplee ss = Samplee.searchBypid(response.body().getData().getMobile_id());
-                        if (ss != null) {
-                            ss.pid = response.body().getData().getPatient_id();
-                            ss.save();
-                        } else {
-                            Toast.makeText(getContext(), "sample not found", Toast.LENGTH_SHORT).show();
+                            addvitalll vtl = addvitalll.searchBypid(response.body().getData().getMobile_id());
+                            if (vtl != null) {
+                                vtl.pid = response.body().getData().getPatient_id();
+                                vtl.IsSync = 1;
+                                vtl.save();
+                            } else {
+                                Toast.makeText(getContext(), "vital not found", Toast.LENGTH_SHORT).show();
+                            }
+
+
+                            Assessmentt assess = Assessmentt.searchBypid(response.body().getData().getMobile_id());
+//                                   if(assess.patient_id == response.body().getData().getPatient_id()) {
+                            if (assess != null) {
+                                assess.patient_id = response.body().getData().getPatient_id();
+                                assess.IsSync = 1;
+                                assess.save();
+                            } else {
+                                Toast.makeText(getContext(), "Assessment not found", Toast.LENGTH_SHORT).show();
+                            }
+
+                            Vaccinationn vac = Vaccinationn.searchBypid(response.body().getData().getMobile_id());
+//                                   if(assess.patient_id == response.body().getData().getPatient_id()) {
+                            if (vac != null) {
+                                vac.id = response.body().getData().getPatient_id();
+                                vac.IsSync = 1;
+                                vac.save();
+                            } else {
+                                Toast.makeText(getContext(), "Vaccination not found", Toast.LENGTH_SHORT).show();
+                            }
+
+
+                            Samplee ss = Samplee.searchBypid(response.body().getData().getMobile_id());
+                            if (ss != null) {
+                                ss.pid = response.body().getData().getPatient_id();
+                                ss.IsSync = 1;
+                                ss.save();
+                            } else {
+                                Toast.makeText(getContext(), "sample not found", Toast.LENGTH_SHORT).show();
+                            }
+
+
+                            ActiveAndroid.setTransactionSuccessful();
+                        } finally {
+                            ActiveAndroid.endTransaction();
                         }
 
+                        if (currentPatient + 1 == totalPatient) {
+                            submitvitalData();
+                            submitAssessment();
+                            submitVaccination();
+                            submitSamples();
+                            submitjailTransfers();
 
-                        ActiveAndroid.setTransactionSuccessful();
-                    } finally {
-                        ActiveAndroid.endTransaction();
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "" + response.message().toString(), Toast.LENGTH_SHORT).show();
                     }
-
-                    if (currentPatient + 1 == totalPatient) {
-                        submitvitalData();
-                        submitAssessment();
-                        submitVaccination();
-                        submitSamples();
-                        submitjailTransfers();
-
-                    }
-                } else {
-                    Toast.makeText(getContext(), "" + response.message().toString(), Toast.LENGTH_SHORT).show();
                 }
+                     else {
+                        Toast.makeText(getContext(), "" + response.message().toString(), Toast.LENGTH_SHORT).show();
+                        }
 
 
 //                        syncedpatients = syncedpatients + 1;

@@ -40,19 +40,27 @@
             android:title="Patient Pending Treatment Enrollment" />
 
         <item
+            android:id="@+id/release"
+            android:icon="@drawable/ic_discharge"
+            android:title="Release Patient" />
+
+        <item
             android:id="@+id/Transfer"
-            android:icon="@drawable/ic_transfer"
+            android:icon="@drawable/ic_out"
             android:title="Transfer Out" />
 
         <item
             android:id="@+id/Transferin"
-            android:icon="@drawable/ic_transfer"
+            android:icon="@drawable/ic_in"
             android:title="Transfer In" />
 
+
+
+
         <item
-            android:id="@+id/release"
-            android:icon="@drawable/ic_dashboard"
-            android:title="Release Patient" />
+            android:id="@+id/deleted"
+            android:icon="@drawable/ic_pending"
+            android:title="Paitents Already Exist(EMR)" />
 
         <item
             android:id="@+id/nav_3"

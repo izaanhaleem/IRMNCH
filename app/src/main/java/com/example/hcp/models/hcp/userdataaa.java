@@ -119,6 +119,87 @@ public class userdataaa extends Model {
     @Expose
     public String is_prison_release;
 
+    @Column(name = "IS_delete")
+    @SerializedName("IS_delete")
+    @Expose
+    public Integer IS_delete;
+
+
+    @Column(name = "deleted_mrn_no")
+    @SerializedName("deleted_mrn_no")
+    @Expose
+    public String deleted_mrn_no;
+
+    @Column(name = "deleted_cnic")
+    @SerializedName("deleted_cnic")
+    @Expose
+    public String deleted_cnic;
+
+    @Column(name = "deleted_name")
+    @SerializedName("deleted_name")
+    @Expose
+    public String deleted_name;
+
+
+
+    @Column(name = "deleted_hf_name")
+    @SerializedName("deleted_hf_name")
+    @Expose
+    public String deleted_hf_name;
+
+    @Column(name = "deleted_stage")
+    @SerializedName("deleted_stage")
+    @Expose
+    public String deleted_stage;
+
+
+    public String getDeleted_mrn_no() {
+        return deleted_mrn_no;
+    }
+
+    public void setDeleted_mrn_no(String deleted_mrn_no) {
+        this.deleted_mrn_no = deleted_mrn_no;
+    }
+
+    public String getDeleted_cnic() {
+        return deleted_cnic;
+    }
+
+    public void setDeleted_cnic(String deleted_cnic) {
+        this.deleted_cnic = deleted_cnic;
+    }
+
+    public String getDeleted_name() {
+        return deleted_name;
+    }
+
+    public void setDeleted_name(String deleted_name) {
+        this.deleted_name = deleted_name;
+    }
+
+    public String getDeleted_hf_name() {
+        return deleted_hf_name;
+    }
+
+    public void setDeleted_hf_name(String deleted_hf_name) {
+        this.deleted_hf_name = deleted_hf_name;
+    }
+
+    public String getDeleted_stage() {
+        return deleted_stage;
+    }
+
+    public void setDeleted_stage(String deleted_stage) {
+        this.deleted_stage = deleted_stage;
+    }
+
+    public Integer getIS_delete() {
+        return IS_delete;
+    }
+
+    public void setIS_delete(Integer IS_delete) {
+        this.IS_delete = IS_delete;
+    }
 
     public String getIs_prison_release() {
         return is_prison_release;
@@ -1162,6 +1243,14 @@ public class userdataaa extends Model {
     }
 
 
+    public static List<userdataaa> alldeletedpatients() {
+        return new Select()
+                .from(userdataaa.class)
+                .where("IS_delete = ?",1)
+                .execute();
+    }
+
+
     public static List<userdataaa> getallISMedicine() {
         return new Select()
                 .from(userdataaa.class)
@@ -1413,8 +1502,9 @@ public class userdataaa extends Model {
     public static List<userdataaa> searchallnewPatients() {
         return new Select()
                 .from(userdataaa.class)
-                .where("IsActive = ?",1 )
+                .where("IS_delete = ?",0 )
                 .where("new_patient = ?",1 )
+//                .and("IS_delete",0)
                 .execute();
     }
 

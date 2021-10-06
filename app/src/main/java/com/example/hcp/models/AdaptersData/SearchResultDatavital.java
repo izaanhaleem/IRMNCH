@@ -2,10 +2,10 @@ package com.example.hcp.models.AdaptersData;
 
 public class SearchResultDatavital {
 
-    public String Gneder, MrNo,PatientName,LeaderCNIC,patienttype,sample_staus,sample_number,hcvviralload,hbvviralload,transferin,currnet_hospital,ex_hospital;
+    public String Gneder, MrNo,PatientName,LeaderCNIC,patienttype,sample_staus,sample_number,hcvviralload,hbvviralload,transferin,currnet_hospital,ex_hospital,hf_name,stage,del_name,del_cnic,del_mro;
     public int Pid;
 
-    public SearchResultDatavital(String gneder, String mrNo, String patientName, String leaderCNIC, String patientType,int pid,String Sample_status,String Sample_number,String Hcvviralload,String Hbvviralload,String TransferIn,String Current_Hospital,String Ex_Hospital) {
+    public SearchResultDatavital(String gneder, String mrNo, String patientName, String leaderCNIC, String patientType,int pid,String Sample_status,String Sample_number,String Hcvviralload,String Hbvviralload,String TransferIn,String Current_Hospital,String Ex_Hospital,String Hf_name,String Stage,String Del_name,String Del_cnic,String Del_mro) {
         Gneder = gneder;
         MrNo = mrNo;
         PatientName = patientName;
@@ -19,6 +19,11 @@ public class SearchResultDatavital {
         transferin  = TransferIn;
         currnet_hospital = Current_Hospital;
         ex_hospital = Ex_Hospital;
+        hf_name = Hf_name;
+        stage = Stage;
+        del_name = Del_name;
+        del_cnic = Del_cnic;
+        del_mro = Del_mro;
     }
 
     public SearchResultDatavital() {
@@ -130,5 +135,46 @@ public class SearchResultDatavital {
 
     public void setEx_hospital(String ex_hospital) {
         this.ex_hospital = ex_hospital;
+    }
+
+    public String getHf_name() {
+        return hf_name;
+    }
+
+    public void setHf_name(String hf_name) {
+        this.hf_name = hf_name;
+    }
+
+    public String getStage() {
+        return stage;
+    }
+
+    public void setStage(String stage) {
+        this.stage = stage;
+    }
+
+
+    public String getDel_name() {
+        return del_name;
+    }
+
+    public void setDel_name(String del_name) {
+        this.del_name = del_name;
+    }
+
+    public String getDel_cnic() {
+        return del_cnic;
+    }
+
+    public void setDel_cnic(String del_cnic) {
+        this.del_cnic = del_cnic;
+    }
+
+    public String getDel_mro() {
+        return del_mro;
+    }
+
+    public void setDel_mro(String del_mro) {
+        this.del_mro = del_mro;
     }
 }

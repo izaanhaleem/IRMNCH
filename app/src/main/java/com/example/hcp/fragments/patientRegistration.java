@@ -704,17 +704,17 @@ public class patientRegistration extends Fragment {
                 Toast.makeText(getContext(), Constants.NameMissing, Toast.LENGTH_LONG).show();
                 Validationstatus = false;
             }
-//        if (seacchcnic.getSelectedItemPosition() == 1) {
-//            if (cnicNo.length() != 15) {
-//                Toast.makeText(getContext(), "Enter 13 Digit CNIC", Toast.LENGTH_LONG).show();
-//                Validationstatus = false;
-//            }
+        if (seacchcnic.getSelectedItemPosition() == 1) {
+            if (cnicNo.length() != 15) {
+                Toast.makeText(getContext(), "Enter 13 Digit CNIC", Toast.LENGTH_LONG).show();
+                Validationstatus = false;
+            }
 //
-//        }
-//        if (seacchcnic.getSelectedItemPosition() == 2 && cnicNo.length() != 14) {
-//            Toast.makeText(getContext(), "Enter 13 Digit CNIC", Toast.LENGTH_LONG).show();
-//            Validationstatus = false;
-//        }
+        }
+        if (seacchcnic.getSelectedItemPosition() == 2 && cnicNo.length() != 14) {
+            Toast.makeText(getContext(), "Enter 13 Digit CNIC", Toast.LENGTH_LONG).show();
+            Validationstatus = false;
+        }
             if (lastName.isEmpty()) {
                 Toast.makeText(getContext(), Constants.lName, Toast.LENGTH_LONG).show();
                 Validationstatus = false;
@@ -921,6 +921,9 @@ public class patientRegistration extends Fragment {
                 FL.IS_assessment = 0;
                 FL.IS_Vaccination = 0;
                 FL.ISSample = 0;
+
+                FL.ISTransfer = 1;
+                FL.ISRelease = 1;
 
                 FL.setPcr_confirmation_hbv(secondVal);
                 FL.setPrevious_hcv(thirdVal);

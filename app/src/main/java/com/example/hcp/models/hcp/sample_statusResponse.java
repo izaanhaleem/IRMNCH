@@ -54,7 +54,6 @@ public class sample_statusResponse {
 
 
     public class Datum {
-
         @SerializedName("patient_id")
         @Expose
         private String patient_id;

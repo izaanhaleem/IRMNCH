@@ -36,6 +36,7 @@ import com.example.hcp.fragments.Dashboard_patient_pending_treatment;
 import com.example.hcp.fragments.SampleDashboard;
 import com.example.hcp.fragments.TransferIn;
 import com.example.hcp.fragments.VaccinationDashboard;
+import com.example.hcp.fragments.deleted_patients;
 import com.example.hcp.fragments.sample_status_Dashboard;
 import com.example.hcp.fragments.Dashboard_transfer_jail_to_jail;
 import com.example.hcp.fragments.vitalDashboard;
@@ -195,6 +196,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.release:
                 mPrevSelectedId = itemId;
                 navFragment = new DashboardRleasePatients();
+                break;
+
+
+            case R.id.deleted:
+                mPrevSelectedId = itemId;
+                navFragment = new deleted_patients();
                 break;
 
             case R.id.nav_3:

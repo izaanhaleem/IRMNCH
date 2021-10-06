@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.activeandroid.ActiveAndroid;
 import com.example.hcp.R;
+import com.example.hcp.models.hcp.ReleaseLocalTable;
 import com.example.hcp.models.hcp.Samplee;
 import com.example.hcp.models.hcp.districtt;
 import com.example.hcp.models.hcp.divisionn;
@@ -120,11 +121,6 @@ public class transfer_jail extends Fragment {
         boolean Validationstatus = true;
 
 
-
-
-
-
-
         if(selectedhftypeindex==0){
             Toast.makeText(getContext(), "Plz Select Health Facility Type", Toast.LENGTH_SHORT).show();
 
@@ -136,37 +132,30 @@ public class transfer_jail extends Fragment {
 
             List<userdataaa> mod = userdataaa.searchByPatientIdtransferout(patient_id);
 
-            if(mod.size()>0){
+            if(mod.size()==0){
                 Toast.makeText(getContext(), "This Patient Not Transfer to Health Facility", Toast.LENGTH_SHORT).show();
                 Validationstatus = false;
             }
 
-
-
             if (SelectedDivisionCode == 0) {
                 Toast.makeText(getContext(), Constants.division, Toast.LENGTH_SHORT).show();
-
                 Validationstatus = false;
             }
             if (SelectedDistrictedCode == 0) {
                 Toast.makeText(getContext(), Constants.district, Toast.LENGTH_SHORT).show();
-
                 Validationstatus = false;
             }
             if (SelectTcode == 0) {
                 Toast.makeText(getContext(), Constants.tehsil, Toast.LENGTH_SHORT).show();
-
                 Validationstatus = false;
             }
             if (SelectedHfcode == "") {
                 Toast.makeText(getContext(), Constants.healthfacility, Toast.LENGTH_SHORT).show();
-
                 Validationstatus = false;
             }
         }else if(selectedhftypeindex==2){
             if (jailtojail.getSelectedItemPosition()==0) {
                 Toast.makeText(getContext(), "Plz Select Jail", Toast.LENGTH_SHORT).show();
-
                 Validationstatus = false;
             }
         }
@@ -181,7 +170,6 @@ public class transfer_jail extends Fragment {
             jai.prison_transfer_status=HfValue;
             jai.current_hospital_name = hospitalname;
 
-
             if(Selectedjailcode==null){
                 jai.new_hospital_id = Integer.parseInt(SelectedHfcode);
             }
@@ -189,7 +177,7 @@ public class transfer_jail extends Fragment {
                 jai.new_hospital_id = Integer.parseInt(Selectedjailcode);
             }
             else {
-                jai.new_hospital_id = Integer.parseInt("");
+                jai.new_hospital_id = 0;
             }
 //            jai.new_hospital_id = Integer.parseInt(Selectedjailcode);
 
@@ -208,11 +196,17 @@ public class transfer_jail extends Fragment {
             userdataaa mod = userdataaa.searchByPatientId(patient_id);
 
             mod.ISTransfer = 0;
+            ReleaseLocalTable vtl =new  ReleaseLocalTable();
+            vtl.setIs_prison_release("y");
+            vtl.setPatient_id(patient_id);
+            vtl.setIs_sycn(0);
+
 
             try {
+
                 jai.save();
                 mod.save();
-
+                vtl.save();
                 ActiveAndroid.setTransactionSuccessful();
             } finally {
                 ActiveAndroid.endTransaction();

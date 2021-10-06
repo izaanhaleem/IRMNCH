@@ -114,7 +114,7 @@ public interface GetDataService {
     @GET("Apis/Patient_api/qualification")
     Call<OccupationResponse> qualification();
 
-    @POST("Apis/pending_enrollment_api/pending_enrollment_content")
+    @POST("Apis/Pending_enrollment_api/pending_enrollment_content")
     Call<MedDisbursmentResponse> meddisbursment(@Body userdataRequest abc);
 
 

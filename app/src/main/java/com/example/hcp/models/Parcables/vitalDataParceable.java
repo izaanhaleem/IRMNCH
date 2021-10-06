@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 public class vitalDataParceable implements Parcelable {
 
-    public String Gender, MrNo,PatientName,LastName,LeaderCNIC,patientType,pathentContactNo,sample_stauts,sample_number,hcvviralLoad,hbvviralLoad,transferstatus,currenthospitalname,exhospitalname;
+    public String Gender, MrNo,PatientName,LastName,LeaderCNIC,patientType,pathentContactNo,sample_stauts,sample_number,hcvviralLoad,hbvviralLoad,transferstatus,currenthospitalname,exhospitalname,hf_name,stage,delete_patientname,delete_cnic,delete_mro;
     public int pid;
 
     public vitalDataParceable(Parcel in) {
@@ -24,6 +24,11 @@ public class vitalDataParceable implements Parcelable {
         transferstatus = in.readString();
         currenthospitalname = in.readString();
         exhospitalname = in.readString();
+        hf_name = in.readString();
+        stage = in.readString();
+        delete_patientname = in.readString();
+        delete_cnic = in.readString();
+        delete_mro = in.readString();
 
     }
 
@@ -66,6 +71,11 @@ public class vitalDataParceable implements Parcelable {
         parcel.writeString(transferstatus);
         parcel.writeString(currenthospitalname);
         parcel.writeString(exhospitalname);
+        parcel.writeString(hf_name);
+        parcel.writeString(stage);
+        parcel.writeString(delete_patientname);
+        parcel.writeString(delete_cnic);
+        parcel.writeString(delete_mro);
 
     }
 

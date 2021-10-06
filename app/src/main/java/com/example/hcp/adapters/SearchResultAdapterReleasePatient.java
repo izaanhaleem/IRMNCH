@@ -93,18 +93,18 @@ public class SearchResultAdapterReleasePatient extends RecyclerView.Adapter<Sear
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 try {
 
-                                    ReleaseLocalTable vtl =new  ReleaseLocalTable();
+//                                    ReleaseLocalTable vtl =new  ReleaseLocalTable();
                                     ActiveAndroid.beginTransaction();
-                                    vtl.setIs_prison_release("y");
-                                    vtl.setPatient_id(sData[position].getPid());
-                                    vtl.setIs_sycn(0);
+//                                    vtl.setIs_prison_release("y");
+//                                    vtl.setPatient_id(sData[position].getPid());
+//                                    vtl.setIs_sycn(0);
 
                                     userdataaa mod = userdataaa.searchByPatientId(sData[position].getPid());
 
                                     mod.ISRelease = 0;
 
                                     try {
-                                        vtl.save();
+//                                        vtl.save();
                                         mod.save();
                                         ActiveAndroid.setTransactionSuccessful();
                                     } finally {

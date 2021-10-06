@@ -496,78 +496,11 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-
-        GetMedDisbursment();
-
-    }
-
-    private void GetMedDisbursment() {
-        int i=Integer.parseInt(new SharedPref(getContext()).GetLoggedInUser());
-        userdataRequest  request = new userdataRequest();
-        request.setUser_hospital(i);
-        Call<MedDisbursmentResponse> call = RetrofitClient
-                .getInstance().getApi().meddisbursment(request);
-        call.enqueue(
-                new Callback<MedDisbursmentResponse>() {
-                    @Override
-                    public void onResponse(Call<MedDisbursmentResponse> call, Response<MedDisbursmentResponse> response) {
-                        if (response.body() != null && response.body().getStatus()) {
-
-                            SaveMedDisbursmentLocally(response.body().getData());
-                        } else {
-                            Toast.makeText(getContext(), "==> " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                            GetEducation();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<MedDisbursmentResponse> call, Throwable t) {
-                        Toast.makeText(getContext(), Constants.ServerError + t.getMessage(), Toast.LENGTH_SHORT).show();
-                        dialog.dismiss();
-                    }
-                }
-        );
+        GetEducation();
+//        GetMedDisbursment();
 
     }
 
-    private void SaveMedDisbursmentLocally(List<MedDisbursmentResponse.DatumM> data) {
-
-
-        ActiveAndroid.beginTransaction();
-        try {
-            //First Delete all Previous local record then add new Record
-
-            for (int i = 0; i < data.size(); i++) {
-                MedicineDisbursment_Table meddis = new MedicineDisbursment_Table();
-                meddis.patient_id = data.get(i).getId();
-                meddis.setMrn_no(data.get(i).getMrn_no());
-                meddis.setPatient_name(data.get(i).getPatient_name());
-                meddis.setSelf_cnic(data.get(i).getSelf_cnic());
-                meddis.setTest_type(data.get(i).getTest_type());
-                meddis.setSample_number(data.get(i).getSample_number());
-                meddis.setPatient_stage(data.get(i).getPatient_stage());
-                meddis.setHbv_viral_load(data.get(i).getHbv_viral_load());
-                meddis.setHcv_viral_load(data.get(i).getHcv_viral_load());
-                meddis.setIs_hbv_detected(data.get(i).getIs_hbv_detected());
-                meddis.setIs_hcv_detected(data.get(i).getIs_hcv_detected());
-                meddis.save();
-            }
-            ActiveAndroid.setTransactionSuccessful();
-        } finally {
-            ActiveAndroid.endTransaction();
-        }
-
-        final Handler handler = new Handler(Looper.getMainLooper());
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-                GetEducation();
-            }
-        }, 2000);
-
-
-    }
 
 
     public void GetEducation() {
@@ -639,6 +572,9 @@ public class LoginActivity extends AppCompatActivity {
                 new Callback<jailListResponse>() {
                     @Override
                     public void onResponse(Call<jailListResponse> call, Response<jailListResponse> response) {
+
+
+
                         if (response.body() != null && response.body().getStatus()) {
 
                             SaveJailLsitLocally(response.body().getData());
@@ -681,114 +617,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-//                GetUsersData();
-
-
-                GetsampleStauts();
-
-            }
-        }, 2000);
-
-//        Intent intent = new Intent(getBaseContext(), MainActivity.class);
-//        startActivity(intent);
-//        finish();
-
-
-
-    }
-
-
-    private void GetsampleStauts() {
-        int i=Integer.parseInt(new SharedPref(getContext()).GetLoggedInUser());
-        userdataRequest  request = new userdataRequest();
-
-        request.setUser_hospital(i);
-
-
-        Call<sample_statusResponse> call = RetrofitClient.getInstance().getApi().allsamplestauts(request);
-        call.enqueue(new Callback<sample_statusResponse>() {
-                         @Override
-                         public void onResponse(Call<sample_statusResponse> call, Response<sample_statusResponse> response) {
-
-
-                             if (response.body() != null && response.body().getStatus()) {
-
-                                 SavesampelstautsLocally(response.body().getData());
-
-                             } else {
-                                 Toast.makeText(getContext(), "==> " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                 Intent intent = new Intent(getBaseContext(), MainActivity.class);
-                                 startActivity(intent);
-                                 finish();
-                             }
-
-                         }
-                         @Override
-                         public void onFailure(Call<sample_statusResponse> call, Throwable t) {
-                             Toast.makeText(getContext(), Constants.ServerError + t.getMessage(), Toast.LENGTH_SHORT).show();
-                             dialog.dismiss();
-                         }
-                     }
-        );
-
-    }
-
-    private void SavesampelstautsLocally(List<sample_statusResponse.Datum> data) {
-        ActiveAndroid.beginTransaction();
-            //Background work here
-            try {
-                //First Delete all Previous local record then add new Record
-
-
-                for (int i = 0; i < data.size(); i++) {
-                    sample_status_Table stauts = new sample_status_Table();
-                    stauts.setPatient_id(data.get(i).getPatient_id());
-                    stauts.setSample_id(data.get(i).getSample_id());
-                    if(data.get(i).getLab_sample_id()!=null){
-                        stauts.setLab_sample_id(data.get(i).getLab_sample_id());
-                    }
-
-                    if(data.get(i).getResult_id()!=null){
-                        stauts.setResult_id(data.get(i).getResult_id());
-                    }
-
-                    if(data.get(i).getAction_id()!=null){
-                        stauts.setAction_id(data.get(i).getAction_id());
-                    }
-
-                    stauts.setIs_reception(data.get(i).getIs_reception());
-                    if(data.get(i).getHcv_viral_load()!=null){
-                        stauts.setHcv_viral_load(data.get(i).getHcv_viral_load());
-                    }
-                    if(data.get(i).getHbv_viral_load()!=null){
-                        stauts.setHbv_viral_load(data.get(i).getHbv_viral_load());
-                    }
-
-                    stauts.setMrn_no(data.get(i).getMrn_no());
-                    stauts.setPatient_name(data.get(i).getPatient_name());
-                    stauts.setSelf_cnic(data.get(i).getSelf_cnic());
-                    stauts.setPatient_age(data.get(i).getPatient_age());
-                    stauts.setSample_status(data.get(i).getSample_status());
-                    stauts.setSample_number(data.get(i).getSample_number());
-                    stauts.save();
-//                Log.d("asdf","sadf");
-
-                }
-                ActiveAndroid.setTransactionSuccessful();
-            } finally {
-                ActiveAndroid.endTransaction();
-            }
-
-        final Handler handler = new Handler(Looper.getMainLooper());
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-//                GetUsersData();
-
-
                 GetUsersData();
-
+//                GetsampleStauts();
             }
         }, 2000);
 
@@ -799,6 +629,8 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
+
+
     private void GetUsersData() {
         int i=Integer.parseInt(new SharedPref(getContext()).GetLoggedInUser());
         userdataRequest  request = new userdataRequest();
@@ -811,23 +643,30 @@ public class LoginActivity extends AppCompatActivity {
                          @Override
                          public void onResponse(Call<hfUserDataResponse> call, Response<hfUserDataResponse> response) {
 
+                             if(response.body().getStatus()){
 
                                  if (response.body() != null && response.body().getStatus()) {
 
-                                         SaveUserDataLocally(response.body().getData());
-
+                                     SaveUserDataLocally(response.body().getData());
                                  } else {
                                      Toast.makeText(getContext(), "==> " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                     Intent intent = new Intent(getBaseContext(), MainActivity.class);
-                                     startActivity(intent);
-                                     finish();
+//                                     Intent intent = new Intent(getBaseContext(), MainActivity.class);
+//                                     startActivity(intent);
+//                                     finish();
                                  }
+                             }else {
+//                                 GetsampleStauts();
+                                 GetMedDisbursment();
+                             }
+
+
 
                          }
                          @Override
                          public void onFailure(Call<hfUserDataResponse> call, Throwable t) {
                              Toast.makeText(getContext(), Constants.ServerError + t.getMessage(), Toast.LENGTH_SHORT).show();
                              dialog.dismiss();
+//                             GetsampleStauts();
                          }
                      }
         );
@@ -925,9 +764,9 @@ public class LoginActivity extends AppCompatActivity {
                         dat.hcv_viral_count = "0";
                     }else {
                         try{
-                        if(!data.get(i).getHcv_viral_count().equals("")){
-                            dat.hcv_viral_count = data.get(i).getHcv_viral_count();
-                        }
+                            if(!data.get(i).getHcv_viral_count().equals("")){
+                                dat.hcv_viral_count = data.get(i).getHcv_viral_count();
+                            }
 
                         } catch(NumberFormatException ex){ // handle your exception
                             ex.printStackTrace();
@@ -986,6 +825,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     dat.ISTransfer = 1;
                     dat.ISRelease = 1;
+                    dat.IS_delete = 0;
 
                     dat.IsMedicine = 1;
 
@@ -998,12 +838,9 @@ public class LoginActivity extends AppCompatActivity {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Prefs.edit().putBoolean(Constants.isDataLoaded,true).apply();
-                        dialog.dismiss();
-//                progressdilaog.dismiss();
-                        Intent intent = new Intent(getBaseContext(), MainActivity.class);
-                        startActivity(intent);
-                        finish();
+
+//                        GetsampleStauts();
+                        GetMedDisbursment();
 //                Intent intent = new Intent(getBaseContext(), MainActivity.class);
 //                startActivity(intent);
 //                finish();
@@ -1019,5 +856,199 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+
+    private void GetMedDisbursment() {
+        int i=Integer.parseInt(new SharedPref(getContext()).GetLoggedInUser());
+        userdataRequest  request = new userdataRequest();
+        request.setUser_hospital(i);
+        Call<MedDisbursmentResponse> call = RetrofitClient
+                .getInstance().getApi().meddisbursment(request);
+        call.enqueue(
+                new Callback<MedDisbursmentResponse>() {
+                    @Override
+                    public void onResponse(Call<MedDisbursmentResponse> call, Response<MedDisbursmentResponse> response) {
+
+                        if(response.body().getStatus()){
+                            if (response.body() != null && response.body().getStatus()) {
+                                SaveMedDisbursmentLocally(response.body().getData());
+                            } else {
+                                Toast.makeText(getContext(), "==> " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        else {
+                            GetsampleStauts();
+                        }
+
+                    }
+                    @Override
+                    public void onFailure(Call<MedDisbursmentResponse> call, Throwable t) {
+                        Toast.makeText(getContext(), Constants.ServerError + t.getMessage(), Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                }
+        );
+
+    }
+
+    private void SaveMedDisbursmentLocally(List<MedDisbursmentResponse.DatumM> data) {
+
+
+        ActiveAndroid.beginTransaction();
+        try {
+            //First Delete all Previous local record then add new Record
+
+            for (int i = 0; i < data.size(); i++) {
+                MedicineDisbursment_Table meddis = new MedicineDisbursment_Table();
+                meddis.patient_id = data.get(i).getId();
+                meddis.setMrn_no(data.get(i).getMrn_no());
+                meddis.setPatient_name(data.get(i).getPatient_name());
+                meddis.setSelf_cnic(data.get(i).getSelf_cnic());
+                meddis.setTest_type(data.get(i).getTest_type());
+                meddis.setSample_number(data.get(i).getSample_number());
+                meddis.setPatient_stage(data.get(i).getPatient_stage());
+                meddis.setHbv_viral_load(data.get(i).getHbv_viral_load());
+                meddis.setHcv_viral_load(data.get(i).getHcv_viral_load());
+                meddis.setIs_hbv_detected(data.get(i).getIs_hbv_detected());
+                meddis.setIs_hcv_detected(data.get(i).getIs_hcv_detected());
+                meddis.save();
+            }
+            ActiveAndroid.setTransactionSuccessful();
+        } finally {
+            ActiveAndroid.endTransaction();
+        }
+
+        final Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                GetsampleStauts();
+            }
+        }, 2000);
+
+
+    }
+
+
+    private void GetsampleStauts() {
+        int i=Integer.parseInt(new SharedPref(getContext()).GetLoggedInUser());
+        userdataRequest  request = new userdataRequest();
+
+        request.setUser_hospital(i);
+
+
+        Call<sample_statusResponse> call = RetrofitClient.getInstance().getApi().allsamplestauts(request);
+        call.enqueue(new Callback<sample_statusResponse>() {
+                         @Override
+                         public void onResponse(Call<sample_statusResponse> call, Response<sample_statusResponse> response) {
+//
+                             if(response.body() != null)
+                             {
+                                 if(response.body().getStatus())
+                                 {
+                                     SavesampelstautsLocally(response.body().getData());
+                                 }
+                                 else
+                                 {
+                                     Toast.makeText(getContext(), "==> " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                     Next();
+                                 }
+                             }
+                             else {Next();}
+
+                         }
+                         @Override
+                         public void onFailure(Call<sample_statusResponse> call, Throwable t) {
+//                             Toast.makeText(getContext(), Constants.ServerError + t.getMessage(), Toast.LENGTH_SHORT).show();
+                             dialog.dismiss();
+                             Next();
+                         }
+                     }
+        );
+
+    }
+
+    void Next()
+
+    {
+        Prefs.edit().putBoolean(Constants.isDataLoaded,true).apply();
+        dialog.dismiss();
+//                progressdilaog.dismiss();
+        Intent intent = new Intent(getBaseContext(), MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void SavesampelstautsLocally(List<sample_statusResponse.Datum> data) {
+        ActiveAndroid.beginTransaction();
+        //Background work here
+        try {
+            //First Delete all Previous local record then add new Record
+
+
+            for (int i = 0; i < data.size(); i++) {
+                sample_status_Table stauts = new sample_status_Table();
+                stauts.setPatient_id(data.get(i).getPatient_id());
+                stauts.setSample_id(data.get(i).getSample_id());
+                if(data.get(i).getLab_sample_id()!=null){
+                    stauts.setLab_sample_id(data.get(i).getLab_sample_id());
+                }
+
+                if(data.get(i).getResult_id()!=null){
+                    stauts.setResult_id(data.get(i).getResult_id());
+                }
+
+                if(data.get(i).getAction_id()!=null){
+                    stauts.setAction_id(data.get(i).getAction_id());
+                }
+
+                stauts.setIs_reception(data.get(i).getIs_reception());
+                if(data.get(i).getHcv_viral_load()!=null){
+                    stauts.setHcv_viral_load(data.get(i).getHcv_viral_load());
+                }
+                if(data.get(i).getHbv_viral_load()!=null){
+                    stauts.setHbv_viral_load(data.get(i).getHbv_viral_load());
+                }
+
+                stauts.setMrn_no(data.get(i).getMrn_no());
+                stauts.setPatient_name(data.get(i).getPatient_name());
+                stauts.setSelf_cnic(data.get(i).getSelf_cnic());
+                stauts.setPatient_age(data.get(i).getPatient_age());
+                stauts.setSample_status(data.get(i).getSample_status());
+                stauts.setSample_number(data.get(i).getSample_number());
+                stauts.save();
+//                Log.d("asdf","sadf");
+
+            }
+            ActiveAndroid.setTransactionSuccessful();
+        } finally {
+            ActiveAndroid.endTransaction();
+        }
+
+        final Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+//                GetUsersData();
+
+
+//                GetUsersData();
+
+            }
+        }, 2000);
+        Prefs.edit().putBoolean(Constants.isDataLoaded,true).apply();
+        dialog.dismiss();
+//                progressdilaog.dismiss();
+        Intent intent = new Intent(getBaseContext(), MainActivity.class);
+        startActivity(intent);
+        finish();
+//        Intent intent = new Intent(getBaseContext(), MainActivity.class);
+//        startActivity(intent);
+//        finish();
+
+
+
+    }
 
 }
