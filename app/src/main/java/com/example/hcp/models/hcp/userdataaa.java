@@ -1219,12 +1219,20 @@ public class userdataaa extends Model {
     }
 
 
-    public static List<userdataaa> searchByCNICgetall(String cnic) {
+    public static List<userdataaa> pendingvitalwithfingerprints() {
         return new Select()
                 .from(userdataaa.class)
-                .where("self_cnic = ?",cnic)
                 .execute();
     }
+
+
+    public static List<userdataaa> searchByCNICgetall() {
+        return new Select()
+                .from(userdataaa.class)
+                .where("ISVital = ?",0 )
+                .execute();
+    }
+
 
 
     public static List<userdataaa> getallfortranfer(String name) {

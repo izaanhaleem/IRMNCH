@@ -42,11 +42,23 @@ public class sampleForm extends Fragment {
     Button addsample;
     SwitchCompat samplecolect;
    public int  sno,year;
+    boolean isEidt = false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_sample_form, container, false);
+
+
+        try {
+            isEidt = getArguments().getBoolean("isEdit");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+
+
         SelectedMrNo = getArguments().getString("SelectedMrNo");
         patientCNINC = getArguments().getString("PatientCNIC");
         PatientName = getArguments().getString("PatientName");
@@ -125,54 +137,117 @@ public class sampleForm extends Fragment {
 
 
         if(Validationstatus){
-        Samplee FL = new Samplee();
-        ActiveAndroid.beginTransaction();
-        FL.pid = pid;
-        FL.IsSync = 0;
-        FL.setHospital_id(h);
-        FL.setSample_no(new SharedPref(getContext()).GetserverID()+"-"+year+"-"+"00"+sno);
-        FL.user_id=i;
 
-        userdataaa mod = userdataaa.searchBypid(pid);
+            if(isEidt){
+                Samplee FL = new Samplee();
+                ActiveAndroid.beginTransaction();
+                FL.pid = pid;
+                FL.IsSync = 0;
+                FL.setHospital_id(h);
+                FL.setSample_no(new SharedPref(getContext()).GetserverID()+"-"+year+"-"+"00"+sno);
+                FL.user_id=i;
 
-        mod.ISSample = 1;
+                try {
+                    FL.save();
 
-        try {
-            FL.save();
-            mod.save();
-
-
-            ActiveAndroid.setTransactionSuccessful();
-        } finally {
-            ActiveAndroid.endTransaction();
-        }
-            final SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.BUTTON_NEUTRAL);
-            pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.teal_700));
-            pDialog.setTitleText("Sample Save Successfully");
-            pDialog.setCancelable(false);
-            pDialog.show();
-        Fragment FMFragment = new SampleDashboard();
-        Bundle args = new Bundle();
+                    ActiveAndroid.setTransactionSuccessful();
+                } finally {
+                    ActiveAndroid.endTransaction();
+                }
+                final SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.BUTTON_NEUTRAL);
+                pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.teal_700));
+                pDialog.setTitleText("Sample Save Successfully");
+                pDialog.setCancelable(false);
+                pDialog.show();
+                Fragment FMFragment = new sample_status_Dashboard();
+                Bundle args = new Bundle();
 //            args.putString("SelectedMrNo", mMRNO);
 //            args.putInt("FamilyId", family_id);
-        if (FMFragment != null) {
+                if (FMFragment != null) {
 
-            getActivity().onBackPressed();
+                    getActivity().onBackPressed();
 
-            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
 
-            FMFragment.setArguments(args);
-            try {
-                transaction.add(R.id.content_frame, FMFragment, "patientRegistrationFragment").addToBackStack("a").commit();
+                    FMFragment.setArguments(args);
+                    try {
+                        transaction.add(R.id.content_frame, FMFragment, "patientRegistrationFragment").addToBackStack("a").commit();
 
-            } catch (IllegalStateException ignored) {
+                    } catch (IllegalStateException ignored) {
 
+                    }
+                } else {
+                    Toast.makeText(getContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
+                }
             }
-        } else {
-            Toast.makeText(getContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
-        }
-    }
+
+            else
+                {
+                Samplee FL = new Samplee();
+                ActiveAndroid.beginTransaction();
+                FL.pid = pid;
+                FL.IsSync = 0;
+                FL.setHospital_id(h);
+                FL.setSample_no(new SharedPref(getContext()).GetserverID()+"-"+year+"-"+"00"+sno);
+                FL.user_id=i;
+
+                userdataaa mod = userdataaa.searchBypid(pid);
+
+                mod.ISSample = 1;
+
+                try {
+                    FL.save();
+                    mod.save();
+
+
+                    ActiveAndroid.setTransactionSuccessful();
+                } finally {
+                    ActiveAndroid.endTransaction();
+                }
+                final SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.BUTTON_NEUTRAL);
+                pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.teal_700));
+                pDialog.setTitleText("Sample Save Successfully");
+                pDialog.setCancelable(false);
+                pDialog.show();
+                Fragment FMFragment = new SampleDashboard();
+                Bundle args = new Bundle();
+//            args.putString("SelectedMrNo", mMRNO);
+//            args.putInt("FamilyId", family_id);
+                if (FMFragment != null) {
+
+                    getActivity().onBackPressed();
+
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+                    FMFragment.setArguments(args);
+                    try {
+                        transaction.add(R.id.content_frame, FMFragment, "patientRegistrationFragment").addToBackStack("a").commit();
+
+                    } catch (IllegalStateException ignored) {
+
+                    }
+                } else {
+                    Toast.makeText(getContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+
 
     }
+
+
+
+
+
+
+
+
+
+
+    }
+
+
+
+
 }
 

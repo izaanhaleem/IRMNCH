@@ -409,11 +409,15 @@ public class DashboardFragment extends Fragment {
 
     }
     protected void launchCaptureFingerprint() {
+        try {
+            Intent i = new Intent(getContext(), VerificationActivity.class);
+            i.putExtra("serial_number", m_sn);
+            i.putExtra("device_name", m_deviceName);
+            startActivityForResult(i, 2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        Intent i = new Intent(getContext(), VerificationActivity.class);
-        i.putExtra("serial_number", m_sn);
-        i.putExtra("device_name", m_deviceName);
-        startActivityForResult(i, 2);
     }
 
     @Override
@@ -1374,6 +1378,10 @@ public class DashboardFragment extends Fragment {
                                 vtl.IsSync = 1;
                                 vtl.save();
                             } else {
+
+                                patientTable.ISVital = 1;
+                                patientTable.save();
+
                                 Toast.makeText(getContext(), "vital not found", Toast.LENGTH_SHORT).show();
                             }
 
@@ -1385,6 +1393,8 @@ public class DashboardFragment extends Fragment {
                                 assess.IsSync = 1;
                                 assess.save();
                             } else {
+                                patientTable.IS_assessment = 1;
+                                patientTable.save();
                                 Toast.makeText(getContext(), "Assessment not found", Toast.LENGTH_SHORT).show();
                             }
 
@@ -1395,6 +1405,8 @@ public class DashboardFragment extends Fragment {
                                 vac.IsSync = 1;
                                 vac.save();
                             } else {
+                                patientTable.IS_Vaccination = 1;
+                                patientTable.save();
                                 Toast.makeText(getContext(), "Vaccination not found", Toast.LENGTH_SHORT).show();
                             }
 
@@ -1405,6 +1417,8 @@ public class DashboardFragment extends Fragment {
                                 ss.IsSync = 1;
                                 ss.save();
                             } else {
+                                patientTable.ISSample = 1;
+                                patientTable.save();
                                 Toast.makeText(getContext(), "sample not found", Toast.LENGTH_SHORT).show();
                             }
 

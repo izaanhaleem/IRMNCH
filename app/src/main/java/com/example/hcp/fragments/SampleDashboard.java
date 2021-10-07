@@ -191,11 +191,10 @@ public class SampleDashboard extends Fragment {
 
         List<String> categoriesEng = new ArrayList<String>();
         categoriesEng.add("select option");
-        categoriesEng.add("Mr No");
+//        categoriesEng.add("Mr No");
         categoriesEng.add("CNIC");
-        categoriesEng.add("Afghan CNIC");
         categoriesEng.add("Full Name");
-
+        categoriesEng.add("Afghan CNIC");
 
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, categoriesEng);
@@ -213,13 +212,14 @@ public class SampleDashboard extends Fragment {
                 if (SearchOptions.getSelectedItemPosition() > 0) {
 
 
-                    if(SearchOptions.getSelectedItemPosition() == 1) {
-                        OptionValue.setInputType(InputType.TYPE_CLASS_TEXT);
-                        OptionValue.setText("");
-                        OptionValue.setMask("AAA-99-99-99999999999");
-
-//                        OptionValue.addTextChangedListener(Mask.insert(Mask.Mrn_MASK, OptionValue));
-                    }else if(SearchOptions.getSelectedItemPosition() == 2){
+//                    if(SearchOptions.getSelectedItemPosition() == 1) {
+//                        OptionValue.setInputType(InputType.TYPE_CLASS_TEXT);
+//                        OptionValue.setText("");
+//                        OptionValue.setMask("AAA-99-99-99999999999");
+//
+////                        OptionValue.addTextChangedListener(Mask.insert(Mask.Mrn_MASK, OptionValue));
+//                    }else
+                        if(SearchOptions.getSelectedItemPosition() == 2){
 
                         OptionValue.setInputType(InputType.TYPE_CLASS_NUMBER);
                         OptionValue.setText("");
@@ -233,6 +233,13 @@ public class SampleDashboard extends Fragment {
                         OptionValue.setInputType(InputType.TYPE_CLASS_TEXT);
                         OptionValue.setText("");
                         OptionValue.setMask("");
+
+                    }else if(SearchOptions.getSelectedItemPosition() == 4){
+////                        OptionValue.addTextChangedListener(new Mask("#############"));
+
+                        OptionValue.setInputType(InputType.TYPE_CLASS_TEXT);
+                        OptionValue.setText("");
+                        OptionValue.setMask("AA-99999999999");
 
                     }
 

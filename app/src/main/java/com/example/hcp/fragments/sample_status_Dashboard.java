@@ -1,34 +1,65 @@
 package com.example.hcp.fragments;
 
+import android.app.PendingIntent;
+import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.hardware.usb.UsbDevice;
+import android.hardware.usb.UsbManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.InputType;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.digitalpersona.uareu.Engine;
+import com.digitalpersona.uareu.Fid;
+import com.digitalpersona.uareu.Fmd;
+import com.digitalpersona.uareu.Reader;
+import com.digitalpersona.uareu.UareUException;
+import com.digitalpersona.uareu.UareUGlobal;
+import com.digitalpersona.uareu.dpfpddusbhost.DPFPDDUsbException;
+import com.digitalpersona.uareu.dpfpddusbhost.DPFPDDUsbHost;
 import com.example.hcp.R;
+import com.example.hcp.activities.VerificationActivity;
 import com.example.hcp.adapters.SearchResultAdapterSample;
 import com.example.hcp.adapters.SearchResultAdapterSample_status;
 import com.example.hcp.models.AdaptersData.SearchResultDatavital;
 import com.example.hcp.models.Parcables.vitalDataParceable;
 import com.example.hcp.models.hcp.sample_status_Table;
 import com.example.hcp.models.hcp.userdataaa;
+import com.example.hcp.utils.Constants;
+import com.example.hcp.utils.GetReaderActivity;
+import com.example.hcp.utils.Globals;
 import com.example.hcp.utils.MaskedEditText;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.app.Activity.RESULT_CANCELED;
+import static android.app.Activity.RESULT_OK;
+import static com.digitalpersona.uareu.Fmd.Format.ANSI_378_2004;
 
 public class sample_status_Dashboard extends Fragment {
 
@@ -41,21 +72,41 @@ public class sample_status_Dashboard extends Fragment {
     TextView total_record;
     LinearLayout sync_data;
     int vitallistcount = 0;
+    ImageView scanner,ma_iv_fingerprint;
+
+    private String m_sn = "";
+    private String m_deviceName = "";
+    Reader m_reader;
+    private final int GENERAL_ACTIVITY_RESULT = 1;
+    private static final String ACTION_USB_PERMISSION = "com.digitalpersona.uareu.dpfpddusbhost.USB_PERMISSION";
+    private Engine m_engine = null;
+    List<userdataaa> allData = new ArrayList<>();
+
+    private ProgressDialog dialog;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_sample_status__dashboard, container, false);
-
+        m_engine = UareUGlobal.GetEngine();
         Search=view.findViewById(R.id.btnSearch);
         AllSampleList=view.findViewById(R.id.AllAssesementList);
         OptionValue=view.findViewById(R.id.Searchassessment);
         SearchOptions=view.findViewById(R.id.etSearchOptionAssessment);
         total_record = view.findViewById(R.id.total__sync_recordv);
         sync_data = view.findViewById(R.id.sync_datav);
+        ma_iv_fingerprint = view.findViewById(R.id.ma_iv_fingerprint_sample_status_dashboard);
+
+        dialog = new ProgressDialog(getContext());
+        dialog.setMessage("Please Wait....");
+        dialog.setCancelable(false);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.AssessmentRecy);
 //        allSampletList();
+        loaddata();
+
         SetSearchOptions();
 
 //        AllSampleList.setOnClickListener(
@@ -66,8 +117,66 @@ public class sample_status_Dashboard extends Fragment {
                 v -> Search()
         );
 
+
+        ma_iv_fingerprint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(getContext(), ScanActivity.class);
+//                startActivityForResult(intent, SCAN_FINGERPRINT);
+                launchGetReader();
+            }
+        });
+
+
+
         return view;
     }
+
+
+    public void loaddata(){
+        new sample_status_Dashboard.ProgressAsyncTask().execute();
+    }
+
+    public class ProgressAsyncTask extends
+            AsyncTask<Void, Integer, Void> {
+
+        int myProgress;
+
+        @Override
+        protected void onPreExecute() {
+            // TODO Auto-generated method stub
+            super.onPreExecute();
+            dialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            // TODO Auto-generated method stub
+            dialog.dismiss();
+            super.onPostExecute(result);
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            // TODO Auto-generated method stub
+            allData = userdataaa.getall();
+//            while(myProgress<100){
+//                myProgress++;
+//                publishProgress(myProgress);
+//                SystemClock.sleep(100);
+//            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            // TODO Auto-generated method stub
+
+        }
+
+    }
+
+
 
     private void SetSearchOptions() {
         List<String> categories = new ArrayList<String>();
@@ -129,6 +238,10 @@ public class sample_status_Dashboard extends Fragment {
                         OptionValue.setText("");
                         OptionValue.setMask("AAA-99-999999");
 
+                    } else if(SearchOptions.getSelectedItemPosition() == 5){
+                        //finger print search
+
+                        ma_iv_fingerprint.setVisibility(View.VISIBLE);
                     }
 
 
@@ -234,7 +347,7 @@ public class sample_status_Dashboard extends Fragment {
 //            if(samples.get(i).patient_id==0){
 //                FDP[i].pid = samples.get(i).getId().intValue();
 //            }else {
-//                FDP[i].pid = samples.get(i).patient_id;
+                FDP[i].pid = Integer.parseInt(samples.get(i).getPatient_id());
 //            }
         }
 
@@ -252,7 +365,7 @@ public class sample_status_Dashboard extends Fragment {
             myListData[i].setHbvviralload(FDP[i].hbvviralLoad);
             myListData[i].setHcvviralload(FDP[i].hcvviralLoad);
 //            myListData[i].setPatienttype(FDP[i].patientType);
-//            myListData[i].setPid(FDP[i].pid);
+            myListData[i].setPid(FDP[i].pid);
 
         }
         SearchResultAdapterSample_status adapter = new SearchResultAdapterSample_status(myListData);
@@ -260,5 +373,253 @@ public class sample_status_Dashboard extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
     }
+
+
+
+    protected void launchGetReader()
+    {
+        Intent i = new Intent(getContext(), GetReaderActivity.class);
+        i.putExtra("serial_number", m_sn);
+        i.putExtra("device_name", m_deviceName);
+        startActivityForResult(i, 1);
+    }
+
+    public void CheckDevice()
+
+    {
+        try {
+            m_reader.Open(Reader.Priority.EXCLUSIVE);
+            launchCaptureFingerprint();
+            m_reader.Close();
+
+        } catch (UareUException e1) {
+            displayReaderNotFound();
+        }
+
+    }
+    protected void launchCaptureFingerprint() {
+        try {
+            Intent i = new Intent(getContext(), VerificationActivity.class);
+            i.putExtra("serial_number", m_sn);
+            i.putExtra("device_name", m_deviceName);
+            startActivityForResult(i, 2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+
+    {
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        switch (requestCode)
+        {
+
+            case (1):
+
+            {
+                if (data == null)
+
+                {
+                    displayReaderNotFound();
+                    return;
+                }
+
+                Globals.ClearLastBitmap();
+                m_sn         = (String) data.getExtras().get("serial_number");
+                m_deviceName = (String) data.getExtras().get("device_name");
+
+                if ((m_deviceName != null) && !m_deviceName.isEmpty()) {
+
+                    try
+
+                    {
+                        Context applContext = getContext();
+                        m_reader = Globals.getInstance().getReader(m_deviceName, applContext);
+
+                        {
+                            PendingIntent mPermissionIntent;
+                            mPermissionIntent = PendingIntent.getBroadcast(applContext, 0, new Intent(ACTION_USB_PERMISSION), 0);
+                            IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
+                            applContext.registerReceiver(mUsbReceiver, filter);
+
+                            if (DPFPDDUsbHost.DPFPDDUsbCheckAndRequestPermissions(applContext, mPermissionIntent, m_deviceName)) {
+                                CheckDevice();
+                            }
+                        }
+                    }
+
+                    catch (UareUException | DPFPDDUsbException e1)
+
+                    {
+                        displayReaderNotFound();
+                    }
+
+                }
+
+                else
+
+                {
+                    displayReaderNotFound();
+                }
+
+                break;
+            }
+
+            case (2):
+
+            {
+                if (resultCode == RESULT_OK)
+
+                {
+                    byte[] decodedString = Base64.decode(Constants.FmdBase64, Base64.DEFAULT);
+                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                    ma_iv_fingerprint.setImageBitmap(decodedByte);
+
+                    if(allData.size() > 0)
+                    {
+                        Boolean isfingermatch = false;
+                        for(int i=0;i<allData.size();i++) {
+                            if (allData.get(i).getFinger_print2() != null && !allData.get(i).getFinger_print2().isEmpty()) {
+                                {
+                                    byte[] xml64Bytes = Base64.decode(allData.get(i).getFinger_print2(), Base64.DEFAULT);//allData.get(i).getFinger_fmd().getBytes(StandardCharsets.UTF_8);//Base64.decode(allData.get(i).getFinger_fmd(), Base64.DEFAULT);
+                                    Fmd d_fmd = null;
+                                    Fid d_fid = null;
+                                    try {
+                                        d_fid = UareUGlobal.GetImporter().ImportFid(xml64Bytes, Fid.Format.ANSI_381_2004);
+                                        d_fmd = m_engine.CreateFmd(d_fid, ANSI_378_2004);
+
+                                        try {
+
+                                            if (d_fmd != null) {
+                                                int m_score = m_engine.Compare(d_fmd, 0, m_engine.CreateFmd(Constants.cap_result, ANSI_378_2004), 0);
+                                                if (m_score < (0x7FFFFFFF / 100000)) {
+                                                    Toast.makeText(getContext(), "Finger Print Found!", Toast.LENGTH_LONG).show();
+                                                    isfingermatch=true;
+//                                                   List<userdataaa> patient ;
+//                                                   patient = userdataaa.searchByCNICLeader(allData.get(i).getSelf_cnic());
+//                                                   SetDataArrayy(patient);
+
+
+                                                  int patientid =   allData.get(i).getPatient_id();
+
+                                                    List<sample_status_Table> allsamples = new ArrayList<>();
+                                                    allsamples = sample_status_Table.getall();
+                                                    if(allsamples.size()>0) {
+                                                        for (int a = 0; a < allsamples.size(); a++) {
+                                                                 if(patientid == Integer.parseInt(allsamples.get(i).getPatient_id())){
+
+                                                                     List<sample_status_Table> samo = new ArrayList<>();
+                                                                     samo.add(allsamples.get(i));
+                                                                     SetDataArrayy(samo);
+                                                                     break;
+                                                                 }else {
+                                                                     Toast.makeText(getContext(), "sample not found", Toast.LENGTH_SHORT).show();
+                                                                 }
+                                                        }
+                                                    }else {
+                                                        Toast.makeText(getContext(), "sample not found", Toast.LENGTH_SHORT).show();
+
+                                                    }
+
+//                                                    SetDataArrayy(allData);
+//                                                    allData.get(i).getFinger_print2();
+                                                    break;
+                                                } else {
+
+                                                }
+
+                                            }
+
+                                        } catch (UareUException e) {
+                                            e.printStackTrace();
+                                            Log.d("----", e.getMessage());
+                                        }
+                                    } catch (UareUException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                }
+                            }
+                        }
+                        if(isfingermatch==false){
+                            Toast.makeText(getContext(), "not found!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    Log.d("---d---",Constants.Fmd + "");
+                }
+
+                if (resultCode == RESULT_CANCELED)
+
+                {
+                    Toast.makeText(getContext(), "Operation Canceled", Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+
+            break;
+
+        }
+
+    }
+
+    private void displayReaderNotFound()
+
+    {
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+
+        alertDialogBuilder.setTitle("Reader Not Found");
+
+        alertDialogBuilder
+                .setMessage("Plug in a reader and try again.")
+                .setCancelable(false)
+                .setPositiveButton("Ok",
+                        (dialog, id) -> {
+                        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+    private final BroadcastReceiver mUsbReceiver = new BroadcastReceiver()
+
+    {
+        public void onReceive(Context context, Intent intent)
+        {
+
+            String action = intent.getAction();
+
+            if (ACTION_USB_PERMISSION.equals(action))
+
+            {
+                synchronized (this)
+
+                {
+                    UsbDevice device = (UsbDevice)intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+                    if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false))
+                    {
+                        if(device != null)
+                        {
+                            //call method to set up device communication
+                            CheckDevice();
+                        }
+                    }
+                    else
+                    {
+                        // setButtonsEnabled(false);
+                    }
+                }
+            }
+        }
+    };
+
+
 
 }

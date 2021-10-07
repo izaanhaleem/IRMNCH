@@ -81,7 +81,7 @@ public class Dashboard_patient_pending_treatment extends Fragment {
         sync_data = view.findViewById(R.id.sync_datapending);
         total_record = view.findViewById(R.id.total__sync_recordv);
         SetSearchOptions();
-//        allBaselineList();
+        allBaselineList();
 
 //        OptionValue.addTextChangedListener(EditTextTelefoneMask.insert(OptionValue));
 
@@ -109,13 +109,13 @@ public class Dashboard_patient_pending_treatment extends Fragment {
         return view;
     }
 
-//    private void allBaselineList() {
-//
-//        List<MedicineDisbursment_Table> baseline;
-//        baseline=MedicineDisbursment_Table.getallISMedicine();
-//        SetDataArrayy(baseline);
-//
-//    }
+    private void allBaselineList() {
+
+        List<MedicineDisbursment_Table> baseline;
+        baseline=MedicineDisbursment_Table.getallISMedicine();
+        SetDataArrayy(baseline);
+
+    }
 
     public void totalSYncREcord() {
 

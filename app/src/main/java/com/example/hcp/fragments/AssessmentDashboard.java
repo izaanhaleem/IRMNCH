@@ -193,7 +193,7 @@ public class AssessmentDashboard extends Fragment {
 
         List<String> categoriesEng = new ArrayList<String>();
         categoriesEng.add("select option");
-        categoriesEng.add("Mr No");
+//        categoriesEng.add("Mr No");
         categoriesEng.add("CNIC");
         categoriesEng.add("Afghan CNIC");
         categoriesEng.add("Full Name");
@@ -215,13 +215,14 @@ public class AssessmentDashboard extends Fragment {
                 if (SearchOptions.getSelectedItemPosition() > 0) {
 
 
-                    if(SearchOptions.getSelectedItemPosition() == 1) {
-                        OptionValue.setInputType(InputType.TYPE_CLASS_TEXT);
-                        OptionValue.setText("");
-                        OptionValue.setMask("AAA-99-99-99999999999");
-
-//                        OptionValue.addTextChangedListener(Mask.insert(Mask.Mrn_MASK, OptionValue));
-                    }else if(SearchOptions.getSelectedItemPosition() == 2){
+//                    if(SearchOptions.getSelectedItemPosition() == 1) {
+//                        OptionValue.setInputType(InputType.TYPE_CLASS_TEXT);
+//                        OptionValue.setText("");
+//                        OptionValue.setMask("AAA-99-99-99999999999");
+//
+////                        OptionValue.addTextChangedListener(Mask.insert(Mask.Mrn_MASK, OptionValue));
+//                    }else
+                        if(SearchOptions.getSelectedItemPosition() == 2){
 
                         OptionValue.setInputType(InputType.TYPE_CLASS_NUMBER);
                         OptionValue.setText("");

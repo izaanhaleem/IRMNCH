@@ -195,6 +195,13 @@ public class sample_status_Table  extends Model {
         this.sample_number = sample_number;
     }
 
+    public static List<sample_status_Table> getall() {
+        return new Select()
+                .from(sample_status_Table.class)
+                .execute();
+    }
+
+
     public static List<sample_status_Table> searchByMRNOLeader(String mrno) {
         return new Select()
                 .from(sample_status_Table.class)
