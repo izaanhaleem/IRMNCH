@@ -192,6 +192,7 @@ public class sample_status_Dashboard extends Fragment {
         categoriesEng.add("CNIC");
         categoriesEng.add("Afghan CNIC");
         categoriesEng.add("Sample Number");
+        categoriesEng.add("Finger Print");
 
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, categoriesEng);
@@ -280,6 +281,9 @@ public class sample_status_Dashboard extends Fragment {
                         SetDataArrayy(samplestatus);
                     }
                     else {
+                        SearchResultDatavital[] myListData = new SearchResultDatavital[0];
+                        SearchResultAdapterSample_status adapter = new SearchResultAdapterSample_status(myListData);
+                        recyclerView.setAdapter(adapter);
                         Toast.makeText(getContext(), "NO Record Found", Toast.LENGTH_LONG).show();
                     }
                     break;
@@ -291,6 +295,9 @@ public class sample_status_Dashboard extends Fragment {
                         SetDataArrayy(samplestatus);
                     }
                     else {
+                        SearchResultDatavital[] myListData = new SearchResultDatavital[0];
+                        SearchResultAdapterSample_status adapter = new SearchResultAdapterSample_status(myListData);
+                        recyclerView.setAdapter(adapter);
                         Toast.makeText(getContext(), "NO Record Found", Toast.LENGTH_LONG).show();
                          }
                     break;
@@ -299,6 +306,9 @@ public class sample_status_Dashboard extends Fragment {
                     if (samplestatus.size() > 0) {
                         SetDataArrayy(samplestatus);
                     } else {
+                        SearchResultDatavital[] myListData = new SearchResultDatavital[0];
+                        SearchResultAdapterSample_status adapter = new SearchResultAdapterSample_status(myListData);
+                        recyclerView.setAdapter(adapter);
                         Toast.makeText(getContext(), "NO Record Found", Toast.LENGTH_LONG).show();
                     }
                     break;
@@ -372,6 +382,7 @@ public class sample_status_Dashboard extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
+
     }
 
 
@@ -511,27 +522,40 @@ public class sample_status_Dashboard extends Fragment {
                                                     List<sample_status_Table> allsamples = new ArrayList<>();
                                                     allsamples = sample_status_Table.getall();
                                                     if(allsamples.size()>0) {
+
+                                                        Boolean sampleflag = false;
+
                                                         for (int a = 0; a < allsamples.size(); a++) {
-                                                                 if(patientid == Integer.parseInt(allsamples.get(i).getPatient_id())){
+
+                                                                 if(patientid == Integer.parseInt(allsamples.get(a).getPatient_id())){
 
                                                                      List<sample_status_Table> samo = new ArrayList<>();
-                                                                     samo.add(allsamples.get(i));
+                                                                     samo.add(allsamples.get(a));
                                                                      SetDataArrayy(samo);
+                                                                     sampleflag = true;
+                                                                     Toast.makeText(getContext(), "sample found", Toast.LENGTH_SHORT).show();
                                                                      break;
                                                                  }else {
-                                                                     Toast.makeText(getContext(), "sample not found", Toast.LENGTH_SHORT).show();
+                                                                     SearchResultDatavital[] myListData = new SearchResultDatavital[0];
+                                                                     SearchResultAdapterSample_status adapter = new SearchResultAdapterSample_status(myListData);
+                                                                     recyclerView.setAdapter(adapter);
                                                                  }
                                                         }
-                                                    }else {
-                                                        Toast.makeText(getContext(), "sample not found", Toast.LENGTH_SHORT).show();
 
+                                                        if(!sampleflag){
+                                                            Toast.makeText(getContext(), "sample not found", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    }else {
+//                                                        Toast.makeText(getContext(), "sample not found", Toast.LENGTH_SHORT).show();
                                                     }
 
 //                                                    SetDataArrayy(allData);
 //                                                    allData.get(i).getFinger_print2();
                                                     break;
                                                 } else {
-
+                                                    SearchResultDatavital[] myListData = new SearchResultDatavital[0];
+                                                    SearchResultAdapterSample_status adapter = new SearchResultAdapterSample_status(myListData);
+                                                    recyclerView.setAdapter(adapter);
                                                 }
 
                                             }
@@ -547,7 +571,7 @@ public class sample_status_Dashboard extends Fragment {
                                 }
                             }
                         }
-                        if(isfingermatch==false){
+                        if(!isfingermatch){
                             Toast.makeText(getContext(), "not found!", Toast.LENGTH_SHORT).show();
                         }
                     }

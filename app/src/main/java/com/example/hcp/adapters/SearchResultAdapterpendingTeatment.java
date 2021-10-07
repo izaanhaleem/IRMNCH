@@ -63,11 +63,11 @@ public class SearchResultAdapterpendingTeatment extends RecyclerView.Adapter<Sea
                 holder.Address.setText("HBV: "+sData[position].getHbvviralcount()+", HCV: "+sData[position].getHcvviralcount());
             }else {
                 Toast.makeText(context, "Record not Found!", Toast.LENGTH_SHORT).show();
-                holder.FamilyCard.setVisibility(View.GONE);
+                holder.FamilyCard.setVisibility(View.VISIBLE);
             }
         }else {
             Toast.makeText(context, "Record not Found!", Toast.LENGTH_SHORT).show();
-                holder.FamilyCard.setVisibility(View.GONE);
+                holder.FamilyCard.setVisibility(View.VISIBLE);
               }
 
 

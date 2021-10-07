@@ -53,7 +53,6 @@ public class SearchResultAdapterSample_status extends RecyclerView.Adapter<Searc
         }else{
             holder.viralload.setText("not found");
             }
-
         if(sData[position].getSample_staus().equalsIgnoreCase("Sample Rejected")){
             holder.FamilyMembers.setVisibility(View.VISIBLE);
         }else {
