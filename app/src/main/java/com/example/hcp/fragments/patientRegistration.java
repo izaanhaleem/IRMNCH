@@ -880,6 +880,7 @@ public class patientRegistration extends Fragment {
                 userdataaa FL = new userdataaa();
                 ActiveAndroid.beginTransaction();
                 FL.new_patient = 1;
+                FL.IS_delete=0;
                 FL.IsActive = 1;
                 FL.mrn_no = "";
                 FL.IsSync = 0;

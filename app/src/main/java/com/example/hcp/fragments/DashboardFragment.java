@@ -1324,6 +1324,7 @@ public class DashboardFragment extends Fragment {
                             submitVaccination();
                             submitSamples();
                             submitjailTransfers();
+                            submitjailRelease();
 
                         }
                     }
