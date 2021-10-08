@@ -27,7 +27,6 @@ public class SearchResultAdapterSample_status extends RecyclerView.Adapter<Searc
     // RecyclerView recyclerView;
     public SearchResultAdapterSample_status(SearchResultDatavital[] listdata) {
         this.sData = listdata;
-
     }
 
     @Override

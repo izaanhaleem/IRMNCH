@@ -18,8 +18,8 @@
             android:gravity="center"
             android:textStyle="bold"
             android:textColor="@color/color_white"
-            android:textSize="@dimen/font_large"
-        />
+            android:textSize="@dimen/font_xxxxxlarge"
+            />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/search_result_list"

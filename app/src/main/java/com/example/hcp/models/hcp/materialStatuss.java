@@ -16,6 +16,7 @@ public class materialStatuss extends Model {
     @SerializedName("id")
     @Expose
     public String id;
+
     @Column(name = "name")
     @SerializedName("name")
     @Expose

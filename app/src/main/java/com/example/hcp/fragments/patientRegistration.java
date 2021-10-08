@@ -98,6 +98,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
+import java.util.zip.Inflater;
 
 import asia.kanopi.fingerscan.Status;
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -245,21 +246,37 @@ public class patientRegistration extends Fragment {
 
             toolbartext.setText("Add Finger Print");
 
-            if (patientcnic != null || patientid_edit !=-1) {
-                List<userdataaa> patinetforfingerprint = null;
-                if (!patientcnic.equals("-       -")) {
-                    patinetforfingerprint = userdataaa.searchByCNICLeader(patientcnic);
-                } else {
-                    patinetforfingerprint = userdataaa.searchBynameLeader(patientname);
-                }
+//            if (patientcnic != null || patientid_edit !=-1) {
+//                List<userdataaa> patinetforfingerprint = null;
+//                if (!patientcnic.equals("-       -")) {
+//                    patinetforfingerprint = userdataaa.searchByCNICLeader(patientcnic);
+//                } else {
+//                    patinetforfingerprint = userdataaa.searchBynameLeader(patientname);
+//                }
+//
+//                for (int i = 0; i < patinetforfingerprint.size(); i++) {
+//                    patient_edit = patinetforfingerprint.get(i);
+//
+//                }
+//            }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            List<userdataaa> patinetforfingerprint = null;
+             if(patientid_edit!=-1){
+                 patinetforfingerprint = userdataaa.searchBypatientid(String.valueOf(patientid_edit));
+                 if(patinetforfingerprint.size()>0){
+                     for (int i = 0; i < patinetforfingerprint.size(); i++) {
+                         patient_edit = patinetforfingerprint.get(i);
+                     }
+                 }else {
+                     patinetforfingerprint = userdataaa.searchBylongid((long) patientid_edit);
+                     if(patinetforfingerprint.size()>0){
+                          for (int i = 0; i < patinetforfingerprint.size(); i++) {
+                         patient_edit = patinetforfingerprint.get(i);
+                     }
+                     }
 
-                for (int i = 0; i < patinetforfingerprint.size(); i++) {
-                    patient_edit = patinetforfingerprint.get(i);
-
-                }
-            }
-
-
+                 }
+             }
 
 
             String editpatientname = patient_edit.getPatient_name();
@@ -270,7 +287,7 @@ public class patientRegistration extends Fragment {
             if(patient_edit.getPatient_age()==null){
                  editpatient_age = 0;
             }else {
-                editpatient_age = patient_edit.getPatient_age();
+                editpatient_age = Integer.parseInt(patient_edit.getPatient_age());
             }
 
             String editpatient_contact = patient_edit.getContact_no_self();
@@ -701,17 +718,17 @@ public class patientRegistration extends Fragment {
                 Toast.makeText(getContext(), Constants.NameMissing, Toast.LENGTH_LONG).show();
                 Validationstatus = false;
             }
-        if (seacchcnic.getSelectedItemPosition() == 1) {
-            if (cnicNo.length() != 15) {
-                Toast.makeText(getContext(), "Enter 13 Digit CNIC", Toast.LENGTH_LONG).show();
-                Validationstatus = false;
-            }
-//
-        }
-        if (seacchcnic.getSelectedItemPosition() == 2 && cnicNo.length() != 14) {
-            Toast.makeText(getContext(), "Enter 13 Digit CNIC", Toast.LENGTH_LONG).show();
-            Validationstatus = false;
-        }
+//        if (seacchcnic.getSelectedItemPosition() == 1) {
+//            if (cnicNo.length() != 15) {
+//                Toast.makeText(getContext(), "Enter 13 Digit CNIC", Toast.LENGTH_LONG).show();
+//                Validationstatus = false;
+//            }
+////
+//        }
+//        if (seacchcnic.getSelectedItemPosition() == 2 && cnicNo.length() != 14) {
+//            Toast.makeText(getContext(), "Enter 13 Digit CNIC", Toast.LENGTH_LONG).show();
+//            Validationstatus = false;
+//        }
             if (lastName.isEmpty()) {
                 Toast.makeText(getContext(), Constants.lName, Toast.LENGTH_LONG).show();
                 Validationstatus = false;
@@ -888,7 +905,7 @@ public class patientRegistration extends Fragment {
                 FL.setPatient_name(Name);
                 FL.setLname(lastName);
                 FL.setFather_name(FatherName);
-                FL.setPatient_age(patientage);
+                FL.setPatient_age(String.valueOf(patientage));
                 FL.setPatient_dob(dateOfBirth);
                 FL.setGender(SelectedGenderIndex);
                 FL.setSelf_cnic(cnicNo);
@@ -1418,13 +1435,13 @@ public class patientRegistration extends Fragment {
 
         if (isEidt) {
             for (int i = 0; i < materialList.size(); i++) {
-                String  main_status = materialList.get(i).name;
+                int  main_status = Integer.parseInt(materialList.get(i).id);
                 if (patient_edit.getMarital_status() != null) {
-                    String  selected_status = patient_edit.getMarital_status();
+                    int  selected_status = Integer.parseInt(patient_edit.getMarital_status());
 
-                    if (main_status.equals(selected_status)) {
+                    if (main_status==selected_status) {
                         materialstatus.setSelection(i + 1);
-                        materialstatusVal = selected_status;
+                        materialstatusVal = String.valueOf(selected_status);
                     }
                 }
 

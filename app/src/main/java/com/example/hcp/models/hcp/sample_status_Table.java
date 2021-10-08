@@ -216,6 +216,14 @@ public class sample_status_Table  extends Model {
                 .execute();
     }
 
+    public static List<sample_status_Table> searchBypatientId(String pid) {
+        return new Select()
+                .from(sample_status_Table.class)
+                .where("patient_id = ?",pid)
+                .execute();
+    }
+
+
     public static List<sample_status_Table> searchBysampleNumber(String samplenumber) {
         return new Select()
                 .from(sample_status_Table.class)

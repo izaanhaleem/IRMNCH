@@ -382,6 +382,7 @@ public class sample_status_Dashboard extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
     }
 
@@ -529,11 +530,17 @@ public class sample_status_Dashboard extends Fragment {
 
                                                                  if(patientid == Integer.parseInt(allsamples.get(a).getPatient_id())){
 
-                                                                     List<sample_status_Table> samo = new ArrayList<>();
-                                                                     samo.add(allsamples.get(a));
-                                                                     SetDataArrayy(samo);
+
+                                                                     List<sample_status_Table> allList  = sample_status_Table.searchBypatientId(allsamples.get(a).getPatient_id());
+
+                                                                     SetDataArrayy(allList);
+
+//                                                                     List<sample_status_Table> list = new ArrayList<>();
+//                                                                     list.add(allsamples.get(a));
+//                                                                     SetDataArrayy(list);
                                                                      sampleflag = true;
                                                                      Toast.makeText(getContext(), "sample found", Toast.LENGTH_SHORT).show();
+
                                                                      break;
                                                                  }else {
                                                                      SearchResultDatavital[] myListData = new SearchResultDatavital[0];

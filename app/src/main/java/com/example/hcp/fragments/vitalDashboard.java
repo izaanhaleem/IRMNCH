@@ -47,6 +47,7 @@ import com.digitalpersona.uareu.dpfpddusbhost.DPFPDDUsbHost;
 import com.example.hcp.R;
 import com.example.hcp.activities.VerificationActivity;
 import com.example.hcp.adapters.SearchResultAdapter;
+import com.example.hcp.adapters.SearchResultAdapterSample_status;
 import com.example.hcp.adapters.SearchResultAdaptervital;
 import com.example.hcp.models.AdaptersData.SearchResultData;
 import com.example.hcp.models.AdaptersData.SearchResultDatavital;
@@ -383,8 +384,7 @@ public class vitalDashboard extends Fragment {
             List<userdataaa> vitals;
             switch (SelectedOptionIndex) {
 
-                case 3:
-                case 1:
+                case 2:
 
                     vitals = userdataaa.searchByName(SelectedOptionVal);
                     if (vitals.size() > 0) {
@@ -396,7 +396,8 @@ public class vitalDashboard extends Fragment {
                     }
 
                     break;
-                case 2:
+                case 3:
+                case 1:
                     vitals = userdataaa.searchByISvital(SelectedOptionVal);
                     if (vitals.size() > 0) {
 
@@ -511,7 +512,7 @@ public class vitalDashboard extends Fragment {
 
         // attaching data adapter to spinner
         SearchOptions.setAdapter(dataAdapter);
-        SearchOptions.setSelection(2);
+        SearchOptions.setSelection(1);
         SearchOptions.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -702,11 +703,16 @@ public class vitalDashboard extends Fragment {
 //                                                   List<userdataaa> patient ;
 //                                                   patient = userdataaa.searchByCNICLeader(allData.get(i).getSelf_cnic());
 //                                                   SetDataArrayy(patient);
-                                                    SetDataArrayy(allData);
+//                                                    SetDataArrayy(allData);
+                                                    List<userdataaa> samo = new ArrayList<>();
+                                                    samo.add(allData.get(i));
+                                                    SetDataArrayy(samo);
 //                                                    allData.get(i).getFinger_print2();
                                                     break;
                                                 } else {
-
+                                                    SearchResultDatavital[] myListData = new SearchResultDatavital[0];
+                                                    SearchResultAdapterSample_status adapter = new SearchResultAdapterSample_status(myListData);
+                                                    recyclerView.setAdapter(adapter);
                                                 }
 
                                             }

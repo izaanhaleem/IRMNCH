@@ -72,8 +72,6 @@ public class SearchResultFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
 
-
-
         return view;
     }
 

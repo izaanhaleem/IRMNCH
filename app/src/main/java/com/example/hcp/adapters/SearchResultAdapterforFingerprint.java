@@ -73,7 +73,6 @@ public class SearchResultAdapterforFingerprint extends RecyclerView.Adapter<Sear
                     FMFragment.setArguments(args);
                     try {
                         transaction.replace(R.id.content_frame, FMFragment,"FamilyMemberFragment").addToBackStack("a").commit();
-
                     } catch (IllegalStateException ignored) {
                     }
                 }

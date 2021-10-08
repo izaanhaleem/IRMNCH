@@ -1,0 +1,357 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:title=" "
+        android:gravity="center"
+        android:background="@color/colorPrimaryDark">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+            <TextView
+                style="@style/LargeTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Transfer Patient"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/font_large" />
+        </LinearLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:weightSum="1">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="BASIC INFORMATION"
+                    android:gravity="center_horizontal"
+                    android:textStyle="normal"
+                    android:textColor="#fff"
+                    android:textSize="15sp"
+                    android:background="#364150">
+                </TextView>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                    app:hintTextAppearance="@style/NormalTextView">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_xsmall"
+                        android:inputType="text"
+                        android:hint="Name"
+                        android:textColor="#000"
+                        android:digits="qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM ."
+                        android:maxLength="30"
+                        android:maxLines="1"
+                        android:textSize="@dimen/font_normal" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                    app:hintTextAppearance="@style/NormalTextView">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/mrno"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_xsmall"
+                        android:inputType="text"
+                        android:hint="MRN"
+                        android:textColor="#000"
+                        android:digits="qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM ."
+                        android:maxLength="30"
+                        android:maxLines="1"
+                        android:textSize="@dimen/font_normal" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                    app:hintTextAppearance="@style/NormalTextView">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/cnic"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_xsmall"
+                        android:inputType="text"
+                        android:hint="CNIC"
+                        android:digits="qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM ."
+                        android:maxLength="30"
+                        android:maxLines="1"
+                        android:textColor="#000"
+                        android:textSize="@dimen/font_normal" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                    app:hintTextAppearance="@style/NormalTextView">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/hf"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_xsmall"
+                        android:inputType="text"
+                        android:hint="Healthfacility"
+                        android:digits="qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM ."
+                        android:maxLength="30"
+                        android:maxLines="1"
+                        android:textColor="#000"
+                        android:textSize="@dimen/font_normal" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingRight="10dp"
+                    android:layout_marginTop="10dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="Select Health Facility Type"
+                        android:textSize="19sp"
+                        android:textColor="@color/black"
+                        android:textStyle="normal"/>
+
+                    <Spinner
+                        android:id="@+id/hftype"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="3dp"
+                        android:background="@drawable/dropdown_custom_bg"
+                        android:hint="security salary"
+                        android:paddingVertical="13dp"
+                        android:spinnerMode="dropdown"
+                        />
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:id="@+id/healtyfacilitylayout"
+                    android:visibility="visible"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Select Health Facility"
+                        android:textSize="19sp"
+                        android:textStyle="normal"
+                        android:textColor="@color/black"
+                        android:gravity="center_horizontal"/>
+
+                    <!--                    <com.google.android.material.textfield.TextInputLayout-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_weight="1"-->
+                    <!--                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+
+                    <!--                        app:hintTextAppearance="@style/NormalTextView">-->
+
+                    <!--                        <com.google.android.material.textfield.TextInputEditText-->
+                    <!--                            android:id="@+id/etAddress"-->
+                    <!--                            android:layout_width="match_parent"-->
+                    <!--                            android:layout_height="wrap_content"-->
+                    <!--                            android:layout_margin="@dimen/margin_xsmall"-->
+                    <!--                            android:hint="Division"-->
+                    <!--                            android:inputType="textMultiLine"-->
+                    <!--                            android:clickable="false"-->
+                    <!--                            android:focusable="false"-->
+                    <!--                            android:drawableRight="@android:drawable/arrow_down_float"-->
+                    <!--                            android:textSize="@dimen/font_normal" />-->
+                    <!--                    </com.google.android.material.textfield.TextInputLayout>-->
+
+                    <!--                    <com.google.android.material.textfield.TextInputLayout-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_weight="1"-->
+                    <!--                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+
+                    <!--                        app:hintTextAppearance="@style/NormalTextView">-->
+
+                    <!--                        <com.google.android.material.textfield.TextInputEditText-->
+                    <!--                            android:id="@+id/etDistrict"-->
+                    <!--                            android:layout_width="match_parent"-->
+                    <!--                            android:layout_height="wrap_content"-->
+                    <!--                            android:layout_margin="@dimen/margin_xsmall"-->
+                    <!--                            android:hint="District"-->
+                    <!--                            android:inputType="textMultiLine"-->
+                    <!--                            android:clickable="false"-->
+                    <!--                            android:focusable="false"-->
+                    <!--                            android:drawableRight="@android:drawable/arrow_down_float"-->
+                    <!--                            android:textSize="@dimen/font_normal" />-->
+                    <!--                    </com.google.android.material.textfield.TextInputLayout>-->
+                    <!--                    <com.google.android.material.textfield.TextInputLayout-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_weight="1"-->
+                    <!--                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+
+                    <!--                        app:hintTextAppearance="@style/NormalTextView">-->
+
+                    <!--                        <com.google.android.material.textfield.TextInputEditText-->
+                    <!--                            android:id="@+id/etTehsilTown"-->
+                    <!--                            android:layout_width="match_parent"-->
+                    <!--                            android:layout_height="wrap_content"-->
+                    <!--                            android:layout_margin="@dimen/margin_xsmall"-->
+                    <!--                            android:clickable="true"-->
+                    <!--                            android:focusable="false"-->
+                    <!--                            android:drawableRight="@android:drawable/arrow_down_float"-->
+                    <!--                            android:hint="Tehsil"-->
+
+                    <!--                            android:inputType="textMultiLine"-->
+                    <!--                            android:textSize="@dimen/font_normal" />-->
+                    <!--                    </com.google.android.material.textfield.TextInputLayout>-->
+                    <Spinner
+                        android:id="@+id/division"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="3dp"
+                        android:background="@drawable/dropdown_custom_bg"
+                        android:hint="security salary"
+                        android:paddingVertical="13dp"
+                        android:spinnerMode="dropdown"
+                        android:textSize="@dimen/font_xlarge" />
+
+                    <Spinner
+                        android:id="@+id/district"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="3dp"
+                        android:background="@drawable/dropdown_custom_bg"
+                        android:hint="security salary"
+                        android:paddingVertical="13dp"
+                        android:spinnerMode="dropdown"
+                        android:textSize="@dimen/font_xlarge" />
+
+                    <Spinner
+                        android:id="@+id/tehsil"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="3dp"
+                        android:background="@drawable/dropdown_custom_bg"
+                        android:hint="security salary"
+                        android:paddingVertical="13dp"
+                        android:spinnerMode="dropdown"
+                        android:textSize="@dimen/font_xlarge" />
+                    <Spinner
+                        android:id="@+id/hft"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="3dp"
+                        android:background="@drawable/dropdown_custom_bg"
+                        android:hint="security salary"
+                        android:paddingVertical="13dp"
+                        android:spinnerMode="dropdown"
+                        android:textSize="@dimen/font_xlarge" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/jaillayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingRight="10dp"
+                    android:layout_marginTop="10dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="Select Jail"
+                        android:textSize="19sp"
+                        android:textColor="@color/black"
+                        android:textStyle="normal"/>
+
+                    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                        android:id="@+id/jail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="3dp"
+                        android:background="@drawable/dropdown_custom_bg"
+                        android:hint="security salary"
+                        android:paddingVertical="13dp"
+                        android:spinnerMode="dropdown"
+                        />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/transferjail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginTop="10dp"
+                android:text="Transfer"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:background="@drawable/buttonstyle"
+                tools:spb_showStripes="true"/>
+
+        </LinearLayout>
+
+
+
+
+    </ScrollView>
+</LinearLayout>

@@ -6,129 +6,13 @@
     android:layout_marginHorizontal="5dp"
     android:layout_marginVertical="5dp"
     >
-    <LinearLayout
-        android:weightSum="1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
 
     <LinearLayout
-        android:layout_weight="0.3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layoutDirection="rtl"
         android:orientation="vertical"
         android:padding="5dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layoutDirection="rtl"
-            android:weightSum="3">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="start"
-                android:paddingTop="10dp"
-                android:paddingBottom="5dp"
-                android:text="@string/MRN_NO"
-                android:layout_weight="1.3"
-                android:textColor="@color/colorPrimaryDark"
-                android:textDirection="rtl"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-            <TextView
-                android:id="@+id/cardFamilyMrNo"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.7"
-                android:layout_gravity="center"
-                android:gravity="start"
-                android:paddingTop="10dp"
-                android:paddingBottom="5dp"
-                android:text="@string/MRN_NO"
-                android:textColor="@color/color_black"
-                android:textDirection="rtl"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="3"
-            >
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="start"
-                android:paddingTop="10dp"
-                android:paddingBottom="5dp"
-                android:text="@string/contact_no"
-                android:layout_weight="1.3"
-                android:textColor="@color/colorPrimaryDark"
-                android:textDirection="rtl"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-            <TextView
-
-                android:id="@+id/cardFamilyAddress"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="start"
-                android:layout_weight="1.7"
-                android:paddingTop="10dp"
-                android:paddingBottom="5dp"
-                android:text="@string/Address"
-                android:textColor="@color/color_black"
-                android:textDirection="rtl"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="3"
-            >
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="1.3"
-                android:gravity="start"
-                android:paddingTop="10dp"
-                android:paddingBottom="5dp"
-                android:text="Name"
-                android:textColor="@color/colorPrimaryDark"
-                android:textDirection="rtl"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/cardLeaderName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="start"
-                android:layout_weight="1.7"
-                android:paddingTop="10dp"
-                android:paddingBottom="5dp"
-                android:text="@string/NAME"
-                android:textColor="@color/color_black"
-                android:textDirection="rtl"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -159,88 +43,207 @@
                 android:layout_weight="1.7"
                 android:paddingTop="10dp"
                 android:paddingBottom="5dp"
-                android:text="@string/NAME"
+                android:text="---"
+                android:textColor="@color/color_black"
+                android:textDirection="rtl"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1.3"
+                android:gravity="start"
+                android:paddingTop="10dp"
+                android:paddingBottom="5dp"
+                android:text="Patient Name"
+                android:textColor="@color/colorPrimaryDark"
+                android:textDirection="rtl"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/cardLeaderName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="start"
+                android:layout_weight="1.7"
+                android:paddingTop="10dp"
+                android:paddingBottom="5dp"
+                android:text="---"
                 android:textColor="@color/color_black"
                 android:textDirection="rtl"
                 android:textSize="14sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <Button
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layoutDirection="rtl"
+            android:weightSum="3">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="start"
+                android:paddingTop="10dp"
+                android:paddingBottom="5dp"
+                android:text="Mr no"
+                android:layout_weight="1.3"
+                android:textColor="@color/colorPrimaryDark"
+                android:textDirection="rtl"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/cardFamilyMrNo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.7"
+                android:layout_gravity="center"
+                android:gravity="start"
+                android:paddingTop="10dp"
+                android:paddingBottom="5dp"
+                android:text="---"
+                android:textColor="@color/color_black"
+                android:textDirection="rtl"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layoutDirection="rtl"
+            android:weightSum="3">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="start"
+                android:paddingTop="10dp"
+                android:paddingBottom="5dp"
+                android:text="Transfer In"
+                android:layout_weight="1.3"
+                android:textColor="@color/colorPrimaryDark"
+                android:textDirection="rtl"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/samplestatus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.7"
+                android:layout_gravity="center"
+                android:gravity="start"
+                android:paddingTop="10dp"
+                android:paddingBottom="5dp"
+                android:text="---"
+                android:textColor="@color/color_black"
+                android:textDirection="rtl"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <LinearLayout
             android:visibility="visible"
-            android:id="@+id/addfingerprint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="start"
+                android:paddingTop="10dp"
+                android:paddingBottom="5dp"
+                android:text="Ex Hospital Name"
+                android:layout_weight="1.3"
+                android:textColor="@color/colorPrimaryDark"
+                android:textDirection="rtl"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <TextView
+
+                android:id="@+id/cardFamilyAddress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="start"
+                android:layout_weight="1.7"
+                android:paddingTop="10dp"
+                android:paddingBottom="5dp"
+                android:text="---"
+                android:textColor="@color/color_black"
+                android:textDirection="rtl"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="start"
+                android:paddingTop="10dp"
+                android:paddingBottom="5dp"
+                android:text="Current Hospital"
+                android:layout_weight="1.3"
+                android:textColor="@color/colorPrimaryDark"
+                android:textDirection="rtl"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <TextView
+
+                android:id="@+id/viralload"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="start"
+                android:layout_weight="1.7"
+                android:paddingTop="10dp"
+                android:paddingBottom="5dp"
+                android:text="---"
+                android:textColor="@color/color_black"
+                android:textDirection="rtl"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <Button
+            android:visibility="gone"
+            android:id="@+id/cardFamilyMembersbtn"
             style="@style/ButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_marginVertical="@dimen/margin_small_1"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/buttonstyle"
             android:paddingHorizontal="15dp"
+            android:text="Add Sample"
             android:textColor="@color/color_white"
             android:textSize="14sp"
-            android:textStyle="bold"
-            android:text="Update"/>
+            android:textStyle="bold" />
     </LinearLayout>
 
-    <LinearLayout
-             android:visibility="gone"
-            android:layout_weight="0.7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:weightSum="5"
-            android:layout_margin="10dp"
-            android:layout_marginLeft="10dp">
-        <TextView
-            android:layout_weight="1"
-            android:textSize="15sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Edit"
-            android:textStyle="bold"
-            android:textColor="@color/colorPrimaryDark"/>
-
-            <TextView
-                android:layout_marginTop="10dp"
-                android:id="@+id/vataledit"
-                android:layout_weight="1"
-                android:textSize="15sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="vital"
-                android:textColor="@color/red_900"/>
-
-            <TextView
-                android:layout_marginTop="10dp"
-                android:textSize="15sp"
-                android:id="@+id/assessmentedit"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Assessment"
-                android:textColor="@color/red_900"/>
-
-            <TextView
-                android:layout_marginTop="10dp"
-                android:textSize="15sp"
-                android:id="@+id/vacedit"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Vaccination"
-                android:textColor="@color/red_900"/>
-
-            <TextView
-                android:layout_marginTop="10dp"
-                android:textSize="15sp"
-                android:id="@+id/sampleedit"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sample"
-                android:textColor="@color/red_900"/>
-        </LinearLayout>
-
-
-    </LinearLayout>
 </androidx.cardview.widget.CardView>

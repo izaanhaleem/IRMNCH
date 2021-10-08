@@ -25,7 +25,7 @@ public class userdataaa extends Model {
     @Column(name = "patient_age")
     @SerializedName("patient_age")
     @Expose
-    public Integer patient_age;
+    public String patient_age;
 
     @Column(name = "gender")
     @SerializedName("gender")
@@ -233,11 +233,11 @@ public class userdataaa extends Model {
         IsSync = isSync;
     }
 
-    public Integer getPatient_age() {
+    public String  getPatient_age() {
         return patient_age;
     }
 
-    public void setPatient_age(Integer patient_age) {
+    public void setPatient_age(String patient_age) {
         this.patient_age = patient_age;
     }
 
@@ -1273,6 +1273,19 @@ public class userdataaa extends Model {
                 .from(userdataaa.class)
                 .where("IsActive = ?",1)
                 .where("self_cnic = ?",cnic)
+                .execute();
+    }
+
+    public static List<userdataaa> searchBypatientid(String pid) {
+        return new Select()
+                .from(userdataaa.class)
+                .where("patient_id = ?",pid)
+                .execute();
+    }
+    public static List<userdataaa> searchBylongid(Long pid) {
+        return new Select()
+                .from(userdataaa.class)
+                .where("mobile_id = ?",pid)
                 .execute();
     }
 

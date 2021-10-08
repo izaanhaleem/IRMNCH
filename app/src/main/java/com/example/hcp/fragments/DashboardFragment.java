@@ -220,7 +220,6 @@ public class DashboardFragment extends Fragment {
         allnewpatientList();
 
 
-
         SetSearchOptions();
 
         totalSYncREcord();
@@ -515,7 +514,10 @@ public class DashboardFragment extends Fragment {
 //                                                   List<userdataaa> patient ;
 //                                                   patient = userdataaa.searchByCNICLeader(allData.get(i).getSelf_cnic());
 //                                                   SetDataArrayy(patient);
-                                                    SetDataArrayyl(allData.get(i));
+//                                                    SetDataArrayy(allData.get(i));
+                                                    List<userdataaa> samo = new ArrayList<>();
+                                                    samo.add(allData.get(i));
+                                                    SetDataArrayy(samo);
 //                                                    allData.get(i).getFinger_print2();
                                                     break;
                                                 } else {
@@ -881,7 +883,12 @@ public class DashboardFragment extends Fragment {
             FDP[i].contactNo = SFR.get(i).contact_no_self;
             FDP[i].LeaderCNIC = SFR.get(i).self_cnic;
             FDP[i].MrNo = SFR.get(i).mrn_no;
-            FDP[i].pid = (Integer) SFR.get(i).getId().intValue();
+            if(SFR.get(i).getPatient_id()==0){
+                FDP[i].pid = (Integer) SFR.get(i).getId().intValue();
+            }else {
+                FDP[i].pid = (Integer) SFR.get(i).getPatient_id();
+            }
+//            FDP[i].pid = (Integer) SFR.get(i).getId().intValue();
             if(SFR.get(i).finger_print2==null || SFR.get(i).getFinger_print2().equalsIgnoreCase("")){
                 FDP[i].fingerprint = "notfound";
             }else {
@@ -1063,7 +1070,7 @@ public class DashboardFragment extends Fragment {
                 fmb.setFather_name(paitents.get(i).getFather_name());
             }
             if (paitents.get(i).getPatient_age() != null) {
-                fmb.setPatient_age(paitents.get(i).getPatient_age());
+                fmb.setPatient_age(Integer.parseInt(paitents.get(i).getPatient_age()));
             } else {
                 fmb.setPatient_age(0);
 

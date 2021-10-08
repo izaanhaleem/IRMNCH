@@ -658,6 +658,11 @@ public class Datum5 {
     @SerializedName("self_cnic")
     @Expose
     private String self_cnic;
+
+
+    @SerializedName("patient_age")
+    @Expose
+    private String patient_age;
     @SerializedName("patient_from")
     @Expose
     private String patient_from;
@@ -1358,5 +1363,13 @@ public class Datum5 {
 
     public void setEx_hospital_name(String ex_hospital_name) {
         this.ex_hospital_name = ex_hospital_name;
+    }
+
+    public String getPatient_age() {
+        return patient_age;
+    }
+
+    public void setPatient_age(String patient_age) {
+        this.patient_age = patient_age;
     }
 }

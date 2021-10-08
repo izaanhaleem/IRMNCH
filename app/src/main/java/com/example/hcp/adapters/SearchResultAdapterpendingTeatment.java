@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,12 +63,16 @@ public class SearchResultAdapterpendingTeatment extends RecyclerView.Adapter<Sea
             }else if(sData[position].getRsult_type().equalsIgnoreCase("BOTH")){
                 holder.Address.setText("HBV: "+sData[position].getHbvviralcount()+", HCV: "+sData[position].getHcvviralcount());
             }else {
-                Toast.makeText(context, "Record not Found!", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "Record not Found!", Toast.LENGTH_SHORT).show();
                 holder.FamilyCard.setVisibility(View.VISIBLE);
+                holder.testtypenull.setVisibility(View.VISIBLE);
+                holder.Address.setVisibility(View.GONE);
             }
         }else {
             Toast.makeText(context, "Record not Found!", Toast.LENGTH_SHORT).show();
                 holder.FamilyCard.setVisibility(View.VISIBLE);
+                holder.testtypenull.setVisibility(View.VISIBLE);
+            holder.Address.setVisibility(View.GONE);
               }
 
 
@@ -142,6 +147,7 @@ public class SearchResultAdapterpendingTeatment extends RecyclerView.Adapter<Sea
         public TextView LeaderName,Address,MrNo,LeaderCNIC,text1,text2;
         public CardView FamilyCard;
         public Button FamilyMembers;
+        public LinearLayout testtypenull;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -152,6 +158,7 @@ public class SearchResultAdapterpendingTeatment extends RecyclerView.Adapter<Sea
             this.LeaderCNIC = itemView.findViewById(R.id.cardLeaderCNIC);
             this.FamilyCard = itemView.findViewById(R.id.familyCard);
             this.text1 = itemView.findViewById(R.id.text1);
+            this.testtypenull = itemView.findViewById(R.id.testtypenull);
 //            this.text2 = itemView.findViewById(R.id.cardFamilyMembersbtn);
         }
     }

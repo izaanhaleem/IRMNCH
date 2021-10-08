@@ -133,7 +133,7 @@ public class transfer_jail extends Fragment {
             List<userdataaa> mod = userdataaa.searchByPatientIdtransferout(patient_id);
 
             if(mod.size()==0){
-                Toast.makeText(getContext(), "First Release this Prisoner then Transfer to Health Facility", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "First Release this Prisoner then Transfer to Health Facility", Toast.LENGTH_LONG).show();
                 Validationstatus = false;
             }
 

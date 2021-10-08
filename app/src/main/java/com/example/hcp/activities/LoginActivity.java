@@ -700,6 +700,7 @@ public class LoginActivity extends AppCompatActivity {
                     dat.patient_name=data.get(i).getPatient_name();
                     dat.lname=data.get(i).getLname();
                     dat.father_name=data.get(i).getFather_name();
+                    dat.patient_age = data.get(i).getPatient_age();
                     dat.self_cnic=data.get(i).getSelf_cnic();
                     if(data.get(i).getGender()!=null){
                         dat.gender = Integer.parseInt(data.get(i).getGender());
