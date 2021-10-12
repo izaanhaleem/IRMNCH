@@ -119,8 +119,6 @@ public class pendingTratmentForm extends Fragment {
         sr = view.findViewById(R.id.sr);
 
 
-
-
         addpendingBtn.setOnClickListener(
                 v -> FormValidation()
         );
@@ -155,6 +153,7 @@ public class pendingTratmentForm extends Fragment {
 //            hcvpcrResult.setSelection(0);
 //        }
 
+        if(baselineResultType!=null){
         if(baselineResultType.equalsIgnoreCase("HCV")){
             hcvlayout.setVisibility(View.VISIBLE);
             hbvlayout.setVisibility(View.GONE);
@@ -174,6 +173,9 @@ public class pendingTratmentForm extends Fragment {
 //            addpendingBtn.setVisibility(View.GONE);
             allLayout.setVisibility(View.GONE);
         }
+        }else {
+            allLayout.setVisibility(View.GONE);
+        }
 
 
         setlabname();
@@ -191,6 +193,7 @@ public class pendingTratmentForm extends Fragment {
         medicineLayout.setVisibility(View.GONE);
         addpendingBtn.setVisibility(View.GONE);
         APRI.setEnabled(false);
+
         homoglobin.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -231,22 +234,23 @@ public class pendingTratmentForm extends Fragment {
                     }
             }
         });
+        ast.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-    ast.addTextChangedListener(new TextWatcher() {
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
-    }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                try {
+                    sast = Integer.parseInt(ast.getText().toString());
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+            }
 
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-        try {   sast = Integer.parseInt(ast.getText().toString()); }
-        catch (NumberFormatException e)
-        {     e.printStackTrace(); }
-    }
-
-    @Override
-    public void afterTextChanged(Editable s) {
+            @Override
+            public void afterTextChanged(Editable s) {
 
 //        Float litersOfPetrol=Float.parseFloat(String.valueOf(apri_value));
 //        DecimalFormat df = new DecimalFormat("0.00");
@@ -254,53 +258,49 @@ public class pendingTratmentForm extends Fragment {
 //        stringLitersOfPetrol = df.format(litersOfPetrol);
 
 
-
 //        if(0.0<apri_value && apri_value<1000.0){
 //            renalfunctionlayout.setVisibility(View.VISIBLE);
-            if (shomoglobin<19&&shomoglobin>5){
-                if((splatlets<901&&splatlets>99) && (stlc<21&&stlc>3))
-                {
-                    renalfunctionlayout.setVisibility(View.VISIBLE);
+                if (shomoglobin < 19 && shomoglobin > 5) {
+                    if ((splatlets < 901 && splatlets > 99) && (stlc < 21 && stlc > 3)) {
+                        renalfunctionlayout.setVisibility(View.VISIBLE);
 //                    treatmentanddrugLayout.setVisibility(View.VISIBLE);
 //                    medicineLayout.setVisibility(View.VISIBLE);
 //                    addpendingBtn.setVisibility(View.VISIBLE);
+                    }
                 }
-            }
 //        }
-        else {
-            renalfunctionlayout.setVisibility(View.GONE);
-                treatmentanddrugLayout.setVisibility(View.GONE);
-                medicineLayout.setVisibility(View.GONE);
-                addpendingBtn.setVisibility(View.GONE);
-        }
+                else {
+                    renalfunctionlayout.setVisibility(View.GONE);
+                    treatmentanddrugLayout.setVisibility(View.GONE);
+                    medicineLayout.setVisibility(View.GONE);
+                    addpendingBtn.setVisibility(View.GONE);
+                }
 
 //        else {
 //            renalfunctionlayout.setVisibility(View.GONE);
 //        }
-    }
-});
+            }
+        });
+        alt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-alt.addTextChangedListener(new TextWatcher() {
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
-    }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                try {
+                    salt = Integer.parseInt(alt.getText().toString());
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+            }
 
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-        try {   salt = Integer.parseInt(alt.getText().toString()); }
-        catch (NumberFormatException e)
-        {     e.printStackTrace(); }
-    }
+            @Override
+            public void afterTextChanged(Editable s) {
 
-    @Override
-    public void afterTextChanged(Editable s) {
-
-    }
-});
-
-
-
+            }
+        });
         platelet.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -384,10 +384,6 @@ alt.addTextChangedListener(new TextWatcher() {
 
             }
         });
-
-
-
-
         Urea.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -580,7 +576,6 @@ alt.addTextChangedListener(new TextWatcher() {
                 }
             }
         });
-
         drugconfirm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -773,7 +768,6 @@ alt.addTextChangedListener(new TextWatcher() {
 //          }
 
       }
-
 
     }
 

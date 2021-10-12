@@ -453,9 +453,6 @@
 
                     />
 
-
-
-
             </LinearLayout>
             <ImageView
                 android:visibility="gone"

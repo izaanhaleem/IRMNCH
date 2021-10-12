@@ -125,7 +125,7 @@ public class patientRegistration extends Fragment {
     Button btnSubmit, Submit,ma_bt_scan_edit;
     LinearLayout layoutfirst, layoutsecond, secondlayout, fourlayout;
     Spinner seacchcnic, occupation, materialstatus, qualification, gendr, division, district, tehsil, hf;
-    Spinner firsts, seconds, thirds, fours, fives,prisontype;
+    Spinner hbvscreening, hbvconfirmation, hcvscreening, hcvconfirmation, completeVacforhbv,prisontype;
     String SelectedOption;
     int SelectedOptionIndex, SelectedGenderIndex, SelectedDivisionCode, SelectedDistrictedCode,SelectedprisonTypeIndex;
     int Selectfirstyn, Selectsecondyn, Selectthirdyn, Selectfouryn, Selectfiveyn, SelectTcode, SelectedHfcode;
@@ -140,7 +140,7 @@ public class patientRegistration extends Fragment {
     public String cnicNo;
     boolean isEidt = false;
     String patientname, patientcnic;
-   public userdataaa patient_edit;
+    public userdataaa patient_edit;
     ImageView image_flag;
     String encodedfingerprint;
     String encodedfingerprint2;
@@ -154,11 +154,11 @@ public class patientRegistration extends Fragment {
     private Engine m_engine = null;
 
 
-    LinearLayout edit_layout,allformlayout;
-    TextView eidt_patient_name,toolbartext,patient_cnic_edit;
+     LinearLayout edit_layout,allformlayout;
+     TextView eidt_patient_name,toolbartext,patient_cnic_edit;
      public int patientid_edit;
-   public int editpatient_age;
-    public  String cnic_type;
+     public int editpatient_age;
+     public  String cnic_type;
 
     private ProgressDialog dialog;
     @Override
@@ -187,11 +187,11 @@ public class patientRegistration extends Fragment {
         hf = view.findViewById(R.id.hf);
         dob = view.findViewById(R.id.dob);
         etAge = view.findViewById(R.id.etAge);
-        firsts = view.findViewById(R.id.firsts);
-        seconds = view.findViewById(R.id.seconds);
-        thirds = view.findViewById(R.id.thirds);
-        fours = view.findViewById(R.id.fours);
-        fives = view.findViewById(R.id.fives);
+        hbvscreening = view.findViewById(R.id.firsts);
+        hbvconfirmation = view.findViewById(R.id.seconds);
+        hcvscreening = view.findViewById(R.id.thirds);
+        hcvconfirmation = view.findViewById(R.id.fours);
+        completeVacforhbv = view.findViewById(R.id.fives);
         secondlayout = view.findViewById(R.id.secondlayout);
         fourlayout = view.findViewById(R.id.fourlayout);
         etPatientName = view.findViewById(R.id.etPatientName);
@@ -238,7 +238,6 @@ public class patientRegistration extends Fragment {
 
             } catch (Exception e) {
 
-
             }
         }
 
@@ -277,7 +276,6 @@ public class patientRegistration extends Fragment {
 
                  }
              }
-
 
             String editpatientname = patient_edit.getPatient_name();
             String editpatientcnic = patient_edit.getSelf_cnic();
@@ -369,12 +367,13 @@ public class patientRegistration extends Fragment {
         SelectedOptionIndex = 0;
 
 
-
         if(isEidt){
             layoutfirst.setVisibility(View.VISIBLE);
             layoutsecond.setVisibility(View.VISIBLE);
             Submit.setVisibility(View.VISIBLE);
         }
+
+
         else {
             layoutfirst.setVisibility(View.GONE);
             layoutsecond.setVisibility(View.GONE);
@@ -395,17 +394,17 @@ public class patientRegistration extends Fragment {
                 v -> FormValidation()
         );
         DobCalculator();
-//        SetOccupationSpinner();
+//      SetOccupationSpinner();
         SetMaterialSpinner();
         SetQualificationSpinner();
         Setprisontypespinner();
         SetGenderSpinner();
         SetDivisions();
-        SetSpinnerfirst();
-        SetSpinnersecond();
-        SetSpinnerthree();
-        SetSpinnerfour();
-        SetSpinnerfive();
+        SetHBVscreening();
+        SetHBVconfirmation();
+        SetHCVscreening();
+        SetHCVconfirmation();
+        SetvacinationHBV();
 
         ivFingerprint.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -615,8 +614,6 @@ public class patientRegistration extends Fragment {
         }
 
     }
-
-
 
     public void verfityPatient(){
         List<addPatientModel> patientModel = new ArrayList<>();
@@ -892,7 +889,6 @@ public class patientRegistration extends Fragment {
 
                 ActiveAndroid.endTransaction();
             }
-
             else {
                 userdataaa FL = new userdataaa();
                 ActiveAndroid.beginTransaction();
@@ -961,6 +957,7 @@ public class patientRegistration extends Fragment {
 //            FL.setCbeff_id(Constants.cbeff_id);
 //            FL.setQuality(Constants.quality);
 
+
                 FL.save();
 
                 ActiveAndroid.setTransactionSuccessful();
@@ -1016,6 +1013,7 @@ public class patientRegistration extends Fragment {
 //            }
 
 //            args.putString("Patienttype", "New Patient");
+
                 args.putInt("pid", patientid.getId().intValue());
 
 
@@ -1086,7 +1084,6 @@ public class patientRegistration extends Fragment {
 //            args.putString("Patienttype", "New Patient");
                 args.putInt("pid", patientid.getId().intValue());
 
-
 //            if(patient_id==0){
 //                FDP[i].pid = vitalpatient.get(i).getId().intValue();
 //            }else {
@@ -1115,6 +1112,7 @@ public class patientRegistration extends Fragment {
 
 
     }
+
 
 //    private void addforvital() {
 //
@@ -1900,7 +1898,7 @@ public class patientRegistration extends Fragment {
 
     }
 
-    private void SetSpinnerfirst() {
+    private void SetHBVscreening() {
         List<String> yesno = new ArrayList<String>();
         yesno.add("select one");
         yesno.add("Yes");
@@ -1915,14 +1913,14 @@ public class patientRegistration extends Fragment {
 
         // attaching data adapter to spinner
 
-        firsts.setAdapter(dataAdapter);
-        firsts.setSelection(2);
-        firsts.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        hbvscreening.setAdapter(dataAdapter);
+        hbvscreening.setSelection(2);
+        hbvscreening.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 
-                if (firsts.getSelectedItemPosition() > 0) {
-                    Selectfirstyn = firsts.getSelectedItemPosition();
+                if (hbvscreening.getSelectedItemPosition() > 0) {
+                    Selectfirstyn = hbvscreening.getSelectedItemPosition();
                     if (Selectfirstyn == 2) {
                         secondlayout.setVisibility(View.GONE);
                         firstVal = "n";
@@ -1957,19 +1955,19 @@ public class patientRegistration extends Fragment {
 
             if (patient_edit.getPrevious_hbv() != null) {
                 if (patient_edit.getPrevious_hbv().equals("y")) {
-                    firsts.setSelection(1);
+                    hbvscreening.setSelection(1);
                 } else if (patient_edit.getPrevious_hbv().equals("n")) {
-                    firsts.setSelection(2);
+                    hbvscreening.setSelection(2);
                 }
             } else {
-                firsts.setSelection(0);
+                hbvscreening.setSelection(0);
             }
         }
 
 
     }
 
-    private void SetSpinnersecond() {
+    private void SetHBVconfirmation() {
         List<String> yesno = new ArrayList<String>();
         yesno.add("select one");
         yesno.add("Yes");
@@ -1983,14 +1981,14 @@ public class patientRegistration extends Fragment {
         dataAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 
         // attaching data adapter to spinner
-        seconds.setAdapter(dataAdapter);
+        hbvconfirmation.setAdapter(dataAdapter);
 
-        seconds.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        hbvconfirmation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 
-                if (seconds.getSelectedItemPosition() > 0) {
-                    Selectsecondyn = seconds.getSelectedItemPosition();
+                if (hbvconfirmation.getSelectedItemPosition() > 0) {
+                    Selectsecondyn = hbvconfirmation.getSelectedItemPosition();
 
                     if (Selectsecondyn == 1) {
                         secondVal = "y";
@@ -2016,17 +2014,17 @@ public class patientRegistration extends Fragment {
 
             if (patient_edit.getPcr_confirmation_hbv() != null) {
                 if (patient_edit.getPcr_confirmation_hbv().equals("y")) {
-                    seconds.setSelection(1);
+                    hbvconfirmation.setSelection(1);
                 } else if (patient_edit.getPcr_confirmation_hbv().equals("n")) {
-                    seconds.setSelection(2);
+                    hbvconfirmation.setSelection(2);
                 }
             } else {
-                seconds.setSelection(0);
+                hbvconfirmation.setSelection(0);
             }
         }
     }
 
-    private void SetSpinnerthree() {
+    private void SetHCVscreening() {
         List<String> yesno = new ArrayList<String>();
         yesno.add("select one");
         yesno.add("Yes");
@@ -2040,14 +2038,14 @@ public class patientRegistration extends Fragment {
         dataAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 
         // attaching data adapter to spinner
-        thirds.setAdapter(dataAdapter);
-        thirds.setSelection(2);
-        thirds.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        hcvscreening.setAdapter(dataAdapter);
+        hcvscreening.setSelection(2);
+        hcvscreening.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 
-                if (thirds.getSelectedItemPosition() > 0) {
-                    Selectthirdyn = thirds.getSelectedItemPosition();
+                if (hcvscreening.getSelectedItemPosition() > 0) {
+                    Selectthirdyn = hcvscreening.getSelectedItemPosition();
                     if (Selectthirdyn == 2) {
                         fourlayout.setVisibility(View.GONE);
                         thirdVal = "n";
@@ -2076,17 +2074,17 @@ public class patientRegistration extends Fragment {
 
             if (patient_edit.getPrevious_hcv() != null) {
                 if (patient_edit.getPrevious_hcv().equals("y")) {
-                    thirds.setSelection(1);
+                    hcvscreening.setSelection(1);
                 } else if (patient_edit.getPrevious_hcv().equals("n")) {
-                    thirds.setSelection(2);
+                    hcvscreening.setSelection(2);
                 }
             } else {
-                thirds.setSelection(0);
+                hcvscreening.setSelection(0);
             }
         }
     }
 
-    private void SetSpinnerfour() {
+    private void SetHCVconfirmation() {
         List<String> yesno = new ArrayList<String>();
         yesno.add("select one");
         yesno.add("Yes");
@@ -2100,14 +2098,14 @@ public class patientRegistration extends Fragment {
         dataAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 
         // attaching data adapter to spinner
-        fours.setAdapter(dataAdapter);
+        hcvconfirmation.setAdapter(dataAdapter);
 
-        fours.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        hcvconfirmation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 
-                if (fours.getSelectedItemPosition() > 0) {
-                    Selectfouryn = fours.getSelectedItemPosition();
+                if (hcvconfirmation.getSelectedItemPosition() > 0) {
+                    Selectfouryn = hcvconfirmation.getSelectedItemPosition();
                     if (Selectfouryn == 2) {
                         foursVal = "n";
                     } else if (Selectfouryn == 1) {
@@ -2131,17 +2129,17 @@ public class patientRegistration extends Fragment {
 
             if (patient_edit.getPcr_confirmation_hcv() != null) {
                 if (patient_edit.getPcr_confirmation_hcv().equals("y")) {
-                    fours.setSelection(1);
+                    hcvconfirmation.setSelection(1);
                 } else if (patient_edit.getPcr_confirmation_hcv().equals("n")) {
-                    fours.setSelection(2);
+                    hcvconfirmation.setSelection(2);
                 }
             } else {
-                fours.setSelection(0);
+                hcvconfirmation.setSelection(0);
             }
         }
     }
 
-    private void SetSpinnerfive() {
+    private void SetvacinationHBV() {
         List<String> yesno = new ArrayList<String>();
         yesno.add("select one");
         yesno.add("Yes");
@@ -2155,14 +2153,14 @@ public class patientRegistration extends Fragment {
         dataAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 
         // attaching data adapter to spinner
-        fives.setAdapter(dataAdapter);
+        completeVacforhbv.setAdapter(dataAdapter);
 
-        fives.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        completeVacforhbv.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 
-                if (fives.getSelectedItemPosition() > 0) {
-                    Selectfiveyn = fives.getSelectedItemPosition();
+                if (completeVacforhbv.getSelectedItemPosition() > 0) {
+                    Selectfiveyn = completeVacforhbv.getSelectedItemPosition();
                     if (Selectfiveyn == 1) {
                         fiveVal = "y";
                     } else {

@@ -45,7 +45,7 @@ public class VaccinationForm extends Fragment {
     String SelectedMrNo,patientCNINC,PatientName,PatientType;
     int pid,alreadyTakenDose,stage;
     EditText name,mrno,patient,cnic;
-    SwitchCompat firsts;
+    SwitchCompat firstvacdose;
     Button addvaccination;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,7 +56,7 @@ public class VaccinationForm extends Fragment {
         firstd = view.findViewById(R.id.firstd);
         secondd = view.findViewById(R.id.secondd);
         thirdd = view.findViewById(R.id.thirdd);
-        firsts = view.findViewById(R.id.firsts);
+        firstvacdose = view.findViewById(R.id.firsts);
         addvaccination = (Button) view.findViewById(R.id.addvaccination);
         DobCalculator1();
         DobCalculator2();
@@ -86,7 +86,7 @@ public class VaccinationForm extends Fragment {
 
 
 
-        firsts.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        firstvacdose.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {

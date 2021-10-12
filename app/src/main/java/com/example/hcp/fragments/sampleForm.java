@@ -41,7 +41,7 @@ public class sampleForm extends Fragment {
     int pid;
     Button addsample;
     SwitchCompat samplecolect;
-   public int  sno,year;
+    public int  sno,year;
     boolean isEidt = false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

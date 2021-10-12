@@ -700,6 +700,31 @@ public class userdataaa extends Model {
     @Expose
     public String ex_hospital_name;
 
+
+    public Integer getIsMedicine() {
+        return IsMedicine;
+    }
+
+    public void setIsMedicine(Integer isMedicine) {
+        IsMedicine = isMedicine;
+    }
+
+    public Integer getISTransfer() {
+        return ISTransfer;
+    }
+
+    public void setISTransfer(Integer ISTransfer) {
+        this.ISTransfer = ISTransfer;
+    }
+
+    public Integer getTransfer_flag() {
+        return transfer_flag;
+    }
+
+    public void setTransfer_flag(Integer transfer_flag) {
+        this.transfer_flag = transfer_flag;
+    }
+
     public String getCurrent_hospital_name() {
         return current_hospital_name;
     }

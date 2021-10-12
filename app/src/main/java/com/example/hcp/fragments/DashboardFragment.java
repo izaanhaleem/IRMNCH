@@ -219,7 +219,6 @@ public class DashboardFragment extends Fragment {
 
         allnewpatientList();
 
-
         SetSearchOptions();
 
         totalSYncREcord();
@@ -594,10 +593,6 @@ public class DashboardFragment extends Fragment {
 
     }
 
-
-
-
-
     private void displayReaderNotFound()
 
     {
@@ -768,7 +763,6 @@ public class DashboardFragment extends Fragment {
 //            SearchCall(SelectedOption, SelectedOptionVal);
         }
     }
-
 
     void SetSearchOptions() {
         List<String> categoriesEng = new ArrayList<String>();
@@ -983,15 +977,6 @@ public class DashboardFragment extends Fragment {
 
     //
     public void SyncRecord() {
-//
-//
-//        ActiveAndroid.setTransactionSuccessful();
-//
-//        ActiveAndroid.endTransaction();
-//
-//
-
-
 
         patientssubmitcount = 0;
         vitalsubmitcount = 0;
@@ -1006,20 +991,6 @@ public class DashboardFragment extends Fragment {
 
 
 
-
-
-
-//        vitalsubmitcount= vitals.size();
-
-
-//        assessmentsubmitcount=assessmentts.size();
-
-
-//        samplesubmitcount = sampless.size();
-
-//        pending = medicinee.searchBySync();
-//        pendingsubmitcount = pending.size();
-
         if (paitents.size() > 0) {
             submitePatients();
         } else {
@@ -1030,25 +1001,9 @@ public class DashboardFragment extends Fragment {
             submitjailTransfers();
             submitjailRelease();
         }
-//       if(vitals.size()>0){
-//            submitvitalData();
-//        }
-//       if(assessmentts.size()>0){
-//            submitAssessment();
-//        }
-//       if(sampless.size()>0){
-//            submitSamples();
-//        }
-//      else  {
-//            Toast.makeText(getContext(), "All Data Synced", Toast.LENGTH_SHORT).show();
-//        }
-    }
-
-    void SubRes(addPatientModel pat)
-
-    {
 
     }
+
 
     public void submitePatients()
 
@@ -1086,7 +1041,7 @@ public class DashboardFragment extends Fragment {
             if (paitents.get(i).getSelf_cnic() != null) {
                 fmb.setSelf_cnic(paitents.get(i).getSelf_cnic());
             }else {
-                fmb.setSelf_cnic("");
+                fmb.setSelf_cnic(null);
             }
 
             if(paitents.get(i).getCnic_type() !=null){
@@ -1108,27 +1063,27 @@ public class DashboardFragment extends Fragment {
             if (paitents.get(i).getAddress() != null) {
                 fmb.setAddress(paitents.get(i).getAddress());
             }else {
-                fmb.setAddress("");
+                fmb.setAddress(null);
             }
             if (paitents.get(i).getMarital_status() != null) {
                 fmb.setMarital_status(paitents.get(i).getMarital_status());
             }else {
-                fmb.setMarital_status("");
+                fmb.setMarital_status(null);
             }
             if (paitents.get(i).getOccupation() != null) {
                 fmb.setOccupation(paitents.get(i).getOccupation());
             }else {
-                fmb.setOccupation("");
+                fmb.setOccupation(null);
             }
             if (paitents.get(i).getQualification() != null) {
                 fmb.setQualification(paitents.get(i).getQualification());
             }else {
-                fmb.setQualification("");
+                fmb.setQualification(null);
             }
             if (paitents.get(i).getPatient_age_80() != null) {
                 fmb.setPatient_age_80(paitents.get(i).getPatient_age_80());
             }else {
-                fmb.setPatient_age_80("");
+                fmb.setPatient_age_80(null);
             }
             if (paitents.get(i).getPrevious_hbv() != null) {
                 fmb.setPrevious_hbv(paitents.get(i).getPrevious_hbv());
@@ -1197,12 +1152,12 @@ public class DashboardFragment extends Fragment {
             if(paitents.get(i).getFinger_print1() !=null){
                 fmb.setFinger_print1(paitents.get(i).getFinger_print1());
             }else {
-                fmb.setFinger_print1("");
+                fmb.setFinger_print1(null);
             }
             if(paitents.get(i).getFinger_print2() !=null){
                 fmb.setFinger_print2(paitents.get(i).getFinger_print2());
             }else {
-                fmb.setFinger_print2("");
+                fmb.setFinger_print2(null);
             }
 
             if(paitents.get(i).getPrison_type() !=null){
@@ -1217,21 +1172,8 @@ public class DashboardFragment extends Fragment {
                 fmb.setCnic_type(null);
             }
 
-//                List<addPatientModel> pati = new ArrayList<addPatientModel>();
-//                pati.add(fmb);
 
-
-//                final Handler handler = new Handler(Looper.getMainLooper());
-//                int finalI = i;
-//                handler.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//
-//                    }
-//                }, 3300);
-
-
-            SubmitLeader(fmb, paitents.get(i), paitents.size(), i);
+            Submitpatients(fmb, paitents.get(i), paitents.size(), i);
 
 
 //               SubmitLeader(fmb);
@@ -1240,7 +1182,7 @@ public class DashboardFragment extends Fragment {
     }
 //    }
 
-    public void SubmitLeader(addPatientRequest currentMember, userdataaa patientTable, int totalPatient, int currentPatient) {
+    public void Submitpatients(addPatientRequest currentMember, userdataaa patientTable, int totalPatient, int currentPatient) {
 
         ProgressDialog dialog = new ProgressDialog(getContext());
         dialog.setMessage("Saving Patient please wait . . ");
@@ -1264,7 +1206,6 @@ public class DashboardFragment extends Fragment {
 
 
                 if (response.code() == 200) {
-
 
                     if (response.body().getStatus_code() == 200) {
 
@@ -1342,7 +1283,6 @@ public class DashboardFragment extends Fragment {
 //                    else {
 //                        Toast.makeText(getContext(), "" + response.message().toString(), Toast.LENGTH_SHORT).show();
 //                    }
-
 
                    else if (response.body().getStatus_code() == 203) {
 
@@ -1451,21 +1391,6 @@ public class DashboardFragment extends Fragment {
                         Toast.makeText(getContext(), "" + response.message().toString(), Toast.LENGTH_SHORT).show();
                         }
 
-
-//                        syncedpatients = syncedpatients + 1;
-//                        if (syncedpatients == patientssubmitcount) {
-//                            if(response.code()==200) {
-//                                submitvitalData();
-//                            }
-//                        }
-//                    } catch (Exception error) {
-//                        syncedleaders = syncedleaders + 1;
-//                        if (syncedleaders == leadersubmitcount) {
-////                            submitLmpData();
-//                        }
-//                    }
-//
-//
                 totalSYncREcord();
 //                }else {
 //                    try {
@@ -1488,11 +1413,6 @@ public class DashboardFragment extends Fragment {
             public void onFailure(Call<addPatientResponse> call, Throwable t) {
 
                 try {
-//                    syncedleaders = syncedleaders+1;
-//                    if(syncedleaders==leadersubmitcount){
-////                        submitLmpData();
-//                    }
-//                    Toast.makeText(getContext(), Constants.ServerError + t.getMessage(), Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                     Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
 
@@ -1586,7 +1506,6 @@ public class DashboardFragment extends Fragment {
             public void onResponse(Call<AddVitalResponse> call, Response<AddVitalResponse> response) {
                 dialog.dismiss();
                 if (response.body() != null) {
-
 
                     ActiveAndroid.beginTransaction();
                     try {
@@ -1696,7 +1615,6 @@ public class DashboardFragment extends Fragment {
                     asssess.setInvasive_medical_and_surgical_intervention(assessmentts.get(i).getInvasive_medical_and_surgical_intervention());
                 } else {
                     asssess.setInvasive_medical_and_surgical_intervention("N");
-
                 }
                 if (assessmentts.get(i).getSurgery_type() != null) {
                     asssess.setSurgery_type(assessmentts.get(i).getSurgery_type());
@@ -2225,12 +2143,12 @@ public class DashboardFragment extends Fragment {
                 if (jailes.get(i).getPrison_transfer_status() != null) {
                     jai.setPrison_transfer_status(jailes.get(i).getPrison_transfer_status());
                 } else {
-                    jai.setPrison_transfer_status("");
+                    jai.setPrison_transfer_status("test");
                 }
                 if (jailes.get(i).getCurrent_hospital_name() != null) {
                     jai.setCurrent_hospital_name(jailes.get(i).getCurrent_hospital_name());
                 } else {
-                    jai.setCurrent_hospital_name("");
+                    jai.setCurrent_hospital_name("test");
                 }
 
                 if (jailes.get(i).getNew_hospital_id() != null) {
@@ -2242,7 +2160,7 @@ public class DashboardFragment extends Fragment {
                 if (jailes.get(i).getNew_hospital_name() != null) {
                     jai.setNew_hospital_name(jailes.get(i).getNew_hospital_name());
                 } else {
-                    jai.setNew_hospital_name("");
+                    jai.setNew_hospital_name("test");
                 }
 
                 SubmitjailTransfers(jai);

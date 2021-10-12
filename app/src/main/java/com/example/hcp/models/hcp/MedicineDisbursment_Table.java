@@ -82,8 +82,6 @@ public class MedicineDisbursment_Table extends Model {
     private String hbv_viral_load;
 
 
-
-
     public String getHcv_viral_load() {
         return hcv_viral_load;
     }
@@ -172,14 +170,12 @@ public class MedicineDisbursment_Table extends Model {
         this.is_hbv_detected = is_hbv_detected;
     }
 
-
     public static List<MedicineDisbursment_Table> searchByCNICLeader(String cnic) {
         return new Select()
                 .from(MedicineDisbursment_Table.class)
                 .where("self_cnic = ?",cnic)
                 .execute();
     }
-
 
     public static List<MedicineDisbursment_Table> searchByMRNOLeader(String mrno) {
         return new Select()

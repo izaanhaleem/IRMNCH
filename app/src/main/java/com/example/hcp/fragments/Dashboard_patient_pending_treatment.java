@@ -225,21 +225,16 @@ public class Dashboard_patient_pending_treatment extends Fragment {
 
 
     private void allBaselineList() {
-
         List<MedicineDisbursment_Table> baseline;
         baseline=MedicineDisbursment_Table.getallISMedicine();
         SetDataArrayy(baseline);
-
     }
 
     public void totalSYncREcord() {
-
-
         List<medicinee> medicine = medicinee.searchBySync();
         totalSize = medicine.size();
         total_record.setText(totalSize + "");
     }
-
 
     private void Search() {
 

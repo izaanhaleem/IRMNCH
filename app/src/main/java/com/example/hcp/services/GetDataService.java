@@ -62,7 +62,6 @@ public interface GetDataService {
     @POST("Apis/Sample_api/GetSampleDetails")
     Call<sample_statusResponse> allsamplestauts(@Body userdataRequest req);
 
-
     @POST("Blood_Bank_Apis/GetJails")
     Call<jailListResponse> alljailList();
 

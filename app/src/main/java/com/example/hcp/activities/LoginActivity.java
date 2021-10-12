@@ -194,7 +194,6 @@ public class LoginActivity extends AppCompatActivity {
                     else {
                         dialog.dismiss();
                         Toast.makeText(LoginActivity.this, "Invalid Credentials .. ", Toast.LENGTH_SHORT).show();
-
                     }
                 }else {
                     dialog.dismiss();
@@ -694,79 +693,79 @@ public class LoginActivity extends AppCompatActivity {
 
                 for (int i = 0; i < data.size(); i++) {
                     userdataaa dat = new userdataaa();
-                    dat.patient_id= data.get(i).getId();
-                    dat.mrn_no=data.get(i).getMrn_no();
-                    dat.reg_date=data.get(i).getReg_date();
-                    dat.patient_name=data.get(i).getPatient_name();
-                    dat.lname=data.get(i).getLname();
-                    dat.father_name=data.get(i).getFather_name();
-                    dat.patient_age = data.get(i).getPatient_age();
-                    dat.self_cnic=data.get(i).getSelf_cnic();
+                    dat.setPatient_id(data.get(i).getId());
+                    dat.setMrn_no(data.get(i).getMrn_no());
+                    dat.setReg_date(data.get(i).getReg_date());
+                    dat.setPatient_name(data.get(i).getPatient_name());
+                    dat.setLname(data.get(i).getLname());
+                    dat.setFather_name(data.get(i).getFather_name());
+                    dat.setPatient_age(data.get(i).getPatient_age());
+                    dat.setSelf_cnic(data.get(i).getSelf_cnic());
                     if(data.get(i).getGender()!=null){
-                        dat.gender = Integer.parseInt(data.get(i).getGender());
+                        dat.setGender(Integer.parseInt(data.get(i).getGender()));
                     }
-                    dat.marital_status = data.get(i).getMarital_status();
+                    dat.setMarital_status(data.get(i).getMarital_status());
 
-                    dat.patient_from=data.get(i).getPatient_from();
-                    dat.user_id=data.get(i).getUser_id();
-                    dat.user_hospital=data.get(i).getUser_hospital();
-                    dat.hcv_screening_result=data.get(i).getHcv_screening_result();
-                    dat.hbv_screening_result=data.get(i).getHbv_screening_result();
-                    dat.pcr_confirmation_hcv=data.get(i).getPcr_confirmation_hcv();
-                    dat.pcr_confirmation_hbv=data.get(i).getPcr_confirmation_hbv();
-                    dat.is_refered=data.get(i).getIs_refered();
-                    dat.patient_type=data.get(i).getPatient_type();
-                    dat.cbl=data.get(i).getCbl();
-                    dat.bbl=data.get(i).getBbl();
-                    dat.hcv_medicine_name=data.get(i).getHcv_medicine_name();
-                    dat.no_of_hcv_medicine_delivered=data.get(i).getNo_of_hcv_medicine_delivered();
-                    dat.medicine_disbursment_date=data.get(i).getMedicine_disbursment_date();
-                    dat.no_of_hcv_followups=data.get(i).getNo_of_hcv_followups();
-                    dat.hcv_medicine_duration=data.get(i).getHcv_medicine_duration();
-                    dat.next_status=data.get(i).getNext_status();
-                    dat.is_ignore=data.get(i).getIs_ignore();
-                    dat.is_assesment=data.get(i).getIs_assesment();
-                    dat.is_sample=data.get(i).getIs_sample();
-                    dat.collect_sample=data.get(i).getCollect_sample();
-                    dat.is_svr_form_submitted=data.get(i).getIs_svr_form_submitted();
-                    dat.is_svr_sample=data.get(i).getIs_svr_sample();
-                    dat.previous_hbv=data.get(i).getPrevious_hbv();
-                    dat.previous_hcv=data.get(i).getPrevious_hcv();
-                    dat.rapid_testing=data.get(i).getRapid_testing();
-                    dat.contact_no_self=data.get(i).getContact_no_self();
-                    dat.postal_address=data.get(i).getPostal_address();
-                    dat.is_re_register=data.get(i).getIs_re_register();
-                    dat.is_vital=data.get(i).getIs_vital();
-                    dat.next_of_kin_cnic=data.get(i).getNext_of_kin_cnic();
-                    dat.is_referal=data.get(i).getIs_referal();
-                    dat.no_of_medicine_delivered=data.get(i).getNo_of_medicine_delivered();
-                    dat.is_treatment=data.get(i).getIs_treatment();
-                    dat.is_closed=data.get(i).getIs_closed();
-                    dat.is_terminate=data.get(i).getIs_terminate();
-                    dat.baseline_result_type=data.get(i).getBaseline_result_type();
-                    dat.vaccinate=data.get(i).getVaccinate();
-                    dat.cnic_status=data.get(i).getCnic_status();
+                    dat.setPatient_from(data.get(i).getPatient_from());
+                    dat.setUser_id(data.get(i).getUser_id());
+                    dat.setUser_hospital(data.get(i).getUser_hospital());
+                    dat.setHcv_screening_result(data.get(i).getHcv_screening_result());
+                    dat.setHbv_screening_result(data.get(i).getHbv_screening_result());
+                    dat.setPcr_confirmation_hcv(data.get(i).getPcr_confirmation_hcv());
+                    dat.setPcr_confirmation_hbv(data.get(i).getPcr_confirmation_hbv());
+                    dat.setIs_refered(data.get(i).getIs_refered());
+                    dat.setPatient_type(data.get(i).getPatient_type());
+                    dat.setCbl(data.get(i).getCbl());
+                    dat.setBbl(data.get(i).getBbl());
+                    dat.setHcv_medicine_name(data.get(i).getHcv_medicine_name());
+                    dat.setNo_of_hcv_medicine_delivered(data.get(i).getNo_of_hcv_medicine_delivered());
+                    dat.setMedicine_disbursment_date(data.get(i).getMedicine_disbursment_date());
+                    dat.setNo_of_hcv_followups(data.get(i).getNo_of_hcv_followups());
+                    dat.setHcv_medicine_duration(data.get(i).getHcv_medicine_duration());
+                    dat.setNext_status(data.get(i).getNext_status());
+                    dat.setIs_ignore(data.get(i).getIs_ignore());
+                    dat.setIs_assesment(data.get(i).getIs_assesment());
+                    dat.setIs_sample(data.get(i).getIs_sample());
+                    dat.setCollect_sample(data.get(i).getCollect_sample());
+                    dat.setIs_svr_form_submitted(data.get(i).getIs_svr_form_submitted());
+                    dat.setIs_svr_sample(data.get(i).getIs_svr_sample());
+                    dat.setPrevious_hbv(data.get(i).getPrevious_hbv());
+                    dat.setPrevious_hcv(data.get(i).getPrevious_hcv());
+                    dat.setRapid_testing(data.get(i).getRapid_testing());
+                    dat.setContact_no_self(data.get(i).getContact_no_self());
+                    dat.setPostal_address(data.get(i).getPostal_address());
+                    dat.setIs_re_register(data.get(i).getIs_re_register());
+                    dat.setIs_vital(data.get(i).getIs_vital());
+                    dat.setNext_of_kin_cnic(data.get(i).getNext_of_kin_cnic());
+                    dat.setIs_referal(data.get(i).getIs_referal());
+                    dat.setNo_of_medicine_delivered(data.get(i).getNo_of_medicine_delivered());
+                    dat.setIs_treatment(data.get(i).getIs_treatment());
+                    dat.setIs_closed(data.get(i).getIs_closed());
+                    dat.setIs_terminate(data.get(i).getIs_terminate());
+                    dat.setBaseline_result_type(data.get(i).getBaseline_result_type());
+                    dat.setVaccinate(data.get(i).getVaccinate());
+                    dat.setCnic_status(data.get(i).getCnic_status());
                     if(data.get(i).getDivision()!=null){
-                        dat.division=Integer.parseInt(data.get(i).getDivision());
+                        dat.setDivision(Integer.parseInt(data.get(i).getDivision()));
                     }
                     if(data.get(i).getDistrict()!=null){
-                        dat.district=Integer.parseInt(data.get(i).getDistrict());
+                        dat.setDistrict(Integer.parseInt(data.get(i).getDistrict()));
                     }
                     if(data.get(i).getTehsil()!=null){
-                        dat.tehsil=Integer.parseInt(data.get(i).getTehsil());
+                        dat.setTehsil(Integer.parseInt(data.get(i).getTehsil()));
                     }
                     if(data.get(i).getHospital()!=null){
-                        dat.hospital=Integer.parseInt(data.get(i).getHospital());
+                        dat.setHospital(Integer.parseInt(data.get(i).getHospital()));
                     }
-                    dat.patient_dob=data.get(i).getPatient_dob();
-                    dat.is_type_change=data.get(i).getIs_type_change();
-                    dat.lost_followup_id=data.get(i).getLost_followup_id();
+                    dat.setPatient_dob(data.get(i).getPatient_dob());
+                    dat.setIs_type_change(data.get(i).getIs_type_change());
+                    dat.setLost_followup_id(data.get(i).getLost_followup_id());
                     if(data.get(i).getHcv_viral_count() == null){
-                        dat.hcv_viral_count = "0";
+                        dat.setHcv_viral_count("0");
                     }else {
                         try{
                             if(!data.get(i).getHcv_viral_count().equals("")){
-                                dat.hcv_viral_count = data.get(i).getHcv_viral_count();
+                                dat.setHcv_viral_count(data.get(i).getHcv_viral_count());
                             }
 
                         } catch(NumberFormatException ex){ // handle your exception
@@ -775,12 +774,12 @@ public class LoginActivity extends AppCompatActivity {
 //                    dat.hcv_viral_count = Integer.valueOf(data.get(i).getHcv_viral_count());
                     }
                     if(data.get(i).getHbv_viral_count() == null){
-                        dat.hbv_viral_count ="0";
+                        dat.setHbv_viral_count("0");
                     }else {
 
                         try{
                             if(!data.get(i).getHbv_viral_count().equals("")){
-                                dat.hbv_viral_count = data.get(i).getHbv_viral_count();
+                                dat.setHbv_viral_count(data.get(i).getHbv_viral_count());
 
                             }
                         } catch(NumberFormatException ex){ // handle your exception
@@ -791,12 +790,12 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                     if(data.get(i).getSample_id()==null){
-                        dat.sample_id = "0";
+                        dat.setSample_id("0");
                     }else {
 
                         try{
                             if(!data.get(i).getSample_id().equals("")){
-                                dat.sample_id = data.get(i).getSample_id();
+                                dat.setSample_id(data.get(i).getSample_id());
 
                             }
                         } catch(NumberFormatException ex){ // handle your exception
@@ -806,29 +805,29 @@ public class LoginActivity extends AppCompatActivity {
 //                    dat.sample_id = Integer.valueOf(data.get(i).getSample_id());
                     }
 
-                    dat.is_cirrhotic_patient = data.get(i).getIs_cirrhotic_patient();
+                    dat.setIs_cirrhotic_patient(data.get(i).getIs_cirrhotic_patient());
 
-                    dat.finger_print1 = data.get(i).getFinger_print1();
-                    dat.finger_print2 = data.get(i).getFinger_print2();
+                    dat.setFinger_print1(data.get(i).getFinger_print1());
+                    dat.setFinger_print2(data.get(i).getFinger_print2());
 
                     if(data.get(i).getPrison_transfer_status()==null){
-                        dat.transfer_flag = 0;
+                        dat.setTransfer_flag(0);
                     }else {
-                        dat.transfer_flag = 1;
+                        dat.setTransfer_flag(1);
                     }
 
 
-                    dat.prison_transfer_status = data.get(i).getPrison_transfer_status();
-                    dat.current_hospital_name = data.get(i).getCurrent_hospital_name();
-                    dat.ex_hospital_name = data.get(i).getEx_hospital_name();
+                    dat.setPrison_transfer_status(data.get(i).getPrison_transfer_status());
+                    dat.setCurrent_hospital_name( data.get(i).getCurrent_hospital_name());
+                    dat.setEx_hospital_name(data.get(i).getEx_hospital_name());
 
-                    dat.IsActive = 1;
+                    dat.setIsActive(1);
 
-                    dat.ISTransfer = 1;
-                    dat.ISRelease = 1;
-                    dat.IS_delete = 0;
+                    dat.setISTransfer(1);
+                    dat.setISRelease(1);
+                    dat.setIS_delete(0);
 
-                    dat.IsMedicine = 1;
+                    dat.setIsMedicine(1);
 
                     dat.save();
 //                Log.d("asdf","sadf");
@@ -900,7 +899,7 @@ public class LoginActivity extends AppCompatActivity {
 
             for (int i = 0; i < data.size(); i++) {
                 MedicineDisbursment_Table meddis = new MedicineDisbursment_Table();
-                meddis.patient_id = data.get(i).getId();
+                meddis.setPatient_id(data.get(i).getId());
                 meddis.setMrn_no(data.get(i).getMrn_no());
                 meddis.setPatient_name(data.get(i).getPatient_name());
                 meddis.setSelf_cnic(data.get(i).getSelf_cnic());

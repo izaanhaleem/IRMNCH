@@ -157,7 +157,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                break;nav_assessment
             case R.id.nav_4:
                 mPrevSelectedId = itemId;
-
                 navFragment = new vitalDashboard();
                 break;
             case R.id.nav_assessment:
@@ -197,7 +196,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 mPrevSelectedId = itemId;
                 navFragment = new DashboardRleasePatients();
                 break;
-
 
             case R.id.deleted:
                 mPrevSelectedId = itemId;

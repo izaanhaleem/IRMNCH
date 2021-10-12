@@ -38,11 +38,11 @@ public class assessmentForm extends Fragment {
     String Sname,Smrno,Spatient,Scnic,Stemperature,SpulseBPM,SBPSystolic,SBPDiastolic,SHeightCM,SWeightKG,Spid,Spulse,SBP_Systolic,SBP_Diastolic;
     EditText surgery_type,MO_Notes;
     Spinner Sergery_select_year,two,bloodBank_select_year1,blood_bank,Dental_Clinic;
-    Button addvital;
+    Button saveAssessment;
     SwitchCompat pcr,switch1,switch2,switch3,switch4,switch5,switch6,switch7,hopital_last_two_year,switch8,switch9,switch10,switch11,switch12,switch13,switch14,switch15,switch16,switch17,switch18,switch19,switch20,switch21,switch22,switch23,switch24,switch25,switch26,switch28,switch29,switch27,switch30,switch31;
-   public String PCR,Sswitch1,Sswitch2,Sswitch3,Sswitch4,Sswitch5,Sswitch6,Sswitch7,Shopital_last_two_year,Sswitch8,Sswitch9,Sswitch10,Sswitch11,Sswitch12,Sswitch13,Sswitch14,Sswitch15,Sswitch16,Sswitch17,Sswitch18,Sswitch19,Sswitch20,Sswitch21,Sswitch22,Sswitch23,Sswitch24,Sswitch25,Sswitch26,Sswitch28,Sswitch29,Sswitch27,Sswitch30,Sswitch31;
-   public String rapidtesting;
-   String SergeryWhen,closeContractOnTreatment,bloodTranfusionWhen,bloodBank,Dentatl_clinic;
+    public String PCR,Sswitch1,Sswitch2,Sswitch3,Sswitch4,Sswitch5,Sswitch6,Sswitch7,Shopital_last_two_year,Sswitch8,Sswitch9,Sswitch10,Sswitch11,Sswitch12,Sswitch13,Sswitch14,Sswitch15,Sswitch16,Sswitch17,Sswitch18,Sswitch19,Sswitch20,Sswitch21,Sswitch22,Sswitch23,Sswitch24,Sswitch25,Sswitch26,Sswitch28,Sswitch29,Sswitch27,Sswitch30,Sswitch31;
+    public String rapidtesting;
+    String SergeryWhen,closeContractOnTreatment,bloodTranfusionWhen,bloodBank,Dentatl_clinic;
     String text;
     TextView addvised,counsel_closed;
     LinearLayout three,five;
@@ -139,8 +139,6 @@ public class assessmentForm extends Fragment {
         addvised = view.findViewById(R.id.addvised);
         counsel_closed = view.findViewById(R.id.counsel_closed);
         pcr = view.findViewById(R.id.pcr);
-
-
 
 
         fragmentManager = getFragmentManager();
@@ -268,9 +266,6 @@ public class assessmentForm extends Fragment {
 //            counsel_closed.setText("Counsel and Closed");
 //        }
 //
-
-
-
 
         switch28.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -713,9 +708,9 @@ public class assessmentForm extends Fragment {
 
 
 
-        addvital = view.findViewById(R.id.addAssessment);
+        saveAssessment = view.findViewById(R.id.addAssessment);
 
-        addvital.setOnClickListener(
+        saveAssessment.setOnClickListener(
                 v -> saveDataAssessment()
         );
 
