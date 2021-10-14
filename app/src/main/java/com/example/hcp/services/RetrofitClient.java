@@ -6,6 +6,9 @@ import android.util.Log;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLSession;
+
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -20,11 +23,10 @@ public class RetrofitClient {
 
     private static final String BASE_URL = "https://phcp.pshealthpunjab.gov.pk/"; //Live server with live database
 //    private static final String BASE_URL = "http://172.16.21.3:8080/phcp-emr/"; // Local server with live database
-//    private static final String BASE_URL = "http://172.16.25.194/testemr/";  //Local server with test database
+//    private static final String BASE_URL = "http://172.16.21.3:8080/testemr/";  //Local server with test database
 //    private static final String BASE_URL = "http://125.209.111.69:5544/testemr/";  //Live testing server with test database
     private static RetrofitClient mInstance;
     private Retrofit retrofit;
-
 
     private RetrofitClient() {
 
@@ -32,8 +34,6 @@ public class RetrofitClient {
         logging.level(HttpLoggingInterceptor.Level.BODY);
         logging.redactHeader("Authorization");
         logging.redactHeader("Cookie");
-
-
 
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(logging)
@@ -55,7 +55,6 @@ public class RetrofitClient {
                                 return chain.proceed(request);
                             }
                         }
-
                 )
                 .addInterceptor(logging)
                 .connectTimeout(2, TimeUnit.MINUTES)

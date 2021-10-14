@@ -683,6 +683,12 @@ public class Assessmentt extends Model {
                 .where("patient_id = ?",id)
                 .executeSingle();
     }
+//    public static Assessmentt searchBycninc(String  cnic) {
+//        return new Select()
+//                .from(Assessmentt.class)
+//                .where("self_cnic = ?",cnic)
+//                .executeSingle();
+//    }
 
 
     public static List<Assessmentt> searchBySync() {

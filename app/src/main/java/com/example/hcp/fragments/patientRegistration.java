@@ -743,11 +743,11 @@ public class patientRegistration extends Fragment {
 //
 //            Validationstatus = false;
 //        }
-            if (ContactNo.length() != 12) {
-                Toast.makeText(getContext(), Constants.PhoneMissing1, Toast.LENGTH_LONG).show();
-
-                Validationstatus = false;
-            }
+//            if (ContactNo.length() != 12) {
+//                Toast.makeText(getContext(), Constants.PhoneMissing1, Toast.LENGTH_LONG).show();
+//
+//                Validationstatus = false;
+//            }
          if (SelectedprisonTypeIndex==0) {
             Toast.makeText(getContext(), "Select Prison Type", Toast.LENGTH_LONG).show();
             Validationstatus = false;
@@ -964,9 +964,11 @@ public class patientRegistration extends Fragment {
 
                 ActiveAndroid.endTransaction();
             }
+            final String xm64 = Base64.encodeToString(Constants.cap_result.getData(), Base64.DEFAULT);
 
-            userdataaa patientid = new userdataaa();
-            patientid = userdataaa.searchByPhone(ContactNo);
+            userdataaa patient = new userdataaa();
+            patient = userdataaa.searchlocal_fingerprint(xm64);
+
 
 
 
@@ -982,8 +984,8 @@ public class patientRegistration extends Fragment {
 //            args.putInt("FamilyId", family_id);
                 args.putString("PatientCNIC", cnicNo);
                 args.putString("PatientName", Name);
-
-
+                args.putInt("pid", patient.getId().intValue());
+//                args.putBoolean("isEdit",true);
 
                 if(firstVal== "y" && secondVal == "y"){
                     args.putString("Patienttype", "Pre-diagnosed Patient");
@@ -1014,7 +1016,8 @@ public class patientRegistration extends Fragment {
 
 //            args.putString("Patienttype", "New Patient");
 
-                args.putInt("pid", patientid.getId().intValue());
+
+
 
 
 //            if(patient_id==0){
@@ -1040,6 +1043,8 @@ public class patientRegistration extends Fragment {
                     Toast.makeText(getContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
                 }
             }else {
+
+
                 final SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.BUTTON_NEUTRAL);
                 pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.colorPrimaryDark));
                 pDialog.setTitleText("Patient Save Successfully");
@@ -1052,7 +1057,7 @@ public class patientRegistration extends Fragment {
                 args.putString("PatientCNIC", cnicNo);
                 args.putString("PatientName", Name);
 
-
+                args.putInt("pid", patient.getId().intValue());
 
                 if(firstVal== "y" && secondVal == "y"){
                     args.putString("Patienttype", "Pre-diagnosed Patient");
@@ -1082,7 +1087,7 @@ public class patientRegistration extends Fragment {
 //            }
 
 //            args.putString("Patienttype", "New Patient");
-                args.putInt("pid", patientid.getId().intValue());
+
 
 //            if(patient_id==0){
 //                FDP[i].pid = vitalpatient.get(i).getId().intValue();
@@ -1416,7 +1421,7 @@ public class patientRegistration extends Fragment {
 
                 if (materialstatus.getSelectedItemPosition() > 0) {
 
-                    materialstatusVal = materialList.get(materialstatus.getSelectedItemPosition() - 1).name;
+                    materialstatusVal = materialList.get(materialstatus.getSelectedItemPosition() - 1).id;
                     //   Toast.makeText(getContext(), "District => " + SelectedDistrictCode + ". Tehsil => " + SelectedTehsilCode + ". UC => " + SelectedUcCode, Toast.LENGTH_SHORT).show();
                 } else {
                     materialstatusVal = "";

@@ -153,6 +153,19 @@ public class userdataaa extends Model {
     public String deleted_stage;
 
 
+    @Column(name = "local_mobileid")
+    @SerializedName("local_mobileid")
+    @Expose
+    public Integer local_mobileid;
+
+    public Integer getLocal_mobileid() {
+        return local_mobileid;
+    }
+
+    public void setLocal_mobileid(Integer local_mobileid) {
+        this.local_mobileid = local_mobileid;
+    }
+
     public String getDeleted_mrn_no() {
         return deleted_mrn_no;
     }
@@ -1388,7 +1401,12 @@ public class userdataaa extends Model {
                 .executeSingle();
     }
 
-
+    public static userdataaa searchlocal_fingerprint(String fignerprint) {
+        return new Select()
+                .from(userdataaa.class)
+                .where("finger_print2 = ?",fignerprint)
+                .executeSingle();
+    }
 
     public static void deleteAll() {
         new Delete().from(userdataaa.class)

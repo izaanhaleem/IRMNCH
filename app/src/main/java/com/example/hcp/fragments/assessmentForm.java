@@ -24,6 +24,7 @@ import com.activeandroid.ActiveAndroid;
 import com.example.hcp.R;
 import com.example.hcp.models.hcp.Assessmentt;
 import com.example.hcp.models.hcp.addPatientModel;
+import com.example.hcp.models.hcp.addvitalll;
 import com.example.hcp.models.hcp.userdataaa;
 import com.example.hcp.utils.SharedPref;
 
@@ -51,7 +52,10 @@ public class assessmentForm extends Fragment {
     int pid,pulse;
     Double BP_Systolic,BP_Diastolic;
     Double tempera,Height,weight;
-
+    boolean isEidt = false;
+    String patientnameedit,patientcnicedit,patientcontactNoedit;
+    int pideidt;
+    Assessmentt assesmentobject;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -69,6 +73,50 @@ public class assessmentForm extends Fragment {
         BP_Diastolic = getArguments().getDouble("BP_Diastolic");
 //        String height = String.valueOf(  Height = getArguments().getDouble("Height"));
 //        String weight =  String.valueOf(getArguments().getDouble("Weight"));
+
+
+        if (getArguments() != null) {
+            isEidt = getArguments().getBoolean("isEdit");
+            try {
+
+                patientnameedit = getArguments().getString("PatientName");
+                patientcnicedit = getArguments().getString("PatientCNIC");
+                patientcontactNoedit = getArguments().getString("PatientCNIC");
+                pideidt = getArguments().getInt("pidEdit");
+
+            } catch (Exception e) {
+
+
+            }
+        }
+
+
+
+
+         if(isEidt) {
+             if (patientcnicedit != null || pideidt != -1) {
+                 List<userdataaa> patinetforeditvital = null;
+                 Assessmentt assem = null;
+                 if (pideidt != -1) {
+//                     patinetforeditvital = userdataaa.searchByCNICLeader(patientcnicedit);
+//                     assem = Assessmentt.searchBycninc(patientcnicedit);
+//                 } else {
+//                     patinetforeditvital = userdataaa.searchByPhoneLeader(patientname);
+                     assem = Assessmentt.searchBypid(pideidt);
+                 }
+
+                 assesmentobject = assem;
+
+             }
+         }
+        if(isEidt){
+//            name.setText(patientnameedit);
+//            cnic.setText(patientcnicedit);
+//            mrno.setText(patientcontactNoedit);
+        }
+
+
+
 
         name = view.findViewById(R.id.name);
         mrno = view.findViewById(R.id.mrno);
@@ -163,79 +211,147 @@ public class assessmentForm extends Fragment {
         Sswitch28 = "N";
         Sswitch29 = "N";
 
+if(isEidt) {
+    userdataaa mod = userdataaa.searchBypid(pideidt);
+    String pcrconfirmHbv = mod.getPcr_confirmation_hbv();
 
+    String pcrconfirmHcv = mod.getPcr_confirmation_hcv();
+    if (pcrconfirmHbv.equals("y") && pcrconfirmHcv.equals("y")) {
+        switch29.setChecked(true);
+        switch29.setClickable(false);
+        switch28.setChecked(true);
+        switch28.setClickable(false);
+        addvised.setText("Advised for Both");
+        addvised.setVisibility(View.VISIBLE);
+        pcr.setVisibility(View.VISIBLE);
+        counsel_closed.setText("Proceed to nurse for sample collection");
+        switch30.setVisibility(View.GONE);
+        switch31.setVisibility(View.GONE);
+        PCR = "Y";
+        Sswitch31 = "N";
+        Sswitch30 = "N";
+        Sswitch27 = "Y";
+        Sswitch28 = "Y";
+        Sswitch29 = "Y";
 
-             userdataaa mod = userdataaa.searchBypid(pid);
+    } else if (pcrconfirmHbv.equals("y")) {
+        switch28.setChecked(true);
+        switch28.setClickable(false);
+        switch29.setClickable(false);
+        Sswitch28 = "Y";
+        Sswitch29 = "N";
+        rapidtesting = "Y";
+        Sswitch30 = "N";
+        Sswitch31 = "N";
+        PCR = "Y";
+        switch30.setVisibility(View.GONE);
+        switch31.setVisibility(View.GONE);
+        pcr.setVisibility(View.VISIBLE);
+        addvised.setText("Advised for HBV");
+        addvised.setVisibility(View.VISIBLE);
+        counsel_closed.setText("Proceed to nurse for sample collection");
+    } else if (pcrconfirmHcv.equals("y")) {
+        switch29.setChecked(true);
+        switch29.setClickable(false);
+        switch28.setClickable(false);
+        Sswitch29 = "Y";
+        Sswitch28 = "N";
+        rapidtesting = "Y";
+        PCR = "Y";
+        Sswitch31 = "N";
+        switch31.setVisibility(View.GONE);
+        pcr.setVisibility(View.VISIBLE);
+        addvised.setText("Advised for HCV");
+        addvised.setVisibility(View.VISIBLE);
+        counsel_closed.setText("Proceed to nurse for sample collection and vaccination");
+    } else {
+        Sswitch28 = "N";
+        Sswitch29 = "N";
+        rapidtesting = "N";
+        PCR = "N";
+        Sswitch31 = "Y";
+        counsel_closed.setText("");
+        switch30.setVisibility(View.VISIBLE);
+        switch31.setVisibility(View.VISIBLE);
+        pcr.setVisibility(View.GONE);
+        addvised.setVisibility(View.GONE);
+        counsel_closed.setText("Counsel and Closed");
+        Sswitch29 = "N";
+        PCR = "N";
+    }
+}else {
+    userdataaa mod = userdataaa.searchBypid(pid);
 
-             String pcrconfirmHbv  =  mod.getPcr_confirmation_hbv();
+    String pcrconfirmHbv = mod.getPcr_confirmation_hbv();
 
-             String pcrconfirmHcv  =  mod.getPcr_confirmation_hcv();
+    String pcrconfirmHcv = mod.getPcr_confirmation_hcv();
 
+    if (pcrconfirmHbv.equals("y") && pcrconfirmHcv.equals("y")) {
+        switch29.setChecked(true);
+        switch29.setClickable(false);
+        switch28.setChecked(true);
+        switch28.setClickable(false);
+        addvised.setText("Advised for Both");
+        addvised.setVisibility(View.VISIBLE);
+        pcr.setVisibility(View.VISIBLE);
+        counsel_closed.setText("Proceed to nurse for sample collection");
+        switch30.setVisibility(View.GONE);
+        switch31.setVisibility(View.GONE);
+        PCR = "Y";
+        Sswitch31 = "N";
+        Sswitch30 = "N";
+        Sswitch27 = "Y";
+        Sswitch28 = "Y";
+        Sswitch29 = "Y";
 
-          if(pcrconfirmHbv.equals("y") && pcrconfirmHcv.equals("y")){
-              switch29.setChecked(true);
-              switch29.setClickable(false);
-              switch28.setChecked(true);
-              switch28.setClickable(false);
-              addvised.setText("Advised for Both");
-              addvised.setVisibility(View.VISIBLE);
-              pcr.setVisibility(View.VISIBLE);
-              counsel_closed.setText("Proceed to nurse for sample collection");
-              switch30.setVisibility(View.GONE);
-              switch31.setVisibility(View.GONE);
-              PCR = "Y";
-              Sswitch31 = "N";
-              Sswitch30 = "N";
-              Sswitch27 = "Y";
-              Sswitch28 = "Y";
-              Sswitch29 = "Y";
+    } else if (pcrconfirmHbv.equals("y")) {
+        switch28.setChecked(true);
+        switch28.setClickable(false);
+        switch29.setClickable(false);
+        Sswitch28 = "Y";
+        Sswitch29 = "N";
+        rapidtesting = "Y";
+        Sswitch30 = "N";
+        Sswitch31 = "N";
+        PCR = "Y";
+        switch30.setVisibility(View.GONE);
+        switch31.setVisibility(View.GONE);
+        pcr.setVisibility(View.VISIBLE);
+        addvised.setText("Advised for HBV");
+        addvised.setVisibility(View.VISIBLE);
+        counsel_closed.setText("Proceed to nurse for sample collection");
+    } else if (pcrconfirmHcv.equals("y")) {
+        switch29.setChecked(true);
+        switch29.setClickable(false);
+        switch28.setClickable(false);
+        Sswitch29 = "Y";
+        Sswitch28 = "N";
+        rapidtesting = "Y";
+        PCR = "Y";
+        Sswitch31 = "N";
+        switch31.setVisibility(View.GONE);
+        pcr.setVisibility(View.VISIBLE);
+        addvised.setText("Advised for HCV");
+        addvised.setVisibility(View.VISIBLE);
+        counsel_closed.setText("Proceed to nurse for sample collection and vaccination");
+    } else {
+        Sswitch28 = "N";
+        Sswitch29 = "N";
+        rapidtesting = "N";
+        PCR = "N";
+        Sswitch31 = "Y";
+        counsel_closed.setText("");
+        switch30.setVisibility(View.VISIBLE);
+        switch31.setVisibility(View.VISIBLE);
+        pcr.setVisibility(View.GONE);
+        addvised.setVisibility(View.GONE);
+        counsel_closed.setText("Counsel and Closed");
+        Sswitch29 = "N";
+        PCR = "N";
+    }
+}
 
-           } else if(pcrconfirmHbv.equals("y")) {
-               switch28.setChecked(true);
-               switch28.setClickable(false);
-               switch29.setClickable(false);
-               Sswitch28 = "Y";
-               Sswitch29 = "N";
-               rapidtesting = "Y";
-               Sswitch30 = "N";
-               Sswitch31 = "N";
-               PCR = "Y";
-               switch30.setVisibility(View.GONE);
-               switch31.setVisibility(View.GONE);
-               pcr.setVisibility(View.VISIBLE);
-               addvised.setText("Advised for HBV");
-               addvised.setVisibility(View.VISIBLE);
-               counsel_closed.setText("Proceed to nurse for sample collection");
-           }else if(pcrconfirmHcv.equals("y")){
-               switch29.setChecked(true);
-               switch29.setClickable(false);
-               switch28.setClickable(false);
-               Sswitch29 = "Y";
-               Sswitch28 = "N";
-               rapidtesting = "Y";
-               PCR = "Y";
-               Sswitch31 = "N";
-               switch31.setVisibility(View.GONE);
-               pcr.setVisibility(View.VISIBLE);
-               addvised.setText("Advised for HCV");
-               addvised.setVisibility(View.VISIBLE);
-               counsel_closed.setText("Proceed to nurse for sample collection and vaccination");
-           }
-          else {
-              Sswitch28 = "N";
-              Sswitch29 = "N";
-              rapidtesting = "N";
-              PCR = "N";
-              Sswitch31 = "Y";
-              counsel_closed.setText("");
-              switch30.setVisibility(View.VISIBLE);
-              switch31.setVisibility(View.VISIBLE);
-              pcr.setVisibility(View.GONE);
-              addvised.setVisibility(View.GONE);
-              counsel_closed.setText("Counsel and Closed");
-              Sswitch29 = "N";
-              PCR = "N";
-          }
+//
 
 
 
@@ -318,6 +434,10 @@ public class assessmentForm extends Fragment {
             }
         });
 
+
+
+
+
         switch29.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -375,6 +495,19 @@ public class assessmentForm extends Fragment {
             }
         });
 
+        if(isEidt){
+            if(assesmentobject.getFrequent_therapeutic_injections()!=null){
+                if(assesmentobject.getFrequent_therapeutic_injections().equalsIgnoreCase("Y")){
+                    switch1.setChecked(true);
+                }else{
+                    switch1.setChecked(false);
+                }
+            }else {
+                switch1.setChecked(false);
+            }
+        }
+
+
         switch2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -385,6 +518,18 @@ public class assessmentForm extends Fragment {
                 }
             }
         });
+
+        if(isEidt){
+            if(assesmentobject.getConfirmed_case_of_stds()!=null){
+                if(assesmentobject.getConfirmed_case_of_stds().equalsIgnoreCase("Y")){
+                    switch2.setChecked(true);
+                }else{
+                    switch2.setChecked(false);
+                }
+            }else {
+                switch2.setChecked(false);
+            }
+        }
 
         switch3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -399,6 +544,19 @@ public class assessmentForm extends Fragment {
             }
         });
 
+        if(isEidt){
+            if(assesmentobject.getInvasive_medical_and_surgical_intervention()!=null){
+                if(assesmentobject.getInvasive_medical_and_surgical_intervention().equalsIgnoreCase("Y")){
+                    switch3.setChecked(true);
+                }else{
+                    switch3.setChecked(false);
+                }
+            }else {
+                switch3.setChecked(false);
+            }
+        }
+
+
         switch4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -411,6 +569,20 @@ public class assessmentForm extends Fragment {
                 }
             }
         });
+
+
+        if(isEidt){
+            if(assesmentobject.getClose_contact_of_a_known_case_of_hcv_hbv()!=null){
+                if(assesmentobject.getClose_contact_of_a_known_case_of_hcv_hbv().equalsIgnoreCase("Y")){
+                    switch4.setChecked(true);
+                }else{
+                    switch4.setChecked(false);
+                }
+            }else {
+                switch4.setChecked(false);
+            }
+        }
+
 
         switch5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -425,6 +597,21 @@ public class assessmentForm extends Fragment {
             }
         });
 
+
+        if(isEidt){
+            if(assesmentobject.getBlood_transfusion()!=null){
+                if(assesmentobject.getBlood_transfusion().equalsIgnoreCase("Y")){
+                    switch5.setChecked(true);
+                }else{
+                    switch5.setChecked(false);
+                }
+            }else {
+                switch5.setChecked(false);
+            }
+        }
+
+
+
         switch6.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -435,6 +622,22 @@ public class assessmentForm extends Fragment {
                 }
             }
         });
+
+
+
+        if(isEidt){
+            if(assesmentobject.getConfirmed_hiv_positive_persons()!=null){
+                if(assesmentobject.getConfirmed_hiv_positive_persons().equalsIgnoreCase("Y")){
+                    switch6.setChecked(true);
+                } else {
+                    switch6.setChecked(false);
+                }
+            }else {
+                switch6.setChecked(false);
+            }
+        }
+
+
 
         switch7.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -449,6 +652,20 @@ public class assessmentForm extends Fragment {
             }
         });
 
+        if(isEidt){
+            if(assesmentobject.getEver_been_hospitalized()!=null){
+                if(assesmentobject.getEver_been_hospitalized().equalsIgnoreCase("Y")){
+                    switch7.setChecked(true);
+                } else {
+                    switch7.setChecked(false);
+                }
+            }else {
+                switch7.setChecked(false);
+            }
+        }
+
+
+
         hopital_last_two_year.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -459,6 +676,21 @@ public class assessmentForm extends Fragment {
                 }
             }
         });
+
+
+        if(isEidt){
+            if(assesmentobject.getHospitalization_within_last_2_years()!=null){
+                if(assesmentobject.getHospitalization_within_last_2_years().equalsIgnoreCase("Y")){
+                    hopital_last_two_year.setChecked(true);
+                } else {
+                    hopital_last_two_year.setChecked(false);
+                }
+            }else {
+                hopital_last_two_year.setChecked(false);
+            }
+        }
+
+
 
 
         switch8.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -472,6 +704,21 @@ public class assessmentForm extends Fragment {
             }
         });
 
+
+        if(isEidt){
+            if(assesmentobject.getIndividuals_with_tattooing_ear_nose_piercing()!=null){
+                if(assesmentobject.getIndividuals_with_tattooing_ear_nose_piercing().equalsIgnoreCase("Y")){
+                    switch8.setChecked(true);
+                } else {
+                    switch8.setChecked(false);
+                }
+            }else {
+                switch8.setChecked(false);
+            }
+        }
+
+
+
         switch9.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -482,6 +729,20 @@ public class assessmentForm extends Fragment {
                 }
             }
         });
+
+        if(isEidt){
+            if(assesmentobject.getInjectable_drug_user()!=null){
+                if(assesmentobject.getInjectable_drug_user().equalsIgnoreCase("Y")){
+                    switch9.setChecked(true);
+                } else {
+                    switch9.setChecked(false);
+                }
+            }else {
+                switch9.setChecked(false);
+            }
+        }
+
+
 
         switch10.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -496,6 +757,21 @@ public class assessmentForm extends Fragment {
             }
         });
 
+
+        if(isEidt){
+            if(assesmentobject.getDental_intervention()!=null){
+                if(assesmentobject.getDental_intervention().equalsIgnoreCase("Y")){
+                    switch10.setChecked(true);
+                } else {
+                    switch10.setChecked(false);
+                }
+            }else {
+                switch10.setChecked(false);
+            }
+        }
+
+
+
         switch11.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -506,6 +782,19 @@ public class assessmentForm extends Fragment {
                 }
             }
         });
+
+        if(isEidt){
+            if(assesmentobject.getHistory_of_multiple_sex_partners()!=null){
+                if(assesmentobject.getHistory_of_multiple_sex_partners().equalsIgnoreCase("Y")){
+                    switch11.setChecked(true);
+                } else {
+                    switch11.setChecked(false);
+                }
+            }else {
+                switch11.setChecked(false);
+            }
+        }
+
 
         switch12.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -518,6 +807,18 @@ public class assessmentForm extends Fragment {
             }
         });
 
+        if(isEidt){
+            if(assesmentobject.getTruck_driver_or_transgender()!=null){
+                if(assesmentobject.getTruck_driver_or_transgender().equalsIgnoreCase("Y")){
+                    switch12.setChecked(true);
+                } else {
+                    switch12.setChecked(false);
+                }
+            }else {
+                switch12.setChecked(false);
+            }
+        }
+
         switch13.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -528,6 +829,18 @@ public class assessmentForm extends Fragment {
                 }
             }
         });
+
+        if(isEidt){
+            if(assesmentobject.getEar_nose_pirecing()!=null){
+                if(assesmentobject.getEar_nose_pirecing().equalsIgnoreCase("Y")){
+                    switch13.setChecked(true);
+                } else {
+                    switch13.setChecked(false);
+                }
+            }else {
+                switch13.setChecked(false);
+            }
+        }
 
         switch14.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -540,6 +853,18 @@ public class assessmentForm extends Fragment {
             }
         });
 
+        if(isEidt){
+            if(assesmentobject.getTransgender()!=null){
+                if(assesmentobject.getTransgender().equalsIgnoreCase("Y")){
+                    switch14.setChecked(true);
+                } else {
+                    switch14.setChecked(false);
+                }
+            }else {
+                switch14.setChecked(false);
+            }
+        }
+
         switch15.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -550,6 +875,20 @@ public class assessmentForm extends Fragment {
                 }
             }
         });
+
+        if(isEidt){
+            if(assesmentobject.getSharing_toothbrush()!=null){
+                if(assesmentobject.getSharing_toothbrush().equalsIgnoreCase("Y")){
+                    switch15.setChecked(true);
+                } else {
+                    switch15.setChecked(false);
+                }
+            }else {
+                switch15.setChecked(false);
+            }
+        }
+
+
 
         switch16.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -562,6 +901,18 @@ public class assessmentForm extends Fragment {
             }
         });
 
+        if(isEidt){
+            if(assesmentobject.getSharing_hair_comb()!=null){
+                if(assesmentobject.getSharing_hair_comb().equalsIgnoreCase("Y")){
+                    switch16.setChecked(true);
+                } else {
+                    switch16.setChecked(false);
+                }
+            }else {
+                switch16.setChecked(false);
+            }
+        }
+
         switch17.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -572,6 +923,19 @@ public class assessmentForm extends Fragment {
                 }
             }
         });
+
+        if(isEidt){
+            if(assesmentobject.getDark_colored_urine()!=null){
+                if(assesmentobject.getDark_colored_urine().equalsIgnoreCase("Y")){
+                    switch17.setChecked(true);
+                } else {
+                    switch17.setChecked(false);
+                }
+            }else {
+                switch17.setChecked(false);
+            }
+        }
+
 
         switch18.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -584,6 +948,19 @@ public class assessmentForm extends Fragment {
             }
         });
 
+        if(isEidt){
+            if(assesmentobject.getLoss_of_appetite()!=null){
+                if(assesmentobject.getLoss_of_appetite().equalsIgnoreCase("Y")){
+                    switch18.setChecked(true);
+                } else {
+                    switch18.setChecked(false);
+                }
+            }else {
+                switch18.setChecked(false);
+            }
+        }
+
+
         switch19.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -594,6 +971,19 @@ public class assessmentForm extends Fragment {
                 }
             }
         });
+
+        if(isEidt){
+            if(assesmentobject.getLight_colored_faeces()!=null){
+                if(assesmentobject.getLight_colored_faeces().equalsIgnoreCase("Y")){
+                    switch19.setChecked(true);
+                } else {
+                    switch19.setChecked(false);
+                }
+            }else {
+                switch19.setChecked(false);
+            }
+        }
+
 
         switch20.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -606,6 +996,21 @@ public class assessmentForm extends Fragment {
             }
         });
 
+        if(isEidt){
+            if(assesmentobject.getFatigue()!=null){
+                if(assesmentobject.getFatigue().equalsIgnoreCase("Y")){
+                    switch20.setChecked(true);
+                } else {
+                    switch20.setChecked(false);
+                }
+            }else {
+                switch20.setChecked(false);
+            }
+        }
+
+
+
+
         switch21.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -616,6 +1021,19 @@ public class assessmentForm extends Fragment {
                 }
             }
         });
+
+        if(isEidt){
+            if(assesmentobject.getMuscle_pain()!=null){
+                if(assesmentobject.getMuscle_pain().equalsIgnoreCase("Y")){
+                    switch21.setChecked(true);
+                } else {
+                    switch21.setChecked(false);
+                }
+            }else {
+                switch21.setChecked(false);
+            }
+        }
+
 
         switch22.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -628,6 +1046,19 @@ public class assessmentForm extends Fragment {
             }
         });
 
+        if(isEidt){
+            if(assesmentobject.getNausea()!=null){
+                if(assesmentobject.getNausea().equalsIgnoreCase("Y")){
+                    switch22.setChecked(true);
+                } else {
+                    switch22.setChecked(false);
+                }
+            }else {
+                switch22.setChecked(false);
+            }
+        }
+
+
         switch23.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -638,6 +1069,18 @@ public class assessmentForm extends Fragment {
                 }
             }
         });
+
+        if(isEidt){
+            if(assesmentobject.getStomach_ache()!=null){
+                if(assesmentobject.getStomach_ache().equalsIgnoreCase("Y")){
+                    switch23.setChecked(true);
+                } else {
+                    switch23.setChecked(false);
+                }
+            }else {
+                switch23.setChecked(false);
+            }
+        }
 
         switch24.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -650,6 +1093,19 @@ public class assessmentForm extends Fragment {
             }
         });
 
+        if(isEidt){
+            if(assesmentobject.getRight_upper_quadrant_tenderness()!=null){
+                if(assesmentobject.getRight_upper_quadrant_tenderness().equalsIgnoreCase("Y")){
+                    switch24.setChecked(true);
+                } else {
+                    switch24.setChecked(false);
+                }
+            }else {
+                switch24.setChecked(false);
+            }
+        }
+
+
         switch25.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -660,6 +1116,21 @@ public class assessmentForm extends Fragment {
                 }
             }
         });
+
+
+        if(isEidt){
+            if(assesmentobject.getGastric_irritation_burning()!=null){
+                if(assesmentobject.getGastric_irritation_burning().equalsIgnoreCase("Y")){
+                    switch25.setChecked(true);
+                } else {
+                    switch25.setChecked(false);
+                }
+            }else {
+                switch25.setChecked(false);
+            }
+        }
+
+
 
         switch26.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -672,6 +1143,19 @@ public class assessmentForm extends Fragment {
             }
         });
 
+        if(isEidt){
+            if(assesmentobject.getUnusual_urethral_discharge()!=null){
+                if(assesmentobject.getUnusual_urethral_discharge().equalsIgnoreCase("Y")){
+                    switch26.setChecked(true);
+                } else {
+                    switch26.setChecked(false);
+                }
+            }else {
+                switch26.setChecked(false);
+            }
+        }
+
+
         switch27.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -682,6 +1166,9 @@ public class assessmentForm extends Fragment {
                 }
             }
         });
+
+
+
 
         switch30.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -694,6 +1181,21 @@ public class assessmentForm extends Fragment {
             }
         });
 
+
+        if(isEidt){
+            if(assesmentobject.getVaccination()!=null){
+                if(assesmentobject.getVaccination().equalsIgnoreCase("Y")){
+                    switch30.setChecked(true);
+                } else {
+                    switch30.setChecked(false);
+                }
+            }else {
+                switch30.setChecked(false);
+            }
+        }
+
+
+
         switch31.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -704,8 +1206,17 @@ public class assessmentForm extends Fragment {
                 }
             }
         });
-
-
+        if(isEidt){
+            if(assesmentobject.getCounselling()!=null){
+                if(assesmentobject.getCounselling().equalsIgnoreCase("Y")){
+                    switch31.setChecked(true);
+                } else {
+                    switch31.setChecked(false);
+                }
+            }else {
+                switch31.setChecked(false);
+            }
+        }
 
 
         saveAssessment = view.findViewById(R.id.addAssessment);
@@ -725,7 +1236,12 @@ public class assessmentForm extends Fragment {
 
         AS.IsSync = 0;
         AS.setUser_hospital(new SharedPref(getContext()).GetLoggedInUser());
-        AS.setPatient_id(pid);
+        if(isEidt){
+            AS.setPatient_id(pideidt);
+        }else {
+            AS.setPatient_id(pid);
+        }
+
         AS.setUser_id(new SharedPref(getContext()).GetLoggedInRole());
         AS.setCreated(0);
         AS.setUpdated(0);
@@ -784,27 +1300,50 @@ public class assessmentForm extends Fragment {
         AS.counselling = Sswitch31;
         AS.is_new_patient = "true";
 
-        userdataaa mod = userdataaa.searchBypid(pid);
+        if(isEidt){
+            userdataaa mod = userdataaa.searchBypid(pideidt);
 
-        if(Sswitch28.equalsIgnoreCase("N") && Sswitch29.equalsIgnoreCase("N")){
-            mod.IS_assessment = 1;
-            mod.ISSample = 2;
-        }
-        if(Sswitch28.equalsIgnoreCase("N") && Sswitch29.equalsIgnoreCase("Y")) {
-            mod.IS_assessment = 1;
-        }
-        if(Sswitch28.equalsIgnoreCase("Y") && Sswitch29.equalsIgnoreCase("Y")){
-            mod.IS_assessment = 1;
-            mod.IS_Vaccination = 2;
-        }
-         if(Sswitch28.equalsIgnoreCase("Y") && Sswitch29.equalsIgnoreCase("N")){
-            mod.IS_assessment = 1;
-            mod.IS_Vaccination = 2;
-        }
+            if(Sswitch28.equalsIgnoreCase("N") && Sswitch29.equalsIgnoreCase("N")){
+                mod.IS_assessment = 1;
+                mod.ISSample = 2;
+            }
+            if(Sswitch28.equalsIgnoreCase("N") && Sswitch29.equalsIgnoreCase("Y")) {
+                mod.IS_assessment = 1;
+            }
+            if(Sswitch28.equalsIgnoreCase("Y") && Sswitch29.equalsIgnoreCase("Y")){
+                mod.IS_assessment = 1;
+                mod.IS_Vaccination = 2;
+            }
+            if(Sswitch28.equalsIgnoreCase("Y") && Sswitch29.equalsIgnoreCase("N")){
+                mod.IS_assessment = 1;
+                mod.IS_Vaccination = 2;
+            }
+            mod.save();
+        }else {
 
+
+            userdataaa mod = userdataaa.searchBypid(pid);
+
+            if (Sswitch28.equalsIgnoreCase("N") && Sswitch29.equalsIgnoreCase("N")) {
+                mod.IS_assessment = 1;
+                mod.ISSample = 2;
+            }
+            if (Sswitch28.equalsIgnoreCase("N") && Sswitch29.equalsIgnoreCase("Y")) {
+                mod.IS_assessment = 1;
+            }
+            if (Sswitch28.equalsIgnoreCase("Y") && Sswitch29.equalsIgnoreCase("Y")) {
+                mod.IS_assessment = 1;
+                mod.IS_Vaccination = 2;
+            }
+            if (Sswitch28.equalsIgnoreCase("Y") && Sswitch29.equalsIgnoreCase("N")) {
+                mod.IS_assessment = 1;
+                mod.IS_Vaccination = 2;
+            }
+            mod.save();
+        }
         try {
             AS.save();
-            mod.save();
+
 
 
             ActiveAndroid.setTransactionSuccessful();

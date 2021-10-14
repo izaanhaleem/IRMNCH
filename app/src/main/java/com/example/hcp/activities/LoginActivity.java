@@ -361,12 +361,19 @@ public class LoginActivity extends AppCompatActivity {
                 new Callback<HFresponse>() {
                     @Override
                     public void onResponse(Call<HFresponse> call, Response<HFresponse> response) {
-                        if (response.body() != null && response.body().getStatus()) {
 
-                            SaveHealthFacility(response.body().getData());
-                        } else {
-                            Toast.makeText(getContext(), "==> " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                        }
+//                        try {
+
+                            if (response.body() != null && response.body().getStatus()) {
+
+                                SaveHealthFacility(response.body().getData());
+                            } else {
+                                Toast.makeText(getContext(), "==> " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+//                        }catch (Exception e){
+//                            e.printStackTrace();
+//                        }
+
                     }
 
                     @Override
@@ -448,6 +455,8 @@ public class LoginActivity extends AppCompatActivity {
         GetMeterialStatus();
 
     }
+
+
     public   void GetMeterialStatus(){
         Call<OccupationResponse> call = RetrofitClient
                 .getInstance().getApi().materialStatus();
@@ -813,7 +822,7 @@ public class LoginActivity extends AppCompatActivity {
                     if(data.get(i).getPrison_transfer_status()==null){
                         dat.setTransfer_flag(0);
                     }else {
-                        dat.setTransfer_flag(1);
+                        dat.transfer_flag = 1;
                     }
 
 

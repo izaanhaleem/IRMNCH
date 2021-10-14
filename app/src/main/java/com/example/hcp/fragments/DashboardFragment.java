@@ -1039,7 +1039,15 @@ public class DashboardFragment extends Fragment {
                 fmb.setGender(0);
             }
             if (paitents.get(i).getSelf_cnic() != null) {
-                fmb.setSelf_cnic(paitents.get(i).getSelf_cnic());
+
+                if(paitents.get(i).getSelf_cnic().equalsIgnoreCase("-       -")){
+                    fmb.setIs_cnic(0);
+                    fmb.setSelf_cnic("");
+                }else {
+                    fmb.setSelf_cnic(paitents.get(i).getSelf_cnic());
+                    fmb.setIs_cnic(1);
+                }
+
             }else {
                 fmb.setSelf_cnic(null);
             }
@@ -1047,13 +1055,13 @@ public class DashboardFragment extends Fragment {
             if(paitents.get(i).getCnic_type() !=null){
                 fmb.setCnic_type(paitents.get(i).getCnic_type());
             }else {
-                fmb.setCnic_type(null);
+                fmb.setCnic_type("");
             }
 
             if(paitents.get(i).getPrison_type() !=null){
                 fmb.setPrison_type(paitents.get(i).getPrison_type());
             }else {
-                fmb.setPrison_type(null);
+                fmb.setPrison_type(0);
             }
 
 
@@ -1063,27 +1071,27 @@ public class DashboardFragment extends Fragment {
             if (paitents.get(i).getAddress() != null) {
                 fmb.setAddress(paitents.get(i).getAddress());
             }else {
-                fmb.setAddress(null);
+                fmb.setAddress("");
             }
             if (paitents.get(i).getMarital_status() != null) {
                 fmb.setMarital_status(paitents.get(i).getMarital_status());
             }else {
-                fmb.setMarital_status(null);
+                fmb.setMarital_status("");
             }
             if (paitents.get(i).getOccupation() != null) {
                 fmb.setOccupation(paitents.get(i).getOccupation());
             }else {
-                fmb.setOccupation(null);
+                fmb.setOccupation("");
             }
             if (paitents.get(i).getQualification() != null) {
                 fmb.setQualification(paitents.get(i).getQualification());
             }else {
-                fmb.setQualification(null);
+                fmb.setQualification("");
             }
             if (paitents.get(i).getPatient_age_80() != null) {
                 fmb.setPatient_age_80(paitents.get(i).getPatient_age_80());
             }else {
-                fmb.setPatient_age_80(null);
+                fmb.setPatient_age_80("");
             }
             if (paitents.get(i).getPrevious_hbv() != null) {
                 fmb.setPrevious_hbv(paitents.get(i).getPrevious_hbv());
@@ -1142,7 +1150,7 @@ public class DashboardFragment extends Fragment {
             if (paitents.get(i).getPatient_type() != null) {
                 fmb.setPatient_type(paitents.get(i).getPatient_type());
             }else {
-                fmb.setPatient_type(null);
+                fmb.setPatient_type("");
                   }
             if (paitents.get(i).getId() != null) {
                 fmb.setMobile_id(paitents.get(i).getId());
@@ -1166,11 +1174,11 @@ public class DashboardFragment extends Fragment {
                 fmb.setPrison_type(0);
             }
 
-            if(paitents.get(i).getCnic_type() !=null){
-                fmb.setCnic_type(paitents.get(i).getCnic_type());
-            }else {
-                fmb.setCnic_type(null);
-            }
+//            if(paitents.get(i).getCnic_type() !=null){
+//                fmb.setCnic_type(paitents.get(i).getCnic_type());
+//            }else {
+//                fmb.setCnic_type("");
+//            }
 
 
             Submitpatients(fmb, paitents.get(i), paitents.size(), i);

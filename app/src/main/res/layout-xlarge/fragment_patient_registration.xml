@@ -1097,7 +1097,7 @@
                         android:layout_marginStart="25dp"
                         android:layout_marginEnd="25dp"
                         android:layout_marginTop="10dp"
-                        android:text="Submit"
+                        android:text="Register"
                         android:textColor="@color/white"
                         android:textSize="14sp"
                         android:background="@drawable/buttonstyle"

@@ -61,26 +61,30 @@ public class vitalForm extends Fragment {
         HeightCM = view.findViewById(R.id.HeightCM);
         WeightKG = view.findViewById(R.id.WeightKG);
         addvital = view.findViewById(R.id.addvital);
-        temperature.setFilters(new InputFilter[]{ new InputFilterMinMax("1", "108")});
-        BPSystolic.setFilters(new InputFilter[]{ new InputFilterMinMax("1", "301")});
-        BPDiastolic.setFilters(new InputFilter[]{ new InputFilterMinMax("1", "202")});
+
         fragmentManager = getFragmentManager();
 
-//        if (getArguments() != null) {
-//            isEidt = getArguments().getBoolean("isEdit");
-//            try {
-//
-//                patientname = getArguments().getString("PatientName");
-//                patientcnic = getArguments().getString("PatientCNIC");
-//                patientcontactNo = getArguments().getString("PatientCNIC");
-//                pideidt = getArguments().getInt("pidEdit");
-//
-//            } catch (Exception e) {
-//
-//
-//            }
-//        }
+        if (getArguments() != null) {
+            isEidt = getArguments().getBoolean("isEdit");
+            try {
 
+                patientname = getArguments().getString("PatientName");
+                patientcnic = getArguments().getString("PatientCNIC");
+                patientcontactNo = getArguments().getString("PatientCNIC");
+                pideidt = getArguments().getInt("pidEdit");
+
+            } catch (Exception e) {
+
+
+            }
+        }
+        if(isEidt){
+
+        }else {
+            temperature.setFilters(new InputFilter[]{ new InputFilterMinMax("1", "108")});
+            BPSystolic.setFilters(new InputFilter[]{ new InputFilterMinMax("1", "301")});
+            BPDiastolic.setFilters(new InputFilter[]{ new InputFilterMinMax("1", "202")});
+        }
 
 
 
@@ -97,43 +101,40 @@ public class vitalForm extends Fragment {
         addvital.setOnClickListener(
                 v -> FormValidation()
         );
-//        if(isEidt){
-//            if (patientcnic != null || pideidt != -1) {
-//                List<userdataaa> patinetforeditvital = null;
-//                addvitalll vitalla = null;
-//                if (patientcnic != "") {
-//                    patinetforeditvital = userdataaa.searchByCNICLeader(patientcnic);
-//                    vitalla = addvitalll.searchBycninc(patientcnic);
-//                } else {
-//                    patinetforeditvital = userdataaa.searchByPhoneLeader(patientname);
-//                    vitalla = addvitalll.searchBypid(pideidt);
-//                }
-//
-//                vitalobject = vitalla;
+        if(isEidt){
+            if (patientcnic != null || pideidt != -1) {
+                List<userdataaa> patinetforeditvital = null;
+                addvitalll vitalla = null;
+                if (patientcnic != "-       -") {
+                    patinetforeditvital = userdataaa.searchByCNICLeader(patientcnic);
+                    vitalla = addvitalll.searchBycninc(patientcnic);
+                } else {
+                    patinetforeditvital = userdataaa.searchByPhoneLeader(patientname);
+                    vitalla = addvitalll.searchBypid(pideidt);
+                }
+
+                vitalobject = vitalla;
 //                Double tempdouble = vitalobject.getTemperature();
 //                String temp = String.valueOf(tempdouble);
-//                String puls = String.valueOf(vitalobject.getPulse());
+                String puls = String.valueOf(vitalobject.getPulse());
 //                String bps = String.valueOf(vitalobject.getBp_systolic());
 //                String bpd = String.valueOf(vitalobject.getBp_diastolic());
-//                temperature.setText(temp+"");
-//                pulseBPM.setText(puls);
-//                BPSystolic.setText(bps+"");
-//                BPDiastolic.setText(bpd+"");
-//
-//                for (int i = 0; i < patinetforeditvital.size(); i++) {
-//                    patientobject = patinetforeditvital.get(i);
-//                    name.setText(patientobject.getPatient_name());
-//                    cnic.setText(patientobject.getSelf_cnic());
-//                    String patientT = patientobject.getPatient_type();
-//                    patient.setText(patientT);
-//                    mrno.setText(patientobject.getMrn_no());
-//                }
-//            }
-//
-//
-//
-//
-//        }
+                temperature.setText(vitalobject.getTemperature()+"");
+                pulseBPM.setText(puls);
+                BPSystolic.setText(vitalobject.getBp_systolic()+"");
+                BPDiastolic.setText(vitalobject.getBp_diastolic()+"");
+
+                for (int i = 0; i < patinetforeditvital.size(); i++) {
+                    patientobject = patinetforeditvital.get(i);
+                    name.setText(patientobject.getPatient_name());
+                    cnic.setText(patientobject.getSelf_cnic());
+                    String patientT = patientobject.getPatient_type();
+                    patient.setText(patientT);
+                    mrno.setText(patientobject.getMrn_no());
+                }
+            }
+
+        }
         return view;
 
     }
@@ -195,11 +196,11 @@ public class vitalForm extends Fragment {
 
             addvitalll FL = new addvitalll();
             ActiveAndroid.beginTransaction();
-//            if(isEidt){
-//                FL.pid = pideidt;
-//            }else {
+            if(isEidt){
+                FL.pid = pideidt;
+            }else {
                 FL.pid = pid;
-//            }
+            }
             FL.IsSync = 0;
             FL.temperature= temperatur;
             FL.pulse=Integer.parseInt(pulseBPM.getText().toString());
@@ -209,16 +210,17 @@ public class vitalForm extends Fragment {
 //            FL.weight=Double.parseDouble(WeightKG.getText().toString());;
             FL.user_id=i;
             FL.self_cnic = patientCNINC;
-
-            userdataaa mod = userdataaa.searchBypid(pid);
-
-            mod.ISVital = 1;
-
+if(isEidt){
+    userdataaa mod = userdataaa.searchBypid(pideidt);
+    mod.ISVital = 1;
+    mod.save();
+}else {
+    userdataaa mod = userdataaa.searchBypid(pid);
+    mod.ISVital = 1;
+    mod.save();
+}
             try {
                 FL.save();
-                mod.save();
-
-
 
                 ActiveAndroid.setTransactionSuccessful();
             } finally {

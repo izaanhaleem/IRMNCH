@@ -142,6 +142,18 @@ public class addPatientRequest  {
     @Expose
     public String cnic_type;
 
+    @SerializedName("is_cnic")
+    @Expose
+    public Integer is_cnic;
+
+    public Integer getIs_cnic() {
+        return is_cnic;
+    }
+
+    public void setIs_cnic(Integer is_cnic) {
+        this.is_cnic = is_cnic;
+    }
+
     public Integer getPrison_type() {
         return prison_type;
     }
