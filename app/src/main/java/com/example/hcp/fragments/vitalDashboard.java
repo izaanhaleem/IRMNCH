@@ -464,7 +464,6 @@ public class vitalDashboard extends Fragment {
                 e.printStackTrace();
             }
 
-
         }
 
         SearchResultDatavital[] myListData = new SearchResultDatavital[FDP.length] ;

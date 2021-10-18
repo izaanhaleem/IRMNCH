@@ -58,6 +58,69 @@ public class Vaccinationn extends Model {
     @Expose
     public Integer IsSync;
 
+    public Integer getStage() {
+        return stage;
+    }
+
+    public void setStage(Integer stage) {
+        this.stage = stage;
+    }
+
+    public String getDose_date() {
+        return dose_date;
+    }
+
+    public void setDose_date(String dose_date) {
+        this.dose_date = dose_date;
+    }
+
+    public String getCreated() {
+        return created;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
+    }
+
+    public Integer getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(Integer user_id) {
+        this.user_id = user_id;
+    }
+
+    public Integer getHospital_id() {
+        return hospital_id;
+    }
+
+    public void setHospital_id(Integer hospital_id) {
+        this.hospital_id = hospital_id;
+    }
+
+    public String getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(String updated) {
+        this.updated = updated;
+    }
+
+    public Integer getMobile_id() {
+        return mobile_id;
+    }
+
+    public void setMobile_id(Integer mobile_id) {
+        this.mobile_id = mobile_id;
+    }
+
+    public Integer getIsSync() {
+        return IsSync;
+    }
+
+    public void setIsSync(Integer isSync) {
+        IsSync = isSync;
+    }
 
     public static void deleteAll() {
         new Delete().from(Vaccinationn.class)

@@ -63,6 +63,7 @@ public class SearchResultFragment extends Fragment {
             myListData[i].setLeaderCNIC(FDP[i].LeaderCNIC);
             myListData[i].setFingerprint(FDP[i].fingerprint);
             myListData[i].setPid(FDP[i].pid);
+            myListData[i].setPatienttype(FDP[i].patientType);
         }
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.search_result_list);

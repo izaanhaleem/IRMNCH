@@ -58,6 +58,7 @@ import com.example.hcp.activities.ScanActivity;
 import com.example.hcp.activities.ScanActivity2;
 import com.example.hcp.activities.VerificationActivity;
 import com.example.hcp.models.hcp.Assessmentt;
+import com.example.hcp.models.hcp.MedicineDisbursment_Table;
 import com.example.hcp.models.hcp.Samplee;
 import com.example.hcp.models.hcp.Vaccinationn;
 import com.example.hcp.models.hcp.addvitalll;
@@ -922,11 +923,18 @@ public class patientRegistration extends Fragment {
 //            FL.setPatient_type("New Patient");
                 if (firstVal.equals("y") && secondVal.equals("y")) {
                     FL.setPatient_type("Pre-diagnosed Patient");
+                    FL.setIsMedicine(1);
+
                 } else if (thirdVal.equals("y") && foursVal.equals("y")) {
                     FL.setPatient_type("Pre-diagnosed Patient");
+                    FL.setIsMedicine(1);
                 } else {
                     FL.setPatient_type("New Patient");
+                    FL.setIsMedicine(0);
                 }
+
+
+
 
                 FL.ISVital = 0;
                 FL.IS_assessment = 0;
@@ -956,6 +964,9 @@ public class patientRegistration extends Fragment {
 //            FL.setHeight(Constants.height);
 //            FL.setCbeff_id(Constants.cbeff_id);
 //            FL.setQuality(Constants.quality);
+
+
+
 
 
                 FL.save();

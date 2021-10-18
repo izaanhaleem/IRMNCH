@@ -2,17 +2,19 @@ package com.example.hcp.models.AdaptersData;
 
 public class SearchResultData {
 
-    public String contactNo, MrNo,PatientName,LeaderCNIC,fingerprint;
+    public String contactNo, MrNo,PatientName,LeaderCNIC,fingerprint,patienttype;
     public int pid;
 
 
-    public SearchResultData(String contactNo, String mrNo, String patientName, String leaderCNIC, String fingerprint, int PID) {
+    public SearchResultData(String contactNo, String mrNo, String patientName, String leaderCNIC, String fingerprint, int PID,String patientType) {
         this.contactNo = contactNo;
         MrNo = mrNo;
         PatientName = patientName;
         LeaderCNIC = leaderCNIC;
         this.fingerprint = fingerprint;
+        this.patienttype = patientType;
         pid = PID;
+
     }
 
     public SearchResultData() {
@@ -59,6 +61,13 @@ public class SearchResultData {
         LeaderCNIC = leaderCNIC;
     }
 
+    public String getPatienttype() {
+        return patienttype;
+    }
+
+    public void setPatienttype(String patienttype) {
+        this.patienttype = patienttype;
+    }
 
     public String getFingerprint() {
         return fingerprint;

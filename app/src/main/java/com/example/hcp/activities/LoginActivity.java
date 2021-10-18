@@ -825,7 +825,6 @@ public class LoginActivity extends AppCompatActivity {
                         dat.transfer_flag = 1;
                     }
 
-
                     dat.setPrison_transfer_status(data.get(i).getPrison_transfer_status());
                     dat.setCurrent_hospital_name( data.get(i).getCurrent_hospital_name());
                     dat.setEx_hospital_name(data.get(i).getEx_hospital_name());
@@ -836,7 +835,7 @@ public class LoginActivity extends AppCompatActivity {
                     dat.setISRelease(1);
                     dat.setIS_delete(0);
 
-                    dat.setIsMedicine(1);
+//                  dat.setIsMedicine(0);
 
                     dat.save();
 //                Log.d("asdf","sadf");
@@ -907,19 +906,35 @@ public class LoginActivity extends AppCompatActivity {
             //First Delete all Previous local record then add new Record
 
             for (int i = 0; i < data.size(); i++) {
-                MedicineDisbursment_Table meddis = new MedicineDisbursment_Table();
-                meddis.setPatient_id(data.get(i).getId());
-                meddis.setMrn_no(data.get(i).getMrn_no());
-                meddis.setPatient_name(data.get(i).getPatient_name());
-                meddis.setSelf_cnic(data.get(i).getSelf_cnic());
-                meddis.setTest_type(data.get(i).getTest_type());
-                meddis.setSample_number(data.get(i).getSample_number());
-                meddis.setPatient_stage(data.get(i).getPatient_stage());
-                meddis.setHbv_viral_load(data.get(i).getHbv_viral_load());
-                meddis.setHcv_viral_load(data.get(i).getHcv_viral_load());
-                meddis.setIs_hbv_detected(data.get(i).getIs_hbv_detected());
-                meddis.setIs_hcv_detected(data.get(i).getIs_hcv_detected());
-                meddis.save();
+//                MedicineDisbursment_Table meddis = new MedicineDisbursment_Table();
+//                meddis.setPatient_id(data.get(i).getId());
+//                meddis.setMrn_no(data.get(i).getMrn_no());
+//                meddis.setPatient_name(data.get(i).getPatient_name());
+//                meddis.setSelf_cnic(data.get(i).getSelf_cnic());
+//                meddis.setTest_type(data.get(i).getTest_type());
+//                meddis.setSample_number(data.get(i).getSample_number());
+//                meddis.setPatient_stage(data.get(i).getPatient_stage());
+//                meddis.setHbv_viral_load(data.get(i).getHbv_viral_load());
+//                meddis.setHcv_viral_load(data.get(i).getHcv_viral_load());
+//                meddis.setIs_hbv_detected(data.get(i).getIs_hbv_detected());
+//                meddis.setIs_hcv_detected(data.get(i).getIs_hcv_detected());
+//                meddis.save();
+
+                userdataaa medicine = new userdataaa();
+                medicine.setPatient_id(Integer.parseInt(data.get(i).getId()));
+                medicine.setMrn_no(data.get(i).getMrn_no());
+                medicine.setPatient_name(data.get(i).getPatient_name());
+                medicine.setSelf_cnic(data.get(i).getSelf_cnic());
+                medicine.setTest_type(data.get(i).getTest_type());
+                medicine.setSample_number(data.get(i).getSample_number());
+                medicine.setPatient_stage(data.get(i).getPatient_stage());
+                medicine.setHbv_viral_count(data.get(i).getHbv_viral_load());
+                medicine.setHcv_viral_count(data.get(i).getHcv_viral_load());
+                medicine.setIs_hbv_detected(data.get(i).getIs_hbv_detected());
+                medicine.setIs_hcv_detected(data.get(i).getIs_hcv_detected());
+                medicine.IsMedicine = 1;
+                medicine.save();
+
             }
             ActiveAndroid.setTransactionSuccessful();
         } finally {

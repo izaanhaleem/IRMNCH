@@ -20,9 +20,11 @@ import android.widget.Toast;
 
 import com.activeandroid.ActiveAndroid;
 import com.example.hcp.R;
+import com.example.hcp.models.hcp.Assessmentt;
 import com.example.hcp.models.hcp.Samplee;
 import com.example.hcp.models.hcp.Vaccinationn;
 import com.example.hcp.models.hcp.addPatientModel;
+import com.example.hcp.models.hcp.addvitalll;
 import com.example.hcp.models.hcp.userdataaa;
 import com.example.hcp.utils.Constants;
 import com.example.hcp.utils.SharedPref;
@@ -34,6 +36,7 @@ import org.joda.time.PeriodType;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -43,10 +46,14 @@ public class VaccinationForm extends Fragment {
     Calendar myCalendar;
     String dateOfBirth;
     String SelectedMrNo,patientCNINC,PatientName,PatientType;
-    int pid,alreadyTakenDose,stage;
+    int pid,alreadyTakenDose,stage,pideidt;
     EditText name,mrno,patient,cnic;
     SwitchCompat firstvacdose;
     Button addvaccination;
+    boolean isEidt = false;
+    String patientname,patientcnic,patientcontactNo,fingerprint,patienttype;
+     Vaccinationn vacobject;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -86,6 +93,48 @@ public class VaccinationForm extends Fragment {
 
 
 
+        if (getArguments() != null) {
+            isEidt = getArguments().getBoolean("isEdit");
+            try {
+
+                patientname = getArguments().getString("PatientName");
+                patientcnic = getArguments().getString("PatientCNIC");
+                patientcontactNo = getArguments().getString("PatientCNIC");
+                fingerprint = getArguments().getString("fingerprint");
+                pideidt = getArguments().getInt("pidEdit");
+                patienttype = getArguments().getString("patientType");
+
+            } catch (Exception e) {
+
+
+            }
+        }
+
+
+
+
+        if(isEidt) {
+            if (patientcnic != null || pideidt != -1) {
+                List<userdataaa> patinetforeditvital = null;
+                Vaccinationn vac = null;
+                if (pideidt != -1) {
+//                     patinetforeditvital = userdataaa.searchByCNICLeader(patientcnicedit);
+//                     assem = Assessmentt.searchBycninc(patientcnicedit);
+//                 } else {
+//                     patinetforeditvital = userdataaa.searchByPhoneLeader(patientname);
+                    vac = Vaccinationn.searchBypid(pideidt);
+                }
+
+                vacobject = vac;
+
+            }
+            String editpatient_dob = vacobject.getDose_date();
+            firstd.setText(editpatient_dob);
+            name.setText(patientname);
+            patient.setText(patienttype);
+        }
+
+
         firstvacdose.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -96,12 +145,27 @@ public class VaccinationForm extends Fragment {
                 }
             }
         });
+        if(isEidt){
+            if(vacobject.stage!=null){
+                int stag = vacobject.stage;
+                if(stag==1){
+                    firstvacdose.setChecked(true);
+                }else {
+                    firstvacdose.setChecked(false);
+                }
+            }
+        }
 
+if(isEidt){
+    addvaccination.setOnClickListener(
+            v -> FormValidationedit()
+    );
 
-        addvaccination.setOnClickListener(
-                v -> FormValidation()
-        );
-
+}else {
+    addvaccination.setOnClickListener(
+            v -> FormValidation()
+    );
+}
 
 
 
@@ -180,7 +244,77 @@ public class VaccinationForm extends Fragment {
         }
 
     }
+    private void FormValidationedit() {
+        boolean Validationstatus = true;
 
+        if(firstd.getText().toString().isEmpty()){
+            Toast.makeText(getContext(), "Plz Select Dose Date", Toast.LENGTH_LONG).show();
+            Validationstatus = false;
+        }
+        if(stage == 0){
+            Toast.makeText(getContext(), "Plz Select Dose ", Toast.LENGTH_LONG).show();
+            Validationstatus = false;
+        }
+
+        if(Validationstatus){
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+            String matdate = sdf.format(new Date());
+
+            int i=Integer.parseInt(new SharedPref(getContext()).GetLoggedInRole());
+            int h=Integer.parseInt(new SharedPref(getContext()).GetLoggedInUser());
+
+            Vaccinationn va = new Vaccinationn();
+            ActiveAndroid.beginTransaction();
+            vacobject.id = pideidt;
+            vacobject.stage = stage;
+            vacobject.dose_date = firstd.getText().toString();
+            vacobject.created = matdate;
+            vacobject.user_id =  i;
+            vacobject.hospital_id = h ;
+            vacobject.updated = matdate ;
+            vacobject.IsSync = 0;
+
+            userdataaa mod = userdataaa.searchBypid(pideidt);
+
+            mod.IS_Vaccination = 1;
+
+            try {
+                vacobject.save();
+                mod.save();
+
+
+                ActiveAndroid.setTransactionSuccessful();
+            } finally {
+                ActiveAndroid.endTransaction();
+            }
+            final SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.BUTTON_NEUTRAL);
+            pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.teal_700));
+            pDialog.setTitleText("Vaccination Update Successfully");
+            pDialog.setCancelable(false);
+            pDialog.show();
+            Fragment FMFragment = new SampleDashboard();
+            Bundle args = new Bundle();
+//            args.putString("SelectedMrNo", mMRNO);
+//            args.putInt("FamilyId", family_id);
+//            if (FMFragment != null) {
+//
+            getActivity().onBackPressed();
+
+//                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//
+//                FMFragment.setArguments(args);
+//                try {
+//                    transaction.add(R.id.content_frame, FMFragment, "patientRegistrationFragment").addToBackStack("a").commit();
+//
+//                } catch (IllegalStateException ignored) {
+//
+//                }
+//            } else {
+//                Toast.makeText(getContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
+//            }
+        }
+
+    }
 
     private void DobCalculator1() {
         myCalendar = Calendar.getInstance();

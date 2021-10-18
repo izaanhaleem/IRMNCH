@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 public class PatientDataParceable implements Parcelable {
 
-    public String contactNo, MrNo,PatientName,LeaderCNIC,fingerprint;
+    public String contactNo, MrNo,PatientName,LeaderCNIC,fingerprint,patientType;
     public int pid;
 
     public PatientDataParceable(Parcel in) {
@@ -14,6 +14,7 @@ public class PatientDataParceable implements Parcelable {
         PatientName = in.readString();
         LeaderCNIC = in.readString();
         fingerprint = in.readString();
+        patientType = in.readString();
         pid = in.readInt();
 
     }
@@ -47,6 +48,7 @@ public class PatientDataParceable implements Parcelable {
         parcel.writeString(PatientName);
         parcel.writeString(LeaderCNIC);
         parcel.writeString(fingerprint);
+        parcel.writeString(patientType);
         parcel.writeInt(pid);
     }
 

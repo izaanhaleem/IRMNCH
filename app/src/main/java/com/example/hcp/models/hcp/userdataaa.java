@@ -714,6 +714,72 @@ public class userdataaa extends Model {
     public String ex_hospital_name;
 
 
+    @Column(name = "test_type")
+    @SerializedName("test_type")
+    @Expose
+    private String test_type;
+
+
+    @Column(name = "sample_number")
+    @SerializedName("sample_number")
+    @Expose
+    private String sample_number;
+
+
+    @Column(name = "patient_stage")
+    @SerializedName("patient_stage")
+    @Expose
+    private String patient_stage;
+    @Column(name = "is_hcv_detected")
+    @SerializedName("is_hcv_detected")
+    @Expose
+    private String is_hcv_detected;
+
+    @Column(name = "is_hbv_detected")
+    @SerializedName("is_hbv_detected")
+    @Expose
+    private String is_hbv_detected;
+
+    public String getIs_hcv_detected() {
+        return is_hcv_detected;
+    }
+
+    public void setIs_hcv_detected(String is_hcv_detected) {
+        this.is_hcv_detected = is_hcv_detected;
+    }
+
+    public String getIs_hbv_detected() {
+        return is_hbv_detected;
+    }
+
+    public void setIs_hbv_detected(String is_hbv_detected) {
+        this.is_hbv_detected = is_hbv_detected;
+    }
+
+    public String getPatient_stage() {
+        return patient_stage;
+    }
+
+    public void setPatient_stage(String patient_stage) {
+        this.patient_stage = patient_stage;
+    }
+
+    public String getTest_type() {
+        return test_type;
+    }
+
+    public void setTest_type(String test_type) {
+        this.test_type = test_type;
+    }
+
+    public String getSample_number() {
+        return sample_number;
+    }
+
+    public void setSample_number(String sample_number) {
+        this.sample_number = sample_number;
+    }
+
     public Integer getIsMedicine() {
         return IsMedicine;
     }
@@ -1305,6 +1371,14 @@ public class userdataaa extends Model {
                 .or("bbl = ?","Y")
                 .execute();
     }
+
+    public static List<userdataaa> getallISMedicinepending() {
+        return new Select()
+                .from(userdataaa.class)
+                .where("IsMedicine = ?",1)
+                .execute();
+    }
+
 
     public static List<userdataaa> searchByCNICLeader(String cnic) {
         return new Select()

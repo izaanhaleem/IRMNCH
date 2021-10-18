@@ -37,7 +37,7 @@ public class vitalForm extends Fragment {
     int pid,pideidt;
     List<addPatientModel> isvitals;
     boolean isEidt = false;
-    String patientname,patientcnic,patientcontactNo;
+    String patientname,patientcnic,patientcontactNo,fingerprint,patienttype;
     userdataaa patientobject;
     addvitalll vitalobject;
     @Override
@@ -71,7 +71,10 @@ public class vitalForm extends Fragment {
                 patientname = getArguments().getString("PatientName");
                 patientcnic = getArguments().getString("PatientCNIC");
                 patientcontactNo = getArguments().getString("PatientCNIC");
+                fingerprint = getArguments().getString("fingerprint");
+                patienttype = getArguments().getString("patientType");
                 pideidt = getArguments().getInt("pidEdit");
+
 
             } catch (Exception e) {
 
@@ -79,6 +82,11 @@ public class vitalForm extends Fragment {
             }
         }
         if(isEidt){
+
+            name.setText(patientname);
+//            mrno.setText(SelectedMrNo);
+            cnic.setText(patientcnic);
+            patient.setText(patienttype);
 
         }else {
             temperature.setFilters(new InputFilter[]{ new InputFilterMinMax("1", "108")});
@@ -98,9 +106,19 @@ public class vitalForm extends Fragment {
         cnic.setText(patientCNINC);
         patient.setText(PatientType);
 
-        addvital.setOnClickListener(
-                v -> FormValidation()
-        );
+
+
+        if(isEidt){
+            addvital.setOnClickListener(
+                    v -> FormValidationedit()
+            );
+        }else {
+            addvital.setOnClickListener(
+                    v -> FormValidation()
+            );
+        }
+
+
         if(isEidt){
             if (patientcnic != null || pideidt != -1) {
                 List<userdataaa> patinetforeditvital = null;
@@ -138,6 +156,13 @@ public class vitalForm extends Fragment {
         return view;
 
     }
+
+
+
+
+
+
+
 
     private void FormValidation() {
         String  asdf = temperature.getText().toString();
@@ -196,29 +221,22 @@ public class vitalForm extends Fragment {
 
             addvitalll FL = new addvitalll();
             ActiveAndroid.beginTransaction();
-            if(isEidt){
-                FL.pid = pideidt;
-            }else {
-                FL.pid = pid;
-            }
+
+            FL.pid = pid;
             FL.IsSync = 0;
-            FL.temperature= temperatur;
-            FL.pulse=Integer.parseInt(pulseBPM.getText().toString());
-            FL.bp_systolic=bpsystolic;
-            FL.bp_diastolic=bdsystolic;
+            FL.temperature = temperatur;
+            FL.pulse = Integer.parseInt(pulseBPM.getText().toString());
+            FL.bp_systolic = bpsystolic;
+            FL.bp_diastolic = bdsystolic;
 //            FL.height=Double.parseDouble(HeightCM.getText().toString());
 //            FL.weight=Double.parseDouble(WeightKG.getText().toString());;
-            FL.user_id=i;
+            FL.user_id = i;
             FL.self_cnic = patientCNINC;
-if(isEidt){
-    userdataaa mod = userdataaa.searchBypid(pideidt);
-    mod.ISVital = 1;
-    mod.save();
-}else {
-    userdataaa mod = userdataaa.searchBypid(pid);
-    mod.ISVital = 1;
-    mod.save();
-}
+
+            userdataaa mod = userdataaa.searchBypid(pid);
+            mod.ISVital = 1;
+            mod.save();
+
             try {
                 FL.save();
 
@@ -258,5 +276,116 @@ if(isEidt){
             nfe.printStackTrace();
         }
     }
+    private void FormValidationedit() {
+        String  asdf = temperature.getText().toString();
+        String pls = pulseBPM.getText().toString();
+        String  bps = BPSystolic.getText().toString();
+        String  bpd = BPDiastolic.getText().toString();
+        boolean Validationstatus = true;
+        if (asdf.isEmpty()) {
+            Toast.makeText(getContext(), Constants.temp, Toast.LENGTH_LONG).show();
+            Validationstatus = false;
+        }else if(bps.isEmpty()){
+            Toast.makeText(getContext(), "BPSystolic is empty", Toast.LENGTH_LONG).show();
+            Validationstatus = false;
+        }else if(bpd.isEmpty()){
+            Toast.makeText(getContext(), "BPDiastolic is empty", Toast.LENGTH_LONG).show();
+            Validationstatus = false;
+        }else if(pls.isEmpty()){
+            Toast.makeText(getContext(), "Pulse is empty", Toast.LENGTH_LONG).show();
+            Validationstatus = false;
+        }
 
+//        float val = Integer.parseInt(asdf);
+
+        try {
+            Float f= Float.parseFloat(asdf);
+            Float B= Float.parseFloat(bps);
+            Float D= Float.parseFloat(bpd);
+
+            if(f > 106.0){
+                Toast.makeText(getContext(), Constants.error, Toast.LENGTH_LONG).show();
+                Validationstatus = false;
+            }
+
+//        String  bps = BPSystolic.getText().toString();
+//        Float B= Float.parseFloat(bps);
+            if(B > 300.0){
+                Toast.makeText(getContext(), Constants.bpsys, Toast.LENGTH_LONG).show();
+                Validationstatus = false;
+            }
+
+//        String  bpd = BPDiastolic.getText().toString();
+//        Float D= Float.parseFloat(bpd);
+            if(D > 200.0){
+                Toast.makeText(getContext(), Constants.bpdys, Toast.LENGTH_LONG).show();
+                Validationstatus = false;
+            }
+
+
+            int i=Integer.parseInt(new SharedPref(getContext()).GetLoggedInUser());
+
+            if (Validationstatus) {
+                double temperatur = Double.parseDouble(temperature.getText().toString());
+                double bpsystolic = Double.parseDouble(BPSystolic.getText().toString());
+                double bdsystolic = Double.parseDouble(BPDiastolic.getText().toString());
+
+
+//                addvitalll FL = new addvitalll();
+                ActiveAndroid.beginTransaction();
+
+                vitalobject.pid = pideidt;
+                vitalobject.IsSync = 0;
+                vitalobject.temperature = temperatur;
+                vitalobject.pulse = Integer.parseInt(pulseBPM.getText().toString());
+                vitalobject.bp_systolic = bpsystolic;
+                vitalobject.bp_diastolic = bdsystolic;
+//            FL.height=Double.parseDouble(HeightCM.getText().toString());
+//            FL.weight=Double.parseDouble(WeightKG.getText().toString());;
+                vitalobject.user_id = i;
+                vitalobject.self_cnic = patientCNINC;
+
+                userdataaa mod = userdataaa.searchBypid(pideidt);
+                mod.ISVital = 1;
+                mod.save();
+
+                try {
+                    vitalobject.save();
+
+                    ActiveAndroid.setTransactionSuccessful();
+                } finally {
+                    ActiveAndroid.endTransaction();
+                }
+
+                final SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.BUTTON_NEUTRAL);
+                pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.teal_700));
+                pDialog.setTitleText("Vitals Update Successfully");
+                pDialog.setCancelable(false);
+                pDialog.show();
+
+                Fragment FMFragment = new DashboardFragment();
+                Bundle args = new Bundle();
+//            args.putString("SelectedMrNo", mMRNO);
+//            args.putInt("FamilyId", family_id);
+//            if (FMFragment != null) {
+//
+                getActivity().onBackPressed();
+//
+//                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//
+//                FMFragment.setArguments(args);
+//                try {
+//                    transaction.replace(R.id.content_frame, FMFragment, "patientRegistrationFragment").addToBackStack("a").commit();
+//
+//                } catch (IllegalStateException ignored) {
+//
+//                }
+//            } else {
+//                Toast.makeText(getContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
+//            }
+            }
+        } catch (NumberFormatException nfe) {
+            nfe.printStackTrace();
+        }
+    }
 }

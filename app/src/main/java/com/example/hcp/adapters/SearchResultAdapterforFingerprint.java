@@ -15,8 +15,10 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hcp.R;
+import com.example.hcp.fragments.VaccinationForm;
 import com.example.hcp.fragments.assessmentForm;
 import com.example.hcp.fragments.patientRegistration;
+import com.example.hcp.fragments.sampleForm;
 import com.example.hcp.fragments.vitalForm;
 import com.example.hcp.models.AdaptersData.SearchResultData;
 
@@ -93,7 +95,9 @@ public class SearchResultAdapterforFingerprint extends RecyclerView.Adapter<Sear
                 args.putString("PatientCNIC",sData[position].getLeaderCNIC());
                 args.putString("PatientName",sData[position].getPatientName());
                 args.putString("ContactNo",sData[position].getContactNo());
+                args.putString("patientType",sData[position].getPatienttype());
                 args.putInt("pidEdit",sData[position].pid);
+                args.putString("fingerprint",sData[position].getFingerprint());
                 args.putBoolean("isEdit",true);
                 if(FMFragment != null)
                 {
@@ -122,6 +126,7 @@ public class SearchResultAdapterforFingerprint extends RecyclerView.Adapter<Sear
                 args.putString("PatientCNIC",sData[position].getLeaderCNIC());
                 args.putString("PatientName",sData[position].getPatientName());
                 args.putString("ContactNo",sData[position].getContactNo());
+                args.putString("patientType",sData[position].getPatienttype());
                 args.putInt("pidEdit",sData[position].pid);
                 args.putBoolean("isEdit",true);
                 if(FMFragment != null)
@@ -140,6 +145,68 @@ public class SearchResultAdapterforFingerprint extends RecyclerView.Adapter<Sear
                 }
             }
         });
+
+
+        holder.vaccination.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+//                Toast.makeText(view.getContext(), "Hello world", Toast.LENGTH_SHORT).show();
+                Fragment FMFragment = new VaccinationForm();
+                Bundle args = new Bundle();
+                args.putString("PatientCNIC",sData[position].getLeaderCNIC());
+                args.putString("PatientName",sData[position].getPatientName());
+                args.putString("ContactNo",sData[position].getContactNo());
+                args.putString("patientType",sData[position].getPatienttype());
+                args.putInt("pidEdit",sData[position].pid);
+                args.putBoolean("isEdit",true);
+                if(FMFragment != null)
+                {
+                    FragmentTransaction transaction = ((FragmentActivity) view.getContext()).getSupportFragmentManager().beginTransaction();
+
+                    FMFragment.setArguments(args);
+                    try {
+                        transaction.replace(R.id.content_frame, FMFragment,"FamilyMemberFragment").addToBackStack("a").commit();
+
+                    } catch (IllegalStateException ignored) {
+                    }
+                }
+                else {
+                    Toast.makeText(view.getContext(), holder.MrNo.getText(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        holder.sample.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+//                Toast.makeText(view.getContext(), "Hello world", Toast.LENGTH_SHORT).show();
+                Fragment FMFragment = new sampleForm();
+                Bundle args = new Bundle();
+                args.putString("PatientCNIC",sData[position].getLeaderCNIC());
+                args.putString("PatientName",sData[position].getPatientName());
+                args.putString("ContactNo",sData[position].getContactNo());
+                args.putString("patientType",sData[position].getPatienttype());
+                args.putInt("pidEdit",sData[position].pid);
+                args.putBoolean("isEdit",true);
+                if(FMFragment != null)
+                {
+                    FragmentTransaction transaction = ((FragmentActivity) view.getContext()).getSupportFragmentManager().beginTransaction();
+
+                    FMFragment.setArguments(args);
+                    try {
+                        transaction.replace(R.id.content_frame, FMFragment,"FamilyMemberFragment").addToBackStack("a").commit();
+
+                    } catch (IllegalStateException ignored) {
+                    }
+                }
+                else {
+                    Toast.makeText(view.getContext(), holder.MrNo.getText(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
 
 //        holder.itemView.setOnClickListener(new View.OnClickListener() {
 //            @Override

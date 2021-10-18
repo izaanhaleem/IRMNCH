@@ -53,7 +53,7 @@ public class assessmentForm extends Fragment {
     Double BP_Systolic,BP_Diastolic;
     Double tempera,Height,weight;
     boolean isEidt = false;
-    String patientnameedit,patientcnicedit,patientcontactNoedit;
+    String patientnameedit,patientcnicedit,patientcontactNoedit,patienttype;
     int pideidt;
     Assessmentt assesmentobject;
     @Override
@@ -61,62 +61,6 @@ public class assessmentForm extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_assessment_form, container, false);
-
-        SelectedMrNo = getArguments().getString("SelectedMrNo");
-        patientCNINC = getArguments().getString("PatientCNIC");
-        PatientName = getArguments().getString("PatientName");
-        PatientType = getArguments().getString("Patienttype");
-        pid = getArguments().getInt("pid");
-        String temp =  String.valueOf(tempera = getArguments().getDouble("temperature"));
-        pulse = getArguments().getInt("puls");
-        BP_Systolic = getArguments().getDouble("BP_Systolic");
-        BP_Diastolic = getArguments().getDouble("BP_Diastolic");
-//        String height = String.valueOf(  Height = getArguments().getDouble("Height"));
-//        String weight =  String.valueOf(getArguments().getDouble("Weight"));
-
-
-        if (getArguments() != null) {
-            isEidt = getArguments().getBoolean("isEdit");
-            try {
-
-                patientnameedit = getArguments().getString("PatientName");
-                patientcnicedit = getArguments().getString("PatientCNIC");
-                patientcontactNoedit = getArguments().getString("PatientCNIC");
-                pideidt = getArguments().getInt("pidEdit");
-
-            } catch (Exception e) {
-
-
-            }
-        }
-
-
-
-
-         if(isEidt) {
-             if (patientcnicedit != null || pideidt != -1) {
-                 List<userdataaa> patinetforeditvital = null;
-                 Assessmentt assem = null;
-                 if (pideidt != -1) {
-//                     patinetforeditvital = userdataaa.searchByCNICLeader(patientcnicedit);
-//                     assem = Assessmentt.searchBycninc(patientcnicedit);
-//                 } else {
-//                     patinetforeditvital = userdataaa.searchByPhoneLeader(patientname);
-                     assem = Assessmentt.searchBypid(pideidt);
-                 }
-
-                 assesmentobject = assem;
-
-             }
-         }
-        if(isEidt){
-//            name.setText(patientnameedit);
-//            cnic.setText(patientcnicedit);
-//            mrno.setText(patientcontactNoedit);
-        }
-
-
-
 
         name = view.findViewById(R.id.name);
         mrno = view.findViewById(R.id.mrno);
@@ -129,14 +73,8 @@ public class assessmentForm extends Fragment {
         HeightCM = view.findViewById(R.id.HeightCM);
         WeightKG = view.findViewById(R.id.WeightKG);
 
-        name.setText(PatientName);
-        mrno.setText(SelectedMrNo);
-        patient.setText(PatientType);
-        cnic.setText(patientCNINC);
-        temperature.setText(temp);
-        pulseBPM.setText(pulse+"");
-        BPSystolic.setText(BP_Systolic+"");
-        BPDiastolic.setText(BP_Diastolic+"");
+
+
 //        HeightCM.setText(height);
 //        WeightKG.setText(weight);
 
@@ -187,6 +125,74 @@ public class assessmentForm extends Fragment {
         addvised = view.findViewById(R.id.addvised);
         counsel_closed = view.findViewById(R.id.counsel_closed);
         pcr = view.findViewById(R.id.pcr);
+
+
+        SelectedMrNo = getArguments().getString("SelectedMrNo");
+        patientCNINC = getArguments().getString("PatientCNIC");
+        PatientName = getArguments().getString("PatientName");
+        PatientType = getArguments().getString("Patienttype");
+        pid = getArguments().getInt("pid");
+        String temp =  String.valueOf(tempera = getArguments().getDouble("temperature"));
+        pulse = getArguments().getInt("puls");
+        BP_Systolic = getArguments().getDouble("BP_Systolic");
+        BP_Diastolic = getArguments().getDouble("BP_Diastolic");
+//        String height = String.valueOf(  Height = getArguments().getDouble("Height"));
+//        String weight =  String.valueOf(getArguments().getDouble("Weight"));
+
+
+        if (getArguments() != null) {
+            isEidt = getArguments().getBoolean("isEdit");
+            try {
+
+                patientnameedit = getArguments().getString("PatientName");
+                patientcnicedit = getArguments().getString("PatientCNIC");
+                patientcontactNoedit = getArguments().getString("PatientCNIC");
+                pideidt = getArguments().getInt("pidEdit");
+                patienttype = getArguments().getString("patientType");
+
+            } catch (Exception e) {
+
+
+            }
+        }
+
+
+
+
+        if(isEidt) {
+            if (patientcnicedit != null || pideidt != -1) {
+                List<userdataaa> patinetforeditvital = null;
+                Assessmentt assem = null;
+                if (pideidt != -1) {
+//                     patinetforeditvital = userdataaa.searchByCNICLeader(patientcnicedit);
+//                     assem = Assessmentt.searchBycninc(patientcnicedit);
+//                 } else {
+//                     patinetforeditvital = userdataaa.searchByPhoneLeader(patientname);
+                    assem = Assessmentt.searchBypid(pideidt);
+                }
+
+                assesmentobject = assem;
+
+            }
+        }
+        if (isEidt) {
+            name.setText(patientnameedit);
+            cnic.setText(patientcnicedit);
+            patient.setText(patienttype);
+        } else {
+            name.setText(PatientName);
+            mrno.setText(SelectedMrNo);
+            patient.setText(PatientType);
+            cnic.setText(patientCNINC);
+            temperature.setText(temp);
+            pulseBPM.setText(pulse + "");
+            BPSystolic.setText(BP_Systolic + "");
+            BPDiastolic.setText(BP_Diastolic + "");
+        }
+
+
+
+
 
 
         fragmentManager = getFragmentManager();
@@ -434,6 +440,21 @@ if(isEidt) {
             }
         });
 
+        if(isEidt){
+            if(assesmentobject.getIs_hbv_test()!=null){
+                if(assesmentobject.getIs_hbv_test().equalsIgnoreCase("Y")){
+                    switch28.setChecked(true);
+                }else{
+                    switch28.setChecked(false);
+                }
+            }else {
+                switch28.setChecked(false);
+            }
+        }
+
+
+
+
 
 
 
@@ -482,6 +503,20 @@ if(isEidt) {
                 }
             }
         });
+
+
+        if(isEidt){
+            if(assesmentobject.getIs_hcv_test()!=null){
+                if(assesmentobject.getIs_hcv_test().equalsIgnoreCase("Y")){
+                    switch29.setChecked(true);
+                }else{
+                    switch29.setChecked(false);
+                }
+            }else {
+                switch29.setChecked(false);
+            }
+        }
+
 
 
         switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -1221,13 +1256,24 @@ if(isEidt) {
 
         saveAssessment = view.findViewById(R.id.addAssessment);
 
-        saveAssessment.setOnClickListener(
-                v -> saveDataAssessment()
-        );
 
+        if (isEidt) {
+            saveAssessment.setOnClickListener(
+                    v -> saveDataAssessmentedit()
+            );
+        } else {
+            saveAssessment.setOnClickListener(
+                    v -> saveDataAssessment()
+            );
+        }
 
         return view;
     }
+
+
+
+
+
 
     private void saveDataAssessment() {
 
@@ -1236,12 +1282,7 @@ if(isEidt) {
 
         AS.IsSync = 0;
         AS.setUser_hospital(new SharedPref(getContext()).GetLoggedInUser());
-        if(isEidt){
-            AS.setPatient_id(pideidt);
-        }else {
-            AS.setPatient_id(pid);
-        }
-
+        AS.setPatient_id(pid);
         AS.setUser_id(new SharedPref(getContext()).GetLoggedInRole());
         AS.setCreated(0);
         AS.setUpdated(0);
@@ -1300,51 +1341,31 @@ if(isEidt) {
         AS.counselling = Sswitch31;
         AS.is_new_patient = "true";
 
-        if(isEidt){
-            userdataaa mod = userdataaa.searchBypid(pideidt);
-
+            userdataaa mod = userdataaa.searchBypid(pid);
             if(Sswitch28.equalsIgnoreCase("N") && Sswitch29.equalsIgnoreCase("N")){
                 mod.IS_assessment = 1;
+                mod.IS_Vaccination = 0;
                 mod.ISSample = 2;
             }
             if(Sswitch28.equalsIgnoreCase("N") && Sswitch29.equalsIgnoreCase("Y")) {
                 mod.IS_assessment = 1;
+                mod.IS_Vaccination = 0;
+                mod.ISSample = 0;
             }
             if(Sswitch28.equalsIgnoreCase("Y") && Sswitch29.equalsIgnoreCase("Y")){
                 mod.IS_assessment = 1;
+                mod.ISSample = 0;
                 mod.IS_Vaccination = 2;
             }
             if(Sswitch28.equalsIgnoreCase("Y") && Sswitch29.equalsIgnoreCase("N")){
                 mod.IS_assessment = 1;
+                mod.ISSample = 0;
                 mod.IS_Vaccination = 2;
             }
             mod.save();
-        }else {
 
-
-            userdataaa mod = userdataaa.searchBypid(pid);
-
-            if (Sswitch28.equalsIgnoreCase("N") && Sswitch29.equalsIgnoreCase("N")) {
-                mod.IS_assessment = 1;
-                mod.ISSample = 2;
-            }
-            if (Sswitch28.equalsIgnoreCase("N") && Sswitch29.equalsIgnoreCase("Y")) {
-                mod.IS_assessment = 1;
-            }
-            if (Sswitch28.equalsIgnoreCase("Y") && Sswitch29.equalsIgnoreCase("Y")) {
-                mod.IS_assessment = 1;
-                mod.IS_Vaccination = 2;
-            }
-            if (Sswitch28.equalsIgnoreCase("Y") && Sswitch29.equalsIgnoreCase("N")) {
-                mod.IS_assessment = 1;
-                mod.IS_Vaccination = 2;
-            }
-            mod.save();
-        }
         try {
             AS.save();
-
-
 
             ActiveAndroid.setTransactionSuccessful();
         } finally {
@@ -1374,33 +1395,168 @@ if(isEidt) {
         }
     }
 
+
+    private void saveDataAssessmentedit() {
+
+        Assessmentt AS = new Assessmentt();
+        ActiveAndroid.beginTransaction();
+
+        assesmentobject.IsSync = 0;
+        assesmentobject.setUser_hospital(new SharedPref(getContext()).GetLoggedInUser());
+        assesmentobject.setPatient_id(pideidt);
+        assesmentobject.setUser_id(new SharedPref(getContext()).GetLoggedInRole());
+        assesmentobject.setCreated(0);
+        assesmentobject.setUpdated(0);
+        assesmentobject.setNote(MO_Notes.getText().toString());
+        assesmentobject.setFrequent_therapeutic_injections(Sswitch1);
+        assesmentobject.setConfirmed_case_of_stds(Sswitch2);
+        assesmentobject.setInvasive_medical_and_surgical_intervention(Sswitch3);
+        assesmentobject.setSurgery_type(surgery_type.getText().toString());
+        assesmentobject.setSurgery_when(SergeryWhen);
+        assesmentobject.setClose_contact_of_a_known_case_of_hcv_hbv(Sswitch4);
+        assesmentobject.setClose_contact_is_on_treatment(closeContractOnTreatment);
+        assesmentobject.setBlood_transfusion(Sswitch5);
+        assesmentobject.setBlood_transfusion_when(bloodTranfusionWhen);
+        assesmentobject.setBlood_bank(bloodBank);
+        assesmentobject.setConfirmed_hiv_positive_persons(Sswitch6);
+        assesmentobject.setEver_been_hospitalized(Sswitch7);
+        assesmentobject.setHospitalization_within_last_2_years(Shopital_last_two_year);
+        assesmentobject.setIndividuals_with_tattooing_ear_nose_piercing(Sswitch8);
+        assesmentobject.setInjectable_drug_user(Sswitch9);
+        assesmentobject.setDental_intervention(Sswitch10);
+        assesmentobject.setDental_clinic(Dentatl_clinic);
+        assesmentobject.setHistory_of_multiple_sex_partners(Sswitch11);
+        assesmentobject.setTruck_driver_or_transgender(Sswitch12);
+//        AS.setJaundice();
+//        AS.setUnexplained_fever();
+        assesmentobject.setEar_nose_pirecing(Sswitch13);
+        assesmentobject.setTransgender(Sswitch14);
+        assesmentobject.setSharing_toothbrush(Sswitch15);
+        assesmentobject.setSharing_hair_comb(Sswitch16);
+        assesmentobject.setDark_colored_urine(Sswitch17);
+        assesmentobject.setLoss_of_appetite(Sswitch18);
+        assesmentobject.setLight_colored_faeces(Sswitch19);
+        assesmentobject.setFatigue(Sswitch20);
+        assesmentobject.setMuscle_pain(Sswitch21);
+        assesmentobject.setNausea(Sswitch22);
+        assesmentobject.setStomach_ache(Sswitch23);
+        assesmentobject.setRight_upper_quadrant_tenderness(Sswitch24);
+        assesmentobject.setGastric_irritation_burning(Sswitch25);
+        assesmentobject.setUnusual_urethral_discharge(Sswitch26);
+
+        assesmentobject.setRapid_testing(rapidtesting);
+
+        if(Sswitch28.equalsIgnoreCase("N")){
+            assesmentobject.setIs_hbv_test("N");
+        }else {
+            assesmentobject.setIs_hbv_test(Sswitch28);
+        }
+        if(Sswitch29.equalsIgnoreCase("N")){
+            assesmentobject.setIs_hcv_test("N");
+        }else {
+            assesmentobject.setIs_hcv_test(Sswitch29);
+        }
+        assesmentobject.setVaccination(Sswitch30);
+        assesmentobject.setPcr_option(addvised.getText().toString());
+        assesmentobject.setPcr(PCR);
+        assesmentobject.counselling = Sswitch31;
+        assesmentobject.is_new_patient = "true";
+
+
+            userdataaa mod = userdataaa.searchBypid(pideidt);
+
+            if(Sswitch28.equalsIgnoreCase("N") && Sswitch29.equalsIgnoreCase("N")){
+                mod.IS_assessment = 1;
+                mod.IS_Vaccination = 0;
+                mod.ISSample = 2;
+
+            }
+            if(Sswitch28.equalsIgnoreCase("N") && Sswitch29.equalsIgnoreCase("Y")) {
+                mod.IS_assessment = 1;
+                mod.IS_Vaccination = 0;
+                mod.ISSample = 0;
+            }
+            if(Sswitch28.equalsIgnoreCase("Y") && Sswitch29.equalsIgnoreCase("Y")){
+                mod.IS_assessment = 1;
+                mod.ISSample = 0;
+                mod.IS_Vaccination = 2;
+
+            }
+            if(Sswitch28.equalsIgnoreCase("Y") && Sswitch29.equalsIgnoreCase("N")){
+                mod.IS_assessment = 1;
+                mod.ISSample = 0;
+                mod.IS_Vaccination = 2;
+            }
+
+            mod.save();
+
+        try {
+            assesmentobject.save();
+
+            ActiveAndroid.setTransactionSuccessful();
+        } finally {
+            ActiveAndroid.endTransaction();
+        }
+
+        final SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.BUTTON_NEUTRAL);
+        pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.teal_700));
+        pDialog.setTitleText("Assessment Update Successfully");
+        pDialog.setCancelable(false);
+        pDialog.show();
+//        Fragment FMFragment = new AssessmentDashboard();
+//        if (FMFragment != null) {
+
+            getActivity().onBackPressed();
+
+//            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//
+//            try {
+//                transaction.add(R.id.content_frame, FMFragment, "patientRegistrationFragment").addToBackStack("a").commit();
+//
+//            } catch (IllegalStateException ignored) {
+//
+//            }
+//        } else {
+//            Toast.makeText(getContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
+//        }
+    }
+
+
+
+
+
+
+
+
+
+
     private void Setselect_year(){
-        List<String> categoriesEng = new ArrayList<String>();
-        categoriesEng.add("Select Year*");
-        categoriesEng.add("2020");
-        categoriesEng.add("2019");
-        categoriesEng.add("2018");
-        categoriesEng.add("2017");
-        categoriesEng.add("2016");
-        categoriesEng.add("2015");
-        categoriesEng.add("2014");
-        categoriesEng.add("2013");
-        categoriesEng.add("2012");
-        categoriesEng.add("2011");
-        categoriesEng.add("2010");
-        categoriesEng.add("2009");
-        categoriesEng.add("2008");
-        categoriesEng.add("2007");
-        categoriesEng.add("2006");
-        categoriesEng.add("2005");
-        categoriesEng.add("2004");
-        categoriesEng.add("2003");
-        categoriesEng.add("2002");
-        categoriesEng.add("2001");
-        categoriesEng.add("2000");
+        List<String> categoriessurgeryyear = new ArrayList<String>();
+        categoriessurgeryyear.add("Select Year*");
+        categoriessurgeryyear.add("2020");
+        categoriessurgeryyear.add("2019");
+        categoriessurgeryyear.add("2018");
+        categoriessurgeryyear.add("2017");
+        categoriessurgeryyear.add("2016");
+        categoriessurgeryyear.add("2015");
+        categoriessurgeryyear.add("2014");
+        categoriessurgeryyear.add("2013");
+        categoriessurgeryyear.add("2012");
+        categoriessurgeryyear.add("2011");
+        categoriessurgeryyear.add("2010");
+        categoriessurgeryyear.add("2009");
+        categoriessurgeryyear.add("2008");
+        categoriessurgeryyear.add("2007");
+        categoriessurgeryyear.add("2006");
+        categoriessurgeryyear.add("2005");
+        categoriessurgeryyear.add("2004");
+        categoriessurgeryyear.add("2003");
+        categoriessurgeryyear.add("2002");
+        categoriessurgeryyear.add("2001");
+        categoriessurgeryyear.add("2000");
 
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, categoriesEng);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, categoriessurgeryyear);
 
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
@@ -1430,7 +1586,24 @@ if(isEidt) {
             }
 
         });
+
+        if (isEidt) {
+            for (int i = 0; i < categoriessurgeryyear.size(); i++) {
+                String main_status = categoriessurgeryyear.get(i);
+                if (!main_status.isEmpty()) {
+                    String selected_status = assesmentobject.getSurgery_when();
+
+                    if (main_status.equals(selected_status)) {
+                        Sergery_select_year.setSelection(i + 1);
+                        SergeryWhen = selected_status;
+                    }
+                }
+
+            }
+        }
+
     }
+
     private void setClose_Contact_is_on_Treatment() {
         List<String> categoriesEng = new ArrayList<String>();
         categoriesEng.add("Select Option");
@@ -1469,35 +1642,49 @@ if(isEidt) {
 
         });
 
+        if (isEidt) {
+
+            if (assesmentobject.getClose_contact_is_on_treatment() != null) {
+                if (assesmentobject.getClose_contact_is_on_treatment().equals("Y")) {
+                    two.setSelection(1);
+                } else if (assesmentobject.getClose_contact_is_on_treatment().equals("N")) {
+                    two.setSelection(2);
+                }
+            } else {
+                two.setSelection(0);
+            }
+        }
+
 
     }
+
     private void setselect_year1() {
-        List<String> categoriesEng = new ArrayList<String>();
-        categoriesEng.add("Select Year*");
-        categoriesEng.add("2020");
-        categoriesEng.add("2019");
-        categoriesEng.add("2018");
-        categoriesEng.add("2017");
-        categoriesEng.add("2016");
-        categoriesEng.add("2015");
-        categoriesEng.add("2014");
-        categoriesEng.add("2013");
-        categoriesEng.add("2012");
-        categoriesEng.add("2011");
-        categoriesEng.add("2010");
-        categoriesEng.add("2009");
-        categoriesEng.add("2008");
-        categoriesEng.add("2007");
-        categoriesEng.add("2006");
-        categoriesEng.add("2005");
-        categoriesEng.add("2004");
-        categoriesEng.add("2003");
-        categoriesEng.add("2002");
-        categoriesEng.add("2001");
-        categoriesEng.add("2000");
+        List<String> categoriesEngblood = new ArrayList<String>();
+        categoriesEngblood.add("Select Year*");
+        categoriesEngblood.add("2020");
+        categoriesEngblood.add("2019");
+        categoriesEngblood.add("2018");
+        categoriesEngblood.add("2017");
+        categoriesEngblood.add("2016");
+        categoriesEngblood.add("2015");
+        categoriesEngblood.add("2014");
+        categoriesEngblood.add("2013");
+        categoriesEngblood.add("2012");
+        categoriesEngblood.add("2011");
+        categoriesEngblood.add("2010");
+        categoriesEngblood.add("2009");
+        categoriesEngblood.add("2008");
+        categoriesEngblood.add("2007");
+        categoriesEngblood.add("2006");
+        categoriesEngblood.add("2005");
+        categoriesEngblood.add("2004");
+        categoriesEngblood.add("2003");
+        categoriesEngblood.add("2002");
+        categoriesEngblood.add("2001");
+        categoriesEngblood.add("2000");
 
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, categoriesEng);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, categoriesEngblood);
 
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
@@ -1527,7 +1714,26 @@ if(isEidt) {
             }
 
         });
+
+        if (isEidt) {
+            for (int i = 0; i < categoriesEngblood.size(); i++) {
+                String main_status = categoriesEngblood.get(i);
+                if (!main_status.isEmpty()) {
+                    String selected_status = assesmentobject.getBlood_transfusion_when();
+
+                    if (main_status.equals(selected_status)) {
+                        bloodBank_select_year1.setSelection(i + 1);
+                        bloodTranfusionWhen = selected_status;
+                    }
+                }
+
+            }
+        }
+
+
+
     }
+
     private void setblood_bank() {
 
         List<String> categoriesEng = new ArrayList<String>();
@@ -1568,7 +1774,24 @@ if(isEidt) {
 
         });
 
+
+        if (isEidt) {
+
+            if (assesmentobject.getBlood_bank() != null) {
+                if (assesmentobject.getBlood_bank().equals("Private Sector")) {
+                    blood_bank.setSelection(1);
+                } else if (assesmentobject.getBlood_bank().equals("Public Sector")) {
+                    blood_bank.setSelection(2);
+                }
+            } else {
+                blood_bank.setSelection(0);
+            }
+        }
+
+
+
     }
+
     private void setDental_Clinic() {
         List<String> categoriesEng = new ArrayList<String>();
         categoriesEng.add("Select Option");
@@ -1608,6 +1831,25 @@ if(isEidt) {
             }
 
         });
+
+
+
+        if (isEidt) {
+
+            if (assesmentobject.getDental_clinic() != null) {
+                if (assesmentobject.getDental_clinic().equals("Private")) {
+                    blood_bank.setSelection(1);
+                } else if (assesmentobject.getDental_clinic().equals("Public")) {
+                    blood_bank.setSelection(2);
+                }else if(assesmentobject.getDental_clinic().equals("Quack")){
+                    blood_bank.setSelection(3);
+                }
+            } else {
+                blood_bank.setSelection(0);
+            }
+        }
+
+
 
     }
 

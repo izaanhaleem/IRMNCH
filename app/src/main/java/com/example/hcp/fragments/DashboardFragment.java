@@ -876,6 +876,7 @@ public class DashboardFragment extends Fragment {
             }
             FDP[i].contactNo = SFR.get(i).contact_no_self;
             FDP[i].LeaderCNIC = SFR.get(i).self_cnic;
+            FDP[i].patientType = SFR.get(i).patient_type;
             FDP[i].MrNo = SFR.get(i).mrn_no;
             if(SFR.get(i).getPatient_id()==0){
                 FDP[i].pid = (Integer) SFR.get(i).getId().intValue();

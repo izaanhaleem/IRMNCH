@@ -225,8 +225,8 @@ public class Dashboard_patient_pending_treatment extends Fragment {
 
 
     private void allBaselineList() {
-        List<MedicineDisbursment_Table> baseline;
-        baseline=MedicineDisbursment_Table.getallISMedicine();
+        List<userdataaa> baseline;
+        baseline=userdataaa.getallISMedicinepending();
         SetDataArrayy(baseline);
     }
 
@@ -246,11 +246,11 @@ public class Dashboard_patient_pending_treatment extends Fragment {
             Toast.makeText(getContext(), "Please Select Option from Search Dropdown", Toast.LENGTH_SHORT).show();
         } else {
 
-            List<MedicineDisbursment_Table> list ;
+            List<userdataaa> list ;
 
             switch (SelectedOptionIndex) {
                 case 2:
-                    list = MedicineDisbursment_Table.searchByMRNOLeader(SelectedOptionVal);
+                    list = userdataaa.searchByMRNOLeader(SelectedOptionVal);
                     if (list.size() > 0) {
                         SetDataArrayy(list);
                     }
@@ -264,7 +264,7 @@ public class Dashboard_patient_pending_treatment extends Fragment {
                 case 1:
                 case 3:
 
-                    list = MedicineDisbursment_Table.searchByCNICLeader(SelectedOptionVal);
+                    list = userdataaa.searchByCNICLeader(SelectedOptionVal);
                     if (list.size() > 0) {
 
                         SetDataArrayy(list);
@@ -366,7 +366,7 @@ public class Dashboard_patient_pending_treatment extends Fragment {
 //        SetDataArrayy(pending);
 //
 //    }
-    private void SetDataArrayy(List<MedicineDisbursment_Table> med) {
+    private void SetDataArrayy(List<userdataaa> med) {
 
         pendingDataParceable[] FDP = new pendingDataParceable[med.size()];
         for (int i = 0; i < FDP.length; i++) {
@@ -408,16 +408,16 @@ public class Dashboard_patient_pending_treatment extends Fragment {
 ////                FDP[i].text2 = "Both Baseline Investigation Form";
 //            }
 
-            if(med.get(i).getHcv_viral_load() != null){
-                FDP[i].hcvviralount = med.get(i).getHcv_viral_load();
+            if(med.get(i).getHcv_viral_count() != null){
+                FDP[i].hcvviralount = med.get(i).getHcv_viral_count();
             }else {
                 FDP[i].hcvviralount = "0";
             }
 
 //             FDP[i].hcvviralount = sample.get(i).hcv_viral_count;
 
-            if(med.get(i).getHbv_viral_load() !=null){
-                FDP[i].hbvviralcount = med.get(i).getHbv_viral_load();
+            if(med.get(i).getHbv_viral_count() !=null){
+                FDP[i].hbvviralcount = med.get(i).getHbv_viral_count();
             }else {
                 FDP[i].hbvviralcount = "0";
             }
@@ -444,7 +444,7 @@ public class Dashboard_patient_pending_treatment extends Fragment {
             FDP[i].MrNo = med.get(i).getMrn_no();
             FDP[i].patientType = med.get(i).getPatient_stage();
             FDP[i].rstultType = med.get(i).getTest_type();
-            FDP[i].pid = Integer.parseInt(med.get(i).getPatient_id());
+            FDP[i].pid = med.get(i).getPatient_id();
         }
 
         SearchResultDatapending[] myListData = new SearchResultDatapending[FDP.length] ;
@@ -900,7 +900,7 @@ public class Dashboard_patient_pending_treatment extends Fragment {
 
                                                                 List<MedicineDisbursment_Table> samo = new ArrayList<>();
                                                                 samo.add(allpending.get(a));
-                                                                SetDataArrayy(samo);
+//                                                                SetDataArrayy(samo);
                                                                 sampleflag = true;
                                                                 Toast.makeText(getContext(), "patient found", Toast.LENGTH_SHORT).show();
                                                                 break;
