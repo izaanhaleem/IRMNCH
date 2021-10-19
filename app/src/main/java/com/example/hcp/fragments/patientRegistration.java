@@ -924,10 +924,18 @@ public class patientRegistration extends Fragment {
                 if (firstVal.equals("y") && secondVal.equals("y")) {
                     FL.setPatient_type("Pre-diagnosed Patient");
                     FL.setIsMedicine(1);
+                    FL.setTest_type("HBV");
+                    if(thirdVal.equals("y") && foursVal.equals("y")){
+                        FL.setTest_type("BOTH");
+                    }
 
                 } else if (thirdVal.equals("y") && foursVal.equals("y")) {
                     FL.setPatient_type("Pre-diagnosed Patient");
                     FL.setIsMedicine(1);
+                    FL.setTest_type("HCV");
+                    if(firstVal.equals("y") && secondVal.equals("y")){
+                        FL.setTest_type("BOTH");
+                    }
                 } else {
                     FL.setPatient_type("New Patient");
                     FL.setIsMedicine(0);

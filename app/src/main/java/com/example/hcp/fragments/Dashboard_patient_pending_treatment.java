@@ -444,7 +444,16 @@ public class Dashboard_patient_pending_treatment extends Fragment {
             FDP[i].MrNo = med.get(i).getMrn_no();
             FDP[i].patientType = med.get(i).getPatient_stage();
             FDP[i].rstultType = med.get(i).getTest_type();
-            FDP[i].pid = med.get(i).getPatient_id();
+            try {
+                if(med.get(i).patient_id==0){
+                    FDP[i].pid = med.get(i).getId().intValue();
+                }else {
+                    FDP[i].pid = med.get(i).patient_id;
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+//            FDP[i].pid = med.get(i).getPatient_id();
         }
 
         SearchResultDatapending[] myListData = new SearchResultDatapending[FDP.length] ;
@@ -881,42 +890,42 @@ public class Dashboard_patient_pending_treatment extends Fragment {
                                                 if (m_score < (0x7FFFFFFF / 100000)) {
                                                     Toast.makeText(getContext(), "Finger Print Found!", Toast.LENGTH_LONG).show();
                                                     isfingermatch=true;
-//                                                   List<userdataaa> patient ;
-//                                                   patient = userdataaa.searchByCNICLeader(allData.get(i).getSelf_cnic());
-//                                                   SetDataArrayy(patient);
+                                                   List<userdataaa> patient ;
+                                                   patient = userdataaa.searchBypatientid(String.valueOf(allData.get(i).getPatient_id()));
+                                                   SetDataArrayy(patient);
 
-
-                                                    int patientid =   allData.get(i).getPatient_id();
-
-                                                    List<MedicineDisbursment_Table> allpending = new ArrayList<>();
-                                                    allpending = MedicineDisbursment_Table.getall();
-                                                    if(allpending.size()>0) {
-
-                                                        Boolean sampleflag = false;
-
-                                                        for (int a = 0; a < allpending.size(); a++) {
-
-                                                            if(patientid == Integer.parseInt(allpending.get(a).getPatient_id())){
-
-                                                                List<MedicineDisbursment_Table> samo = new ArrayList<>();
-                                                                samo.add(allpending.get(a));
-//                                                                SetDataArrayy(samo);
-                                                                sampleflag = true;
-                                                                Toast.makeText(getContext(), "patient found", Toast.LENGTH_SHORT).show();
-                                                                break;
-                                                            }else {
-                                                                SearchResultDatavital[] myListData = new SearchResultDatavital[0];
-                                                                SearchResultAdapterSample_status adapter = new SearchResultAdapterSample_status(myListData);
-                                                                recyclerView.setAdapter(adapter);
-                                                            }
-                                                        }
-
-                                                        if(!sampleflag){
-                                                            Toast.makeText(getContext(), "patient not found", Toast.LENGTH_SHORT).show();
-                                                        }
-                                                    }else {
-//                                                        Toast.makeText(getContext(), "sample not found", Toast.LENGTH_SHORT).show();
-                                                    }
+//
+//                                                    int patientid =   allData.get(i).getPatient_id();
+//
+//                                                    List<MedicineDisbursment_Table> allpending = new ArrayList<>();
+//                                                    allpending = MedicineDisbursment_Table.getall();
+//                                                    if(allpending.size()>0) {
+//
+//                                                        Boolean sampleflag = false;
+//
+//                                                        for (int a = 0; a < allpending.size(); a++) {
+//
+//                                                            if(patientid == Integer.parseInt(allpending.get(a).getPatient_id())){
+//
+//                                                                List<MedicineDisbursment_Table> samo = new ArrayList<>();
+//                                                                samo.add(allpending.get(a));
+////                                                                SetDataArrayy(samo);
+//                                                                sampleflag = true;
+//                                                                Toast.makeText(getContext(), "patient found", Toast.LENGTH_SHORT).show();
+//                                                                break;
+//                                                            }else {
+//                                                                SearchResultDatavital[] myListData = new SearchResultDatavital[0];
+//                                                                SearchResultAdapterSample_status adapter = new SearchResultAdapterSample_status(myListData);
+//                                                                recyclerView.setAdapter(adapter);
+//                                                            }
+//                                                        }
+//
+//                                                        if(!sampleflag){
+//                                                            Toast.makeText(getContext(), "patient not found", Toast.LENGTH_SHORT).show();
+//                                                        }
+//                                                    }else {
+////                                                        Toast.makeText(getContext(), "sample not found", Toast.LENGTH_SHORT).show();
+//                                                    }
 
 //                                                    SetDataArrayy(allData);
 //                                                    allData.get(i).getFinger_print2();

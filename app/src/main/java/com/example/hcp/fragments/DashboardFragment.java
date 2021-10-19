@@ -969,10 +969,11 @@ public class DashboardFragment extends Fragment {
         List<Assessmentt> assessments = Assessmentt.searchBySync();
         List<Vaccinationn> vacc = Vaccinationn.searchBySync();
         List<Samplee> sample = Samplee.searchBySync();
+        List<medicinee> medici = medicinee.searchBySync();
         List<savejail> jail = savejail.searchBySync();
         List<ReleaseLocalTable> relese = ReleaseLocalTable.searchBySync();
 //      List<medicinee> medicine = medicinee.searchBySync();
-        totalSize = patient.size() + vitals.size() + assessments.size() + sample.size()+vacc.size()+jail.size()+relese.size();
+        totalSize = patient.size() + vitals.size() + assessments.size() + sample.size()+vacc.size()+medici.size()+jail.size()+relese.size();
         total_record.setText(totalSize + "");
     }
 
@@ -999,6 +1000,7 @@ public class DashboardFragment extends Fragment {
             submitAssessment();
             submitVaccination();
             submitSamples();
+
             submitjailTransfers();
             submitjailRelease();
         }

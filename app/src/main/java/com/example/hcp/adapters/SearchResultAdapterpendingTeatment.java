@@ -69,7 +69,7 @@ public class SearchResultAdapterpendingTeatment extends RecyclerView.Adapter<Sea
                 holder.Address.setVisibility(View.GONE);
             }
         }else {
-            Toast.makeText(context, "Record not Found!", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context, "Record not Found!", Toast.LENGTH_SHORT).show();
                 holder.FamilyCard.setVisibility(View.VISIBLE);
                 holder.testtypenull.setVisibility(View.VISIBLE);
             holder.Address.setVisibility(View.GONE);
