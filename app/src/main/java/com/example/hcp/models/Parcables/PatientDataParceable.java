@@ -6,7 +6,7 @@ import android.os.Parcelable;
 public class PatientDataParceable implements Parcelable {
 
     public String contactNo, MrNo,PatientName,LeaderCNIC,fingerprint,patientType;
-    public int pid;
+    public int pid,isnewPatient,isvital,isassessment,isvaccination,issample;
 
     public PatientDataParceable(Parcel in) {
         contactNo = in.readString();
@@ -16,6 +16,11 @@ public class PatientDataParceable implements Parcelable {
         fingerprint = in.readString();
         patientType = in.readString();
         pid = in.readInt();
+        isnewPatient = in.readInt();
+        isvital = in.readInt();
+        isassessment = in.readInt();
+        isvaccination = in.readInt();
+        issample = in.readInt();
 
     }
 
@@ -50,7 +55,11 @@ public class PatientDataParceable implements Parcelable {
         parcel.writeString(fingerprint);
         parcel.writeString(patientType);
         parcel.writeInt(pid);
+        parcel.writeInt(isnewPatient);
+        parcel.writeInt(isvital);
+        parcel.writeInt(isassessment);
+        parcel.writeInt(isvaccination);
+        parcel.writeInt(issample);
     }
-
 
 }

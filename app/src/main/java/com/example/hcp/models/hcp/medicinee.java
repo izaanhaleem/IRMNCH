@@ -198,7 +198,12 @@ public class medicinee extends Model {
                 .from(medicinee.class)
                 .execute();
     }
-
+    public static medicinee searchBypid(Integer id) {
+        return new Select()
+                .from(medicinee.class)
+                .where("id = ?",id)
+                .executeSingle();
+    }
     public static void deleteAll() {
         new Delete().from(medicinee.class)
                 .execute();

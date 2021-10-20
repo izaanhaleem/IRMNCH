@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="single"
+        android:id="@+id/firstgroup">
         <item
             android:id="@+id/nav_1"
             android:iconTint="@color/colorPrimary"
@@ -29,6 +30,19 @@
             android:icon="@drawable/ic_bloodsample"
             android:title="Add Sample" />
 
+    </group>
+
+<!--    </group>-->
+<!--    <group android:id="@+id/divider">-->
+
+<!--        <item-->
+<!--            android:id="@+id/asdf"-->
+<!--            android:icon="@drawable/line_sepoarator"-->
+<!--            android:title="" />-->
+
+<!--    </group>-->
+<group android:id="@+id/secondgroup"
+    android:checkableBehavior="single">
         <item
             android:id="@+id/sample_status"
             android:icon="@drawable/ic_bloodsample"

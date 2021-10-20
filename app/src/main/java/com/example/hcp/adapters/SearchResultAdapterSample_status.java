@@ -74,7 +74,8 @@ public class SearchResultAdapterSample_status extends RecyclerView.Adapter<Searc
                 args.putString("SelectedMrNo",temp);
                 args.putString("PatientCNIC",sData[position].getLeaderCNIC());
                 args.putString("PatientName",sData[position].getPatientName());
-                args.putString("Patienttype",sData[position].getSample_staus());
+//                args.putString("Patienttype",sData[position].getSample_staus());
+                args.putString("preSampleNo",sData[position].getSample_number());
                 args.putInt("pid",sData[position].getPid());
 
 
@@ -87,7 +88,7 @@ public class SearchResultAdapterSample_status extends RecyclerView.Adapter<Searc
 //                args.putDouble("Height",fg.height);
 //                args.putDouble("Weight",fg.weight);
 
-                args.putBoolean("isEdit",true);
+                args.putBoolean("isEditresample",true);
 
 
 

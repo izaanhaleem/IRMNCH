@@ -728,13 +728,19 @@ public class pendingTratmentForm extends Fragment {
               Mad.IsSync = 0;
 
 
-//          userdataaa s = userdataaa.searchByPatientId(pid);
-//          s.IsMedicine = 0;
-
+          userdataaa FL = userdataaa.load(userdataaa.class, pid);
+          if(FL!=null){
+              FL.IsMedicine = 0;
+              FL.save();
+          }else {
+              userdataaa s = userdataaa.searchByPatientId(pid);
+              s.IsMedicine = 0;
+              s.save();
+          }
 
           try {
               Mad.save();
-//              s.save();
+
               ActiveAndroid.setTransactionSuccessful();
           } finally {
               ActiveAndroid.endTransaction();

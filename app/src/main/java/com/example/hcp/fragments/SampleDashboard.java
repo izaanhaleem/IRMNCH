@@ -261,6 +261,7 @@ public class SampleDashboard extends Fragment {
             FDP[i].pathentContactNo = samples.get(i).contact_no_self;
             FDP[i].LeaderCNIC = samples.get(i).self_cnic;
             FDP[i].MrNo = samples.get(i).mrn_no;
+            FDP[i].sample_number = samples.get(i).getSample_number();
             FDP[i].patientType = samples.get(i).patient_type;
             FDP[i].pid = samples.get(i).getId().intValue();
             if(samples.get(i).patient_id==0){
@@ -280,8 +281,8 @@ public class SampleDashboard extends Fragment {
             myListData[i].setGneder(FDP[i].LastName);
             myListData[i].setLeaderCNIC(FDP[i].LeaderCNIC);
             myListData[i].setPatienttype(FDP[i].patientType);
+            myListData[i].setSample_number(FDP[i].sample_number);
             myListData[i].setPid(FDP[i].pid);
-
         }
         SearchResultAdapterSample adapter = new SearchResultAdapterSample(myListData);
         recyclerView.setHasFixedSize(true);

@@ -3,17 +3,22 @@ package com.example.hcp.models.AdaptersData;
 public class SearchResultData {
 
     public String contactNo, MrNo,PatientName,LeaderCNIC,fingerprint,patienttype;
-    public int pid;
+    public int pid,isnewpatient,isvital,isassessment,isvaccination,issample;
 
 
-    public SearchResultData(String contactNo, String mrNo, String patientName, String leaderCNIC, String fingerprint, int PID,String patientType) {
+    public SearchResultData(String contactNo, String mrNo, String patientName, String leaderCNIC, String fingerPrint, int PID,String patientType,int isNewPatient,int isVital,int isAssessment,int isVaccination,int isSample) {
         this.contactNo = contactNo;
         MrNo = mrNo;
         PatientName = patientName;
         LeaderCNIC = leaderCNIC;
-        this.fingerprint = fingerprint;
-        this.patienttype = patientType;
+        fingerprint = fingerPrint;
+        patienttype = patientType;
         pid = PID;
+        isnewpatient = isNewPatient;
+        isvital = isVital;
+        isassessment = isAssessment;
+        isvaccination = isVaccination;
+        issample = isSample;
 
     }
 
@@ -76,4 +81,47 @@ public class SearchResultData {
     public void setFingerprint(String fingerprint) {
         this.fingerprint = fingerprint;
     }
+
+    public int getIsnewpatient() {
+        return isnewpatient;
+    }
+
+    public void setIsnewpatient(int isnewpatient) {
+        this.isnewpatient = isnewpatient;
+    }
+
+
+    public int getIsvital() {
+        return isvital;
+    }
+
+    public void setIsvital(int isvital) {
+        this.isvital = isvital;
+    }
+
+
+    public int getIsassessment() {
+        return isassessment;
+    }
+
+    public void setIsassessment(int isassessment) {
+        this.isassessment = isassessment;
+    }
+
+    public int getIsvaccination() {
+        return isvaccination;
+    }
+
+    public void setIsvaccination(int isvaccination) {
+        this.isvaccination = isvaccination;
+    }
+
+    public int getIssample() {
+        return issample;
+    }
+
+    public void setIssample(int issample) {
+        this.issample = issample;
+    }
 }
+

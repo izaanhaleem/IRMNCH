@@ -29,7 +29,6 @@ public class SearchResultAdapterSample extends RecyclerView.Adapter<SearchResult
     // RecyclerView recyclerView;
     public SearchResultAdapterSample(SearchResultDatavital[] listdata) {
         this.sData = listdata;
-
     }
 
     @Override
@@ -62,8 +61,6 @@ public class SearchResultAdapterSample extends RecyclerView.Adapter<SearchResult
                 args.putString("Patienttype",sData[position].getPatienttype());
                 args.putInt("pid",sData[position].getPid());
 
-
-
 //                addvitalll fg = addvitalll.searchBycninc(sData[position].getLeaderCNIC());
 //                args.putDouble("temperature",fg.temperature);
 //                args.putInt("puls",fg.pulse);
@@ -72,7 +69,7 @@ public class SearchResultAdapterSample extends RecyclerView.Adapter<SearchResult
 //                args.putDouble("Height",fg.height);
 //                args.putDouble("Weight",fg.weight);
 
-                args.putBoolean("isEdit",false);
+                args.putBoolean("isEditforResample",true);
 
 
 

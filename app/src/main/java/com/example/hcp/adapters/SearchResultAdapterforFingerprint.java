@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -85,6 +86,19 @@ public class SearchResultAdapterforFingerprint extends RecyclerView.Adapter<Sear
             }
         });
 
+
+    if(sData[position].getIsnewpatient()==1){
+        holder.editnewpatients.setVisibility(View.VISIBLE);
+    }else {
+        holder.editnewpatients.setVisibility(View.GONE);
+    }
+        if(sData[position].getIsvital()==1){
+            holder.vital.setVisibility(View.VISIBLE);
+        }else {
+            holder.vital.setVisibility(View.GONE);
+        }
+
+
         holder.vital.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,6 +130,13 @@ public class SearchResultAdapterforFingerprint extends RecyclerView.Adapter<Sear
             }
         });
 
+
+        if(sData[position].getIsassessment()==1){
+            holder.assesstment.setVisibility(View.VISIBLE);
+        }else {
+            holder.assesstment.setVisibility(View.GONE);
+        }
+
         holder.assesstment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,7 +167,11 @@ public class SearchResultAdapterforFingerprint extends RecyclerView.Adapter<Sear
             }
         });
 
-
+        if(sData[position].getIsvaccination()==1){
+            holder.vaccination.setVisibility(View.VISIBLE);
+        }else {
+            holder.vaccination.setVisibility(View.GONE);
+        }
         holder.vaccination.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -176,7 +201,11 @@ public class SearchResultAdapterforFingerprint extends RecyclerView.Adapter<Sear
                 }
             }
         });
-
+        if(sData[position].getIssample()==1){
+            holder.sample.setVisibility(View.VISIBLE);
+        }else {
+            holder.sample.setVisibility(View.GONE);
+        }
         holder.sample.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -190,6 +219,7 @@ public class SearchResultAdapterforFingerprint extends RecyclerView.Adapter<Sear
                 args.putString("patientType",sData[position].getPatienttype());
                 args.putInt("pidEdit",sData[position].pid);
                 args.putBoolean("isEdit",true);
+//                args.putSerializable("sampleobject",sData[position].toString());
                 if(FMFragment != null)
                 {
                     FragmentTransaction transaction = ((FragmentActivity) view.getContext()).getSupportFragmentManager().beginTransaction();
@@ -249,6 +279,7 @@ public class SearchResultAdapterforFingerprint extends RecyclerView.Adapter<Sear
         public TextView LeaderName,Address,MrNo,LeaderCNIC,vital,assesstment,vaccination,sample;
         public CardView FamilyCard;
         public Button addfingerprint;
+        public LinearLayout editnewpatients;
         public ViewHolder(View itemView) {
             super(itemView);
             this.LeaderName = itemView.findViewById(R.id.cardLeaderName);
@@ -261,6 +292,7 @@ public class SearchResultAdapterforFingerprint extends RecyclerView.Adapter<Sear
             this.assesstment = itemView.findViewById(R.id.assessmentedit);
             this.vaccination = itemView.findViewById(R.id.vacedit);
             this.sample = itemView.findViewById(R.id.sampleedit);
+            this.editnewpatients = itemView.findViewById(R.id.editnewpatients);
         }
     }
 

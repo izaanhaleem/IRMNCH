@@ -1388,6 +1388,15 @@ public class userdataaa extends Model {
                 .execute();
     }
 
+    public static List<userdataaa> searchByCNICLeadermedicine(String cnic) {
+        return new Select()
+                .from(userdataaa.class)
+                .where("IsMedicine = ?",1)
+                .where("self_cnic = ?",cnic)
+                .execute();
+    }
+
+
     public static List<userdataaa> searchBypatientid(String pid) {
         return new Select()
                 .from(userdataaa.class)
@@ -1412,6 +1421,14 @@ public class userdataaa extends Model {
         return new Select()
                 .from(userdataaa.class)
                 .where("IsActive = ?" ,1)
+                .where("mrn_no = ?",mrno )
+                .execute();
+    }
+
+    public static List<userdataaa> searchByMRNOmedicine(String mrno) {
+        return new Select()
+                .from(userdataaa.class)
+                .where("IsMedicine = ?",1)
                 .where("mrn_no = ?",mrno )
                 .execute();
     }

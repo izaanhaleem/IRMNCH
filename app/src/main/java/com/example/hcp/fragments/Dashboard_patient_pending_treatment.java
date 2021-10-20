@@ -172,7 +172,6 @@ public class Dashboard_patient_pending_treatment extends Fragment {
     }
 
 
-
     public void loaddata(){
         new Dashboard_patient_pending_treatment.ProgressAsyncTask().execute();
     }
@@ -216,14 +215,6 @@ public class Dashboard_patient_pending_treatment extends Fragment {
 
     }
 
-
-
-
-
-
-
-
-
     private void allBaselineList() {
         List<userdataaa> baseline;
         baseline=userdataaa.getallISMedicinepending();
@@ -250,7 +241,7 @@ public class Dashboard_patient_pending_treatment extends Fragment {
 
             switch (SelectedOptionIndex) {
                 case 2:
-                    list = userdataaa.searchByMRNOLeader(SelectedOptionVal);
+                    list = userdataaa.searchByMRNOmedicine(SelectedOptionVal);
                     if (list.size() > 0) {
                         SetDataArrayy(list);
                     }
@@ -264,7 +255,7 @@ public class Dashboard_patient_pending_treatment extends Fragment {
                 case 1:
                 case 3:
 
-                    list = userdataaa.searchByCNICLeader(SelectedOptionVal);
+                    list = userdataaa.searchByCNICLeadermedicine(SelectedOptionVal);
                     if (list.size() > 0) {
 
                         SetDataArrayy(list);
@@ -890,6 +881,8 @@ public class Dashboard_patient_pending_treatment extends Fragment {
                                                 if (m_score < (0x7FFFFFFF / 100000)) {
                                                     Toast.makeText(getContext(), "Finger Print Found!", Toast.LENGTH_LONG).show();
                                                     isfingermatch=true;
+
+
                                                    List<userdataaa> patient ;
                                                    patient = userdataaa.searchBypatientid(String.valueOf(allData.get(i).getPatient_id()));
                                                    SetDataArrayy(patient);

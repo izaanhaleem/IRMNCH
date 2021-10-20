@@ -64,6 +64,11 @@ public class SearchResultFragment extends Fragment {
             myListData[i].setFingerprint(FDP[i].fingerprint);
             myListData[i].setPid(FDP[i].pid);
             myListData[i].setPatienttype(FDP[i].patientType);
+            myListData[i].setIsnewpatient(FDP[i].isnewPatient);
+            myListData[i].setIsvital(FDP[i].isvital);
+            myListData[i].setIsassessment(FDP[i].isassessment);
+            myListData[i].setIsvaccination(FDP[i].isvaccination);
+            myListData[i].setIssample(FDP[i].issample);
         }
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.search_result_list);

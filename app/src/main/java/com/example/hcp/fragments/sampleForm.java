@@ -8,17 +8,20 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.text.InputFilter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.activeandroid.ActiveAndroid;
 import com.example.hcp.R;
+import com.example.hcp.models.AdaptersData.SearchResultData;
 import com.example.hcp.models.hcp.Samplee;
 import com.example.hcp.models.hcp.Vaccinationn;
 import com.example.hcp.models.hcp.addPatientModel;
@@ -49,8 +52,9 @@ public class sampleForm extends Fragment {
     boolean isEidtresample = false;
     boolean isEidt = false;
     TextView samplenoedit;
+    LinearLayout presamplelayout;
 
-    String patientname,patientcnic,patientcontactNo,fingerprint,patienttype;
+    String patientname,patientcnic,patientcontactNo,fingerprint,patienttype,previousSmapleno;
     Samplee sampleobject;
 
     @Override
@@ -68,7 +72,9 @@ public class sampleForm extends Fragment {
         samplecolect = view.findViewById(R.id.samplecolect);
         samp = view.findViewById(R.id.samp);
         samplenoedit = view.findViewById(R.id.samplenoedit);
-        samplenoedit.setVisibility(View.GONE);
+        presamplelayout = view.findViewById(R.id.presamplelayout);
+        presamplelayout.setVisibility(View.GONE);
+
         SelectedMrNo = getArguments().getString("SelectedMrNo");
         patientCNINC = getArguments().getString("PatientCNIC");
         PatientName = getArguments().getString("PatientName");
@@ -76,14 +82,21 @@ public class sampleForm extends Fragment {
         pid = getArguments().getInt("pid");
 
 
+        if (getArguments() != null) {
+            isEidtresample = getArguments().getBoolean("isEditresample");
+       try {
 
+           SelectedMrNo = getArguments().getString("SelectedMrNo");
+           patientCNINC = getArguments().getString("PatientCNIC");
+           PatientName = getArguments().getString("PatientName");
+           previousSmapleno = getArguments().getString("preSampleNo");
+           pid = getArguments().getInt("pid");
 
-        try {
-            isEidtresample = getArguments().getBoolean("isEdit");
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+       }catch (Exception e){
 
+       }
+
+       }
 
 
 
@@ -99,7 +112,6 @@ public class sampleForm extends Fragment {
                 patienttype = getArguments().getString("patientType");
 
             } catch (Exception e) {
-
 
             }
         }
@@ -124,10 +136,18 @@ public class sampleForm extends Fragment {
             cnic.setText(patientcnic);
             patient.setText(patienttype);
             samplenoedit.setText(sampleobject.getSample_no());
-            samplenoedit.setVisibility(View.VISIBLE);
+            presamplelayout.setVisibility(View.VISIBLE);
 
-        }else {
-            samplenoedit.setVisibility(View.GONE);
+        }else if(isEidtresample){
+            name.setText(patientname);
+            cnic.setText(patientcnic);
+            patient.setText(patienttype);
+            samplenoedit.setText(previousSmapleno);
+            presamplelayout.setVisibility(View.VISIBLE);
+        }
+
+        else {
+            presamplelayout.setVisibility(View.GONE);
             name.setText(PatientName);
             mrno.setText(SelectedMrNo);
             cnic.setText(patientCNINC);
