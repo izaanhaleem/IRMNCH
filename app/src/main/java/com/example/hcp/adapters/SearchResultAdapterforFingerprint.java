@@ -276,7 +276,8 @@ public class SearchResultAdapterforFingerprint extends RecyclerView.Adapter<Sear
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView LeaderName,Address,MrNo,LeaderCNIC,vital,assesstment,vaccination,sample;
+        public TextView LeaderName,Address,MrNo,LeaderCNIC;
+        public Button vital,assesstment,vaccination,sample;
         public CardView FamilyCard;
         public Button addfingerprint;
         public LinearLayout editnewpatients;

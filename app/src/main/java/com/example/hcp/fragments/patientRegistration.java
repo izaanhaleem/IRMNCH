@@ -701,13 +701,12 @@ public class patientRegistration extends Fragment {
 //                Validationstatus = false;
 //            }
 
-            if(patient_edit.getFinger_print1()==null){
+            if(patient_edit.getFinger_print2()==null){
                 if (finger == null) {
                     Toast.makeText(getContext(), Constants.scanyour_finger, Toast.LENGTH_LONG).show();
                     Validationstatus = false;
                 }
-            }else
-            {
+            }else {
                 Validationstatus = true;
             }
 
@@ -904,7 +903,67 @@ public class patientRegistration extends Fragment {
                 ActiveAndroid.setTransactionSuccessful();
 
                 ActiveAndroid.endTransaction();
+
+                final SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.BUTTON_NEUTRAL);
+                pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.colorPrimaryDark));
+                pDialog.setTitleText("Patient Updated Successfully");
+                pDialog.setCancelable(false);
+                pDialog.show();
+                Fragment FMFragment = new DashboardFragment();
+                Bundle args = new Bundle();
+//            args.putString("SelectedMrNo", assessment.getMrn_no());
+//            args.putInt("FamilyId", family_id);
+                args.putString("PatientCNIC", cnicNo);
+                args.putString("PatientName", Name);
+//                args.putInt("pid", patient.getId().intValue());
+//                args.putBoolean("isEdit",true);
+
+                if(firstVal== "y" && secondVal == "y"){
+                    args.putString("Patienttype", "Pre-diagnosed Patient");
+                }else if(thirdVal == "y" && foursVal == "y"){
+                    args.putString("Patienttype", "Pre-diagnosed Patient");
+                }else {
+                    args.putString("Patienttype", "New Patient");
+                }
+
+
+
+
+//            if(secondVal == "y"){
+//                args.putString("Patienttype", "Pre-diagnosed Patient");
+//            }else if (secondVal == "n"){
+//                args.putString("Patienttype", "New Patient");
+//            }else {
+//                args.putString("Patienttype", "New Patient");
+//            }
+//
+//            if(foursVal == "y"){
+//                args.putString("Patienttype", "Pre-diagnosed Patient");
+//            }else if(foursVal == "n"){
+//                args.putString("Patienttype", "New Patient");
+//            }else {
+//                args.putString("Patienttype", "New Patient");
+//            }
+
+//            args.putString("Patienttype", "New Patient");
+
+
+
+
+
+//            if(patient_id==0){
+//                FDP[i].pid = vitalpatient.get(i).getId().intValue();
+//            }else {
+//                FDP[i].pid = vitalpatient.get(i).patient_id;
+//            }
+
+
+//                if (FMFragment != null) {
+
+                getActivity().onBackPressed();
             }
+
+
             else {
                 userdataaa FL = new userdataaa();
                 ActiveAndroid.beginTransaction();
@@ -975,7 +1034,7 @@ public class patientRegistration extends Fragment {
                 FL.setIdentifier(new SharedPref(getContext()).GetserverID());
                 FL.setUser_id(new SharedPref(getContext()).GetLoggedInRole());
                 FL.setHospital_id(new SharedPref(getContext()).GetLoggedInUser());
-//                FL.setFinger_print1(Constants.FmdBase64);
+//              FL.setFinger_print1(Constants.FmdBase64);
 
                 final String xml64 = Base64.encodeToString(Constants.cap_result.getData(), Base64.DEFAULT);
                 FL.setFinger_print2(xml64);
@@ -1068,82 +1127,79 @@ public class patientRegistration extends Fragment {
 
             }
 
-            if(isEidt){
-                final SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.BUTTON_NEUTRAL);
-                pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.colorPrimaryDark));
-                pDialog.setTitleText("Patient Updated Successfully");
-                pDialog.setCancelable(false);
-                pDialog.show();
-                Fragment FMFragment = new DashboardFragment();
-                Bundle args = new Bundle();
-//            args.putString("SelectedMrNo", assessment.getMrn_no());
-//            args.putInt("FamilyId", family_id);
-                args.putString("PatientCNIC", cnicNo);
-                args.putString("PatientName", Name);
-//                args.putInt("pid", patient.getId().intValue());
-//                args.putBoolean("isEdit",true);
-
-                if(firstVal== "y" && secondVal == "y"){
-                    args.putString("Patienttype", "Pre-diagnosed Patient");
-                }else if(thirdVal == "y" && foursVal == "y"){
-                    args.putString("Patienttype", "Pre-diagnosed Patient");
-                }else {
-                    args.putString("Patienttype", "New Patient");
-                }
-
-
-
-
-//            if(secondVal == "y"){
-//                args.putString("Patienttype", "Pre-diagnosed Patient");
-//            }else if (secondVal == "n"){
-//                args.putString("Patienttype", "New Patient");
-//            }else {
-//                args.putString("Patienttype", "New Patient");
-//            }
+//            if(isEidt){
+//                final SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.BUTTON_NEUTRAL);
+//                pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.colorPrimaryDark));
+//                pDialog.setTitleText("Patient Updated Successfully");
+//                pDialog.setCancelable(false);
+//                pDialog.show();
+//                Fragment FMFragment = new DashboardFragment();
+//                Bundle args = new Bundle();
+////            args.putString("SelectedMrNo", assessment.getMrn_no());
+////            args.putInt("FamilyId", family_id);
+//                args.putString("PatientCNIC", cnicNo);
+//                args.putString("PatientName", Name);
+////                args.putInt("pid", patient.getId().intValue());
+////                args.putBoolean("isEdit",true);
 //
-//            if(foursVal == "y"){
-//                args.putString("Patienttype", "Pre-diagnosed Patient");
-//            }else if(foursVal == "n"){
-//                args.putString("Patienttype", "New Patient");
-//            }else {
-//                args.putString("Patienttype", "New Patient");
-//            }
-
-//            args.putString("Patienttype", "New Patient");
-
-
-
-
-
-//            if(patient_id==0){
-//                FDP[i].pid = vitalpatient.get(i).getId().intValue();
-//            }else {
-//                FDP[i].pid = vitalpatient.get(i).patient_id;
-//            }
-
-
-//                if (FMFragment != null) {
-
-                    getActivity().onBackPressed();
-
-//                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-//
-//                    FMFragment.setArguments(args);
-//                    try {
-//                        transaction.replace(R.id.content_frame, FMFragment, "patientRegistrationFragment").addToBackStack("a").commit();
-//
-//                    } catch (IllegalStateException ignored) {
-//                    }
-//                } else {
-//                    Toast.makeText(getContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
+//                if(firstVal== "y" && secondVal == "y"){
+//                    args.putString("Patienttype", "Pre-diagnosed Patient");
+//                }else if(thirdVal == "y" && foursVal == "y"){
+//                    args.putString("Patienttype", "Pre-diagnosed Patient");
+//                }else {
+//                    args.putString("Patienttype", "New Patient");
 //                }
-            }else {
-
-
-
-
-        }
+//
+//
+//
+//
+////            if(secondVal == "y"){
+////                args.putString("Patienttype", "Pre-diagnosed Patient");
+////            }else if (secondVal == "n"){
+////                args.putString("Patienttype", "New Patient");
+////            }else {
+////                args.putString("Patienttype", "New Patient");
+////            }
+////
+////            if(foursVal == "y"){
+////                args.putString("Patienttype", "Pre-diagnosed Patient");
+////            }else if(foursVal == "n"){
+////                args.putString("Patienttype", "New Patient");
+////            }else {
+////                args.putString("Patienttype", "New Patient");
+////            }
+//
+////            args.putString("Patienttype", "New Patient");
+//
+//
+//
+//
+//
+////            if(patient_id==0){
+////                FDP[i].pid = vitalpatient.get(i).getId().intValue();
+////            }else {
+////                FDP[i].pid = vitalpatient.get(i).patient_id;
+////            }
+//
+//
+////                if (FMFragment != null) {
+//
+//                    getActivity().onBackPressed();
+//
+////                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+////
+////                    FMFragment.setArguments(args);
+////                    try {
+////                        transaction.replace(R.id.content_frame, FMFragment, "patientRegistrationFragment").addToBackStack("a").commit();
+////
+////                    } catch (IllegalStateException ignored) {
+////                    }
+////                } else {
+////                    Toast.makeText(getContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
+////                }
+//            }else {
+//
+//        }
 
 
     }

@@ -195,51 +195,94 @@
             <TextView
                 android:layout_weight="1"
                 android:textSize="15sp"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Edit"
+                android:gravity="center_horizontal"
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"/>
 
-            <TextView
-                android:layout_marginTop="10dp"
+            <Button
                 android:id="@+id/vataledit"
-                android:layout_weight="1"
-                android:textSize="15sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:background="@color/colorPrimary"
                 android:text="vital"
-                android:textColor="@color/red_900"/>
+                android:paddingHorizontal="15dp"
+                android:textColor="@color/color_white"/>
 
-            <TextView
-                android:layout_marginTop="10dp"
-                android:textSize="15sp"
+            <Button
                 android:id="@+id/assessmentedit"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Assessment"
-                android:textColor="@color/red_900"/>
-
-            <TextView
-                android:layout_marginTop="10dp"
-                android:textSize="15sp"
+                android:textSize="10sp"
+                android:paddingHorizontal="15dp"
+                android:textColor="@color/color_white"
+                android:layout_marginTop="5dp"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:background="@color/colorPrimary"
+                android:text="Assessment"/>
+            <Button
                 android:id="@+id/vacedit"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Vaccination"
-                android:textColor="@color/red_900"/>
-
-            <TextView
-                android:layout_marginTop="10dp"
-                android:textSize="15sp"
+                android:textSize="10sp"
+                android:paddingHorizontal="15dp"
+                android:textColor="@color/color_white"
+                android:layout_marginTop="5dp"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:background="@color/colorPrimary"
+                android:text="Vaccination"/>
+            <Button
                 android:id="@+id/sampleedit"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sample"
-                android:textColor="@color/red_900"/>
+                android:textSize="10sp"
+                android:paddingHorizontal="15dp"
+                android:textColor="@color/color_white"
+                android:layout_marginTop="5dp"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:background="@color/colorPrimary"
+                android:text="Sample"/>
+
+<!--            <TextView-->
+<!--                android:id="@+id/vataledit"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="vital"-->
+<!--                android:textColor="@color/red_900"-->
+<!--                android:textSize="15sp" />-->
+
+<!--            <TextView-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:textSize="15sp"-->
+<!--                android:id="@+id/assessmentedit"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Assessment"-->
+<!--                android:textColor="@color/red_900"/>-->
+
+<!--            <TextView-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:textSize="15sp"-->
+<!--                android:id="@+id/vacedit"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Vaccination"-->
+<!--                android:textColor="@color/red_900"/>-->
+
+<!--            <TextView-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:textSize="15sp"-->
+<!--                android:id="@+id/sampleedit"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Sample"-->
+<!--                android:textColor="@color/red_900"/>-->
+
         </LinearLayout>
 
 

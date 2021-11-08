@@ -98,10 +98,19 @@ public class SearchResultAdapterReleasePatient extends RecyclerView.Adapter<Sear
 //                                    vtl.setIs_prison_release("y");
 //                                    vtl.setPatient_id(sData[position].getPid());
 //                                    vtl.setIs_sycn(0);
+                                    userdataaa mod ;
+                                    mod = userdataaa.searchByPatientId(sData[position].getPid());
 
-                                    userdataaa mod = userdataaa.searchByPatientId(sData[position].getPid());
+//                                    if(mod==null) {
+//                                        mod = userdataaa.load(userdataaa.class, sData[position].getPid());
+//                                    }
 
                                     mod.ISRelease = 0;
+//
+//                                    if(mod==null){
+//                                        userdataaa  FL = userdataaa.load(userdataaa.class, sData[position].getPid());
+//                                        FL.ISRelease = 0;
+//                                    }
 
                                     try {
 //                                        vtl.save();

@@ -120,8 +120,10 @@ public class vitalForm extends Fragment {
                     if(vitalla!=null){
                         vitalobject = vitalla;
                         String puls = String.valueOf(vitalobject.getPulse());
+
 //                String bps = String.valueOf(vitalobject.getBp_systolic());
 //                String bpd = String.valueOf(vitalobject.getBp_diastolic());
+
                         temperature.setText(vitalobject.getTemperature()+"");
                         pulseBPM.setText(puls);
                         BPSystolic.setText(vitalobject.getBp_systolic()+"");
@@ -135,7 +137,7 @@ public class vitalForm extends Fragment {
                             patient.setText(patientT);
                             mrno.setText(patientobject.getMrn_no());
                         }
-                    }else {
+                    } else {
 
                     }
                 } else {
@@ -160,10 +162,10 @@ public class vitalForm extends Fragment {
                             mrno.setText(patientobject.getMrn_no());
                         }
                     } else {
+
                     }
                 }
             }
-
 
 //                Double tempdouble = vitalobject.getTemperature();
 //                String temp = String.valueOf(tempdouble);
@@ -186,13 +188,6 @@ public class vitalForm extends Fragment {
         return view;
 
     }
-
-
-
-
-
-
-
 
     private void FormValidation() {
         String  asdf = temperature.getText().toString();
@@ -371,7 +366,7 @@ public class vitalForm extends Fragment {
                 vitalobject.bp_systolic = bpsystolic;
                 vitalobject.bp_diastolic = bdsystolic;
 //            FL.height=Double.parseDouble(HeightCM.getText().toString());
-//            FL.weight=Double.parseDouble(WeightKG.getText().toString());;
+//            FL.weight=Double.parseDouble(WeightKG.getText().toString());
                 vitalobject.user_id = i;
                 vitalobject.self_cnic = patientCNINC;
 
