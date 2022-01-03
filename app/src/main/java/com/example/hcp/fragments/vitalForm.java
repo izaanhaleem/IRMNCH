@@ -63,9 +63,9 @@ public class vitalForm extends Fragment {
         addvital = view.findViewById(R.id.addvital);
 
         fragmentManager = getFragmentManager();
+        isEidt = getArguments().getBoolean("isEdit");
+        if (isEidt) {
 
-        if (getArguments() != null) {
-            isEidt = getArguments().getBoolean("isEdit");
             try {
 
                 patientname = getArguments().getString("PatientName");

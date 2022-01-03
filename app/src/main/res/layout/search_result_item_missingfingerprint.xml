@@ -12,10 +12,9 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-
         <LinearLayout
-            android:layout_weight="0.3"
-            android:layout_width="match_parent"
+            android:layout_weight="0.7"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layoutDirection="rtl"
             android:orientation="vertical"
@@ -185,8 +184,8 @@
         <LinearLayout
             android:id="@+id/editnewpatients"
             android:visibility="visible"
-            android:layout_weight="0.7"
-            android:layout_width="match_parent"
+            android:layout_weight="0.3"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:weightSum="5"
@@ -198,7 +197,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Edit"
-                android:gravity="center_horizontal"
+                android:gravity="start"
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"/>
 
@@ -284,7 +283,6 @@
 <!--                android:textColor="@color/red_900"/>-->
 
         </LinearLayout>
-
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -253,9 +253,9 @@ public class DashboardRleasePatients extends Fragment {
             FDP[i].LeaderCNIC = transfer.get(i).self_cnic;
             FDP[i].MrNo = transfer.get(i).mrn_no;
             FDP[i].patientType = transfer.get(i).patient_type;
-            FDP[i].pid = transfer.get(i).getId().intValue();
+//            FDP[i].pid = transfer.get(i).getId().intValue();
             if(transfer.get(i).patient_id==0){
-                FDP[i].pid = transfer.get(i).getId().intValue();
+                FDP[i].pid = 0;
             }else {
                 FDP[i].pid = transfer.get(i).getPatient_id();
             }

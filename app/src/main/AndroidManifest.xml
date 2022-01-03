@@ -25,8 +25,11 @@
         android:supportsRtl="false"
         android:theme="@style/AppTheme"
         tools:replace="android:supportsRtl,android:icon">
-        <activity android:name=".activities.ScanActivity"></activity>
-        <activity android:name=".activities.ScanActivity2"></activity>
+        <activity android:name=".suitActivity"></activity>
+
+
+        <activity android:name=".activities.ScanActivity" />
+        <activity android:name=".activities.ScanActivity2" />
 
         <meta-data
             android:name="AA_DB_NAME"
@@ -36,7 +39,7 @@
             android:value="8" />
         <meta-data
             android:name="AA_MODELS"
-            android:value="com.example.hcp.models.hcp.divisionn,com.example.hcp.models.hcp.districtt,com.example.hcp.models.hcp.tehsill,com.example.hcp.models.hcp.occuptaionn,com.example.hcp.models.hcp.materialStatuss,com.example.hcp.models.hcp.qualificationn,com.example.hcp.models.hcp.healthFacilityy,com.example.hcp.models.hcp.userdataaa,com.example.hcp.models.hcp.addPatientModel,com.example.hcp.models.hcp.vitalListt,com.example.hcp.models.hcp.addvitalll,com.example.hcp.models.hcp.Assessmentt,com.example.hcp.models.hcp.Samplee,com.example.hcp.models.hcp.medicinee,com.example.hcp.models.hcp.Vaccinationn,com.example.hcp.models.hcp.MedicineDisbursment_Table,com.example.hcp.models.hcp.sample_status_Table,com.example.hcp.models.hcp.jailListTable,com.example.hcp.models.hcp.savejail,com.example.hcp.models.hcp.ReleaseLocalTable"/>
+            android:value="com.example.hcp.models.hcp.divisionn,com.example.hcp.models.hcp.districtt,com.example.hcp.models.hcp.tehsill,com.example.hcp.models.hcp.occuptaionn,com.example.hcp.models.hcp.materialStatuss,com.example.hcp.models.hcp.qualificationn,com.example.hcp.models.hcp.healthFacilityy,com.example.hcp.models.hcp.userdataaa,com.example.hcp.models.hcp.addPatientModel,com.example.hcp.models.hcp.vitalListt,com.example.hcp.models.hcp.addvitalll,com.example.hcp.models.hcp.Assessmentt,com.example.hcp.models.hcp.Samplee,com.example.hcp.models.hcp.medicinee,com.example.hcp.models.hcp.Vaccinationn,com.example.hcp.models.hcp.MedicineDisbursment_Table,com.example.hcp.models.hcp.sample_status_Table,com.example.hcp.models.hcp.jailListTable,com.example.hcp.models.hcp.savejail,com.example.hcp.models.hcp.ReleaseLocalTable,com.example.hcp.models.OrderSuit,com.example.hcp.models.SuitResponse,com.example.hcp.models.OrderReceivedAmount" />
 
         <provider
             android:name="com.activeandroid.content.ContentProvider"
@@ -60,7 +63,7 @@
         <activity
             android:name=".activities.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.LoginActivity"
             android:screenOrientation="portrait" />

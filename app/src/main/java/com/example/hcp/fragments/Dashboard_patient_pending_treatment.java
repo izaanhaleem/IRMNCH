@@ -257,7 +257,6 @@ public class Dashboard_patient_pending_treatment extends Fragment {
 
                     list = userdataaa.searchByCNICLeadermedicine(SelectedOptionVal);
                     if (list.size() > 0) {
-
                         SetDataArrayy(list);
                     }
                     else {

@@ -45,6 +45,7 @@ public class SearchResultAdapterReleasePatient extends RecyclerView.Adapter<Sear
     // RecyclerView recyclerView;
 
 
+
     public SearchResultAdapterReleasePatient(SearchResultDatavital[] sData, Context context) {
         this.sData = sData;
         this.context = context;
@@ -91,58 +92,62 @@ public class SearchResultAdapterReleasePatient extends RecyclerView.Adapter<Sear
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                try {
 
+                                if(sData[position].getPid()==0){
+                                    Toast.makeText(context, "Patient Server-ID not Found", Toast.LENGTH_LONG).show();
+                                }else {
+                                    try {
 //                                    ReleaseLocalTable vtl =new  ReleaseLocalTable();
-                                    ActiveAndroid.beginTransaction();
+                                        ActiveAndroid.beginTransaction();
 //                                    vtl.setIs_prison_release("y");
 //                                    vtl.setPatient_id(sData[position].getPid());
 //                                    vtl.setIs_sycn(0);
-                                    userdataaa mod ;
-                                    mod = userdataaa.searchByPatientId(sData[position].getPid());
-
+                                        userdataaa mod ;
+                                        mod = userdataaa.searchByPatientId(sData[position].getPid());
 //                                    if(mod==null) {
 //                                        mod = userdataaa.load(userdataaa.class, sData[position].getPid());
 //                                    }
+                                        mod.ISRelease = 0;
 
-                                    mod.ISRelease = 0;
-//
 //                                    if(mod==null){
 //                                        userdataaa  FL = userdataaa.load(userdataaa.class, sData[position].getPid());
 //                                        FL.ISRelease = 0;
 //                                    }
 
-                                    try {
+                                        try {
 //                                        vtl.save();
-                                        mod.save();
-                                        ActiveAndroid.setTransactionSuccessful();
-                                    } finally {
-                                        ActiveAndroid.endTransaction();
-                                    }
+                                            mod.save();
+                                            ActiveAndroid.setTransactionSuccessful();
+                                        } finally {
+                                            ActiveAndroid.endTransaction();
+                                        }
 
-                                    Toast.makeText(getContext(), "Patient Transfer Successfully!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), "Patient Transfer Successfully!", Toast.LENGTH_SHORT).show();
 
-                                    Fragment FMFragment = new DashboardRleasePatients();
+                                        Fragment FMFragment = new DashboardRleasePatients();
 
 
-                                    if(FMFragment != null)
-                                    {
-                                        FragmentTransaction transaction = ((FragmentActivity) view.getContext()).getSupportFragmentManager().beginTransaction();
+                                        if(FMFragment != null)
+                                        {
+                                            FragmentTransaction transaction = ((FragmentActivity) view.getContext()).getSupportFragmentManager().beginTransaction();
 
 //                    FMFragment.setArguments(args);
-                                        try {
-                                            transaction.replace(R.id.content_frame, FMFragment,"FamilyMemberFragment").addToBackStack("a").commit();
+                                            try {
+                                                transaction.replace(R.id.content_frame, FMFragment,"FamilyMemberFragment").addToBackStack("a").commit();
 
-                                        } catch (IllegalStateException ignored) {
+                                            } catch (IllegalStateException ignored) {
+                                            }
                                         }
-                                    }
-                                    else {
+                                        else {
 //                                        Toast.makeText(view.get(), holder.MrNo.getText(), Toast.LENGTH_SHORT).show();
+                                        }
+
+                                    }catch (Exception e){
+                                        Toast.makeText(context, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
-
-                                }catch (Exception e){
-
                                 }
+
+
                             }})
                         .setNegativeButton(android.R.string.no, null).show();
 

@@ -3,6 +3,8 @@ package com.example.hcp.services;
 import com.example.hcp.loginRequest;
 import com.example.hcp.loginResponse;
 import com.example.hcp.models.AppSettings.AppSettingsResponse;
+import com.example.hcp.models.OrderSuit;
+import com.example.hcp.models.SuitResponse;
 import com.example.hcp.models.hcp.AddVitalResponse;
 import com.example.hcp.models.hcp.AssessmentResponse;
 import com.example.hcp.models.hcp.DivisionsModel;
@@ -34,8 +36,6 @@ import com.example.hcp.models.hcp.sample_statusResponse;
 import com.example.hcp.models.hcp.submitJailResponse;
 import com.example.hcp.models.hcp.tehsilResponse;
 import com.example.hcp.models.hcp.userdataRequest;
-import com.example.hcp.models.hcp.vitalPatientListRequest;
-import com.example.hcp.models.hcp.vitalPatientResponse;
 
 
 import java.util.List;
@@ -46,7 +46,6 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
-import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -139,6 +138,10 @@ public interface GetDataService {
     @FormUrlEncoded
     @POST("/getToken")
     Call<UserResponse> Login(@Field("Username") String username, @Field("Password") String password, @Field("grant_type") String grantType);
+
+    @GET("TailorGetApi/OrderGet?TailorShopId=46")
+    Call<List<SuitResponse>> getSuitsitems();
+
 
 //    @POST("/api/Family/Family/SaveFamily")
 //    Call<SaveFamilyResponse> SaveFamily(@Header("Authorization") String str, @Body FamilyBody familyBodyData);

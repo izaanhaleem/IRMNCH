@@ -3,6 +3,9 @@ package com.example.hcp.database;
 import com.activeandroid.Configuration;
 import com.activeandroid.content.ContentProvider;
 
+import com.example.hcp.models.OrderReceivedAmount;
+import com.example.hcp.models.OrderSuit;
+import com.example.hcp.models.SuitResponse;
 import com.example.hcp.models.hcp.Assessmentt;
 import com.example.hcp.models.hcp.MedicineDisbursment_Table;
 import com.example.hcp.models.hcp.ReleaseLocalTable;
@@ -52,6 +55,9 @@ public class DBProvider extends ContentProvider {
         builder.addModelClass(jailListTable.class);
         builder.addModelClass(savejail.class);
         builder.addModelClass(ReleaseLocalTable.class);
+        builder.addModelClass(OrderSuit.class);
+        builder.addModelClass(SuitResponse.class);
+        builder.addModelClass(OrderReceivedAmount.class);
 
 
         return builder.create();

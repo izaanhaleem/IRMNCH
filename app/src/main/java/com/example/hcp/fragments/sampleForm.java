@@ -85,13 +85,11 @@ public class sampleForm extends Fragment {
         if (getArguments() != null) {
             isEidtresample = getArguments().getBoolean("isEditresample");
        try {
-
            SelectedMrNo = getArguments().getString("SelectedMrNo");
            patientCNINC = getArguments().getString("PatientCNIC");
            PatientName = getArguments().getString("PatientName");
            previousSmapleno = getArguments().getString("preSampleNo");
            pid = getArguments().getInt("pid");
-
        }catch (Exception e){
 
        }
@@ -103,7 +101,6 @@ public class sampleForm extends Fragment {
         if (getArguments() != null) {
             isEidt = getArguments().getBoolean("isEdit");
             try {
-
                 patientname = getArguments().getString("PatientName");
                 patientcnic = getArguments().getString("PatientCNIC");
                 patientcontactNo = getArguments().getString("PatientCNIC");
@@ -365,25 +362,25 @@ public class sampleForm extends Fragment {
         if(Validationstatus){
                 Samplee FL = new Samplee();
                 ActiveAndroid.beginTransaction();
-                sampleobject.pid = pideidt;
+            sampleobject.pid = pideidt;
             sampleobject.IsSync = 0;
             sampleobject.setHospital_id(h);
-            sampleobject.setSample_no(new SharedPref(getContext()).GetserverID()+"-"+year+"-"+"00"+sno);
-            sampleobject.user_id=i;
+            sampleobject.setSample_no(new SharedPref(getContext()).GetserverID() + "-" + year + "-" + "00" + sno);
+            sampleobject.user_id = i;
 
-                userdataaa mod = userdataaa.searchBypid(pideidt);
+            userdataaa mod = userdataaa.searchBypid(pideidt);
 
-                mod.ISSample = 1;
+            mod.ISSample = 1;
 
-                try {
-                    sampleobject.save();
-                    mod.save();
+            try {
+                sampleobject.save();
+                mod.save();
 
 
-                    ActiveAndroid.setTransactionSuccessful();
-                } finally {
-                    ActiveAndroid.endTransaction();
-                }
+                ActiveAndroid.setTransactionSuccessful();
+            } finally {
+                ActiveAndroid.endTransaction();
+            }
                 final SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.BUTTON_NEUTRAL);
                 pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.teal_700));
                 pDialog.setTitleText("Sample Update Successfully");

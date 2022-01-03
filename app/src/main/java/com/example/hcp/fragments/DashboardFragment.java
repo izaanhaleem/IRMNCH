@@ -1383,8 +1383,7 @@ public class DashboardFragment extends Fragment {
 
                                 Toast.makeText(getContext(), "vital not found", Toast.LENGTH_SHORT).show();
                             }
-
-
+                            
                             Assessmentt assess = Assessmentt.searchBypid(response.body().getData().getMobile_id());
 //                                   if(assess.patient_id == response.body().getData().getPatient_id()) {
                             if (assess != null) {
@@ -1408,7 +1407,6 @@ public class DashboardFragment extends Fragment {
                                 patientTable.save();
                                 Toast.makeText(getContext(), "Vaccination not found", Toast.LENGTH_SHORT).show();
                             }
-
 
                             Samplee ss = Samplee.searchBypid(response.body().getData().getMobile_id());
                             if (ss != null) {
